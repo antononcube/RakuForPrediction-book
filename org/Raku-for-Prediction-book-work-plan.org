@@ -1,0 +1,164 @@
+
+* TODO Raku for Prediction book [0%] [0/4]
+  :PROPERTIES:
+  :CUSTOM_ID: raku-for-prediction-book
+  :END:
+** TODO Introduction [%] [/]
+   :PROPERTIES:
+   :CUSTOM_ID: introduction
+   :END:
+** TODO Part 1: General Strategy and Architecture [0%] [0/7]
+   :PROPERTIES:
+   :CUSTOM_ID: part-1-general-strategy-and-architecture
+   :END:
+*** TODO Overview [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: overview
+    :END:
+*** TODO Goals formulation [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: goals-formulation
+    :END:
+
+- Ideal end result
+
+- Two main goals
+
+- Utilization
+
+*** TODO General strategy [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: general-strategy
+    :END:
+
+- Clothes have no emperor
+
+  - How far can we go with it?
+
+- The Terminators progression
+
+- Monads
+
+- Grammars
+
+- Best grammar selections
+
+- Testing
+
+  - Unit tests
+
+  - System tests
+
+*** TODO Architecture [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: architecture
+    :END:
+
+- Common elements
+
+- Modularity and assembly of parts
+
+*** TODO Multi-language design [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: multi-language-design
+    :END:
+
+- Natural languages
+
+- Programming languages
+
+*** TODO Design Transferring [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: design-transferring
+    :END:
+*** TODO Interfacing [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: interfacing
+    :END:
+
+- Notebooks
+
+  - Mathematica
+
+  - RStudio
+
+- Integrated Development Environments (IDEs)
+
+- Voice Interfaces
+
+** TODO Part 2: Core Computational Workflows [0%] [0/5]
+   :PROPERTIES:
+   :CUSTOM_ID: part-2-core-computational-workflows
+   :END:
+*** TODO Overview [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: overview-1
+    :END:
+*** TODO Shared functionalities [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: shared-functionalities
+    :END:
+
+- Shared words
+
+- Entities
+
+- Numeric word forms
+
+- Time intervals
+
+- Logical expressions
+
+*** TODO Machine Learning [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: machine-learning
+    :END:
+
+- Classification
+
+- Recommendation
+
+- Latent Semantic Analysis
+
+- Regression
+
+*** TODO Data science [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: data-science
+    :END:
+
+- Data transformation queries
+
+- Data acquisition
+
+*** TODO Scientific computation [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: scientific-computation
+    :END:
+
+- Epidemiological modeling
+
+- Numerical integration
+
+- Computational Chemistry
+
+** TODO Part 3: Specialized Conversational Agents [0%] [0/4]
+   :PROPERTIES:
+   :CUSTOM_ID: part-3-specialized-conversational-agents
+   :END:
+*** TODO Overview [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: overview-2
+    :END:
+*** TODO Sous Chef Susana [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: sous-chef-susana
+    :END:
+*** TODO Head Huntress Gemma [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: head-huntress-gemma
+    :END:
+*** TODO First Mate Donna [%] [/]
+    :PROPERTIES:
+    :CUSTOM_ID: first-mate-donna
+    :END:

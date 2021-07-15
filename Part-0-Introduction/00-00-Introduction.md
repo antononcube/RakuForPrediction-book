@@ -7,14 +7,17 @@ data science, machine learning, and scientific computing.
 The programming language [Raku](https://raku.org) is used for the implementation and its features
 has heavily influenced many details of the architectural design.
 
-More specifically the book has two primary goals:
+More specifically the book has three primary goals:
 
-1. The introduction of a simple, operational, and extendable system of natural language commands
-   for computational workflows.
+1. The introduction of a simple, operational, and extendable system of natural 
+   Domain Specific Languages (DSLs) for the specification of computational workflows.
   
-2. The description of a software architecture and its Raku implementation of a system that
-   interprets natural language commands into executable programming code of computational workflows.
+2. The description of a general strategy and software architecture of a system that 
+   translates sequences of sentences of those natural DSLs into executable code for different 
+   programming languages (and packages in them.)
    
+3. The Raku implementation of such software system and how Raku can be used to utilize it.
+
 The system described in the book is ***multi-language*** from both natural language and programming language
 perspectives. (See Figure "DSLs-Interpreter-Simple".)
 
@@ -34,14 +37,14 @@ group by cyl;
 counts", 
         format => "JSON")
 ```
-```
-# {
-#   "DSL": "DSL::English::DataQueryWorkflows",
-#   "DSLTARGET": "R-tidyverse",
-#   "DSLFUNCTION": "proto sub ToDataQueryWorkflowCode (Str $command, Str $target = \"tidyverse\") {*}",
-#   "CODE": "mtcars %>%\ndplyr::group_by(cyl) %>%\ndplyr::count()",
-#   "USERID": ""
-# }
+```json
+{
+  "DSL": "DSL::English::DataQueryWorkflows",
+  "DSLTARGET": "R-tidyverse",
+  "DSLFUNCTION": "proto sub ToDataQueryWorkflowCode (Str $command, Str $target = \"tidyverse\") {*}",
+  "CODE": "mtcars %>%\ndplyr::group_by(cyl) %>%\ndplyr::count()",
+  "USERID": ""
+}
 ```
 
 In the code above the function `ToDSLCode`:
@@ -64,3 +67,4 @@ The result dictionary has entries for:
 We assume that it is sufficient to read the Part 1, "General Strategy and Architecture" and of the chapters in 
 Part 2, "Core Computational Workflows".
 
+***TBF...***

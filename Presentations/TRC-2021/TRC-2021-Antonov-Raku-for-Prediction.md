@@ -19,7 +19,7 @@ More specifically in the presentation we are going to:
 
 1. Discuss and demonstrate Raku implementation of such software system and how Raku can be used to utilize it
 
-The system described in the presentation is ***multi-language*** from both natural language and programming language perspectives.
+The system we describe in the presentation is multi-language from both natural language and programming language perspectives. We give a large number of illustrating examples of its functionalities, scope, and principles. Current state and feature plans are given at the end.
 
 ---
 

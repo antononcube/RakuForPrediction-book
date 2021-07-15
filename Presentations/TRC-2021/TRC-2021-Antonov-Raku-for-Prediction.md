@@ -146,7 +146,7 @@ Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Part-0-In
 
 ## “Storm in a teacup”  Raku package
 
-Almost all of the points bellow are reflected in the design, implementation, and functionalities of the package [Lingua::NumericWordForms](https://modules.raku.org/dist/Lingua::NumericWordForms):
+Almost all of the points below are reflected in the design, implementation, and functionalities of the package [Lingua::NumericWordForms](https://modules.raku.org/dist/Lingua::NumericWordForms):
 
 ```perl6
 use Lingua::NumericWordForms;
@@ -480,7 +480,7 @@ Two reasons for those doubts:
 
 - [The LISP curse](http://winestockwebdesign.com/Essays/Lisp_Curse.html)
 
-- WL targeting deeply hierarchical data
+- Projects and languages using/targeting deeply hierarchical data
 
 My response is:
 
@@ -498,11 +498,13 @@ Let us answer this question with questions:
 
 - How exactly a GPT-based system is going to generate correct code for, say, the following quantile regression sequence of commands:
 
+```raku-dsl
 use dfOrlandoTemperature;
 echo data summary;
 compute quantile regression with 16 knots and interpolation order 3;
 show date list plot;
 plot relative errors;
+```
 
 ```mathematica
 QRMonUnit[dfOrlandoTemperature] ⟹

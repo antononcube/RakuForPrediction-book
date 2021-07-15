@@ -13,7 +13,7 @@ In this presentation we discuss the architectural design and implementation of a
 
 More specifically in the presentation we are going to:
 
-1. Introduce of a simple, operational, and extendable system of natural Domain Specific Languages (DSLs) for the specification of computational workflows
+1. Introduce a simple, operational, and extendable system of natural Domain Specific Languages (DSLs) for the specification of computational workflows
 
 1. Outline a general strategy and a software architecture of a system that translates sequences of sentences of those natural DSLs into executable code for different programming languages (and packages in them)   
 
@@ -144,12 +144,14 @@ Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Part-0-In
 
 ---
 
-## “Storm in teacup”  Raku package
+## “Storm in a teacup”  Raku package
 
 Almost all of the points bellow are reflected in the design, implementation, and functionalities of the package [Lingua::NumericWordForms](https://modules.raku.org/dist/Lingua::NumericWordForms):
 
+```perl6
 use Lingua::NumericWordForms;
 from-numeric-word-form("two hundred and seven thousand and thirty five")
+```
 
 ```
 (*"207035"*)
@@ -165,7 +167,9 @@ Association[# -> IntegerName[207035, #] & /@ {"Bulgarian", "Japanese"}]
 
 Here is an example of automatic language recognition and word form interpretation:
 
+```perl6
 from-numeric-word-form(["двеста седем хиляди тридесет и пет","二十万七千三十五"]):p
+```
 
 ```
 (*"(bulgarian => 207035 japanese => 207035)"*)
@@ -219,7 +223,7 @@ Also, see the article ["The Split-Apply-Combine Strategy for Data Analysis"](htt
 
 ---
 
-## Tabular data transformation workflows 
+## Example DSL: Tabular data transformation workflows 2
 
 Here is a corresponding workflow translation:
 
@@ -230,10 +234,12 @@ dfTitanic[[1 ;; 6]]
 
 ![1qafbkwhwuajh](./Diagrams/1qafbkwhwuajh.png)
 
+```raku-dsl
 use dfTitanic;
 delete missing;
 filter with 'passenger sex' is 'male' and 'passenger survival' equals 'died' or 'passenger survival' is 'survived';
 cross tabulate 'passenger class', 'passenger survival' over 'passenger age';
+```
 
 ```mathematica
 obj = dfTitanic;

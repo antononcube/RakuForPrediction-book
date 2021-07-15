@@ -1,0 +1,96 @@
+#+TITLE: The Raku Conference 2021 presentation work plan
+#+AUTHOR: Anton Antonov, Accendo Data LLC
+#+EMAIL: antononcube@posteo.net
+#+TODO: TODO ONGOING MAYBE | DONE CANCELED 
+#+OPTIONS: toc:1 num:0
+
+* Introduction
+- [[https://conf.raku.org][The Raku Conference]]
+* TODO Abstract [0%] [0/3] 
+DEADLINE: <2021-07-14 Wed>
+- [-] Choose slides medium
+  - [X] Mathematica
+  - [ ] Org-mode
+  - [ ] R Slidy
+  - [ ] All three?
+- [-] Write 5-10 slides
+  1) [ ] Who am I?
+  2) [X] What is the book about?
+     - With examples
+  3) [X] What is the general approach?
+  4) [X] The terminators progression
+  5) [X] More examples
+  6) [ ] References / links
+     - WTC presentations
+     - OMLDS presentation
+     - "Raku for Prediction" book
+- [ ] Submit abstract
+* TODO Preparation
+** Book work
+*** TODO Introduction
+*** TODO Introduction with Q&A
+*** TODO References
+- [ ] Presentation videos
+- [ ] How to be a data scientist impostor?
+- [ ] Simplified Machine Learning Workflows
+- [ ] Repositories
+** Blog posts [33%] [1/3]
+*** TODO OMLDS presentation at [2021-06-24 Thu] [0%] [0/4]
+- [[https://www.meetup.com/Orlando-MLDS/events/278910791/][Multi-language Data Wrangling and Acquisition Conversational Agents]]
+- [ ] Include Mind-map
+- [ ] Include YouTube recording:
+  - https://www.youtube.com/watch?v=8B4_mkU_XW0
+- [ ] Write the blog post
+- [ ] Publish it
+*** TODO Hooking-up Raku with notebooks [40%] [2/5]
+- [X] Make flow-chart for evaluation of Raku notebook cells by a Raku
+  kernel through ZMQ
+- [X] Make info-graphic about the journey of figuring out how to
+  implement the packages
+- [ ] Write the blog post
+- [ ] Publish it
+*** DONE Text::CodeProcessing
+- [X] Turn the [[https://github.com/antononcube/Raku-Text-CodeProcessing/blob/main/README.md][README.md]] into a blog post
+** TODO Shiny hook-up demo
+- [ ] Upgrade the R-package [[https://github.com/antononcube/ConversationalAgents/tree/master/Packages/R/ExternalParsersHookUp][ExternalParsersHookUp]]
+- [ ] Make a interactive interface for evaluation of DSL commands
+  - [ ] Data wrangling over a predefined list of data?
+  - [ ] LSA over a predefined list of text collections?
+  - [ ] Quantile regression?
+** TODO Raku DSL packages [60%] [3/5]
+- [X] Dependency graph between DSL packages
+- [X] Rules for sequences of commands [100%] [5/5]
+  - [X] LSA
+  - [X] Quantile Regression
+  - [X] Recommendations
+  - [X] Classification
+  - [X] Data Queries
+- [X] Get AST tree from ~DSL::Shared::Utilities::ComprehensiveTranslation~
+  - [X] Or make an adverb for ~ToDSLCode~
+  - [X] Make a function ~ToDSLSyntaxTree~
+    - Uses ~ToDSLCode~.
+- [ ] Program visualization of parse trees
+  - [ ] Raku
+  - [ ] Mathematica
+- [ ] Conjunction usage demonstrations
+  - [ ] LSA to Classification
+  - [ ] LSA to Recommendations
+  - [ ] Data Acquisition to Data Wrangling
+  - [ ] Data Wrangling to Classification
+  - [ ] Data Acquisition to Data Wrangling to Classification
+  - [ ] Large data Data Wrangling
+** DONE ExternalParserHookUp (Mathematica)
+- [X] Make it work with an OS process of sandboxed Raku through ZMQ
+- [X] Test with Mathematica 12.3 Mac OS 11
+** DONE DSLMode (Mathematica)
+- [X] Hook-up Raku cells in a properly
+  - I.e. Raku cells in ~DSLMode~ should use an OS process of sandboxed
+    Raku through ZMQ.
+- [X] Experiments
+** TODO RakuMode (Mathematica) 
+- [ ] Make a WRI resource function
+- [ ] Test on Mac OS 11
+- [ ] Test on Windows 10
+** TODO ExternalParserHookUp (R)
+- [ ] Make it work with an OS process of sandboxed Raku through ZMQ
+- [ ] Test with RStudio on Mac OS 11

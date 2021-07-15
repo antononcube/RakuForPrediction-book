@@ -1,11 +1,9 @@
----
-
 # Raku for Prediction
 
-**Anton Antonov, Accendo Data LLC**
+***Anton Antonov***   
+***Accendo Data LLC***         
 
-**
-![19a86b2qzurii](./Diagrams/19a86b2qzurii.png) The Raku Conference, August 7, 2021**
+[**The Raku Conference, August 7, 2021**](https://conf.raku.org)   
 
 ---
 
@@ -70,8 +68,12 @@ Maybe it is more effective to show it in another notebook...
 Consider the natural language commands:
 
 ```mathematica
-
-  myCommand = "use dfTitanic; filter by passengerSex is 'female' and passengerSurvival is 'died'; group by passengerClass and passengerSurvival;count;take value";
+myCommand = "
+use dfTitanic; 
+filter by passengerSex is 'female' and passengerSurvival is 'died'; 
+group by passengerClass and passengerSurvival;
+count;
+take value";
 ```
 
 #### Julia
@@ -251,7 +253,12 @@ The same methodology is applied to Machine Learning and Scientific Computing wor
 Here is an example with a Latent Semantic Analysis workflow:
 
 ```mathematica
-ToDSLCode["create from aAbstracts;make document term matrix with stemming FALSE and automatic stop words;apply LSI functions glbal weight function IDF, local term weight function TermFrequency, normalizer function Cosine;extract 12 topics using method NNMF and max steps 16 and 20 min number of documents per term;show topics table with 12 terms;show tesaurus table for science, symbolic, system;"];
+ToDSLCode["create from aAbstracts;
+make document term matrix with stemming FALSE and automatic stop words;
+apply LSI functions glbal weight function IDF, local term weight function TermFrequency, normalizer function Cosine;
+extract 12 topics using method NNMF and max steps 16 and 20 min number of documents per term;
+show topics table with 12 terms;
+show tesaurus table for science, symbolic, system;"];
 ```
 
 ![1787yzq8vcfal](./Diagrams/1787yzq8vcfal.png)
@@ -278,6 +285,7 @@ For more details and examples see the *useR! 2020 Conference* presentation [AA1,
 
 Here is an example of an Epidemiology Modeling workflow:
 
+```raku-dsl
 create with the model susceptible exposed infected two hospitalized recovered;
 assign 100000 to the susceptible population;
 set infected normally symptomatic population to be 0;
@@ -287,6 +295,7 @@ assign 0.58 to contact rate of infected severely symptomatic population;
 assign 0.1 to contact rate of the hospitalized population;
 simulate for 240 days;
 plot populations results;
+```
 
 ```mathematica
 ECMMonUnit[SEI2HRModel[t]] ⟹

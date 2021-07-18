@@ -19,7 +19,35 @@ More specifically in the presentation we are going to:
 
 1. Discuss and demonstrate Raku implementation of such software system and how Raku can be used to utilize it
 
-The system we describe in the presentation is multi-language from both natural language and programming language perspectives. We give a large number of illustrating examples of its functionalities, scope, and principles. Current state and feature plans are given at the end.
+The system we describe in the presentation is ***multi-language*** from both natural language and programming language perspectives. 
+We give a large number of illustrating examples of its functionalities, scope, and principles. 
+At the end we discuss alternative approaches, system's current state, and future plans.
+
+[*Link to the talk page at TRC-2021.*](https://conf.raku.org/talk/157)
+
+---
+
+## Who am I?
+
+- MSc in Mathematics, General Algebra. 
+  
+   - University of Ruse, Bulgaria.
+
+- MSc in Computer Science, Data Bases. 
+   
+   - University of Ruse, Bulgaria.
+
+- PhD in Applied Mathematics, Large Scale Air-Pollution Simulations.
+
+  - The Danish Technical University, Denmark 
+
+- Former kernel developer of Mathematica, 2001-2008.
+
+  - Wolfram Research Inc.
+
+- Currently working as a "Senior data scientist."
+
+  - Accendo Data LLC
 
 ---
 
@@ -34,8 +62,6 @@ The system we describe in the presentation is multi-language from both natural l
 - Too many packages and languages for doing prediction computations.
 
 - Same workflows, but different syntax and “small” details.
-
-![11breq60nwgti](./Diagrams/11breq60nwgti.png)
 
 ---
 
@@ -56,6 +82,16 @@ Further, assume that:
 We want to create conversation agents that help Data Science (DS) and ML practitioners to quickly create first, initial versions of different prediction workflows for different programming languages and related packages. 
 
 We expect that the initial versions of programming code are tweaked further. (In order to produce desired outcomes in the application area of interest.)
+
+---
+
+### Multi-language in both senses
+
+Let us repeat and emphasize: the Raku for Prediction (R4P) system is designed to translate 
+multiple natural DSLs into multiple programming DSLs:
+
+![11breq60nwgti](./Diagrams/11breq60nwgti.png)
+
 
 ---
 

@@ -122,3 +122,50 @@ QRMonErrorsPlot( relativeErrorsQ = TRUE)
 ```  
 
 ------
+
+## Which well known computer systems R4P is like ?
+
+### UNIX
+
+- In many ways R4P's philosophy and design resembles that of UNIX.
+
+ - That statement can be seen as "appeal to authority", but probably is going to introduce and clarify the messages faster.
+
+- Almost of all of Eric Raymond's 17 Unix rules.
+
+### Wolfram Alpha
+
+- Wolfram Alpha (WA) has a very similar mission and abilities.
+
+  - But, of course WA is centered around Wolfram Language / Mathematica.
+  
+- R4P is multi-language both input-wise and output-wise.
+
+  - WA is multi-language input-wise only. 
+    
+------
+
+## Which UNIX philosophy rules R4P adheres to? 
+
+See Eric Raymond's 17 Unix rules in this Wikipedia entry: 
+["Unix philosophy"](https://en.wikipedia.org/wiki/Unix_philosophy).
+
+|  No | Rule                                                                         | Mu   | No   | Yes  |
+| --- | ---------------------------------------------------------------------------- | ---- | ---- | ---- |
+|   1 | Build modular programs                                                       |      |      |  X   |
+|   2 | Write readable programs                                                      |      |      |  X   |
+|   3 | Use composition                                                              |      |      |  X   |
+|   4 | Separate mechanisms from policy                                              |      |      |  X   |
+|   5 | Write simple programs                                                        |      |  X   |      |
+|   6 | Write small programs                                                         |      |  X   |      |
+|   7 | Write transparent programs                                                   |      |  X   |      |
+|   8 | Write robust programs                                                        |      |      | X    |
+|   9 | Make data complicated when required, not the program                         |  X   |      |      |
+|  10 | Build on potential users' expected knowledge                                 |      |      |  X   |
+|  11 | Avoid unnecessary output                                                     |      |      |  X   |
+|  12 | Write programs which fail in a way that is easy to diagnose                  |  X   |      |  X   |
+|  13 | Value developer time over machine time                                       |      |      |  X   |
+|  14 | Write abstract programs that generate code instead of writing code by hand   |      |      |  X   |
+|  15 | Prototype software before polishing it                                       |      |      |  X   |
+|  16 | Write flexible and open programs                                             |      |      |  X   |
+|  17 | Make the program and protocols extensible                                    |      |      |  X   |

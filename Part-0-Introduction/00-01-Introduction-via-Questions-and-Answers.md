@@ -150,7 +150,7 @@ QRMonErrorsPlot( relativeErrorsQ = TRUE)
 See Eric Raymond's 17 Unix rules in this Wikipedia entry: 
 ["Unix philosophy"](https://en.wikipedia.org/wiki/Unix_philosophy).
 
-|  No | Rule                                                                         | Mu   | No   | Yes  |
+|   # | Rule                                                                         | Mu   | No   | Yes  |
 | --- | ---------------------------------------------------------------------------- | ---- | ---- | ---- |
 |   1 | Build modular programs                                                       |      |      |  X   |
 |   2 | Write readable programs                                                      |      |      |  X   |

@@ -147,25 +147,27 @@ QRMonErrorsPlot( relativeErrorsQ = TRUE)
 
 ## Which UNIX philosophy rules R4P adheres to? 
 
-See Eric Raymond's 17 Unix rules in this Wikipedia entry: 
-["Unix philosophy"](https://en.wikipedia.org/wiki/Unix_philosophy).
+See Eric Raymond's 17 Unix rules in the Wikipedia entry: 
+["Unix philosophy"](https://en.wikipedia.org/wiki/Unix_philosophy) or
+the book 
+["The Art of Unix Programming"](https://en.wikipedia.org/wiki/The_Art_of_Unix_Programming).
 
-|   # | Rule                                                                         | Mu   | No   | Yes  |
-| --- | ---------------------------------------------------------------------------- | ---- | ---- | ---- |
-|   1 | Build modular programs                                                       |      |      |  X   |
-|   2 | Write readable programs                                                      |      |      |  X   |
-|   3 | Use composition                                                              |      |      |  X   |
-|   4 | Separate mechanisms from policy                                              |      |      |  X   |
-|   5 | Write simple programs                                                        |      |  X   |      |
-|   6 | Write small programs                                                         |      |  X   |      |
-|   7 | Write transparent programs                                                   |      |  X   |      |
-|   8 | Write robust programs                                                        |      |      | X    |
-|   9 | Make data complicated when required, not the program                         |  X   |      |      |
-|  10 | Build on potential users' expected knowledge                                 |      |      |  X   |
-|  11 | Avoid unnecessary output                                                     |      |      |  X   |
-|  12 | Write programs which fail in a way that is easy to diagnose                  |  X   |      |  X   |
-|  13 | Value developer time over machine time                                       |      |      |  X   |
-|  14 | Write abstract programs that generate code instead of writing code by hand   |      |      |  X   |
-|  15 | Prototype software before polishing it                                       |      |      |  X   |
-|  16 | Write flexible and open programs                                             |      |      |  X   |
-|  17 | Make the program and protocols extensible                                    |      |      |  X   |
+|   # | Rule                                                                         | Mu  | No  | Yes |
+| --- | ---------------------------------------------------------------------------- | --- | --- | --- |
+|   1 | Build modular programs                                                       |     |     |  X  |
+|   2 | Write readable programs                                                      |     |     |  X  |
+|   3 | Use composition                                                              |     |     |  X  |
+|   4 | Separate mechanisms from policy                                              |     |     |  X  |
+|   5 | Write simple programs                                                        |     |  X  |     |
+|   6 | Write small programs                                                         |     |  X  |     |
+|   7 | Write transparent programs                                                   |     |  X  |     |
+|   8 | Write robust programs                                                        |     |     |  X  |
+|   9 | Make data complicated when required, not the program                         |  X  |     |     |
+|  10 | Build on potential users' expected knowledge                                 |     |     |  X  |
+|  11 | Avoid unnecessary output                                                     |     |     |  X  |
+|  12 | Write programs which fail in a way that is easy to diagnose                  |  X  |     |  X  |
+|  13 | Value developer time over machine time                                       |     |     |  X  |
+|  14 | Write abstract programs that generate code instead of writing code by hand   |     |     |  X  |
+|  15 | Prototype software before polishing it                                       |     |     |  X  |
+|  16 | Write flexible and open programs                                             |     |     |  X  |
+|  17 | Make the program and protocols extensible                                    |     |     |  X  |

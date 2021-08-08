@@ -1,10 +1,8 @@
----
-
 # Raku for Prediction
 
-**Anton Antonov, Accendo Data LLC**
+**Anton Antonov, Accendo Data LLC**   
 
-**The Raku Conference, August 6-8, 2021**
+**The Raku Conference, August 6-8, 2021**   
 
 ---
 

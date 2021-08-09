@@ -6,25 +6,25 @@
 
 * Introduction
 - [[https://conf.raku.org][The Raku Conference]]
-* TODO Abstract [0%] [0/3] 
+* DONE Abstract [66%] [2/3] 
 DEADLINE: <2021-07-14 Wed>
 - [-] Choose slides medium
   - [X] Mathematica
   - [ ] Org-mode
   - [ ] R Slidy
   - [ ] All three?
-- [-] Write 5-10 slides
-  1) [ ] Who am I?
+- [X] Write 5-10 slides
+  1) [X] Who am I?
   2) [X] What is the book about?
      - With examples
   3) [X] What is the general approach?
   4) [X] The terminators progression
   5) [X] More examples
-  6) [ ] References / links
+  6) [X] References / links
      - WTC presentations
      - OMLDS presentation
      - "Raku for Prediction" book
-- [ ] Submit abstract
+- [X] Submit abstract
 * TODO Preparation
 ** DONE DSLMode (Mathematica)
 - [X] Hook-up Raku cells in a properly
@@ -58,7 +58,7 @@ DEADLINE: <2021-07-14 Wed>
 - [ ] Publish it
 ** DONE ExternalParserHookUp (Python) [100%] [1/1]
 - [X] Program the DSL Web Service access functions
-** TODO Shiny hook-up demo [50%] [1/2]
+** DONE Shiny hook-up demo [50%] [1/2]
 - [X] Upgrade the R-package [[https://github.com/antononcube/ConversationalAgents/tree/master/Packages/R/ExternalParsersHookUp][ExternalParsersHookUp]]
   - [X] First version of DSL Web Service functions
   - [X] More robust implementation with the library "httr"
@@ -67,7 +67,7 @@ DEADLINE: <2021-07-14 Wed>
   - [ ] LSA over a predefined list of text collections?
   - [X] Over pre-made recommender?
   - [ ] Quantile regression?
-** TODO Raku DSL packages [60%] [3/5]
+** DONE Raku DSL packages [66%] [4/6]
 - [X] Dependency graph between DSL packages
 - [X] Rules for sequences of commands [100%] [5/5]
   - [X] LSA
@@ -83,6 +83,7 @@ DEADLINE: <2021-07-14 Wed>
   - [X] Marshal-able JSON form
   - [ ] Raku
   - [ ] Mathematica
+- [X] Make UML diagrams for each package.
 - [ ] Conjunction usage demonstrations
   - [ ] LSA to Classification
   - [ ] LSA to Recommendations
@@ -90,25 +91,28 @@ DEADLINE: <2021-07-14 Wed>
   - [ ] Data Wrangling to Classification
   - [ ] Data Acquisition to Data Wrangling to Classification
   - [ ] Large data Data Wrangling
-** TODO ExternalParserHookUp (Mathematica) [80%] [4/5]
+** DONE ExternalParserHookUp (Mathematica) [80%] [4/5]
 - [X] Make it work with an OS process of sandboxed Raku through ZMQ
 - [X] Test with Mathematica 12.3 Mac OS 11
-- [ ] Make sure DSL commands with misspellings show properly output-wise.
 - [X] Program the DSL Web Service access functions
 - [X] Convert result code string into executable expression if specified
-** TODO RakuMode (Mathematica) 
+- [ ] Make sure DSL commands with misspellings show properly
+  output-wise.
+  - Turned out that was a hard problem to solve because of how:
+    - ~warn~ and ~note~ behave.
+** CANCELED RakuMode (Mathematica) [%] [/]
 - [ ] Make a WRI resource function
 - [ ] Test on Mac OS 11
 - [ ] Test on Windows 10
-** TODO ExternalParserHookUp (R) [25%] [1/4]
-- [X] Program the DSL Web Service access functions
+** DONE ExternalParserHookUp (R) [25%] [1/4]
+- [X] Program the DSL Web Service qaccess functions
   - [X] Simple
   - [X] More robust with ~httr::GET~
   - [X] Test with Shiny apps
 - [ ] Make it work with an OS process of sandboxed Raku through ZMQ
 - [ ] Test with RStudio on Mac OS 11
 - [ ] Convert result code string into executable expression if specified
-** TODO Cro Web Service [71%] [5/7] 
+** DONE Cro Web Service [77%] [7/9] 
 - [X] Add ~stderr~ content in the result JSON structure
 - [X] Implement command for returning the AST
 - [X] Examples in RStudio notebooks
@@ -116,6 +120,8 @@ DEADLINE: <2021-07-14 Wed>
 - [X] Ability to specify the default language through the URL
   - For example:
     : http://localhost:10000/translate/R/'DSL MODULE SMRMon; create recommender with dfTitanic; recommend by profile male; echo value'
+- [X] Better handling of interpreter failures
+- [X] Shiny interface to antononcube.shinyapps.io.
 - [ ] Better parallel search algorithm
 - [ ] Separation of commands from multiple DSLs.
   - Here is /one/ pipeline:
@@ -130,3 +136,42 @@ DEADLINE: <2021-07-14 Wed>
     1) Has to be separated into strings of commands for two DSLs
     2) Each DSL-commands strings is interpreted
     3) The interpretation programming codes are stitched together
+* TODO Presentation day [80%] [4/5]
+** DONE Interactive interface(s)
+** DONE In-plance demo [100%] [2/2]
+- [X] Code / notebook
+- [X] Prepare
+** TODO Slides [66%] [4/6]
+- [-] Packages break down
+  - [X] Partial 
+  - [ ] Full lists (in a four column tables)
+- [-] Engagement
+  - [X] To Jonathan Worthingon
+    - How is this like Commaide development.
+  - [X] To Vadim Belman
+    - Random pipelines tests.
+  - [X] To Daniel Sockwell
+    - Using Tries-with-frequencies to generate Raku grammars.
+  - [X] To Elizabeth Mattijsen
+    - Enumerating classes in package in order to generate UML diagrams.
+  - [ ] To Alexey Melezhik
+- [X] The UNIX rules
+- [X] Re-order
+- [X] Mission statement
+- [X] Clothes have no emperor
+** DONE Screens
+1. [X] Left screen
+   - Raku environments
+   - [X] Text::CodeProcessing
+   - [X] DSL::English::EpidemiologicModelingWorkflows
+   - [X] DSL::Entity::Geographics
+   - [X] DSL::Shared::Utilities::ComprehensiveTranslation
+2. [X] Center screen
+   - Presentation slides
+3. [X] Right screen
+   - [X] shinyapps.io interface
+   - [X] Comp Spec Completion
+   - [X] SousChefSusana demo
+   - [X] SousChefSusana grammar population
+** DONE Deliver the talk 
+

@@ -586,14 +586,32 @@ ResourceFunction["GridTableForm"][List @@@ Normal[aRes]]
 
 I think using software monads and corresponding grammars is fairly important design decision.
 
-Here is illustration of the principle with “in place” evaluations
+Here is an illustration of the principle with “in place” evaluations:
 
 ```mathematica
-ToQuantileRegressionWorkflowCode["use finData"]\[DoubleLongRightArrow]
-   ToQuantileRegressionWorkflowCode["echo data summary"]\[DoubleLongRightArrow]
-   ToQuantileRegressionWorkflowCode["compute quantile regression with 20 knots and probabilities 0.5 and 0.7"]\[DoubleLongRightArrow]
-   ToQuantileRegressionWorkflowCode["show date list plots"]\[DoubleLongRightArrow]
+ToQuantileRegressionWorkflowCode["use finData"]⟹
+   ToQuantileRegressionWorkflowCode["echo data summary"]⟹
+   ToQuantileRegressionWorkflowCode["compute quantile regression with 20 knots and probabilities 0.5 and 0.7"]⟹
+   ToQuantileRegressionWorkflowCode["show date list plots"]⟹
    ToQuantileRegressionWorkflowCode["show error plots"];
+```
+
+Here is the en bloc code generation of the pipelined commands above:
+
+```dsl
+use finData;
+echo data summary;
+compute quantile regression with 20 knots and probabilities 0.5 and 0.7;
+show date list plots;
+show error plots
+```
+
+```mathematica
+QRMonUnit[dfTemperatureData] ⟹
+QRMonEchoDataSummary[] ⟹
+QRMonQuantileRegression["Knots" -> 20, "Probabilities" -> {0.5, 0.7}] ⟹
+QRMonDateListPlot[] ⟹
+QRMonErrorPlots[ "RelativeErrors" -> True]
 ```
 
 ---
@@ -756,11 +774,13 @@ Let us answer this question with questions:
 
 - How exactly a GPT-based system is going to generate correct code for, say, the following quantile regression sequence of commands:
 
+```dsl
 use dfOrlandoTemperature;
 echo data summary;
 compute quantile regression with 16 knots and interpolation order 3;
 show date list plot;
 plot relative errors;
+```
 
 ```mathematica
 QRMonUnit[dfOrlandoTemperature] ⟹

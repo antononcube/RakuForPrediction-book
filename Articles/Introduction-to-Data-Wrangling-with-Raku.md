@@ -1,0 +1,861 @@
+
+# Introduction to data wrangling with Raku
+
+**Version 0.5**
+
+Anton Antonov   
+[RakuForPrediction at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
+December 2021   
+
+## Introduction
+
+One of my current life missions is the speeding up of the next [AI winter](https://en.wikipedia.org/wiki/AI_winter). I have decided to use Raku to accomplish that mission. (Well, at least in the beginning...) 
+
+Also, I find the term Artificial Intelligence (AI) to be brilliant marketing phrase for extracting money of US military complex and all kinds of financial investors. When people who claim to be, say, “data science professionals” use it in professional settings, I become highly suspicious of their “professionalism.” (Meaning, they are most likely some clueless wannabes.)
+
+Back to next AI winter coming speed-up -- here is my plan:
+
+1. Teach many people [how to be data scientist impostors](https://github.com/antononcube/HowToBeADataScientistImpostor-book)
+
+1. Produce [tools](https://conf.raku.org/talk/157) that facilitate AI-code baristas
+
+1. Wait for enough AI-people to hit enough AI walls.
+
+1. Next AI winter
+
+1. Profit 
+
+See the presentation ["Raku for Prediction"](https://conf.raku.org/talk/157), [AAv2], that describes my efforts over Point 2 using Raku.
+
+A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, talentless mass of AI practitioners.”
+
+Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... So, if I am serious about speeding-up AI winters, I must get serious about speeding-up data wrangling incantations in different programming languages; [AAv2]. Since I firmly believe that it is good to occasionally eat your own dog food, I also programmed (in the last few weeks) data wrangling packages in Raku. Who knows, that might be a way to Rakunize AI, and -- [to rephrase Larry Wall](https://en.wikipedia.org/wiki/Raku_(programming_language)#History) -- some users might get their fix. (See  also [FB1].)
+
+The rest of this document is more technical -- readers can just read or skim the next section and the section ”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version “Data wrangling with Raku”, [AA1].
+
+**Remark:** Occasionally the code below might have the Raku expression ==>encode-to-wl(). This is for serializing Raku objects into [Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) expressions. (This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
+
+**Remark:** The target audience for this document is mostly comprised of people exposed to Perl’s and Raku’s cultures (and cults.)
+
+------
+
+## 楽-for ÷ with-楽
+
+... aka ***“Raku-for vs with-Raku”*** *(also, maybe, “enjoyment for vs with enjoyment.”)*
+
+First, let us make the following distinction:
+
+- Raku ***for*** data wrangling means using Raku to facilitate data wrangling in other programming languages and systems.
+
+- Data wrangling ***with*** Raku means using Raku’s data structures and programming language for data wrangling.
+
+Here is an example of Raku ***for*** data wrangling -- Python code is generated:
+
+```perl6
+ToDSLCode("
+dsl target Python-pandas; 
+load dataset iris; 
+group by Species;
+show counts"):code
+
+(*"obj = example_dataset('iris')obj = obj.groupby([\"Species\"])print(obj.size())"*)
+```
+
+Here is an example of data wrangling ***with*** Raku:
+
+```perl6
+my $obj = example-dataset(/ iris $ /);
+$obj = group-by($obj, "Species");
+say $obj>>.elems
+
+(*"{setosa => 50, versicolor => 50, virginica => 50}"*)
+```
+
+In the following diagram that summarizes my data wrangling activities (and indicates future plans with dashed lines) the “Raku-for” efforts are represented are represented by the hexagon, the “with-Raku” efforts are indicated bottom-right.
+
+```mathematica
+ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png"]
+```
+
+![1ljtfejml1s9s](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1ljtfejml1s9s.png)
+
+Here is an example of translating English data wrangling specs into Bulgarian, Korean, and Spanish data wrangling specs:
+
+```perl6
+for <Bulgarian Korean Spanish> -> $l {
+ say '-' x 30;
+ say ToDSLCode("dsl target " ~ $l ~"; 
+ load dataset iris; 
+ group by Species;
+ show counts"):code
+}
+
+# ------------------------------
+# зареди таблицата: "iris"
+# групирай с колоните: Species
+# покажи броя
+# ------------------------------
+# 테이블로드: "iris"
+# 열로 그룹화: Species
+# 쇼 카운트
+# ------------------------------
+# cargar la tabla: "iris"
+# agrupar con columnas: \"Species\"
+# mostrar recuentos
+```
+
+As the diagram above indicates, I intend to use that framework to narrate data wrangling Raku code with natural languages. 
+Also, of course, translate into other programing languages.
+
+------
+
+## Datum fundamentum
+
+... aka “Data structures and methodology” (also, means “given foundation” in Latin.)
+
+Let us give or outline the basic definitions of our Raku data wrangling endeavor.
+
+### Dataset vs Data frame
+
+Here are a certain intuitive definitions of datasets and data frames:
+
+- A ***dataset*** is a table that is most naturally interpreted as an array of hashes, each hash representing a *row* in the table.
+
+- A **data frame** is table that is most naturally understood as an array of hashes, each hash representing a *column* in the table. 
+
+Mathematica uses datasets. S, R, and Python’s [pandas](https://pandas.pydata.org) use data frames.
+
+The Raku system presented in this document uses datasets. Here is an example of a dataset with 3 rows and 2 columns:
+
+```perl6
+srand(128);
+my $tbl=random-tabular-dataset(3,2).deepmap({ $_ ~~ Str ?? $_ !! round($_, 0.01) });
+.say for |$tbl
+
+# {controlling => -4.84, unlace => means}{controlling => 7.83, unlace => thyrotropin}{controlling => 11.92, unlace => parfait}
+```
+
+Here is how the corresponding data frame would have been structured:
+
+```perl6
+transpose($tbl)
+
+# {herbaceous => [footing zest that's], whilst => [4S5Yvrv7VZdz3yM SotUY PFJOs1zN5XvZt1W99]}
+```
+
+### Minimalist perspective
+
+I do not want to make a special class for datasets or data frames -- I want to use the standard Raku data structures. (At least at this point of my Raku data wrangling efforts.)
+
+My reasons are:
+
+1. The data can be picked up and transformed with typical, built-in commands.
+
+    - Meaning, without the adherence to DTM or related packages.
+
+1. Using standard, built-in structures is type of “user interface” decision. 
+
+1. The "user experience" can be achieved with- or provided by other transformation paradigms and packages.
+
+Points 2 and 3 are, of course, consequences of point 1.
+
+### Data structures in Raku
+
+The data structures we focus on are datasets, and concretely in Raku we have the following dataset representations
+
+1. Array of hashes
+
+1. Hash of hashes
+
+1. Array of arrays
+
+1. Hash of arrays
+
+The order of the representations indicates their importance during implementation of Raku data wrangling functionalities presented here: 
+
+- Functionalities for the first two are primary uses and have unit tests
+
+- Additionally, we accommodate the use of the last two.
+
+ When the framework and constellation of data wrangling functionalities matures all use four data structures will have correct and consistent treatment.
+
+### Target audience
+
+The target audience are data scientists (full time, part time, and complete newbies) that want to:
+
+- Do data wrangling of typical data science data with Raku
+
+- Know that their Raku data wrangling efforts are relatively easily reproduced in other programming languages or systems
+
+Alternatively, we can say that the target audiences are:
+
+1. Data scientist impostors
+
+1. Code baristas
+
+1. Experienced data scientist who want to speed-up their work
+
+1. Data scientists who want to learn Raku
+
+1. Raku programmers 
+
+### Workflows considered
+
+The following flow-chart encompasses the data transformations workflows we consider:
+
+```mathematica
+plWorkflows = ImageCrop@Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.png"]
+```
+
+![0y4qdm1z0svvv](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0y4qdm1z0svvv.png)
+
+**Remark:** We are going to refer to the methodology represented by the flow chart above as the ***Data Transformation Workflows Model*** (DTWM). In this document the we consider methodology and the flow chart as the same thing.
+
+Here are some properties of the methodology / flow chart:
+
+- The flow chart is for tabular datasets or lists (arrays) or dictionaries (hashes) of tabular datasets
+
+- In the flow chart only the data loading and summary analysis are not optional
+
+- All other steps are optional
+
+- Transformations like inner joins are represented by the block “Combine groups”
+
+- It is assumed that in real applications several iterations (loops) have to be run over the flow chart
+
+In the world of the programming language R the orange blocks represent the so called Split-Transform-Combine pattern; see the article ["The Split-Apply-Combine Strategy for Data Analysis"](https://www.jstatsoft.org/article/view/v040i01) by Hadley Wickham, [[HW1](https://www.jstatsoft.org/article/view/v040i01)].
+
+**Remark:** R was (and probably still is) a fairly arcane programming language, so the explicit introduction of the Split-Transform-Combine pattern was of great help to R programers. On the other hand, that pattern is fairly old and well known: it is inherent to SQL and it is met in parallel programming. (For example, see the WL function [ParallelCombine](http://reference.wolfram.com/mathematica/ref/ParallelCombine.html), [WRI2].)
+
+Here is a simple use case scenario walkthrough:
+
+1. Obtain a tabular dataset from a warehouse.
+
+1. Summarize and examine the dataset and decide that does not have the desired form and content.
+
+    1. I.e. the data have to be wrangled.
+
+1. Select only the columns that have the data of interest.
+
+1. Filter the rows according to a certain operational criteria.
+
+1. Split the rows -- i.e. group by the values in one of the columns.
+
+1. Transform each group by combining the values of each column in some way.
+
+    1. For example finding means or standard deviations of numerical columns.
+
+1. Combine the transformed groups (into one “flat” tabular datasets.)
+
+1. Reshape the data into long format and export it. 
+
+The above list of steps is just one possible workflow. For more detailed examples and explanations see [AA1, AAv2, AAv3, AAv4].
+
+### Fundamental operations
+
+These operations are just basic:
+
+- Column selection, renaming, and deletion
+
+- Row selection and deletion
+
+- Transposing
+
+- Inner, left, and right joins
+
+- Grouping by criteria
+
+(Transposing of tabular or full-array data is also a basic functional programming operation.)
+
+In data wrangling and data analysis the following three operations are non-basic, but still fundamental:
+
+- [Cross tabulation](https://en.wikipedia.org/wiki/Contingency_table)
+
+- [Long format conversion](https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow)
+
+- [Wide format conversion](https://en.wikipedia.org/wiki/Wide_and_narrow_data#Wide)
+
+See [AA1, Wk1, Wk2, AAv1-AAv4] for more details.
+
+**Remark:** The package [Data::Reshapers](https://github.com/antononcube/Raku-Data-Reshapers), [AAp2], provides all of the functions mention in this sub-section.
+
+------
+
+## The size of the magic data does not determine how magic it is
+
+... *aka* ***“Data acquisition of well known datasets into Raku”***.
+
+We have to have access to some typical datasets used in (academic) Statistics classes or in books and packages for exemplifying concepts, and software designs and know-how. And, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in their interaction with others.
+
+The Raku package Data::ExamplesDatasets provides functions for obtaining (relatively well known) example datasets. That package itself contains only datasets metadata -- the datasets are downloaded from the repository [Rdatasets](https://github.com/vincentarelbundock/Rdatasets/), [VAB1]. 
+
+Here we get a famous example dataset using a regex:
+
+```perl6
+my $iris=example-dataset(/iris $/);
+$iris==>encode-to-wl
+```
+
+![1dhat25a5thym](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1dhat25a5thym.png)
+
+Here are the dimensions of the dataset we just imported:
+
+```perl6
+dimensions($iris)
+
+# (150 6)
+```
+
+We can get the documentation URL for that dataset by using the function item-to-doc-url:
+
+```perl6
+use Data::ExampleDatasets::AccessData;
+item-to-doc-url()<datasets::iris3>
+
+# "https://vincentarelbundock.github.io/Rdatasets/doc/datasets/iris3.html"
+```
+
+Here we use WL to display dataset’s documentation:
+
+```mathematica
+WebImage[StringTrim@Out[145]]
+```
+
+![1coskwrjgeumu](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1coskwrjgeumu.png)
+
+### Summarizing the datasets collection
+
+Here is a summary of the metadata dataset without the titles column and the columns with data and documentation URLs :
+
+```perl6
+records-summary(delete-columns(get-datasets-metadata(),<Title CSV Doc>), max-tallies=>12)
+
+# +---------------------+------------------+--------------------+------------------+--------------------+--------------------+-----------------------+--------------------+---------------------+
+# | Cols                | Package          | n_factor           | Item             | n_logical          | n_binary           | Rows                  | n_character        | n_numeric           |
+# +---------------------+------------------+--------------------+------------------+--------------------+--------------------+-----------------------+--------------------+---------------------+
+# | Min    => 1         | Stat2Data => 211 | Min    => 0        | salinity => 3    | Min    => 0        | Min    => 0        | Min    => 2           | Min    => 0        | Min    => 0         |
+# | 1st-Qu => 3         | openintro => 206 | 1st-Qu => 0        | Grunfeld => 3    | 1st-Qu => 0        | 1st-Qu => 0        | 1st-Qu => 35          | 1st-Qu => 0        | 1st-Qu => 2         |
+# | Mean   => 13.021203 | Ecdat     => 134 | Mean   => 1.290544 | housing  => 3    | Mean   => 0.030372 | Mean   => 1.940401 | Mean   => 3860.679656 | Mean   => 0.311175 | Mean   => 11.338109 |
+# | Median => 5         | DAAG      => 121 | Median => 0        | smoking  => 3    | Median => 0        | Median => 0        | Median => 108         | Median => 0        | Median => 3         |
+# | 3rd-Qu => 9         | AER       => 107 | 3rd-Qu => 2        | Mroz     => 3    | 3rd-Qu => 0        | 3rd-Qu => 2        | 3rd-Qu => 601.5       | 3rd-Qu => 0        | 3rd-Qu => 7         |
+# | Max    => 6831      | MASS      => 87  | Max    => 64       | bmt      => 2    | Max    => 11       | Max    => 624      | Max    => 1414593     | Max    => 17       | Max    => 6830      |
+# |                     | datasets  => 84  |                    | titanic  => 2    |                    |                    |                       |                    |                     |
+# |                     | stevedata => 71  |                    | aids     => 2    |                    |                    |                       |                    |                     |
+# |                     | carData   => 63  |                    | npk      => 2    |                    |                    |                       |                    |                     |
+# |                     | boot      => 49  |                    | Hitters  => 2    |                    |                    |                       |                    |                     |
+# |                     | HistData  => 46  |                    | Hedonic  => 2    |                    |                    |                       |                    |                     |
+# |                     | HSAUR     => 41  |                    | goog     => 2    |                    |                    |                       |                    |                     |
+# |                     | (Other)   => 525 |                    | (Other)  => 1716 |                    |                    |                       |                    |                     |
+# +---------------------+------------------+--------------------+------------------+--------------------+--------------------+-----------------------+--------------------+---------------------+
+```
+
+Here is a histogram of the distribution of the number of rows across the examples datasets (getting the data in Raku, plotting histogram with WL):
+
+```perl6
+select-columns(get-datasets-metadata(),"Rows")
+==>transpose()
+==>encode-to-wl()
+```
+
+```mathematica
+Histogram[Log10@Normal[%["Rows"]], PlotRange -> All, PlotTheme -> "Detailed", FrameLabel -> {"lg of number of rows", "count"}, PlotLabel -> "Distribution of the number of rows of the example datasets"]
+```
+
+![1cx8e3kb02ggb](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1cx8e3kb02ggb.png)
+
+The values of the plot above logarithms with base 10. We can see that the majority of the datasets have rows between 10 and 1000, which is also “confirmed” with summary table above.
+
+### Dataset identifiers
+
+The dataset identifiers are composed with package name and item name. As it can be seen in the summary table above, a package can have multiple items, and the same item name might be found in multiple packages. Hence, with certain dataset specifications example-dataset gives a warning of multiple packages without retrieving any data:
+
+```perl6
+example-dataset(/ .* smoking .* /)
+
+#ERROR: Found more than one dataset with the given spec: 
+#ERROR: openintro::smoking	https://vincentarelbundock.github.io/Rdatasets/csv/openintro/smoking.csv
+#ERROR: HSAUR::smoking	https://vincentarelbundock.github.io/Rdatasets/csv/HSAUR/smoking.csv
+#ERROR: COUNT::smoking	https://vincentarelbundock.github.io/Rdatasets/csv/COUNT/smoking.csv(Any)
+```
+
+Here we retrieve a specific dataset using an identifier that comprised of the package name and item name (separated with “::”):
+
+```perl6
+example-dataset('COUNT::smoking')
+==>to-pretty-table()
+
++---+--------+-----+------+-----+
+|   | smoker | age | male | sbp |
++---+--------+-----+------+-----+
+| 1 |   1    |  34 |  1   | 131 |
+| 2 |   1    |  36 |  1   | 132 |
+| 3 |   0    |  30 |  1   | 122 |
+| 4 |   0    |  32 |  0   | 119 |
+| 5 |   1    |  26 |  0   | 123 |
+| 6 |   0    |  23 |  0   | 115 |
++---+--------+-----+------+-----+
+```
+
+### Memoization
+
+The main package function, example-dataset, has the adverb keep. 
+If that adverb is given then example-dataset stores the web-retrieved data in the directory XDG_DATA_HOME and subsequently retrieves it from there. 
+See ["Freedesktop.org Specifications"](https://specifications.freedesktop.org) and [JS1] for more details 
+what is the concrete value of the OS environmental variable `XDG_DATA_HOME`.
+
+------
+
+## GYOD
+
+... *aka* ***“Generate Your Own Datasets”***. *(Not “Get Your Own Dog”.)*
+
+Instead of example datasets and dealing with potential problems, like, retrieving them, or just finding one, or two, or five that fit what we want to experiment with, why not simply generate random tabular datasets?! 
+
+The function random-tabular-dataset of the package Data::Generators generates random tabular datasets using as arguments shape and generators specs. 
+
+### Completely random
+
+Here is an example of a "completely random" dataset:
+
+```perl6
+srand(5);
+random-tabular-dataset()
+==>encode-to-wl
+```
+
+![0pa4gx1mt42s9](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0pa4gx1mt42s9.png)
+
+### Specified column names and column value generators
+
+We can also generate random datasets by specifying column names and column generators:
+
+```perl6
+srand(32);
+random-tabular-dataset(10, <Task Story Epic>, generators=>{Task=>&random-pet-name, Epic=>&random-word})
+==>encode-to-wl
+```
+
+![1od87l5ns165l](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1od87l5ns165l.png)
+
+**Remark:** The column “Story” does not have a user specified generator, hence a generator  was (randomly) chosen for it.
+
+### Using generating sets instead generating functions
+
+Instead of using functions for the column generators we can use lists of objects: random-tabular-dataset generates automatically the corresponding sampling functions. Here we generate a random tabular dataset with $10$ rows, the columns “Eva”, “Jerry”, and “Project”, each column is assigned values from a small set of values:
+
+```perl6
+srand(1);
+my $tblWork=random-tabular-dataset(10, 
+                                   <Eva Jerry Project>, 
+                                   generators=>{
+                                         Eva=><Task Story Epic>, 
+                                         Jerry=><Task Story Epic>, 
+                                         Project=>(haikunate(tokenLength=>4) xx 4).List});
+$tblWork==>encode-to-wl
+```
+
+![16092phxsxor8](Diagrams/Introduction-to-Data-Wrangling-with-Raku/16092phxsxor8.png)
+
+I specified and generated the dataset above by having in mind its usage for cross tabulation illustrations -- see next section.
+
+------
+
+## Data wrangling for dummies (a reference for the rest of us)
+
+... *aka* ***“Espresso machine for code baristas”*** or ***“Data wrangling code generation”***.
+
+Instead of expecting people to know how to use certain Raku packages and commands for data wrangling why not 
+“just” generate the Raku code for them using natural language specifications? 
+Good code baristas, then, can modify that code to client’s requirements.
+
+Here we load the comprehensive translation package, []:
+
+```perl6
+use DSL::Shared::Utilities::ComprehensiveTranslation;
+
+(*"(Any)"*)
+```
+
+Here we define a command-string that specifies a data wrangling workflow:
+
+```perl6
+my $command='
+load dataset starwars;
+replace missing with "NA";
+group by homeworld;
+show counts'
+
+(*"load dataset starwars;replace missing with \"NA\";group by homeworld;show counts"*)
+```
+
+Here we translate that command to WL:
+
+```perl6
+ToDSLCode('dsl target Raku::Reshapers;'~$command):code
+
+# my $obj = example-dataset('starwars') ;
+# $obj = $obj.deepmap({ ( ($_ eqv Any) or $_.isa(Nil) or $_.isa(Whatever) ) ?? \"NA\" !! $_ }) ;
+# $obj = group-by( $obj, \"homeworld\") ;
+# say \"counts: \", $obj>>.elems"*)
+```
+
+In case you are curious here is what the code above produces:
+
+```perl6
+my $obj = example-dataset('starwars') ;
+$obj = $obj.deepmap({ ( ($_ eqv Any) or $_. isa(Nil) or $_. isa(Whatever) ) ?? "NA" !! $_ }) ;
+$obj = group-by( $obj, "homeworld") ;
+say "counts: ", $obj>>.elems
+
+# counts: {Alderaan => 3, Aleen Minor => 1, Bespin => 1, Bestine IV => 1, Cato Neimoidia => 1, Cerea => 1, 
+# Champala => 1, Chandrila => 1, Concord Dawn => 1, Corellia => 2, Coruscant => 3, Dathomir => 1, Dorin => 1,
+# Endor => 1, Eriadu => 1, Geonosis => 1, Glee Anselm => 1, Haruun Kal => 1, Iktotch => 1, Iridonia => 1, Kalee => 1, 
+# Kamino => 3, Kashyyyk => 2, Malastare => 1, Mirial => 2, Mon Cala => 1, Muunilinst => 1, NA => 10, Naboo => 11, 
+# Nal Hutta => 1, Ojom => 1, Quermia => 1, Rodia => 1, Ryloth => 2, Serenno => 1, Shili => 1, Skako => 1, Socorro => 1,
+# Stewjon => 1, Sullust => 1, Tatooine => 10, Toydaria => 1, Trandosha => 1, Troiken => 1, Tund => 1, Umbara => 1, 
+# Utapau => 1, Vulpter => 1, Zolan => 1}
+```
+
+```perl6
+ $obj>>.elems.pairs.sort({.value}).reverse
+
+# (Naboo => 11 Tatooine => 10 NA => 10 Coruscant => 3 Alderaan => 3 Kamino => 3 Kashyyyk => 2 Corellia => 2 Mirial => 2 Ryloth => 2 Nal Hutta => 1 Cato Neimoidia => 1 Endor => 1 Haruun Kal => 1 Concord Dawn => 1 Vulpter => 1 Socorro => 1 Stewjon => 1 Sullust => 1 Malastare => 1 Mon Cala => 1 Rodia => 1 Quermia => 1 Toydaria => 1 Tund => 1 Champala => 1 Iktotch => 1 Umbara => 1 Eriadu => 1 Troiken => 1 Shili => 1 Bestine IV => 1 Geonosis => 1 Muunilinst => 1 Iridonia => 1 Ojom => 1 Zolan => 1 Skako => 1 Dorin => 1 Aleen Minor => 1 Glee Anselm => 1 Bespin => 1 Kalee => 1 Chandrila => 1 Cerea => 1 Utapau => 1 Trandosha => 1 Dathomir => 1 Serenno => 1)
+```
+
+**Remark:**  For the same natural language command we can generate data wrangling code for other languages: Julia, Python, R, Wolfram Language.
+
+------
+
+## Doing it like a Cro
+
+... *aka* ***“Using a Cro-made web service for data wrangling code generation”***.
+
+Thinking further about the professional lifes of data scientist impostors and code baristas we can provide a Web service via constellation of Raku libraries Cro that translates natural language DSL into executable code. See the video [AAv5] for demonstration of such a system. Below we refer to it as the Cro Web Service (CWS). 
+
+### Obtaining code
+
+#### Data wrangling Raku code
+
+Here is an example of using CWS through Mathematica’s web interaction function [URLRead](https://reference.wolfram.com/language/ref/URLRead.html), [WRI3]:
+
+```mathematica
+command = "dsl target Raku; include setup code; load the dataset iris; group by Species; show counts";
+res = Import@URLRead[<|"Scheme" -> "http", "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", "Query" -> <|"command" -> command|>|>]
+
+(*"{\"DSLTARGET\": \"Raku\",\"USERID\": \"\",\"CODE\": \"use Data::Reshapers;\\nuse Data::Summarizers;\\nuse Data::ExampleDatasets;\\n\\nmy $obj = example-dataset('iris') ;\\n$obj = group-by( $obj, \\\"Species\\\") ;\\nsay \\\"counts: \\\", $obj>>.elems\",\"SETUPCODE\": \"use Data::Reshapers;\\nuse Data::Summarizers;\\nuse Data::ExampleDatasets;\\n\",\"STDERR\": \"\",\"DSL\": \"DSL::English::DataQueryWorkflows\",\"DSLFUNCTION\": \"proto sub ToDataQueryWorkflowCode (Str $command, Str $target = \\\"tidyverse\\\", |) {*}\",\"COMMAND\": \"dsl target Raku; include setup code; load the dataset iris; group by Species; show counts\"}"*)
+```
+
+Here we convert the JSON output from CWS and display it a tabular form:
+
+```mathematica
+ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadings -> {"Key", "Value"}]
+```
+
+![0yjdl2h650tsp](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0yjdl2h650tsp.png)
+
+#### Latent semantic analysis R code
+
+CWS provides code for other programming languages and types of workflows. Here is an example with Latent Semantic Analysis workflow code in R:
+
+```mathematica
+command = "USER ID BaristaNo12;dsl target R::LSAMon; include setup code;use aAbstracts; make document term matrix;apply LSI functions IDF, None, Cosine; extract 40 topics using method SVD;echo topics table" // StringTrim;
+res = Import@URLRead[<|"Scheme" -> "http", "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", "Query" -> <|"command" -> command|>|>];
+ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadings -> {"Key", "Value"}]
+```
+
+![1x6v7pe98sefw](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1x6v7pe98sefw.png)
+
+**Remark:** As it can be seen above, CWS can be given user identifiers, which allows for additional personalization of the parsing and interpretation results.
+
+### Obtaining programming code “on the spot“
+
+Here is the a diagram that shows the components of the system utilized through [Apple's Shortcuts](https://support.apple.com/guide/shortcuts/welcome/ios):
+
+```mathematica
+ImageCrop[Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSL-Web-Service-via-Cro-with-WE-QAS-Shortcuts.png"]]
+```
+
+![0ak5mpudq4tcm](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0ak5mpudq4tcm.png)
+
+In that diagram we can trace the following Shortcuts execution steps:
+
+1. In Mathematica notebook (or VS Code file) invoke Shortcuts
+
+1. Using Siri’s speech-to-text functionality enter text
+
+1. Shortcuts invokes CWS
+
+1. The result is returned in JSON form to Shortcuts
+
+1. Shortcuts examines the CWS result 
+
+1. If the parsing is successful
+
+    1. Shortcuts issues a notification
+
+    1. Makes the corresponding code is available in the clipboard
+
+1. If the parsing is not successful
+
+    1. Shortcuts issues a notification
+
+    1. Shows the full JSON output from CWS
+
+------
+
+## The one way to do it
+
+... *aka* ***“Leveraging the universality of natural language and the simplicity of the data wrangling model”***.
+
+The principle “there is more than one way to do it” is often found to be too constraining or too blocking. In my experience, code baristas and IT technology managers prefer one way of doing things. Also, not to be too exposed to the paradox of choice too much. If anything, voluntary simplicity and predictable mediocrity are preferred. Which is fine, since we have a solution that serves well the simple minded when they are single minded. 
+
+Here are the elements of proposed solution:
+
+- English-based Domain Specific Language (DSL) 
+
+- DSL translators for most popular data science languages
+
+- Simple to learn and keep in mind data wrangling methodology
+
+- The generate programming codes are expected to be “good starting points”
+
+    - I.e additionally tweaked by users according to desired outcomes.
+
+The solution does not cover *all possible* data wrangling undertakings, but I claim that for tabular data collections we can streamline any complicated data wrangling to a large degree. To rephrase, say, 60÷80% of data wrangling workflows can be handled with the solution. (Yeah, YMMV.)
+
+### [Appeal to authority](https://en.wikipedia.org/wiki/Argument_from_authority)
+
+The approach can be additionally justified by referring to Lao Tze’s [Tao Te Ching](https://en.wikipedia.org/wiki/Tao_Te_Ching) (Book 1, Chapter 11) or the interview with Larry Wall in “Masterminds of Programming”, [FS1]. But for now I will leave this as an exercise for the reader.
+
+-------
+
+## Heavy-brained instead of lighthearted 
+
+... *aka* ***“The user guide is boring”.***
+
+One of the Advent of Code organizers after seeing one my very initial drafts asked me to do something more lighthearted. 
+Well, this document is my lighthearted version of what wanted to proclaim on data wrangling with Raku. 
+You can find the “heavy-brained” version in [AA1]. The heavy-brained version compiles all explanations
+and usage examples given in the README files of the Raku packages [AAp1 ÷ AAp4].
+
+-------
+
+## A tale about the Wolf, the Ram, and the Raccoon
+
+... aka “Connecting Raku to Mathematica”.
+
+The short version of the tale is the following:
+
+    The Wolf, the Ram, and the Raccoon went into a socket. The socket was provided by [ZeroMQ](https://zeromq.org). (The end.)
+
+The long version is given in “Connecting Raku to Mathematica”, [AA2]. Using ZeroMQ, a Raku-to-WL serializer, [AAp6], we can execute Raku commands in Mathematica notebooks. 
+
+Why is this useful? Mathematica is the most powerful mathematical software and has one of the oldest most mature notebook solutions, hence connecting Raku to it would allow to leverage a host of functionalities provided by Mathematica.
+
+Here are some implications of the last statement:
+
+- Using notebooks facilitates interactive development or research (with Raku or other language)
+
+- The ability to visualize, and plot results (from Raku)
+
+- Mathematica has one of the oldest most mature notebook solutions
+
+- Comparative testing of results correctness
+
+    - Verifying Raku implementations to right thing
+
+    - Comparison with other languages that can be run in Mathematica notebooks Python, R, Julia, etc.
+
+Here is an example of using the serializer command encode-to-wl to convert a tabular dataset generated in Raku with the command random-tabular-dataset and displaying it in Mathematica as a “native” [Dataset](https://reference.wolfram.com/language/ref/Dataset.html)  object, [WRI1]:
+
+```perl6
+say to-pretty-table(random-tabular-dataset(3,5))
+
++---------------------+-----------+-----------+------------+-------------+
+|       appalled      |  slammer  |    aura   | anglophile | accompanied |
++---------------------+-----------+-----------+------------+-------------+
+|     salaciously     | 14.966161 | 91.331654 | 16.961175  |  15.061875  |
+| unconscientiousness | -1.617324 |  7.872224 | -4.440601  |   7.161489  |
+|         fey         |  8.157817 | 65.334798 |  2.785762  |   7.945464  |
++---------------------+-----------+-----------+------------+-------------+
+```
+
+```perl6
+random-tabular-dataset(3,5)==>encode-to-wl()
+```
+
+![06rfvy2fpqecy](Diagrams/Introduction-to-Data-Wrangling-with-Raku/06rfvy2fpqecy.png)
+
+**Remark:** In this document I use Mathematica and Wolfram Language (WL) as synonyms. 
+If we have to be precise, we should say something like “Mathematica is the software system (product) and 
+WL is the programming language in the software system.” Or something similar.
+
+------
+
+## Too green to be Red
+
+*... aka* ***“Didn’t implement data wrangling for Red and couldn’t install it”***.
+
+I am using standard Raku data structures in this document. It would have been nice to show examples of 
+data wrangling using the Raku package 
+[Red](https://github.com/FCO/Red), 
+[[FOC1](https://modules.raku.org/dist/Red:cpan:FCO)]. 
+My reasons for not doing it are the following:
+
+- I did not have time to implement Red actions to the module DSL::English::DataQueryWorkflows
+
+    - I also have not sufficiently “understood” Red.
+
+- I tried to install Red a few times and failed . 
+
+    - I assume it is me, but it might be also Raku, or Red, or my quick jump onto [macOS Monterey](https://www.apple.com/macos/monterey/)...
+
+------
+
+## Making the future more evenly distributed
+
+... *aka* ***“Immediate and long term future plans”***.
+
+Here are some of my future plans on data wrangling with Raku:
+
+- Data acquisition functionalities
+
+- Data acquisition conversational agent implementation
+
+    - I implemented such agent in WL, [AAv5].
+
+    - It would be both nice and interesting to make Raku implementation.
+
+- More extensive unit tests
+
+    - So far the unit tests are at bare minimum
+
+- Performance improvements
+
+    - At this point I have not considered how fast or slow are Raku data wrangling functions.
+
+    - Of course, that has to be investigated in sufficient detail.
+
+--------
+
+## Setup
+
+### Load Mathematica packages
+
+```mathematica
+Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuMode.m"]
+Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuEncoder.m"]
+Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuDecoder.m"]
+```
+
+![19g68tfvhmqnr](Diagrams/Introduction-to-Data-Wrangling-with-Raku/19g68tfvhmqnr.png)
+
+```mathematica
+Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/DSLMode.m"]
+```
+
+![0yzyhr88sy21g](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0yzyhr88sy21g.png)
+
+![1wmxsuqlgnswh](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1wmxsuqlgnswh.png)
+
+![0ofsa237g19ec](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0ofsa237g19ec.png)
+
+![0dfjtj85b54nu](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0dfjtj85b54nu.png)
+
+![1tq8z9o4nkf07](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1tq8z9o4nkf07.png)
+
+![1ot545n8z1fd0](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1ot545n8z1fd0.png)
+
+![1l6gk8lswm9h6](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1l6gk8lswm9h6.png)
+
+![1loegav1evtwf](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1loegav1evtwf.png)
+
+![0owv72jay6frn](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0owv72jay6frn.png)
+
+### Start Raku process
+
+```mathematica
+KillRakuProcess[]
+```
+
+```mathematica
+SetOptions[RakuInputExecute, Epilog -> (FromRakuCode[#, DisplayFunction -> (Dataset[#, MaxItems -> {Automatic, All}] &)] &)];
+StartRakuProcess["Raku" -> "/Users/antonov/.rakubrew/shims/raku"]
+```
+
+![1rrcnu0nl91a6](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1rrcnu0nl91a6.png)
+
+```mathematica
+RakuMode[]
+```
+
+### Load Raku packages
+
+```perl6
+use Data::Generators;
+use Data::Reshapers;
+use Data::Summarizers;
+use Data::ExampleDatasets;
+use Haikunator;
+use Mathematica::Serializer;
+
+(*"(Any)"*)
+```
+
+```perl6
+use DSL::Shared::Utilities::ComprehensiveTranslation;
+
+(*"(Any)"*)
+```
+
+## References
+
+### Articles, books
+
+[AA1] Anton Antonov, Data wrangling in Raku, (2021), RakuForPrediction-book at GitHub.
+
+[AA2] Anton Antonov, Connecting Raku to Mathematica, (2021), RakuForPrediction-book at GitHub.
+
+[HW1] Hadley Wickham, ["The Split-Apply-Combine Strategy for Data Analysis"](https://www.jstatsoft.org/article/view/v040i01), (2011), [Journal of Statistical Software](https://www.jstatsoft.org).
+
+[FB1]  Federico Biancuzzi and Shane Warden, (2009). [Masterminds of Programming: Conversations with the Creators of Major Programming Languages](https://www.oreilly.com/library/view/masterminds-of-programming/9780596801670/). ISBN 978-0596515171. See page. 385.
+
+### Functions, packages, repositories
+
+[AAp1] Anton Antonov, [Data::Reshapers](https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV), (2021), [Raku Modules](https://modules.raku.org).
+
+[AAp2] Anton Antonov, [Data::Summarizers](https://github.com/antononcube/Raku-Data-Summarizers), (2021), [Raku Modules](https://modules.raku.org).
+
+[AAp3] Anton Antonov, [Data::ExampleDatasets](https://github.com/antononcube/Raku-Data-ExampleDatasets), (2021), [Raku Modules](https://modules.raku.org).
+
+[AAp4] Anton Antonov, [Data::Generators](https://modules.raku.org/dist/Data::Generators:cpan:ANTONOV), (2021), [Raku Modules](https://modules.raku.org).
+
+[AAp5] Anton Antonov, [Mathematica::Serializer Raku package](https://github.com/antononcube/Raku-Mathematica-Serializer), (2021), [GitHub/antononcube](https://github.com/antononcube).
+
+[AAp6] Anton Antonov, DSL::English::DataQueryWorkflows Raku package, (2020-2021), [GitHub/antononcube](https://github.com/antononcube).
+
+[AAp7] Anton Antonov, [DSL::Utilities::ComprehensiveTranslation](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation), (2020), [GitHub/antononcube](https://github.com/antononcube).
+
+[FOCp1] Fernando Correa de Oliveira, [Red](https://modules.raku.org/dist/Red:cpan:FCO), (last updated 2021-11-22), [Raku Modules](https://modules.raku.org).
+
+[JSp1] Jonathan Stowe, [XDG::BaseDirectory](https://modules.raku.org/dist/XDG::BaseDirectory:cpan:JSTOWE), (last updated 2021-03-31), [Raku Modules](https://modules.raku.org).
+
+[WRI1] Wolfram Research (2014), [Dataset](https://reference.wolfram.com/language/ref/Dataset.html), Wolfram Language function, https://reference.wolfram.com/language/ref/Dataset.html (updated 2021).
+
+[WRI2] Wolfram Research (2008), [ParallelCombine](https://reference.wolfram.com/language/ref/ParallelCombine.html), Wolfram Language function, https://reference.wolfram.com/language/ref/ParallelCombine.html (updated 2010).
+
+[WRI3] Wolfram Research (2016), [URLRead](https://reference.wolfram.com/language/ref/URLRead.html), Wolfram Language function, https://reference.wolfram.com/language/ref/URLRead.html.
+
+### Presentation video recordings
+
+[AAv1] Anton Antonov, ["Raku for Prediction"](https://conf.raku.org/talk/157), (2021), [The Raku Conference 2021](https://conf.raku.org).
+
+[AAv2] Anton Antonov, ["Multi-language Data-Wrangling Conversational Agent"](https://www.youtube.com/watch?v=pQk5jwoMSxs), (2020), Wolfram Technology Conference 2020, [YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
+
+[AAv3] Anton Antonov, ["Data Transformation Workflows with Anton Antonov, Session #1"](https://www.youtube.com/watch?v=iXrXMQdXOsM), (2020), [YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
+
+[AAv4] Anton Antonov, ["Data Transformation Workflows with Anton Antonov, Session #2"](https://www.youtube.com/watch?v=DWGgFsaEOsU), (2020), [YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
+
+[AAv5] Anton Antonov, ["Doing it like a Cro (Raku data wrangling Shortcuts demo)"](https://youtu.be/wS1lqMDdeIY), (2021), [A.Antonov channel at YouTube](https://www.youtube.com/channel/UC5qMPIsJeztfARXWdIw3Xzw).
+
+[AAv6] Anton Antonov, ["Multi language Data Acquisition Conversational Agent (extended version)"](https://www.youtube.com/watch?v=KlEl2b8oxb8), (2021), [A.Antonov channel at YouTube](https://www.youtube.com/channel/UC5qMPIsJeztfARXWdIw3Xzw).

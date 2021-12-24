@@ -762,7 +762,7 @@ Here are some of my future plans on data wrangling with Raku:
 
     - I implemented such agent in WL, [AAv5].
 
-    - It would be both nice and interesting to make Raku implementation.
+    - It would be both nice and interesting to make a Raku implementation.
 
 - More extensive unit tests
 
@@ -770,7 +770,7 @@ Here are some of my future plans on data wrangling with Raku:
 
 - Performance improvements
 
-    - At this point I have not considered how fast or slow are Raku data wrangling functions.
+    - At this point I have not considered how fast or slow are the Raku data wrangling functions.
 
     - Of course, that has to be investigated in sufficient detail.
 

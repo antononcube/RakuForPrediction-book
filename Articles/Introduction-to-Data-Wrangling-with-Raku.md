@@ -676,31 +676,35 @@ and usage examples given in the README files of the Raku packages [AAp1 ÷ AAp4]
 
 ## A tale about the Wolf, the Ram, and the Raccoon
 
-... aka “Connecting Raku to Mathematica”.
+... *aka* ***“Connecting Raku to Mathematica”***.
 
 The short version of the tale is the following:
 
-    The Wolf, the Ram, and the Raccoon went into a socket. The socket was provided by [ZeroMQ](https://zeromq.org). (The end.)
+> The Wolf, the Ram, and the Raccoon went into a socket. The socket was provided by [ZeroMQ](https://zeromq.org). (The end.)
 
 The long version is given in “Connecting Raku to Mathematica”, [AA2]. Using ZeroMQ, a Raku-to-WL serializer, [AAp6], we can execute Raku commands in Mathematica notebooks. 
 
-Why is this useful? Mathematica is the most powerful mathematical software and has one of the oldest most mature notebook solutions, hence connecting Raku to it would allow to leverage a host of functionalities provided by Mathematica.
+Why is this useful? Mathematica is the most powerful mathematical software system and has one of the oldest most mature notebook solutions. Hence connecting Raku to Mathematica allows to facilitate and leverage some interesting synergies between the two.
 
-Here are some implications of the last statement:
+Here are some Raku-centric implications of the last statement:
 
-- Using notebooks facilitates interactive development or research (with Raku or other language)
+- Using notebooks facilitates interactive development or research (with Raku)
 
-- The ability to visualize, and plot results (from Raku)
+- The ability to visualize, and plot results (derived with Raku)
 
-- Mathematica has one of the oldest most mature notebook solutions
+- Combining evaluations with other programming languages
+ 
+  - That can be run in Mathematica notebooks: Python, R, Julia, etc.
+
+- Literate programming
 
 - Comparative testing of results correctness
 
-    - Verifying Raku implementations to right thing
+    - Verifying that Raku implementations do "the right thing"
 
-    - Comparison with other languages that can be run in Mathematica notebooks Python, R, Julia, etc.
+    - Comparison with other languages "doing the same thing"
 
-Here is an example of using the serializer command encode-to-wl to convert a tabular dataset generated in Raku with the command random-tabular-dataset and displaying it in Mathematica as a “native” [Dataset](https://reference.wolfram.com/language/ref/Dataset.html)  object, [WRI1]:
+Here is an example of using the serializer command `encode-to-wl` to convert a tabular dataset generated in Raku with the command `random-tabular-dataset` and displaying it in Mathematica as a “native” [`Dataset`](https://reference.wolfram.com/language/ref/Dataset.html) object, [WRI1]:
 
 ```perl6
 say to-pretty-table(random-tabular-dataset(3,5))
@@ -722,7 +726,7 @@ random-tabular-dataset(3,5)==>encode-to-wl()
 
 **Remark:** In this document I use Mathematica and Wolfram Language (WL) as synonyms. 
 If we have to be precise, we should say something like “Mathematica is the software system (product) and 
-WL is the programming language in the software system.” Or something similar.
+WL is the backend programming language in the software system.” Or something similar.
 
 ------
 

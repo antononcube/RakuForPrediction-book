@@ -221,7 +221,7 @@ The following flow-chart encompasses the data transformations workflows we consi
 plWorkflows = ImageCrop@Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.png"]
 ```
 
-![0y4qdm1z0svvv](https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.png)
+![0y4qdm1z0svvv](https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.jpg)
 
 **Remark:** We are going to refer to the methodology represented by the flow chart above as the ***Data Transformation Workflows Model*** (DTWM). In this document we consider that methodology and the flow chart as synonyms.
 
@@ -381,7 +381,7 @@ The values of the plot above are logarithms with base 10. We can see that the ma
 
 ### Dataset identifiers
 
-A dataset identifiers is composed with a package name and an item name. As it can be seen in the summary table above, a package can have multiple items, and the same item name might be found in multiple packages. Hence, with certain dataset specifications the function `example-dataset` gives a warning of multiple packages without retrieving any data:
+A dataset identifier is composed with a package name and an item name, separated by `"::"`. As it can be seen in the summary table above, a package can have multiple items, and the same item name might be found in multiple packages. Hence, with certain dataset specifications the function `example-dataset` gives a warning of multiple packages without retrieving any data:
 
 ```perl6
 example-dataset(/ .* smoking .* /)

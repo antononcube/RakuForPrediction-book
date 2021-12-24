@@ -9,9 +9,13 @@ December 2021
 
 ## Introduction
 
-One of my current life missions is the speeding up of the next [AI winter](https://en.wikipedia.org/wiki/AI_winter) coming. I have decided to use Raku to accomplish that mission. (Well, at least in the beginning...) 
+One of my current life missions is the speeding up of the next [AI winter](https://en.wikipedia.org/wiki/AI_winter) coming. 
+I have decided to use Raku to accomplish that mission. (Well, at least in the beginning...) 
 
-Also, I find the term Artificial Intelligence (AI) to be a brilliant marketing phrase for extracting money of the US military complex and all kinds of financial investors. When people who claim to be, say, “data science professionals” use it in professional settings, I become highly suspicious of their “professionalism.” (Meaning, they are most likely some clueless wannabes.)
+Also, I find the term Artificial Intelligence (AI) to be a brilliant marketing phrase for extracting money of the 
+US military complex and all kinds of financial investors. When people who claim to be, say, “data science professionals” 
+use it in professional settings, I become highly suspicious of their “professionalism.” 
+(Meaning, they are most likely some clueless wannabes.)
 
 Back to next AI winter coming speed-up -- here is my plan:
 
@@ -27,7 +31,8 @@ Back to next AI winter coming speed-up -- here is my plan:
 
 See the presentation ["Raku for Prediction"](https://conf.raku.org/talk/157), [AAv2], that describes my efforts over Point 2 using Raku.
 
-A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, talentless mass of AI practitioners.”
+A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, 
+talentless mass of AI practitioners.”
 
 The profit in Point 5 comes from "the field" being "clear", hence, less competition for getting funding and investments.
 (Even after this clarification some might still think my list above is too similar to the one concocted by the gnomes in 
@@ -47,7 +52,11 @@ The rest of this document is more technical -- readers can just read or skim the
 ”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version 
 “Data wrangling with Raku”, [AA1].
 
-**Remark:** Occasionally the code below might have the Raku expression ==>encode-to-wl(). This is for serializing Raku objects into [Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) expressions. (This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
+**Remark:** Occasionally the code below might have the Raku `expression ==>encode-to-wl()`. 
+This is for serializing Raku objects into 
+[Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) 
+expressions. 
+(This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
 
 **Remark:** The target audience for this document is mostly consists of people exposed to Perl’s and Raku’s cultures and cults. 
 But most of this document should be accessible and of interest to the un-perled programmers or data scientists.
@@ -260,23 +269,23 @@ Here is a simple use case scenario walkthrough:
 
 1. Obtain a tabular dataset from a warehouse.
 
-1. Summarize and examine the dataset and decide that does not have the desired form and content.
+2. Summarize and examine the dataset and decide that does not have the desired form and content.
 
     1. I.e. the data have to be wrangled.
 
-1. Select only the columns that have the data of interest.
+3. Select only the columns that have the data of interest.
 
-1. Filter the rows according to a certain operational criteria.
+4. Filter the rows according to a certain operational criteria.
 
-1. Split the rows -- i.e. group by the values in one of the columns.
+5. Split the rows -- i.e. group by the values in one of the columns.
 
-1. Transform each group by combining the values of each column in some way.
+6. Transform each group by combining the values of each column in some way.
 
     1. For example finding means or standard deviations of numerical columns.
 
-1. Combine the transformed groups (into one “flat” tabular datasets.)
+7. Combine the transformed groups (into one “flat” tabular datasets.)
 
-1. Reshape the data into long format and export it. 
+8. Reshape the data into long format and export it. 
 
 The above list of steps is just one possible workflow. For more detailed examples and explanations see [AA1, AAv2, AAv3, AAv4].
 
@@ -703,7 +712,9 @@ and a
 [Raku-to-WL serializer](https://github.com/antononcube/Raku-Mathematica-Serializer), 
 [AAp6], we can execute Raku commands in Mathematica notebooks. 
 
-Why is this useful? Mathematica is the most powerful mathematical software system and has one of the oldest most mature notebook solutions. Hence connecting Raku to Mathematica allows to facilitate and leverage some interesting synergies between the two.
+Why is this useful? Mathematica is the most powerful mathematical software system and has one of the oldest,
+most mature notebook solutions. Hence, connecting Raku to Mathematica allows facilitating and leveraging
+some interesting synergies between the two.
 
 Here are some Raku-centric implications of the last statement:
 
@@ -768,7 +779,8 @@ My reasons for not doing it can be summarized as "too much immaturity." More pre
 
 - I tried to install `Red` a few times and failed . 
 
-    - I assume it is me, but it might be also Raku, or `Red`, or my quick jump onto [macOS Monterey](https://www.apple.com/macos/monterey/)...
+    - I assume it is me, but it might be also Raku, or `Red`, or my quick jump onto 
+      [macOS Monterey](https://www.apple.com/macos/monterey/)...
 
 ------
 
@@ -778,25 +790,29 @@ My reasons for not doing it can be summarized as "too much immaturity." More pre
 
 Here are some of my future plans on data wrangling with Raku:
 
-- Data acquisition functionalities
+- Data acquisition functionalities implementations.
 
-- Data acquisition conversational agent implementation
+- Data acquisition conversational agent implementation.
 
-    - I implemented such agent in WL, [AAv5].
+    - I implemented such an agent in WL, [AAv5].
 
     - It would be both nice and interesting to make a Raku implementation.
 
-- More extensive unit tests
+- More extensive unit tests.
 
-    - So far the unit tests are at bare minimum
+    - So far the unit tests are at bare minimum.
 
-- Performance improvements
+- Performance investigations and improvements.
 
     - At this point I have not considered how fast or slow are the Raku data wrangling functions.
 
     - Of course, that has to be investigated in sufficient detail.
 
 - Natural language commands translations for Object Relational Mapping system(s) like `Red`, [FCO1].
+
+- Convert Mathematica data wrangling unit tests into Raku tests.
+
+   - That applies to both the code generation from natural language commands tests and data wrangling operation tests. 
 
 --------
 

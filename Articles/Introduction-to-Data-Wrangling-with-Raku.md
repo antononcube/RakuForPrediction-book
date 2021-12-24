@@ -58,7 +58,9 @@ load dataset iris;
 group by Species;
 show counts"):code
 
-(*"obj = example_dataset('iris')obj = obj.groupby([\"Species\"])print(obj.size())"*)
+# obj = example_dataset('iris')
+# obj = obj.groupby([\"Species\"])
+# print(obj.size())
 ```
 
 Here is an example of data wrangling ***with*** Raku:
@@ -68,16 +70,21 @@ my $obj = example-dataset(/ iris $ /);
 $obj = group-by($obj, "Species");
 say $obj>>.elems
 
-(*"{setosa => 50, versicolor => 50, virginica => 50}"*)
+# {setosa => 50, versicolor => 50, virginica => 50}
 ```
 
-In the following diagram that summarizes my data wrangling activities (and indicates future plans with dashed lines) the “Raku-for” efforts are represented are represented by the hexagon, the “with-Raku” efforts are indicated bottom-right.
+THe following diagram:
+
+- Summarizes my data wrangling activities
+- Indicates future plans with dashed lines
+- Represents “Raku-for” efforts with the hexagon
+- Represents “with-Raku” efforts bottom-right
 
 ```mathematica
 ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png"]
 ```
 
-![1ljtfejml1s9s](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1ljtfejml1s9s.png)
+![1ljtfejml1s9s](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png)
 
 Here is an example of translating English data wrangling specs into Bulgarian, Korean, and Spanish data wrangling specs:
 

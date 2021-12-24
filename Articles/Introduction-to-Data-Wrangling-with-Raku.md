@@ -29,9 +29,18 @@ See the presentation ["Raku for Prediction"](https://conf.raku.org/talk/157), [A
 
 A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, talentless mass of AI practitioners.”
 
-Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... So, if I am serious about speeding-up AI winters comings, I must get serious about speeding-up data wrangling incantations in different programming languages; [AAv2]. Since I firmly believe that it is good to occasionally eat your own dog food, I also programmed (in the last few weeks) data wrangling packages in Raku. Who knows, that might be a way to Rakunize AI, and -- [to rephrase Larry Wall](https://en.wikipedia.org/wiki/Raku_(programming_language)#History) -- some users might get their fix. (See  also [FB1].)
+Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... 
+So, if I am serious about influencing the evolution curves of AI, then I must get serious about influencing 
+data wrangling incantations derivations in different programming languages; [AAv2]. 
+Since I firmly believe that it is good to occasionally eat your own dog food, 
+I programmed (in the last few weeks) data wrangling packages in Raku. 
+Who knows, that might be a way to Rakunize AI, and -- 
+[to rephrase Larry Wall](https://en.wikipedia.org/wiki/Raku_(programming_language)#History) 
+-- some users might get their fix. (See also [FB1].)
 
-The rest of this document is more technical -- readers can just read or skim the next section and the section ”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version “Data wrangling with Raku”, [AA1].
+The rest of this document is more technical -- readers can just read or skim the next section and the section 
+”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version 
+“Data wrangling with Raku”, [AA1].
 
 **Remark:** Occasionally the code below might have the Raku expression ==>encode-to-wl(). This is for serializing Raku objects into [Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) expressions. (This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
 
@@ -545,7 +554,7 @@ Thinking further about the professional lives of data scientist impostors and co
 -- via the constellation of Raku libraries Cro -- that translates natural language DSL into executable code. 
 See the video [AAv5] for a demonstration of such a system. Below we refer to it as the Cro Web Service (CWS). 
 
-### Obtaining code
+### Getting code through the Web API
 
 #### Data wrangling Raku code
 
@@ -590,7 +599,7 @@ ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadi
 **Remark:** As it can be seen above, CWS can be given user identifiers, which allows for additional personalization 
 of the parsing and interpretation results.
 
-### Obtaining programming code “on the spot“
+### Getting code “on the spot“
 
 Here is a diagram that shows the components of the system utilized through 
 [Apple's Shortcuts](https://support.apple.com/guide/shortcuts/welcome/ios):
@@ -682,7 +691,11 @@ The short version of the tale is the following:
 
 > The Wolf, the Ram, and the Raccoon went into a socket. The socket was provided by [ZeroMQ](https://zeromq.org). (The end.)
 
-The long version is given in “Connecting Raku to Mathematica”, [AA2]. Using ZeroMQ, a Raku-to-WL serializer, [AAp6], we can execute Raku commands in Mathematica notebooks. 
+The long version is given in “Connecting Raku to Mathematica”, [AA2]. 
+Using [ZeroMQ](https://zeromq.org)
+and a 
+[Raku-to-WL serializer](https://github.com/antononcube/Raku-Mathematica-Serializer), 
+[AAp6], we can execute Raku commands in Mathematica notebooks. 
 
 Why is this useful? Mathematica is the most powerful mathematical software system and has one of the oldest most mature notebook solutions. Hence connecting Raku to Mathematica allows to facilitate and leverage some interesting synergies between the two.
 
@@ -700,11 +713,14 @@ Here are some Raku-centric implications of the last statement:
 
 - Comparative testing of results correctness
 
-    - Verifying that Raku implementations do "the right thing"
+    - Verifying that Raku new implementations do "the right thing"
 
     - Comparison with other languages "doing the same thing"
 
-Here is an example of using the serializer command `encode-to-wl` to convert a tabular dataset generated in Raku with the command `random-tabular-dataset` and displaying it in Mathematica as a “native” [`Dataset`](https://reference.wolfram.com/language/ref/Dataset.html) object, [WRI1]:
+Here is an example of using the serializer command `encode-to-wl` to convert a tabular dataset generated in Raku 
+with the command `random-tabular-dataset` and displaying it in Mathematica as a “native” 
+[`Dataset`](https://reference.wolfram.com/language/ref/Dataset.html) 
+object, [WRI1]:
 
 ```perl6
 say to-pretty-table(random-tabular-dataset(3,5))

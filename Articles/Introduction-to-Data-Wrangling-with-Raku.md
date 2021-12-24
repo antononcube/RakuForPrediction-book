@@ -30,6 +30,9 @@ See the presentation ["Raku for Prediction"](https://conf.raku.org/talk/157), [A
 A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, talentless mass of AI practitioners.”
 
 The profit in Point 5 comes from "the field" being "clear", hence, less competition for getting funding and investments.
+(Even after this clarification some might still think my list above is too similar to one concocted by the gnomes in 
+[South Park's "Gnomes"](https://en.wikipedia.org/wiki/Gnomes_(South_Park));
+and that is just fine with me.)
 
 Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... 
 So, if I am serious about influencing the evolution curves of AI, then I must get serious about influencing 
@@ -46,13 +49,14 @@ The rest of this document is more technical -- readers can just read or skim the
 
 **Remark:** Occasionally the code below might have the Raku expression ==>encode-to-wl(). This is for serializing Raku objects into [Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) expressions. (This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
 
-**Remark:** The target audience for this document is mostly comprised of people exposed to Perl’s and Raku’s cultures and cults. But most of this document should be accessible and of interest to the un-perled programmers or data scientists.
+**Remark:** The target audience for this document is mostly consists of people exposed to Perl’s and Raku’s cultures and cults. 
+But most of this document should be accessible and of interest to the un-perled programmers or data scientists.
 
 ------
 
 ## 楽-for ÷ with-楽
 
-... aka ***“Raku-for vs with-Raku”*** *(also, maybe, “enjoyment for vs with enjoyment.”)*
+... aka ***“Raku-for vs with-Raku”*** *(also, maybe, "enjoyment for" vs "with enjoyment.")*
 
 First, let us make the following distinction:
 

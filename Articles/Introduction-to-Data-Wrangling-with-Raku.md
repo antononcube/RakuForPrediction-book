@@ -30,7 +30,7 @@ See the presentation ["Raku for Prediction"](https://conf.raku.org/talk/157), [A
 A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, talentless mass of AI practitioners.”
 
 The profit in Point 5 comes from "the field" being "clear", hence, less competition for getting funding and investments.
-(Even after this clarification some might still think my list above is too similar to one concocted by the gnomes in 
+(Even after this clarification some might still think my list above is too similar to the one concocted by the gnomes in 
 [South Park's "Gnomes"](https://en.wikipedia.org/wiki/Gnomes_(South_Park));
 and that is just fine with me.)
 

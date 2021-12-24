@@ -299,9 +299,9 @@ See [AA1, Wk1, Wk2, AAv1-AAv4] for more details.
 
 ... *aka* ***“Data acquisition of well known datasets into Raku”***.
 
-We have to have access to some typical datasets used in (academic) Statistics classes or in books and packages for exemplifying concepts, and software designs and know-how. And, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in their interaction with others.
+We have to have access to some typical datasets used in (academic) Statistics classes or in books and packages that exemplify Statistics concepts, or have orvexplain related software designs and know-how. And, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in their interaction with others.
 
-The Raku package Data::ExamplesDatasets provides functions for obtaining (relatively well known) example datasets. That package itself contains only datasets metadata -- the datasets are downloaded from the repository [Rdatasets](https://github.com/vincentarelbundock/Rdatasets/), [VAB1]. 
+The Raku package `Data::ExamplesDatasets` provides functions for obtaining (relatively well known) example datasets. That package itself contains only datasets metadata -- the datasets are downloaded from the repository [Rdatasets](https://github.com/vincentarelbundock/Rdatasets/), [VAB1]. 
 
 Here we get a famous example dataset using a regex:
 
@@ -320,7 +320,7 @@ dimensions($iris)
 # (150 6)
 ```
 
-We can get the documentation URL for that dataset by using the function item-to-doc-url:
+We can get the documentation URL for that dataset by using the function `item-to-doc-url`:
 
 ```perl6
 use Data::ExampleDatasets::AccessData;
@@ -363,7 +363,7 @@ records-summary(delete-columns(get-datasets-metadata(),<Title CSV Doc>), max-tal
 # +---------------------+------------------+--------------------+------------------+--------------------+--------------------+-----------------------+--------------------+---------------------+
 ```
 
-Here is a histogram of the distribution of the number of rows across the examples datasets (getting the data in Raku, plotting histogram with WL):
+Here is a histogram of the distribution of the number of rows across the examples datasets (getting the data in Raku, plotting the histogram with WL):
 
 ```perl6
 select-columns(get-datasets-metadata(),"Rows")
@@ -377,11 +377,11 @@ Histogram[Log10@Normal[%["Rows"]], PlotRange -> All, PlotTheme -> "Detailed", Fr
 
 ![1cx8e3kb02ggb](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1cx8e3kb02ggb.png)
 
-The values of the plot above logarithms with base 10. We can see that the majority of the datasets have rows between 10 and 1000, which is also “confirmed” with summary table above.
+The values of the plot above are logarithms with base 10. We can see that the majority of the datasets have between 10 and 1000 rows, which is also “confirmed” with the summary table above.
 
 ### Dataset identifiers
 
-The dataset identifiers are composed with package name and item name. As it can be seen in the summary table above, a package can have multiple items, and the same item name might be found in multiple packages. Hence, with certain dataset specifications example-dataset gives a warning of multiple packages without retrieving any data:
+A dataset identifiers is composed with a package name and an item name. As it can be seen in the summary table above, a package can have multiple items, and the same item name might be found in multiple packages. Hence, with certain dataset specifications the function `example-dataset` gives a warning of multiple packages without retrieving any data:
 
 ```perl6
 example-dataset(/ .* smoking .* /)
@@ -392,7 +392,7 @@ example-dataset(/ .* smoking .* /)
 #ERROR: COUNT::smoking	https://vincentarelbundock.github.io/Rdatasets/csv/COUNT/smoking.csv(Any)
 ```
 
-Here we retrieve a specific dataset using an identifier that comprised of the package name and item name (separated with “::”):
+Here we retrieve a specific dataset using an identifier that is comprised of the package name and item name (separated with “::”):
 
 ```perl6
 example-dataset('COUNT::smoking')
@@ -412,10 +412,10 @@ example-dataset('COUNT::smoking')
 
 ### Memoization
 
-The main package function, example-dataset, has the adverb keep. 
-If that adverb is given then example-dataset stores the web-retrieved data in the directory `XDG_DATA_HOME` and subsequently retrieves it from there. 
+The main package function, `example-dataset`, has the adverb `keep`. 
+If that adverb is given then `example-dataset` stores the web-retrieved data in the directory `XDG_DATA_HOME` and subsequently retrieves it from there. 
 See ["Freedesktop.org Specifications"](https://specifications.freedesktop.org) and [JS1] for more details 
-what is the concrete value of the OS environmental variable `XDG_DATA_HOME`.
+what is the concrete value of the environmental variable `XDG_DATA_HOME`.
 
 ------
 

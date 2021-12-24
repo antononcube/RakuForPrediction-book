@@ -107,6 +107,11 @@ for <Bulgarian Korean Spanish> -> $l {
 As the diagram above indicates, I intend to use that framework to narrate data wrangling Raku code with natural languages. 
 Also, of course, translate into other programing languages.
 
+**Remark:** For a long time I used the principle "the clothes have not emperor", [AAv1], which, 
+of course belongs to the "Raku-for-prediction" approach. By endowing Raku with (i) data wrangling capabilities, and 
+(ii) the ability to generate data wrangling Raku code, I would say that those clothes might get properly manned. 
+And vice versa -- the shoemaker's children will hop around properly shod.
+
 ------
 
 ## Datum fundamentum
@@ -617,7 +622,7 @@ Here are the elements of proposed solution:
 
 - Simple to learn and keep in mind data wrangling methodology
 
-- The generate programming codes are expected to be “good starting points”
+- The generated programming codes are expected to be “good starting points”
 
     - I.e additionally tweaked by users according to desired outcomes.
 
@@ -631,11 +636,13 @@ The approach can be additionally justified by referring to Lao Tze’s [Tao Te C
 
 ## Heavy-brained instead of lighthearted 
 
-... *aka* ***“The user guide is boring”.***
+... *aka* ***“The user guide is quite boring”***.
 
 One of the Advent of Code organizers after seeing one my very initial drafts asked me to do something more lighthearted. 
-Well, this document is my lighthearted version of what wanted to proclaim on data wrangling with Raku. 
-You can find the “heavy-brained” version in [AA1]. The heavy-brained version compiles all explanations
+Well, this document is my lighthearted version of what I wanted to say about my efforts to endow the Raku ecosystem with 
+data wrangling capabilities that resemble approaches in other, well known systems. 
+
+The original, “heavy-brained” version is [AA1]. The heavy-brained version compiles all explanations
 and usage examples given in the README files of the Raku packages [AAp1 ÷ AAp4].
 
 -------
@@ -671,13 +678,13 @@ Here is an example of using the serializer command encode-to-wl to convert a tab
 ```perl6
 say to-pretty-table(random-tabular-dataset(3,5))
 
-+---------------------+-----------+-----------+------------+-------------+
-|       appalled      |  slammer  |    aura   | anglophile | accompanied |
-+---------------------+-----------+-----------+------------+-------------+
-|     salaciously     | 14.966161 | 91.331654 | 16.961175  |  15.061875  |
-| unconscientiousness | -1.617324 |  7.872224 | -4.440601  |   7.161489  |
-|         fey         |  8.157817 | 65.334798 |  2.785762  |   7.945464  |
-+---------------------+-----------+-----------+------------+-------------+
+# +---------------------+-----------+-----------+------------+-------------+
+# |       appalled      |  slammer  |    aura   | anglophile | accompanied |
+# +---------------------+-----------+-----------+------------+-------------+
+# |     salaciously     | 14.966161 | 91.331654 | 16.961175  |  15.061875  |
+# | unconscientiousness | -1.617324 |  7.872224 | -4.440601  |   7.161489  |
+# |         fey         |  8.157817 | 65.334798 |  2.785762  |   7.945464  |
+# +---------------------+-----------+-----------+------------+-------------+
 ```
 
 ```perl6
@@ -699,16 +706,16 @@ WL is the programming language in the software system.” Or something similar.
 I am using standard Raku data structures in this document. It would have been nice to show examples of 
 data wrangling using the Raku package 
 [Red](https://github.com/FCO/Red), 
-[[FOC1](https://modules.raku.org/dist/Red:cpan:FCO)]. 
-My reasons for not doing it are the following:
+[[FCO1](https://modules.raku.org/dist/Red:cpan:FCO)]. 
+My reasons for not doing it can be summarized as "too much immaturity." More precisely:
 
-- I did not have time to implement Red actions to the module DSL::English::DataQueryWorkflows
+- I did not have time to implement Red actions to the module `DSL::English::DataQueryWorkflows`
 
-    - I also have not sufficiently “understood” Red.
+    - I also have not sufficiently “understood” `Red`.
 
-- I tried to install Red a few times and failed . 
+- I tried to install `Red` a few times and failed . 
 
-    - I assume it is me, but it might be also Raku, or Red, or my quick jump onto [macOS Monterey](https://www.apple.com/macos/monterey/)...
+    - I assume it is me, but it might be also Raku, or `Red`, or my quick jump onto [macOS Monterey](https://www.apple.com/macos/monterey/)...
 
 ------
 
@@ -736,9 +743,13 @@ Here are some of my future plans on data wrangling with Raku:
 
     - Of course, that has to be investigated in sufficient detail.
 
+- Natural language commands translations for Object Relational Mapping system(s) like `Red`, [FCO1].
+
 --------
 
 ## Setup
+
+*This section has Mathematica and Raku code for running the document examples in a Mathematica notebook.*
 
 ### Load Mathematica packages
 
@@ -836,7 +847,7 @@ use DSL::Shared::Utilities::ComprehensiveTranslation;
 
 [AAp7] Anton Antonov, [DSL::Utilities::ComprehensiveTranslation](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation), (2020), [GitHub/antononcube](https://github.com/antononcube).
 
-[FOCp1] Fernando Correa de Oliveira, [Red](https://modules.raku.org/dist/Red:cpan:FCO), (last updated 2021-11-22), [Raku Modules](https://modules.raku.org).
+[FCOp1] Fernando Correa de Oliveira, [Red](https://modules.raku.org/dist/Red:cpan:FCO), (last updated 2021-11-22), [Raku Modules](https://modules.raku.org).
 
 [JSp1] Jonathan Stowe, [XDG::BaseDirectory](https://modules.raku.org/dist/XDG::BaseDirectory:cpan:JSTOWE), (last updated 2021-03-31), [Raku Modules](https://modules.raku.org).
 

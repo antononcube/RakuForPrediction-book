@@ -1,7 +1,7 @@
 
 # Introduction to data wrangling with Raku
 
-**Version 0.5**
+**Version 0.6**
 
 Anton Antonov   
 [RakuForPrediction at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
@@ -425,7 +425,7 @@ what is the concrete value of the environmental variable `XDG_DATA_HOME`.
 
 Instead of example datasets and dealing with potential problems, like, retrieving them, or just finding one, or two, or five that fit what we want to experiment with, why not simply generate random tabular datasets?! 
 
-The function random-tabular-dataset of the package `Data::Generators`, [AAp4], generates random tabular datasets 
+The function `random-tabular-dataset` of the package `Data::Generators`, [AAp4], generates random tabular datasets 
 using as arguments shape- and generators specs. 
 
 ### Completely random
@@ -456,7 +456,7 @@ random-tabular-dataset(10, <Task Story Epic>, generators=>{Task=>&random-pet-nam
 
 ### Using generating sets instead generating functions
 
-Instead of using functions for the column generators we can use lists of objects: random-tabular-dataset generates 
+Instead of using functions for the column generators we can use lists of objects: `random-tabular-dataset` generates 
 automatically the corresponding sampling functions. Here we generate a random tabular dataset with $10$ rows, 
 the columns “Eva”, “Jerry”, and “Project”, each column is assigned values from a small set of values:
 
@@ -473,7 +473,6 @@ $tblWork==>encode-to-wl
 
 ![16092phxsxor8](Diagrams/Introduction-to-Data-Wrangling-with-Raku/16092phxsxor8.png)
 
-I specified and generated the dataset above by having in mind its usage for cross tabulation illustrations -- see next section.
 
 ------
 

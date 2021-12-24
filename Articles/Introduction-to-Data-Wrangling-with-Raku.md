@@ -17,17 +17,19 @@ Back to next AI winter coming speed-up -- here is my plan:
 
 1. Teach many people [how to be data scientist impostors](https://github.com/antononcube/HowToBeADataScientistImpostor-book)
 
-1. Produce [tools](https://conf.raku.org/talk/157) that facilitate AI-code baristas
+2.Produce [tools](https://conf.raku.org/talk/157) that facilitate AI-code baristas
 
-1. Wait for enough AI-people to hit enough AI walls.
+3. Wait for enough AI-people to hit enough AI walls.
 
-1. Next AI winter
+4. Next AI winter
 
-1. Profit 
+5. Profit 
 
 See the presentation ["Raku for Prediction"](https://conf.raku.org/talk/157), [AAv2], that describes my efforts over Point 2 using Raku.
 
 A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, talentless mass of AI practitioners.”
+
+The profit in Point 5 comes from "the field" being "clear", hence, less competition for getting funding and investments.
 
 Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... 
 So, if I am serious about influencing the evolution curves of AI, then I must get serious about influencing 

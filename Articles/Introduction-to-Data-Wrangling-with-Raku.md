@@ -17,7 +17,7 @@ Back to next AI winter coming speed-up -- here is my plan:
 
 1. Teach many people [how to be data scientist impostors](https://github.com/antononcube/HowToBeADataScientistImpostor-book)
 
-2.Produce [tools](https://conf.raku.org/talk/157) that facilitate AI-code baristas
+2. Produce [tools](https://conf.raku.org/talk/157) that facilitate AI-code baristas
 
 3. Wait for enough AI-people to hit enough AI walls.
 

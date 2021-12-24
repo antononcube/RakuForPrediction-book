@@ -404,7 +404,7 @@ example-dataset('COUNT::smoking')
 ### Memoization
 
 The main package function, example-dataset, has the adverb keep. 
-If that adverb is given then example-dataset stores the web-retrieved data in the directory XDG_DATA_HOME and subsequently retrieves it from there. 
+If that adverb is given then example-dataset stores the web-retrieved data in the directory `XDG_DATA_HOME` and subsequently retrieves it from there. 
 See ["Freedesktop.org Specifications"](https://specifications.freedesktop.org) and [JS1] for more details 
 what is the concrete value of the OS environmental variable `XDG_DATA_HOME`.
 
@@ -416,7 +416,8 @@ what is the concrete value of the OS environmental variable `XDG_DATA_HOME`.
 
 Instead of example datasets and dealing with potential problems, like, retrieving them, or just finding one, or two, or five that fit what we want to experiment with, why not simply generate random tabular datasets?! 
 
-The function random-tabular-dataset of the package Data::Generators generates random tabular datasets using as arguments shape and generators specs. 
+The function random-tabular-dataset of the package `Data::Generators`, [AAp4], generates random tabular datasets 
+using as arguments shape- and generators specs. 
 
 ### Completely random
 
@@ -442,11 +443,13 @@ random-tabular-dataset(10, <Task Story Epic>, generators=>{Task=>&random-pet-nam
 
 ![1od87l5ns165l](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1od87l5ns165l.png)
 
-**Remark:** The column “Story” does not have a user specified generator, hence a generator  was (randomly) chosen for it.
+**Remark:** The column “Story” does not have a user specified generator, hence a generator was (randomly) chosen for it.
 
 ### Using generating sets instead generating functions
 
-Instead of using functions for the column generators we can use lists of objects: random-tabular-dataset generates automatically the corresponding sampling functions. Here we generate a random tabular dataset with $10$ rows, the columns “Eva”, “Jerry”, and “Project”, each column is assigned values from a small set of values:
+Instead of using functions for the column generators we can use lists of objects: random-tabular-dataset generates 
+automatically the corresponding sampling functions. Here we generate a random tabular dataset with $10$ rows, 
+the columns “Eva”, “Jerry”, and “Project”, each column is assigned values from a small set of values:
 
 ```perl6
 srand(1);
@@ -473,7 +476,7 @@ Instead of expecting people to know how to use certain Raku packages and command
 “just” generate the Raku code for them using natural language specifications? 
 Good code baristas, then, can modify that code to client’s requirements.
 
-Here we load the comprehensive translation package, []:
+Here we load the comprehensive translation package, [AAp7]:
 
 ```perl6
 use DSL::Shared::Utilities::ComprehensiveTranslation;
@@ -490,7 +493,7 @@ replace missing with "NA";
 group by homeworld;
 show counts'
 
-(*"load dataset starwars;replace missing with \"NA\";group by homeworld;show counts"*)
+# "load dataset starwars;replace missing with \"NA\";group by homeworld;show counts"
 ```
 
 Here we translate that command to WL:
@@ -521,13 +524,8 @@ say "counts: ", $obj>>.elems
 # Utapau => 1, Vulpter => 1, Zolan => 1}
 ```
 
-```perl6
- $obj>>.elems.pairs.sort({.value}).reverse
-
-# (Naboo => 11 Tatooine => 10 NA => 10 Coruscant => 3 Alderaan => 3 Kamino => 3 Kashyyyk => 2 Corellia => 2 Mirial => 2 Ryloth => 2 Nal Hutta => 1 Cato Neimoidia => 1 Endor => 1 Haruun Kal => 1 Concord Dawn => 1 Vulpter => 1 Socorro => 1 Stewjon => 1 Sullust => 1 Malastare => 1 Mon Cala => 1 Rodia => 1 Quermia => 1 Toydaria => 1 Tund => 1 Champala => 1 Iktotch => 1 Umbara => 1 Eriadu => 1 Troiken => 1 Shili => 1 Bestine IV => 1 Geonosis => 1 Muunilinst => 1 Iridonia => 1 Ojom => 1 Zolan => 1 Skako => 1 Dorin => 1 Aleen Minor => 1 Glee Anselm => 1 Bespin => 1 Kalee => 1 Chandrila => 1 Cerea => 1 Utapau => 1 Trandosha => 1 Dathomir => 1 Serenno => 1)
-```
-
-**Remark:**  For the same natural language command we can generate data wrangling code for other languages: Julia, Python, R, Wolfram Language.
+**Remark:**  For the same natural language command we can generate data wrangling code for other languages: 
+Julia, Python, R, Wolfram Language.
 
 ------
 
@@ -535,22 +533,28 @@ say "counts: ", $obj>>.elems
 
 ... *aka* ***“Using a Cro-made web service for data wrangling code generation”***.
 
-Thinking further about the professional lifes of data scientist impostors and code baristas we can provide a Web service via constellation of Raku libraries Cro that translates natural language DSL into executable code. See the video [AAv5] for demonstration of such a system. Below we refer to it as the Cro Web Service (CWS). 
+Thinking further about the professional lives of data scientist impostors and code baristas we can provide a Web service 
+-- via the constellation of Raku libraries Cro -- that translates natural language DSL into executable code. 
+See the video [AAv5] for a demonstration of such a system. Below we refer to it as the Cro Web Service (CWS). 
 
 ### Obtaining code
 
 #### Data wrangling Raku code
 
-Here is an example of using CWS through Mathematica’s web interaction function [URLRead](https://reference.wolfram.com/language/ref/URLRead.html), [WRI3]:
+Here is an example of using CWS through Mathematica’s web interaction function 
+[`URLRead`](https://reference.wolfram.com/language/ref/URLRead.html), [WRI3]:
 
 ```mathematica
 command = "dsl target Raku; include setup code; load the dataset iris; group by Species; show counts";
-res = Import@URLRead[<|"Scheme" -> "http", "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", "Query" -> <|"command" -> command|>|>]
+
+res = Import@URLRead[<|"Scheme" -> "http", 
+  "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", 
+  "Query" -> <|"command" -> command|>|>]
 
 (*"{\"DSLTARGET\": \"Raku\",\"USERID\": \"\",\"CODE\": \"use Data::Reshapers;\\nuse Data::Summarizers;\\nuse Data::ExampleDatasets;\\n\\nmy $obj = example-dataset('iris') ;\\n$obj = group-by( $obj, \\\"Species\\\") ;\\nsay \\\"counts: \\\", $obj>>.elems\",\"SETUPCODE\": \"use Data::Reshapers;\\nuse Data::Summarizers;\\nuse Data::ExampleDatasets;\\n\",\"STDERR\": \"\",\"DSL\": \"DSL::English::DataQueryWorkflows\",\"DSLFUNCTION\": \"proto sub ToDataQueryWorkflowCode (Str $command, Str $target = \\\"tidyverse\\\", |) {*}\",\"COMMAND\": \"dsl target Raku; include setup code; load the dataset iris; group by Species; show counts\"}"*)
 ```
 
-Here we convert the JSON output from CWS and display it a tabular form:
+Here we convert the JSON output from CWS and display it in a tabular form:
 
 ```mathematica
 ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadings -> {"Key", "Value"}]
@@ -560,21 +564,28 @@ ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadi
 
 #### Latent semantic analysis R code
 
-CWS provides code for other programming languages and types of workflows. Here is an example with Latent Semantic Analysis workflow code in R:
+CWS provides code for other programming languages and types of workflows. 
+Here is an example with Latent Semantic Analysis (LSA) workflow code in R:
 
 ```mathematica
 command = "USER ID BaristaNo12;dsl target R::LSAMon; include setup code;use aAbstracts; make document term matrix;apply LSI functions IDF, None, Cosine; extract 40 topics using method SVD;echo topics table" // StringTrim;
-res = Import@URLRead[<|"Scheme" -> "http", "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", "Query" -> <|"command" -> command|>|>];
+
+res = Import@URLRead[<|"Scheme" -> "http", 
+  "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", 
+  "Query" -> <|"command" -> command|>|>];
+
 ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadings -> {"Key", "Value"}]
 ```
 
 ![1x6v7pe98sefw](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1x6v7pe98sefw.png)
 
-**Remark:** As it can be seen above, CWS can be given user identifiers, which allows for additional personalization of the parsing and interpretation results.
+**Remark:** As it can be seen above, CWS can be given user identifiers, which allows for additional personalization 
+of the parsing and interpretation results.
 
 ### Obtaining programming code “on the spot“
 
-Here is the a diagram that shows the components of the system utilized through [Apple's Shortcuts](https://support.apple.com/guide/shortcuts/welcome/ios):
+Here is a diagram that shows the components of the system utilized through 
+[Apple's Shortcuts](https://support.apple.com/guide/shortcuts/welcome/ios):
 
 ```mathematica
 ImageCrop[Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSL-Web-Service-via-Cro-with-WE-QAS-Shortcuts.png"]]
@@ -606,15 +617,23 @@ In that diagram we can trace the following Shortcuts execution steps:
 
     1. Shows the full JSON output from CWS
 
+(The video recording 
+["Doing it like a Cro (Raku data wrangling Shortcuts demo)"](https://www.youtube.com/watch?v=wS1lqMDdeIY), 
+[AAv5], demonstrates the steps above.)
+
 ------
 
 ## The one way to do it
 
 ... *aka* ***“Leveraging the universality of natural language and the simplicity of the data wrangling model”***.
 
-The principle “there is more than one way to do it” is often found to be too constraining or too blocking. In my experience, code baristas and IT technology managers prefer one way of doing things. Also, not to be too exposed to the paradox of choice too much. If anything, voluntary simplicity and predictable mediocrity are preferred. Which is fine, since we have a solution that serves well the simple minded when they are single minded. 
+The principle “there is more than one way to do it” is often found to be too constraining or too blocking. 
+In my experience, code baristas and IT technology managers prefer one way of doing things. 
+Also, not to be too exposed to the paradox of choice too much. 
+If anything, voluntary simplicity and predictable mediocrity are preferred. 
+Which is fine, since we have a solution that serves well the simple minded when they are single minded. 
 
-Here are the elements of proposed solution:
+Here are the elements of the proposed solution:
 
 - English-based Domain Specific Language (DSL) 
 

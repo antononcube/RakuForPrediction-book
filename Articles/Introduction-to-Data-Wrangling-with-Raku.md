@@ -97,7 +97,7 @@ say $obj>>.elems
 # {setosa => 50, versicolor => 50, virginica => 50}
 ```
 
-THe following diagram:
+The following diagram:
 
 - Summarizes my data wrangling activities
 - Indicates future plans with dashed lines

@@ -9,9 +9,9 @@ December 2021
 
 ## Introduction
 
-One of my current life missions is the speeding up of the next [AI winter](https://en.wikipedia.org/wiki/AI_winter). I have decided to use Raku to accomplish that mission. (Well, at least in the beginning...) 
+One of my current life missions is the speeding up of the next [AI winter](https://en.wikipedia.org/wiki/AI_winter) coming. I have decided to use Raku to accomplish that mission. (Well, at least in the beginning...) 
 
-Also, I find the term Artificial Intelligence (AI) to be brilliant marketing phrase for extracting money of US military complex and all kinds of financial investors. When people who claim to be, say, “data science professionals” use it in professional settings, I become highly suspicious of their “professionalism.” (Meaning, they are most likely some clueless wannabes.)
+Also, I find the term Artificial Intelligence (AI) to be a brilliant marketing phrase for extracting money of the US military complex and all kinds of financial investors. When people who claim to be, say, “data science professionals” use it in professional settings, I become highly suspicious of their “professionalism.” (Meaning, they are most likely some clueless wannabes.)
 
 Back to next AI winter coming speed-up -- here is my plan:
 
@@ -35,7 +35,7 @@ The rest of this document is more technical -- readers can just read or skim the
 
 **Remark:** Occasionally the code below might have the Raku expression ==>encode-to-wl(). This is for serializing Raku objects into [Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) expressions. (This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
 
-**Remark:** The target audience for this document is mostly comprised of people exposed to Perl’s and Raku’s cultures (and cults.)
+**Remark:** The target audience for this document is mostly comprised of people exposed to Perl’s and Raku’s cultures and cults.
 
 ------
 

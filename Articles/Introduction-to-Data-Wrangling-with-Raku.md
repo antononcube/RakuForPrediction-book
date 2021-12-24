@@ -221,19 +221,19 @@ The following flow-chart encompasses the data transformations workflows we consi
 plWorkflows = ImageCrop@Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.png"]
 ```
 
-![0y4qdm1z0svvv](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0y4qdm1z0svvv.png)
+![0y4qdm1z0svvv](https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.png)
 
-**Remark:** We are going to refer to the methodology represented by the flow chart above as the ***Data Transformation Workflows Model*** (DTWM). In this document the we consider methodology and the flow chart as the same thing.
+**Remark:** We are going to refer to the methodology represented by the flow chart above as the ***Data Transformation Workflows Model*** (DTWM). In this document we consider that methodology and the flow chart as synonyms.
 
 Here are some properties of the methodology / flow chart:
 
-- The flow chart is for tabular datasets or lists (arrays) or dictionaries (hashes) of tabular datasets
+- The flow chart is for tabular datasets, or for lists (arrays) or dictionaries (hashes) of tabular datasets
 
 - In the flow chart only the data loading and summary analysis are not optional
 
 - All other steps are optional
 
-- Transformations like inner joins are represented by the block “Combine groups”
+- Transformations like inner-joins are represented by the block “Combine groups”
 
 - It is assumed that in real applications several iterations (loops) have to be run over the flow chart
 

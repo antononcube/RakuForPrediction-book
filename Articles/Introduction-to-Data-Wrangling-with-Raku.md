@@ -123,7 +123,7 @@ And vice versa -- the shoemaker's children will hop around properly shod.
 
 ## Datum fundamentum
 
-... aka “Data structures and methodology” (also, means “given foundation” in Latin.)
+... *aka* ***“Data structures and methodology”*** *(ALso, means “given foundation” in Latin.)*
 
 Let us give or outline the basic definitions of our Raku data wrangling endeavor.
 
@@ -131,9 +131,9 @@ Let us give or outline the basic definitions of our Raku data wrangling endeavor
 
 Here are a certain intuitive definitions of datasets and data frames:
 
-- A ***dataset*** is a table that is most naturally interpreted as an array of hashes, each hash representing a *row* in the table.
+- A ***dataset*** is a table that as a data structure is most naturally interpreted as an array of hashes, each hash representing a *row* in the table.
 
-- A **data frame** is table that is most naturally understood as an array of hashes, each hash representing a *column* in the table. 
+- A **data frame** is a table that as a data structure is most natutally interpreted as an array of hashes, each hash representing a *column* in the table. 
 
 Mathematica uses datasets. S, R, and Python’s [pandas](https://pandas.pydata.org) use data frames.
 
@@ -144,7 +144,9 @@ srand(128);
 my $tbl=random-tabular-dataset(3,2).deepmap({ $_ ~~ Str ?? $_ !! round($_, 0.01) });
 .say for |$tbl
 
-# {controlling => -4.84, unlace => means}{controlling => 7.83, unlace => thyrotropin}{controlling => 11.92, unlace => parfait}
+# {controlling => -4.84, unlace => means}
+# {controlling => 7.83, unlace => thyrotropin}
+# {controlling => 11.92, unlace => parfait}
 ```
 
 Here is how the corresponding data frame would have been structured:

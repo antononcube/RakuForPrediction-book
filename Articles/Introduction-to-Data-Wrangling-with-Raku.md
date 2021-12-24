@@ -29,13 +29,13 @@ See the presentation ["Raku for Prediction"](https://conf.raku.org/talk/157), [A
 
 A long version of Point 3 is “wait for AI investors and managers to hit sufficiently many walls using a large, talentless mass of AI practitioners.”
 
-Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... So, if I am serious about speeding-up AI winters, I must get serious about speeding-up data wrangling incantations in different programming languages; [AAv2]. Since I firmly believe that it is good to occasionally eat your own dog food, I also programmed (in the last few weeks) data wrangling packages in Raku. Who knows, that might be a way to Rakunize AI, and -- [to rephrase Larry Wall](https://en.wikipedia.org/wiki/Raku_(programming_language)#History) -- some users might get their fix. (See  also [FB1].)
+Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... So, if I am serious about speeding-up AI winters comings, I must get serious about speeding-up data wrangling incantations in different programming languages; [AAv2]. Since I firmly believe that it is good to occasionally eat your own dog food, I also programmed (in the last few weeks) data wrangling packages in Raku. Who knows, that might be a way to Rakunize AI, and -- [to rephrase Larry Wall](https://en.wikipedia.org/wiki/Raku_(programming_language)#History) -- some users might get their fix. (See  also [FB1].)
 
 The rest of this document is more technical -- readers can just read or skim the next section and the section ”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version “Data wrangling with Raku”, [AA1].
 
 **Remark:** Occasionally the code below might have the Raku expression ==>encode-to-wl(). This is for serializing Raku objects into [Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) expressions. (This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
 
-**Remark:** The target audience for this document is mostly comprised of people exposed to Perl’s and Raku’s cultures and cults.
+**Remark:** The target audience for this document is mostly comprised of people exposed to Perl’s and Raku’s cultures and cults. But most of this document should be accessible and of interest to the un-perled programmers or data scientists.
 
 ------
 
@@ -123,7 +123,7 @@ And vice versa -- the shoemaker's children will hop around properly shod.
 
 ## Datum fundamentum
 
-... *aka* ***“Data structures and methodology”*** *(ALso, means “given foundation” in Latin.)*
+... *aka* ***“Data structures and methodology”*** *(Also, means “given foundation” in Latin.)*
 
 Let us give or outline the basic definitions of our Raku data wrangling endeavor.
 
@@ -154,22 +154,22 @@ Here is how the corresponding data frame would have been structured:
 ```perl6
 transpose($tbl)
 
-# {herbaceous => [footing zest that's], whilst => [4S5Yvrv7VZdz3yM SotUY PFJOs1zN5XvZt1W99]}
+# {controlling => [-4.84 7.83 11.92], unlace => [means thyrotropin parfait}]}
 ```
 
 ### Minimalist perspective
 
-I do not want to make a special class for datasets or data frames -- I want to use the standard Raku data structures. (At least at this point of my Raku data wrangling efforts.)
+I do not want to make a special type (class) for datasets or data frames -- I want to use the standard Raku data structures. (At least at this point of my Raku data wrangling efforts.)
 
 My reasons are:
 
 1. The data can be picked up and transformed with typical, built-in commands.
 
-    - Meaning, without the adherence to DTM or related packages.
+    - Meaning, without the adherence to a certain data transformation methodology or dedicated packages.
 
-1. Using standard, built-in structures is type of “user interface” decision. 
+2. Using standard, built-in structures is a type of “user interface” decision. 
 
-1. The "user experience" can be achieved with- or provided by other transformation paradigms and packages.
+3. The "user experience" can be achieved with- or provided by other transformation paradigms and packages.
 
 Points 2 and 3 are, of course, consequences of point 1.
 
@@ -185,19 +185,19 @@ The data structures we focus on are datasets, and concretely in Raku we have the
 
 1. Hash of arrays
 
-The order of the representations indicates their importance during implementation of Raku data wrangling functionalities presented here: 
+The order of the representations indicates their importance during the implementation of Raku data wrangling functionalities presented here: 
 
-- Functionalities for the first two are primary uses and have unit tests
+- Functionalities for the first two are primary and have unit tests
 
 - Additionally, we accommodate the use of the last two.
 
- When the framework and constellation of data wrangling functionalities matures all use four data structures will have correct and consistent treatment.
+When the framework and constellation of data wrangling functionalities matures all four data structures will have correct and consistent treatment.
 
 ### Target audience
 
 The target audience are data scientists (full time, part time, and complete newbies) that want to:
 
-- Do data wrangling of typical data science data with Raku
+- Do data wrangling of typical data science datasets with Raku
 
 - Know that their Raku data wrangling efforts are relatively easily reproduced in other programming languages or systems
 

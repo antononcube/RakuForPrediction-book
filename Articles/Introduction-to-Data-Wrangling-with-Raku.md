@@ -53,7 +53,7 @@ As for data acquisition -- I have a
 [Data Acquisition Engine project](https://github.com/antononcube/Data-Acquisition-Engine-project), 
 [AAr1, AAv6],
 which has a conversational agent that uses code generation through a Raku package, [AAp7].
-In this document, though, we talk about data wrangling only.
+That mentioned, below we talk only about data wrangling.
 
 The rest of this document is more technical -- readers can just read or skim the next section and the section 
 ”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version 

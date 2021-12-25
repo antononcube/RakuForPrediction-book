@@ -70,7 +70,7 @@ But most of this document should be accessible and of interest to the un-perled 
 
 **Remark:** As it can be seen in the (long) presentation recording
 ["Multi language Data Acquisition Conversational Agent (extended version)"](https://www.youtube.com/watch?v=KlEl2b8oxb8),
-a Raku data acquisition conversational agent is going greatly leverage and utilize Raku data wrangling capabilities.  
+[AAv6], a Raku data acquisition conversational agent can greatly leverage and utilize Raku data wrangling capabilities.  
 
 ------
 

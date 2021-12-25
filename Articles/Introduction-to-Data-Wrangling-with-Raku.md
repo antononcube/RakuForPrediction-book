@@ -1,7 +1,7 @@
 
 # Introduction to data wrangling with Raku
 
-**Version 0.6**
+**Version 0.7**
 
 Anton Antonov   
 [RakuForPrediction at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
@@ -39,14 +39,21 @@ The profit in Point 5 comes from "the field" being "clear", hence, less competit
 [South Park's "Gnomes"](https://en.wikipedia.org/wiki/Gnomes_(South_Park));
 and that is just fine with me.)
 
-Most data scientists spend most of their time doing data wrangling. Not data science, or AI, or whatever “really learned” work... 
+Most data scientists spend most of their time doing data acquisition and data wrangling. 
+Not data science, or AI, or whatever “really learned” work... 
 So, if I am serious about influencing the evolution curves of AI, then I must get serious about influencing 
-data wrangling incantations derivations in different programming languages; [AAv2]. 
+data acquisition and data wrangling incantations derivations in different programming languages; [AAv2]. 
 Since I firmly believe that it is good to occasionally eat your own dog food, 
 I programmed (in the last few weeks) data wrangling packages in Raku. 
 Who knows, that might be a way to Rakunize AI, and -- 
 [to rephrase Larry Wall](https://en.wikipedia.org/wiki/Raku_(programming_language)#History) 
 -- some users might get their fix. (See also [FB1].)
+
+As for data acquisition -- I have a 
+[Data Acquisition Engine project](https://github.com/antononcube/Data-Acquisition-Engine-project), 
+[AAr1, AAv6],
+which has a conversational agent that uses code generation through a Raku package, [AAp7].
+In this document, though, we talk about data wrangling only.
 
 The rest of this document is more technical -- readers can just read or skim the next section and the section 
 ”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version 
@@ -58,8 +65,12 @@ This is for serializing Raku objects into
 expressions. 
 (This document was written as a [Mathematica](https://en.wikipedia.org/wiki/Wolfram_Mathematica) notebook.)
 
-**Remark:** The target audience for this document is mostly consists of people exposed to Perl’s and Raku’s cultures and cults. 
+**Remark:** The target audience for this document mostly consists of people exposed to Perl’s and Raku’s cultures and cults. 
 But most of this document should be accessible and of interest to the un-perled programmers or data scientists.
+
+**Remark:** As it can be seen in the (long) presentation recording
+["Multi language Data Acquisition Conversational Agent (extended version)"](https://www.youtube.com/watch?v=KlEl2b8oxb8),
+a Raku data acquisition conversational agent is going greatly leverage and utilize Raku data wrangling capabilities.  
 
 ------
 
@@ -508,7 +519,7 @@ Instead of expecting people to know how to use certain Raku packages and command
 “just” generate the Raku code for them using natural language specifications? 
 Good code baristas, then, can modify that code to client’s requirements.
 
-Here we load the comprehensive translation package, [AAp7]:
+Here we load the comprehensive translation package, [AAp8]:
 
 ```perl6
 use DSL::Shared::Utilities::ComprehensiveTranslation;
@@ -687,14 +698,25 @@ The approach can be additionally justified by referring to Lao Tze’s [Tao Te C
 
 ## Heavy-brained instead of lighthearted 
 
-... *aka* ***“The user guide is quite boring”***.
+... *aka* ***“The data wrangling user guide is quite boring”***.
 
-One of the Advent of Code organizers after seeing one my very initial drafts asked me to do something more lighthearted. 
-Well, this document is my lighthearted version of what I wanted to say about my efforts to endow the Raku ecosystem with 
-data wrangling capabilities that resemble approaches in other, well known systems. 
+One of the 
+["Raku Advent Calendar"](https://raku-advent.blog)
+organizers after seeing one of my very initial drafts asked me to do something more "lighthearted." 
+
+(I am not going to names, but I will say that he uses the initials "JJ" and wrote a Raku cook-book.)
+
+Well, this document is my lighthearted version of what I wanted to say about my efforts to endow the Raku ecosystem 
+with data wrangling capabilities that resemble approaches in other, well known systems. 
 
 The original, “heavy-brained” version is [AA1]. The heavy-brained version compiles all explanations
 and usage examples given in the README files of the Raku packages [AAp1 ÷ AAp4].
+
+**Remark:** There is a related
+["Advent of Raku 2021"](https://github.com/codesections/advent-of-raku-2021) 
+project.
+(Related to more general
+["Advent of Code"](https://adventofcode.com/2021).)
 
 -------
 
@@ -860,7 +882,7 @@ KillRakuProcess[]
 
 ```mathematica
 SetOptions[RakuInputExecute, Epilog -> (FromRakuCode[#, DisplayFunction -> (Dataset[#, MaxItems -> {Automatic, All}] &)] &)];
-StartRakuProcess["Raku" -> "/Users/antonov/.rakubrew/shims/raku"]
+StartRakuProcess["Raku" -> "/Applications/Rakudo/bin/raku"]
 ```
 
 ![1rrcnu0nl91a6](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1rrcnu0nl91a6.png)
@@ -896,46 +918,113 @@ use DSL::Shared::Utilities::ComprehensiveTranslation;
 
 [AA2] Anton Antonov, Connecting Raku to Mathematica, (2021), RakuForPrediction-book at GitHub.
 
-[HW1] Hadley Wickham, ["The Split-Apply-Combine Strategy for Data Analysis"](https://www.jstatsoft.org/article/view/v040i01), (2011), [Journal of Statistical Software](https://www.jstatsoft.org).
+[HW1] Hadley Wickham, 
+["The Split-Apply-Combine Strategy for Data Analysis"](https://www.jstatsoft.org/article/view/v040i01), 
+(2011), 
+[Journal of Statistical Software](https://www.jstatsoft.org).
 
-[FB1]  Federico Biancuzzi and Shane Warden, (2009). [Masterminds of Programming: Conversations with the Creators of Major Programming Languages](https://www.oreilly.com/library/view/masterminds-of-programming/9780596801670/). ISBN 978-0596515171. See page. 385.
+[FB1] Federico Biancuzzi and Shane Warden, 
+(2009),
+[Masterminds of Programming: Conversations with the Creators of Major Programming Languages](https://www.oreilly.com/library/view/masterminds-of-programming/9780596801670/). 
+ISBN 978-0596515171. See page. 385.
 
 ### Functions, packages, repositories
 
-[AAp1] Anton Antonov, [Data::Reshapers](https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV), (2021), [Raku Modules](https://modules.raku.org).
+[AAp1] Anton Antonov, 
+[Data::Reshapers](https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV), 
+(2021), 
+[Raku Modules](https://modules.raku.org).
 
-[AAp2] Anton Antonov, [Data::Summarizers](https://github.com/antononcube/Raku-Data-Summarizers), (2021), [Raku Modules](https://modules.raku.org).
+[AAp2] Anton Antonov, 
+[Data::Summarizers](https://github.com/antononcube/Raku-Data-Summarizers), 
+(2021), 
+[Raku Modules](https://modules.raku.org).
 
-[AAp3] Anton Antonov, [Data::ExampleDatasets](https://github.com/antononcube/Raku-Data-ExampleDatasets), (2021), [Raku Modules](https://modules.raku.org).
+[AAp3] Anton Antonov, 
+[Data::ExampleDatasets](https://github.com/antononcube/Raku-Data-ExampleDatasets), 
+(2021), 
+[Raku Modules](https://modules.raku.org).
 
-[AAp4] Anton Antonov, [Data::Generators](https://modules.raku.org/dist/Data::Generators:cpan:ANTONOV), (2021), [Raku Modules](https://modules.raku.org).
+[AAp4] Anton Antonov, 
+[Data::Generators](https://modules.raku.org/dist/Data::Generators:cpan:ANTONOV), 
+(2021), 
+[Raku Modules](https://modules.raku.org).
 
-[AAp5] Anton Antonov, [Mathematica::Serializer Raku package](https://github.com/antononcube/Raku-Mathematica-Serializer), (2021), [GitHub/antononcube](https://github.com/antononcube).
+[AAp5] Anton Antonov, 
+[Mathematica::Serializer Raku package](https://github.com/antononcube/Raku-Mathematica-Serializer), 
+(2021), 
+[GitHub/antononcube](https://github.com/antononcube).
 
-[AAp6] Anton Antonov, DSL::English::DataQueryWorkflows Raku package, (2020-2021), [GitHub/antononcube](https://github.com/antononcube).
+[AAp6] Anton Antonov, 
+[DSL::English::DataQueryWorkflows Raku package](https://github.com/antononcube/Raku-DSL-English-DataQueryWorkflows), 
+(2020-2021), 
+[GitHub/antononcube](https://github.com/antononcube).
 
-[AAp7] Anton Antonov, [DSL::Utilities::ComprehensiveTranslation](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation), (2020), [GitHub/antononcube](https://github.com/antononcube).
+[AAp7] Anton Antonov, 
+[DSL::English::DataAcquisitionWorkflows Raku package](https://github.com/antononcube/Raku-DSL-English-DataAcquisitionWorkflows), 
+(2021), [GitHub/antononcube](https://github.com/antononcube).
 
-[FCOp1] Fernando Correa de Oliveira, [Red](https://modules.raku.org/dist/Red:cpan:FCO), (last updated 2021-11-22), [Raku Modules](https://modules.raku.org).
+[AAp8] Anton Antonov, 
+[DSL::Utilities::ComprehensiveTranslation](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation), 
+(2020-2021), 
+[GitHub/antononcube](https://github.com/antononcube).
 
-[JSp1] Jonathan Stowe, [XDG::BaseDirectory](https://modules.raku.org/dist/XDG::BaseDirectory:cpan:JSTOWE), (last updated 2021-03-31), [Raku Modules](https://modules.raku.org).
+[AAr1] Anton Antonov,
+[Data Acquisition Engine project](https://github.com/antononcube/Data-Acquisition-Engine-project),
+(2021),
+[GitHub/antononcube](https://github.com/antononcube).
 
-[WRI1] Wolfram Research (2014), [Dataset](https://reference.wolfram.com/language/ref/Dataset.html), Wolfram Language function, https://reference.wolfram.com/language/ref/Dataset.html (updated 2021).
+[FCOp1] Fernando Correa de Oliveira, 
+[Red](https://modules.raku.org/dist/Red:cpan:FCO), 
+(last updated 2021-11-22), 
+[Raku Modules](https://modules.raku.org).
 
-[WRI2] Wolfram Research (2008), [ParallelCombine](https://reference.wolfram.com/language/ref/ParallelCombine.html), Wolfram Language function, https://reference.wolfram.com/language/ref/ParallelCombine.html (updated 2010).
+[JSp1] Jonathan Stowe, 
+[XDG::BaseDirectory](https://modules.raku.org/dist/XDG::BaseDirectory:cpan:JSTOWE), 
+(last updated 2021-03-31), 
+[Raku Modules](https://modules.raku.org).
 
-[WRI3] Wolfram Research (2016), [URLRead](https://reference.wolfram.com/language/ref/URLRead.html), Wolfram Language function, https://reference.wolfram.com/language/ref/URLRead.html.
+[WRI1] Wolfram Research, (2014), 
+[Dataset](https://reference.wolfram.com/language/ref/Dataset.html), 
+Wolfram Language function, https://reference.wolfram.com/language/ref/Dataset.html (updated 2021).
+
+[WRI2] Wolfram Research, (2008), 
+[ParallelCombine](https://reference.wolfram.com/language/ref/ParallelCombine.html), 
+Wolfram Language function, https://reference.wolfram.com/language/ref/ParallelCombine.html (updated 2010).
+
+[WRI3] Wolfram Research, (2016), 
+[URLRead](https://reference.wolfram.com/language/ref/URLRead.html), 
+Wolfram Language function, https://reference.wolfram.com/language/ref/URLRead.html.
 
 ### Presentation video recordings
 
-[AAv1] Anton Antonov, ["Raku for Prediction"](https://conf.raku.org/talk/157), (2021), [The Raku Conference 2021](https://conf.raku.org).
+[AAv1] Anton Antonov, 
+["Raku for Prediction"](https://conf.raku.org/talk/157), 
+(2021), 
+[The Raku Conference 2021](https://conf.raku.org).
 
-[AAv2] Anton Antonov, ["Multi-language Data-Wrangling Conversational Agent"](https://www.youtube.com/watch?v=pQk5jwoMSxs), (2020), Wolfram Technology Conference 2020, [YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
+[AAv2] Anton Antonov, 
+["Multi-language Data-Wrangling Conversational Agent"](https://www.youtube.com/watch?v=pQk5jwoMSxs), 
+(2020), 
+Wolfram Technology Conference 2020, 
+[YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
 
-[AAv3] Anton Antonov, ["Data Transformation Workflows with Anton Antonov, Session #1"](https://www.youtube.com/watch?v=iXrXMQdXOsM), (2020), [YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
+[AAv3] Anton Antonov, 
+["Data Transformation Workflows with Anton Antonov, Session #1"](https://www.youtube.com/watch?v=iXrXMQdXOsM), 
+(2020), 
+[YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
 
-[AAv4] Anton Antonov, ["Data Transformation Workflows with Anton Antonov, Session #2"](https://www.youtube.com/watch?v=DWGgFsaEOsU), (2020), [YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
+[AAv4] Anton Antonov, 
+["Data Transformation Workflows with Anton Antonov, Session #2"](https://www.youtube.com/watch?v=DWGgFsaEOsU), 
+(2020), 
+[YouTube/Wolfram](https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ).
 
-[AAv5] Anton Antonov, ["Doing it like a Cro (Raku data wrangling Shortcuts demo)"](https://youtu.be/wS1lqMDdeIY), (2021), [A.Antonov channel at YouTube](https://www.youtube.com/channel/UC5qMPIsJeztfARXWdIw3Xzw).
+[AAv5] Anton Antonov, 
+["Doing it like a Cro (Raku data wrangling Shortcuts demo)"](https://youtu.be/wS1lqMDdeIY), 
+(2021), 
+[YouTube/Anton.Antonov.Antonov](https://www.youtube.com/channel/UC5qMPIsJeztfARXWdIw3Xzw).
 
-[AAv6] Anton Antonov, ["Multi language Data Acquisition Conversational Agent (extended version)"](https://www.youtube.com/watch?v=KlEl2b8oxb8), (2021), [A.Antonov channel at YouTube](https://www.youtube.com/channel/UC5qMPIsJeztfARXWdIw3Xzw).
+[AAv6] Anton Antonov, 
+["Multi language Data Acquisition Conversational Agent (extended version)"](https://www.youtube.com/watch?v=KlEl2b8oxb8), 
+(2021),
+[YouTube/Anton.Antonov.Antonov](https://www.youtube.com/channel/UC5qMPIsJeztfARXWdIw3Xzw).

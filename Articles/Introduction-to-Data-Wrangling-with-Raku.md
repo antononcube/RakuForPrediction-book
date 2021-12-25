@@ -692,7 +692,10 @@ The solution does not cover *all possible* data wrangling undertakings, but I cl
 
 ### [Appeal to authority](https://en.wikipedia.org/wiki/Argument_from_authority)
 
-The approach can be additionally justified by referring to Lao Tze’s [Tao Te Ching](https://en.wikipedia.org/wiki/Tao_Te_Ching) (Book 1, Chapter 11) or the interview with Larry Wall in “Masterminds of Programming”, [FS1]. But for now I will leave this as an exercise for the reader.
+The approach can be additionally justified by referring to Lao Tze’s 
+[Tao Te Ching](https://en.wikipedia.org/wiki/Tao_Te_Ching) 
+(Book 1, Chapter 11) or the interview with Larry Wall in “Masterminds of Programming”, [FS1]. 
+But for now I will leave this as an exercise for the reader.
 
 -------
 
@@ -810,7 +813,11 @@ My reasons for not doing it can be summarized as "too much immaturity." More pre
 
 ... *aka* ***“Immediate and long term future plans”***.
 
-Here are some of my future plans on data wrangling with Raku:
+Of course, by making and facilitating data scientist impostors and code baristas we make
+more evenly distributed the future that has already arrived. 
+
+Here are some of my future plans on data acquisition and data wrangling using Raku 
+that will distribute the arrived future even more evenly:
 
 - Data acquisition functionalities implementations.
 
@@ -835,6 +842,11 @@ Here are some of my future plans on data wrangling with Raku:
 - Convert Mathematica data wrangling unit tests into Raku tests.
 
    - That applies to both the code generation from natural language commands tests and data wrangling operation tests. 
+   
+**Remark:** The quote paraphrased above and 
+[attributed to William Gibson](https://quoteinvestigator.com/2012/01/24/future-has-arrived/)
+is:
+> The future has arrived — it's just not evenly distributed yet.
 
 --------
 

@@ -53,11 +53,13 @@ As for data acquisition -- I have a
 [Data Acquisition Engine project](https://github.com/antononcube/Data-Acquisition-Engine-project), 
 [AAr1, AAv6],
 which has a conversational agent that uses code generation through a Raku package, [AAp7].
-That mentioned, below we talk only about data wrangling.
+Since in order to discuss and exemplify data wrangling we have to utilize certain data acquisition functionalities
+below are given explanations and examples of using Raku packages for retrieval of popular, well known datasets and 
+for generation of random datasets.  
 
-The rest of this document is more technical -- readers can just read or skim the next section and the section 
-”Doing it like a Cro” and be done. Some might want to look and skim over the super-technical version 
-“Data wrangling with Raku”, [AA1].
+This document is fairly technical -- readers can just read or skim the next section and the section 
+"Doing it like a Cro" and be done. Some might want to look and skim over the super-technical version 
+"Data wrangling with Raku", [AA1].
 
 **Remark:** Occasionally the code below might have the Raku `expression ==>encode-to-wl()`. 
 This is for serializing Raku objects into 
@@ -71,6 +73,10 @@ But most of this document should be accessible and of interest to the un-perled 
 **Remark:** As it can be seen in the (long) presentation recording
 ["Multi language Data Acquisition Conversational Agent (extended version)"](https://www.youtube.com/watch?v=KlEl2b8oxb8),
 [AAv6], a Raku data acquisition conversational agent can greatly leverage and utilize Raku data wrangling capabilities.  
+
+**Remark:** Sentences use "universal", verifiable, or reproducible statements, assertions, and code use the "we form."
+Author's personal opinions and decisions statements use the "I form." Alternatively, I just whatever form felt easier
+or more natural to write with.
 
 ------
 
@@ -149,7 +155,7 @@ for <Bulgarian Korean Spanish> -> $l {
 As the diagram above indicates, I intend to use that framework to narrate data wrangling Raku code with natural languages. 
 Also, of course, translate into other programing languages.
 
-**Remark:** For a long time I used the principle "the clothes have not emperor", [AAv1], which, 
+**Remark:** For a long time I used the principle "the clothes have no emperor", [AAv1, CARH1], which, 
 of course belongs to the "Raku-for-prediction" approach. By endowing Raku with (i) data wrangling capabilities, and 
 (ii) the ability to generate data wrangling Raku code, I would say that those clothes might get properly manned. 
 And vice versa -- the shoemaker's children will hop around properly shod.
@@ -168,7 +174,7 @@ Here are a certain intuitive definitions of datasets and data frames:
 
 - A ***dataset*** is a table that as a data structure is most naturally interpreted as an array of hashes, each hash representing a *row* in the table.
 
-- A **data frame** is a table that as a data structure is most natutally interpreted as an array of hashes, each hash representing a *column* in the table. 
+- A **data frame** is a table that as a data structure is most naturally interpreted as an array of hashes, each hash representing a *column* in the table. 
 
 Mathematica uses datasets. S, R, and Python’s [pandas](https://pandas.pydata.org) use data frames.
 
@@ -194,7 +200,8 @@ transpose($tbl)
 
 ### Minimalist perspective
 
-I do not want to make a special type (class) for datasets or data frames -- I want to use the standard Raku data structures. (At least at this point of my Raku data wrangling efforts.)
+I do not want to make a special type (class) for datasets or data frames -- I want to use the standard Raku data structures. 
+(At least at this point of my Raku data wrangling efforts.)
 
 My reasons are:
 
@@ -242,7 +249,7 @@ Alternatively, we can say that the target audiences are:
 
 1. Code baristas
 
-1. Experienced data scientist who want to speed-up their work
+1. Experienced data scientist who want to speed up their work
 
 1. Data scientists who want to learn Raku
 
@@ -258,7 +265,9 @@ plWorkflows = ImageCrop@Import["https://raw.githubusercontent.com/antononcube/Co
 
 ![0y4qdm1z0svvv](https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.jpg)
 
-**Remark:** We are going to refer to the methodology represented by the flow chart above as the ***Data Transformation Workflows Model*** (DTWM). In this document we consider that methodology and the flow chart as synonyms.
+**Remark:** We are going to refer to the methodology represented by the flow chart above as the 
+***Data Transformation Workflows Model*** (DTWM). 
+In this document we consider that methodology and the flow chart as synonyms.
 
 Here are some properties of the methodology / flow chart:
 
@@ -334,9 +343,15 @@ See [AA1, Wk1, Wk2, AAv1-AAv4] for more details.
 
 ... *aka* ***“Data acquisition of well known datasets into Raku”***.
 
-We have to have access to some typical datasets used in (academic) Statistics classes or in books and packages that exemplify Statistics concepts, or have orvexplain related software designs and know-how. And, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in their interaction with others.
+We have to have access to some typical datasets used in (academic) Statistics classes or in books and packages that 
+exemplify Statistics concepts, or have orvexplain related software designs and know-how. 
+And, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in 
+their interaction with others.
 
-The Raku package `Data::ExamplesDatasets` provides functions for obtaining (relatively well known) example datasets. That package itself contains only datasets metadata -- the datasets are downloaded from the repository [Rdatasets](https://github.com/vincentarelbundock/Rdatasets/), [VAB1]. 
+The Raku package `Data::ExamplesDatasets` provides functions for obtaining (relatively well known) example datasets. 
+That package itself contains only datasets metadata -- the datasets are downloaded from the repository 
+[Rdatasets](https://github.com/vincentarelbundock/Rdatasets/), 
+[VAB1]. 
 
 Here we get a famous example dataset using a regex:
 
@@ -588,7 +603,10 @@ Here is an example of using CWS through Mathematica’s web interaction function
 [`URLRead`](https://reference.wolfram.com/language/ref/URLRead.html), [WRI3]:
 
 ```mathematica
-command = "dsl target Raku; include setup code; load the dataset iris; group by Species; show counts";
+command = "dsl target Raku; 
+include setup code; 
+load the dataset iris; 
+group by Species; show counts";
 
 res = Import@URLRead[<|"Scheme" -> "http", 
   "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", 
@@ -611,7 +629,11 @@ CWS provides code for other programming languages and types of workflows.
 Here is an example with Latent Semantic Analysis (LSA) workflow code in R:
 
 ```mathematica
-command = "USER ID BaristaNo12;dsl target R::LSAMon; include setup code;use aAbstracts; make document term matrix;apply LSI functions IDF, None, Cosine; extract 40 topics using method SVD;echo topics table" // StringTrim;
+command = "USER ID BaristaNo12;
+dsl target R::LSAMon; 
+include setup code;use aAbstracts; 
+make document term matrix;apply LSI functions IDF, None, Cosine; 
+extract 40 topics using method SVD;echo topics table" // StringTrim;
 
 res = Import@URLRead[<|"Scheme" -> "http", 
   "Domain" -> "accendodata.net", "Port" -> "5040", "Path" -> "translate", 
@@ -688,10 +710,13 @@ Here are the elements of the proposed solution:
 
     - I.e additionally tweaked by users according to desired outcomes.
 
-The solution does not cover *all possible* data wrangling undertakings, but I claim that for tabular data collections we can streamline any complicated data wrangling to a large degree. To rephrase, say, 60÷80% of data wrangling workflows can be handled with the solution. (Yeah, YMMV.)
+The solution does not cover *all possible* data wrangling undertakings, 
+but I claim that for tabular data collections we can streamline any complicated data wrangling to a large degree. 
+To rephrase, say, 60÷80% of data wrangling workflows can be handled with the solution. (Yeah, YMMV.)
 
 ### [Appeal to authority](https://en.wikipedia.org/wiki/Argument_from_authority)
 
+Of course
 The approach can be additionally justified by referring to Lao Tze’s 
 [Tao Te Ching](https://en.wikipedia.org/wiki/Tao_Te_Ching) 
 (Book 1, Chapter 11) or the interview with Larry Wall in “Masterminds of Programming”, [FS1]. 
@@ -929,6 +954,12 @@ use DSL::Shared::Utilities::ComprehensiveTranslation;
 [AA1] Anton Antonov, Data wrangling in Raku, (2021), RakuForPrediction-book at GitHub.
 
 [AA2] Anton Antonov, Connecting Raku to Mathematica, (2021), RakuForPrediction-book at GitHub.
+
+[CARH1] Charles Antony Richard Hoare,
+(1980),
+["The emperor's old clothes"](https://dl.acm.org/doi/10.1145/1283920.1283936)
+ACM Turing award lectures January 2007 Year Awarded: 1980.
+https://doi.org/10.1145/1283920.1283936.
 
 [HW1] Hadley Wickham, 
 ["The Split-Apply-Combine Strategy for Data Analysis"](https://www.jstatsoft.org/article/view/v040i01), 

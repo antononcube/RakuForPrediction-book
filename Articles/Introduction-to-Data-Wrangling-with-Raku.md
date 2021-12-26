@@ -1,7 +1,7 @@
 
 # Introduction to data wrangling with Raku
 
-**Version 0.7**
+**Version 0.9**
 
 Anton Antonov   
 [RakuForPrediction at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
@@ -662,25 +662,25 @@ In that diagram we can trace the following Shortcuts execution steps:
 
 1. In Mathematica notebook (or VS Code file) invoke Shortcuts
 
-1. Using Siri’s speech-to-text functionality enter text
+2. Using Siri’s speech-to-text functionality enter text
 
-1. Shortcuts invokes CWS
+3. Shortcuts invokes CWS
 
-1. The result is returned in JSON form to Shortcuts
+4. The result is returned in JSON form to Shortcuts
 
-1. Shortcuts examines the CWS result 
+5. Shortcuts examines the CWS result 
 
-1. If the parsing is successful
-
-    1. Shortcuts issues a notification
-
-    1. Makes the corresponding code is available in the clipboard
-
-1. If the parsing is not successful
+6. If the parsing is successful
 
     1. Shortcuts issues a notification
 
-    1. Shows the full JSON output from CWS
+    2. Makes the corresponding code is available in the clipboard
+
+7. If the parsing is not successful
+
+    1. Shortcuts issues a notification
+
+    2. Shows the full JSON output from CWS
 
 (The video recording 
 ["Doing it like a Cro (Raku data wrangling Shortcuts demo)"](https://www.youtube.com/watch?v=wS1lqMDdeIY), 
@@ -708,19 +708,85 @@ Here are the elements of the proposed solution:
 
 - The generated programming codes are expected to be “good starting points”
 
-    - I.e additionally tweaked by users according to desired outcomes.
+    - I.e. additionally tweaked by users according to desired outcomes.
 
-The solution does not cover *all possible* data wrangling undertakings, 
-but I claim that for tabular data collections we can streamline any complicated data wrangling to a large degree. 
-To rephrase, say, 60÷80% of data wrangling workflows can be handled with the solution. (Yeah, YMMV.)
+We can rephrase and summarize the above as:
+
+- The abstract data wrangling representation with a grammar for natural language commands allows different
+  data wrangling implementations to be made for each programming language.
+
+Let us also point out that the proposed DSL data wrangling solution does not cover *all possible* 
+data wrangling undertakings, but I claim that for tabular data collections we can streamline any complicated 
+data wrangling to a large degree. 
+
+To rephrase, I assume that 60÷80% of your data wrangling workflows can be handled with the solution. 
+(Yeah, YMMV and Pareto principle combined.)
 
 ### [Appeal to authority](https://en.wikipedia.org/wiki/Argument_from_authority)
 
-Of course
+Of course, it is better to justify the approach by pointing out how it agrees with statements of certain authoritative 
+figures. Say, Larry Wall and Lao Tze.
+
+### Larry Wall
+
+In Larry Wall's interview in the book "Masterminds of programming", [FB1], Larry describes Perl 6 (Raku) as:
+
+> [...]  It will come with knobs to adjust its many different dimensions, 
+> including the ability to hide all those dimensions that you aren’t currently interested in thinking about, 
+> depending on which paradigm appeals to you to solve the problem at hand.
+
+The DSL data wrangling solution adheres to Larry's statement:
+
+- Its many dimensions are the operators and syntactical elements of the different programming languages 
+  and related libraries 
+
+- The hiding of those dimensions is achieved by using natural language DSL specifications that generate executable code
+  for those dimensions 
+
+- The grammar-actions design inherent to Raku provides the dimension hiding ability
+
+### Lao Tze
+
 The approach can be additionally justified by referring to Lao Tze’s 
 [Tao Te Ching](https://en.wikipedia.org/wiki/Tao_Te_Ching) 
-(Book 1, Chapter 11) or the interview with Larry Wall in “Masterminds of Programming”, [FS1]. 
-But for now I will leave this as an exercise for the reader.
+[Book 1, Chapter 11](https://www.egreenway.com/taoism/ttclz11.htm).
+
+Here is a translation of that chapter:
+
+> The thirty spokes unite in the one nave;   
+but it is on the empty space for the axle, that the use of the wheel depends.  
+Clay is fashioned into vessels;    
+but it is on their empty hollowness, that their use depends.  
+The door and windows are cut out from the walls to form an apartment;    
+but it is on the empty space within, that its use depends.  
+Therefore, what has a positive existence serves for profitable adaptation,   
+and what has not that for actual usefulness.  
+> ~ Translated by James Legge, 1891, Chapter 11
+
+Here are some points that clarify how the DSL data wrangling solution can be seen as manifestation of the
+outlined principle:
+
+- We use a slang not just for the coolness of pronouncing its words, but because of the things 
+  we do not have to explain by using the slang.
+
+  - Meaning, the "cool words" shape the slang, but slang's usefulness comes from what is not in its sentences.
+
+- The natural language DSL for data wrangling allows for fast specification of data wrangling workflows
+  in different programming languages because:
+ 
+  - There is an abstract, largely universal model of the data wrangling workflows. (DTWM explained above.)
+  
+  - Natural language hides a lot of programming language semantic and syntactical details. 
+  
+- The "negative existence" ("emptiness") is provided by the natural language utilization: 
+  no programming languages syntax, arcaneness, and unnaturalness.
+
+- The "thirty spokes of wheel" are represented by the multiple programming languages and libraries 
+  the DSL is translated to.
+
+**Remark:** I used similar justification for translating Mathematica expressions for High Performance Fortran (HPF).   
+See [AA3, AAn3]. Basically, the "negative existience" of Mathematica expressions and HPF were kind of similar 
+and that allowed to write a translator from Mathematica to HPF.
 
 -------
 
@@ -743,7 +809,7 @@ and usage examples given in the README files of the Raku packages [AAp1 ÷ AAp4]
 **Remark:** There is a related
 ["Advent of Raku 2021"](https://github.com/codesections/advent-of-raku-2021) 
 project.
-(Related to more general
+(Related to the more general
 ["Advent of Code"](https://adventofcode.com/2021).)
 
 -------
@@ -954,6 +1020,16 @@ use DSL::Shared::Utilities::ComprehensiveTranslation;
 [AA1] Anton Antonov, Data wrangling in Raku, (2021), RakuForPrediction-book at GitHub.
 
 [AA2] Anton Antonov, Connecting Raku to Mathematica, (2021), RakuForPrediction-book at GitHub.
+
+[AA3] Anton Antonov,
+["Translating Mathematica expressions to High Performance Fortran"](https://library.wolfram.com/infocenter/MathSource/5143/HPF.pdf),
+(1999),
+HiPer'99, Tromsoe, Norway.
+
+[AAn3] Anton Antonov, 
+["Translating Mathematica expression to High Performance Fortran"](https://www.wolframcloud.com/translating-mathematica-expression-to-high-performance-fortran--2018-10-10qgpsl/), 
+from the Notebook Archive (2004), 
+https://notebookarchive.org/2018-10-10qgpsl .
 
 [CARH1] Charles Antony Richard Hoare,
 (1980),

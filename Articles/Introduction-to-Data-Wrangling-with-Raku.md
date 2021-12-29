@@ -74,9 +74,9 @@ But most of this document should be accessible and of interest to the un-perled 
 ["Multi language Data Acquisition Conversational Agent (extended version)"](https://www.youtube.com/watch?v=KlEl2b8oxb8),
 [AAv6], a Raku data acquisition conversational agent can greatly leverage and utilize Raku data wrangling capabilities.  
 
-**Remark:** Sentences use "universal", verifiable, or reproducible statements, assertions, and code use the "we form."
-Author's personal opinions and decisions statements use the "I form." Alternatively, I just whatever form felt easier
-or more natural to write with.
+**Remark:** Sentences with "universal", verifiable, or reproducible statements, assertions, and code use the "we form." 
+Author's personal opinions and decisions statements use the "I form." 
+Alternatively, I just used whatever form felt easier or more natural to write with.
 
 ------
 
@@ -785,7 +785,7 @@ outlined principle:
   the DSL is translated to.
 
 **Remark:** I used similar justification for translating Mathematica expressions for High Performance Fortran (HPF).   
-See [AA3, AAn3]. Basically, the "negative existience" of Mathematica expressions and HPF were kind of similar 
+See [AA3, AAn3]. Basically, the "negative existence" of Mathematica expressions and HPF were kind of similar 
 and that allowed to write a translator from Mathematica to HPF.
 
 -------
@@ -822,9 +822,10 @@ The short version of the tale is the following:
 
 > The Wolf, the Ram, and the Raccoon went into a socket. The socket was provided by [ZeroMQ](https://zeromq.org). (The end.)
 
-The long version is given in “Connecting Raku to Mathematica”, [AA2]. 
-Using [ZeroMQ](https://zeromq.org)
-and a 
+The long version is given in 
+["Connecting Raku to Mathematica"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Connecting-Mathematica-and-Raku.md), 
+[AA2]. 
+Using [ZeroMQ](https://zeromq.org) and a 
 [Raku-to-WL serializer](https://github.com/antononcube/Raku-Mathematica-Serializer), 
 [AAp6], we can execute Raku commands in Mathematica notebooks. 
 

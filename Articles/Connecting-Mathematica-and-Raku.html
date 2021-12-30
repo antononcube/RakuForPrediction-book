@@ -1,0 +1,547 @@
+<h1 id="connecting-mathematica-and-raku">Connecting Mathematica and Raku</h1>
+<p><strong>Version 0.8</strong></p>
+<p>Anton Antonov<br />
+<a href="https://github.com/antononcube/RakuForPrediction-book">RakuForPrediction-book at GitHub</a><br />
+<a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a><br />
+December 2021</p>
+<h2 id="introduction">Introduction</h2>
+<p>Connecting Mathematica and Raku allows facilitating and leveraging some interesting synergies between the two systems.</p>
+<p>In this document we describe several ways of connecting Mathematica and Raku:</p>
+<ol type="1">
+<li><p>Using external, operating system runs</p></li>
+<li><p>Using in-process communication sockets</p></li>
+<li><p>Using a Web service</p></li>
+</ol>
+<p>Additional, related topics are:</p>
+<ol type="1">
+<li><p>Encoders and decoders (for both Mathematica and Raku expressions)</p></li>
+<li><p>The making of notebook Raku-style and Raku-cells</p></li>
+<li><p>The making and utilization of Domain Specific Language (DSL) cells</p></li>
+</ol>
+<p><strong>Remark:</strong> In this document I use Mathematica and Wolfram Language (WL) as synonyms. If we have to be precise, we could say something like “Mathematica is the software system and WL is the backend programming language in the software system.”</p>
+<h3 id="preliminary-examples">Preliminary examples</h3>
+<p>Here is an example of a Raku cell:</p>
+<pre class="perl6"><code>say (1+1_000)**2
+
+# &quot;1002001&quot;</code></pre>
+<p>Here is an example of Domain Specific Language (DSL) cell that does parsing and interpretation only (generates code, does not evaluates it):</p>
+<pre class="dsl"><code>DSL MODULE DataQuery;
+use dfTitanic;
+group by passengerSex;
+show counts</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ex">=</span> dfTitanic;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>obj <span class="ex">=</span> GroupBy<span class="op">[</span> obj<span class="op">,</span> #<span class="op">[</span><span class="st">&quot;passengerSex&quot;</span><span class="op">]</span>&amp; <span class="op">]</span>;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Echo<span class="op">[</span><span class="fu">Map</span><span class="op">[</span> <span class="fu">Length</span><span class="op">,</span> obj<span class="op">],</span> <span class="st">&quot;counts:&quot;</span><span class="op">]</span></span></code></pre></div>
+<p>(Below we provide more detailed examples.)</p>
+<h3 id="why-is-this-useful">Why is this useful?</h3>
+<h4 id="mathematica-centric-answers">Mathematica-centric answers</h4>
+<p>Here are some Mathematica-centric reasons about the usefulness of connecting Mathematica and Raku:</p>
+<ul>
+<li><p>Raku has built-in UTF-8 symbols treatment and bignums, hence it is interesting to compare its computational model with that of Mathematica or other external evaluators that Mathematica supports.</p>
+<ul>
+<li><p>In my view Raku is the only “true” <em>potential</em> competitors of Mathematica that is not a LISP descendant.</p>
+<ul>
+<li>I plan to discuss this in another document, not in this one.</li>
+</ul></li>
+</ul></li>
+<li><p>Raku has a great built-in system of grammars and interpreter actions, which can be used to complete, replace, or amplify WL’s built-in functionalities.</p></li>
+<li><p>The utilization of the constellation of DSL packages for code generation.</p>
+<ul>
+<li>I admit, this is a very biased and personal reson.</li>
+</ul></li>
+</ul>
+<h4 id="raku-centric-answers">Raku-centric answers</h4>
+<p>Here are some Raku-centric reasons about the usefulness of connecting Mathematica and Raku:</p>
+<ul>
+<li><p>Mathematica is the most powerful mathematical software system and has one of the oldest, most mature notebook solutions.</p></li>
+<li><p>Using notebooks facilitates interactive development or research (in general and with Raku.)</p></li>
+<li><p>The ability to visualize, and plot results derived with Raku.</p></li>
+<li><p>Combining evaluations with other programming languages.</p>
+<ul>
+<li>Other programming languages that can be run in Mathematica notebooks: Python, R, Julia, etc.</li>
+</ul></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Literate_programming">Literate programming</a>.</p></li>
+<li><p>Comparative testing of results correctness:</p>
+<ul>
+<li><p>Verifying that new Raku implementations do “the right thing”</p></li>
+<li><p>Comparison with other languages “doing the same thing”</p></li>
+</ul></li>
+</ul>
+<h3 id="orientation-mind-map">Orientation mind-map</h3>
+<p>The following mind-map shows the topics covered in this document from a “package perspective” (the <a href="https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.pdf">linked PDF version</a> has “life” hyperlinks):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ImageCrop@Import<span class="op">[</span><span class="st">&quot;https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.png&quot;</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0twc0u46iiya5.png" /></p>
+<h3 id="reading-orientation">Reading orientation</h3>
+<p>A list of short descriptions of the sections below and their importance follows. (The <strong>important</strong> sections are written with bold font weight; the <strong><em>not important</em></strong> ones in bold font weight and italic slant.)</p>
+<ul>
+<li><p><strong><em>“The journey”</em></strong> outlines my development efforts to make Raku available into Mathematica (and Jupyter) notebooks.</p></li>
+<li><p><strong>“RakuMode”</strong> describes the use of Raku cells in notebooks.</p></li>
+<li><p><strong>“DSLMode”</strong> describes the use of DSL cells that utilize Raku evaluations.</p></li>
+<li><p><strong>“Web service”</strong> describes the <a href="https://antononcube.shinyapps.io/DSL-evaluations/">web service</a> programmed in Raku that leverages the use of the <a href="https://www.wolfram.com/engine/">Wolfram Engine</a> for generating code through a <a href="https://github.com/antononcube/NLP-Template-Engine">NLP Template Engine</a>.</p></li>
+<li><p><strong><em>“Encoders and decoders”</em></strong> discusses the programming and application of Raku and WL encoders.</p></li>
+<li><p><strong>“Example: Numeric word forms”</strong> shows how Raku package commands can be used to parse integer names generated with WL built-in commands. (A “synergy” demo.)</p></li>
+<li><p><strong><em>“Example: Stoichiometry”</em></strong> shows how Raku package commands can be used to retrieve chemical elements data and balance chemical equations, and how that compares to the WL built-in functionalities. (A “comparison” demo.)</p></li>
+<li><p><strong><em>“Making of the DSL cells”</em></strong> discusses how the DSL cells (style data) was programmed.</p></li>
+<li><p><strong><em>“Making of the Raku cell”</em></strong> discusses how the Raku cell (style data) and “prefix” icon was programmed.</p></li>
+<li><p><strong><em>“Future plans”</em></strong> outlines future plans for related development efforts.</p></li>
+</ul>
+<h2 id="the-journey">The journey</h2>
+<p>This diagram summarizes my “Raku connectivity” journey:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plJourney <span class="ex">=</span> ImageCrop@Import<span class="op">[</span><span class="st">&quot;https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Raku-hook-up-to-notebooks-journey.jpg&quot;</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0azdgmmhtn602.png" /></p>
+<p>Here is some narration:</p>
+<ol type="1">
+<li><p>I developed a dozen of Raku DSL packages that can translate natural language specifications into executable programming code in different languages.</p></li>
+<li><p>Initially I used simple Operating System (OS) redirection calls to get the code generated by the DSL packages from specialized DSL-mode cells.</p>
+<ol type="1">
+<li><p>For example, the WTC-2020 presentation <a href="https://www.youtube.com/watch?v=pQk5jwoMSxs">“Multi-language Data-Wrangling Conversational Agent”</a>, [AAv1], used that mechanism.</p></li>
+<li><p>At that point I developed the Python, R, and WL packages with names <a href="https://github.com/antononcube/ConversationalAgents/tree/master/Packages/">“ExternalParsersHookup”</a>.</p></li>
+<li><p>I also implemented related Raku-mode and DSL-mode notebook styles for Mathematica.</p></li>
+</ol></li>
+<li><p>The initial approach had two significant problems:</p>
+<ol type="1">
+<li><p>The Raku and DSL cells did not “keep state” between each other – each cell was executing code on its own.</p></li>
+<li><p>The evaluation was slow, since every time Raku had to be started and the corresponding packages loaded.</p></li>
+</ol></li>
+<li><p>The want to “do it right” raised a fair amount of questions; the main ones are:</p>
+<ol type="1">
+<li><p>How to start a resident process from within, say, Mathematica?</p></li>
+<li><p>How to establish a connection to that process?</p></li>
+<li><p>What are the applicable (and “standard”) software components or solutions for that kind of architectures?</p></li>
+</ol></li>
+<li><p>Turned out Mathematica was fairly well equipped to do these kind of inter-process connections.</p>
+<ol type="1">
+<li><p>See the guides:</p>
+<ol type="1">
+<li><p><a href="https://reference.wolfram.com/language/guide/DirectControlOfExternalProcesses.html">“Direct Control of External Processes”</a></p></li>
+<li><p><a href="https://reference.wolfram.com/language/guide/ExternalLanguageInterfaces.html">“External Language Interfaces”</a></p></li>
+</ol></li>
+<li><p>I was aware of many of the external process WL functionalities, but <a href="https://reference.wolfram.com/language/ref/SocketConnect.html">SocketConnect</a> had the relatively recent addition of <a href="https://zeromq.org">ZeroMQ</a> (in 2017) which I was not aware of.</p></li>
+</ol></li>
+<li><p>Research and reading for possible solutions.</p>
+<ol type="1">
+<li><p>Considered JVM architectures and org-mode related solutions.</p></li>
+<li><p>The <a href="https://orgmode.org/worg/org-contrib/babel/">Babel org-mode</a> solution I found for evaluating Raku source blocks was very nice and insightful to read, but essentially the same as my first Mathematica-to-Raku connection solution.</p></li>
+</ol></li>
+<li><p>After some research and reading I decided to use <a href="https://zeromq.org">ZeroMQ</a>.</p>
+<ol type="1">
+<li><p>ZeroMQ is used by other external evaluators in Mathematica (explained well in the documentation.)</p></li>
+<li><p>The <a href="https://zeromq.org/get-started/">ZeroMQ documentation</a> is fun to read and has examples in multiple programming languages.</p></li>
+</ol></li>
+<li><p>It seemed better to generalize the problem and develop a Raku module for sandboxed Raku execution.</p>
+<ol type="1">
+<li><p>The evaluation cells are now the code cells in notebooks, or Markdown, org-mode, or Raku Pod6 files.</p></li>
+<li><p>The sandboxed Raku can have a “persistent” context that is accessed by the evaluation cells.</p></li>
+<li><p>Implemented the Raku package <a href="https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV">“Text::CodeProcessing”</a>, [AAp9].</p></li>
+<li><p>Studied the work on <a href="https://github.com/bduggan/p6-jupyter-kernel">connecting Raku to Jupyter by Brian Duggan</a>, [BD1].</p></li>
+</ol></li>
+<li><p>Implemented the corresponding WL packages that utilize the Raku package <a href="https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV">“Text::CodeProcessing”</a>.</p>
+<ol type="1">
+<li><p>Made several versions of those implementations connecting Raku to R, Python, and Wolfram Engine.</p></li>
+<li><p>The Raku-to-Wolfram-Engine connection was used in dedicated Web services.</p></li>
+</ol></li>
+</ol>
+<h2 id="rakumode">RakuMode</h2>
+<p>Here we load the <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m">“RakuMode.m”</a> package:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuMode.m&quot;</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/019tm4hg43dpy.png" /></p>
+<p><strong>Remark:</strong> The package <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m">“RakuMode.m”</a> is very lightweight code-wise. The only “large part” is the Camelia icon for the Raku evaluation cells.</p>
+<p>We convert notebooks into Raku-mode with this command:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>RakuMode<span class="op">[]</span></span></code></pre></div>
+<p>In Raku-mode we have Raku cells that allow evaluation of Raku code (within Mathematica notebooks.)</p>
+<p>Raku-mode cells execute Raku code via either:</p>
+<ul>
+<li><p>RunProces</p></li>
+<li><p>The socket connection functions BinaryWrite, SocketReadMessage, and ByteArrayToString</p></li>
+</ul>
+<h3 id="no-zeromq-connections">No ZeroMQ connections</h3>
+<p>Without ZeroMQ sockets <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m">“RakuMode.m”</a> uses the (very lightweight) package <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuCommand.m">“RakuCommand.m”</a>. Here is an example:</p>
+<pre class="perl6"><code>say(1+1_000)
+
+# 1001</code></pre>
+<p>Let us make an intentional omission in order to illustrate that RunProcess is used:</p>
+<pre class="perl6"><code>1+1_000</code></pre>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1qx8lyemquwgg.png" /></p>
+<p>We get the message above because we essentially executed the shell command:</p>
+<pre class="shell"><code>raku -e &quot;1_1_000&quot;</code></pre>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/06aldtvfu2gf0.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0axdqw853zczv.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0m2y8cd79n6v7.png" /></p>
+<h3 id="via-zeromq">Via ZeroMQ</h3>
+<p>Using Raku cells that do Raku evaluations over <a href="https://zeromq.org">ZeroMQ</a> sockets is a primary use case of the packages described in this document. ZeroMQ is used in WL for other external evaluators (<a href="https://reference.wolfram.com/language/workflow/ConfigurePythonForExternalEvaluate.html.en">Python</a>, <a href="https://reference.wolfram.com/language/workflow/ConfigureJuliaForExternalEvaluate.html.en">Julia</a>, etc.)</p>
+<p>First we start a Raku process:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>StartRakuProcess<span class="op">[]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0brgm1yborxld.png" /></p>
+<p>Here we create a Raku cell – using the shortcut “Shift-|” – and specify the loading of the package <a href="https://modules.raku.org/dist/Lingua::NumericWordForms:cpan:ANTONOV">”Lingua::NumericWordForms”</a>:</p>
+<pre class="perl6"><code>use Lingua::NumericWordForms
+
+# &quot;(Any)&quot;</code></pre>
+<p>Here we define a variable and assign to it an array of numeric word forms (in Bulgarian, English, and Spanish):</p>
+<pre class="perl6"><code>my @nforms = [‘двеста осемдесет и седем’, ‘two hundred and five’, ‘ochocientos setenta y dos’];
+
+# [двеста осемдесет и седем two hundred and five ochocientos setenta y dos]</code></pre>
+<p>Here we parse-and-interpret several numeric word forms into numbers (and show the corresponding languages):</p>
+<pre class="perl6"><code>from-numeric-word-form(@nforms):p
+
+# (bulgarian =&gt; 287 english =&gt; 205 spanish =&gt; 872)</code></pre>
+<p>The last Raku cell uses a function provided by the package in the first cell and a variable defined in the second cell. In other words, there is a common Raku context that is accessed by those cells.</p>
+<h3 id="flow-chart-walkthrough">Flow chart walkthrough</h3>
+<p>Let us provide a schematic description of the example in the previous sub-section. The following flow chart summarizes the creation and evaluation of Raku cells:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ImageCrop@Import<span class="op">[</span><span class="st">&quot;https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Raku-execution-in-Mathematica-notebook.jpg&quot;</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0ufb0tefazu9g.png" /></p>
+<p>Here is a narrative for the flow chart above:</p>
+<ol type="1">
+<li><p>The user converts the Mathematica notebook into RakuMode and starts a Raku process with StartRakuProcess</p>
+<ol type="1">
+<li><p>StartRakuProcess uses StartProcess to start Raku</p></li>
+<li><p>Socket connection is established with the Raku process though ZeroMQ</p></li>
+</ol></li>
+<li><p>The Raku process loads the package <a href="https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV">”Text::CodeProcessing”</a></p>
+<ol type="1">
+<li><p>That package is used to start a sandboxed Raku environment</p></li>
+<li><p>The sandboxed Raku environment can be seen as REPL that has its own context</p></li>
+</ol></li>
+<li><p>The user makes a Raku cell and enters Raku code</p></li>
+<li><p>The user triggers the evaluation of the cell</p></li>
+<li><p>The cell content evaluation is done with the function RakuInputExecute</p>
+<ol type="1">
+<li><p>Raku code is converted to a binary array and sent through a ZeroMQ socket to Raku REPL</p></li>
+<li><p>Raku REPL evaluates the code</p></li>
+<li><p>The result is send back to WL through the ZeroMQ socket</p></li>
+</ol></li>
+<li><p>The result of the Raku cell evaluation is placed in the notebook as an output cell</p></li>
+</ol>
+<p><strong>Remark:</strong> In the flow chart there is an optional application of the Mathematica and Raku encoders and decoders. The examples below provide more details.</p>
+<h2 id="dslmode">DSLMode</h2>
+<p>Here we load the DSLMode package (which triggers the loading of other packages for different computational workflows):</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/DSLMode.m&quot;</span><span class="op">]</span>;</span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1k6gc0yam33d7.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1fr7yisd7duix.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/07thl9qnsfb7y.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/09prrph90tspg.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0a7g9xk2k3t6x.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0cilz41olsms0.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/17pj1nyjw6yuk.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/09e7rsgw6829m.png" /></p>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0r49s4dj7y85u.png" /></p>
+<p>Here we convert the notebook into DSL-mode:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>DSLMode<span class="op">[]</span></span></code></pre></div>
+<p>Here we start a Raku process if we have not started one already:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">(*StartRakuProcess[]*)</span></span></code></pre></div>
+<p>Here we use natural language commands to specify a data wrangling workflow in a <strong><em>DSL parsing cell</em></strong>:</p>
+<p>DSL TARGET Python::pandas; include setup code; load the dataset iris; group by the column Species; show counts</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ExampleDatasets <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>obj <span class="op">=</span> example_dataset(<span class="st">&#39;iris&#39;</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>obj <span class="op">=</span> obj.groupby([<span class="st">&quot;Species&quot;</span>])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(obj.size())</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Species</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># setosa        50</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># versicolor    50</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># virginica     50</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># dtype: int64</span></span></code></pre></div>
+<p><strong>Remark:</strong> Evaluating the DSL cell above produces a Python cell, which was then manually evaluated.</p>
+<p>In the next example we use a DSL execution cell, but in order to see the DSL parser-interpreter result we are going to change the method option of the function DSLInputExecute to print the generated code before execution:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SetOptions</span><span class="op">[</span>DSLInputExecute<span class="op">,</span> <span class="fu">Method</span> <span class="ot">-&gt;</span> <span class="st">&quot;PrintAndEvaluate&quot;</span><span class="op">]</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*{Method -&gt; &quot;PrintAndEvaluate&quot;}*)</span></span></code></pre></div>
+<p>Here is a <strong><em>DSL evaluation cell</em></strong> with the same data wrangling workflow specification as above except the target language is Raku:</p>
+<p>DSL TARGET Raku::Reshapers; include setup code; load the dataset mtcars ; group by the column cyl; show counts</p>
+<pre class="perl6"><code>use Data::Reshapers;
+use Data::Summarizers;
+use Data::ExampleDatasets;
+
+my $obj = example-dataset(&#39;mtcars&#39;) ;
+$obj = group-by( $obj, &quot;cyl&quot;) ;
+say &quot;counts: &quot;, $obj&gt;&gt;.elems
+
+# counts: {4 =&gt; 11, 6 =&gt; 7, 8 =&gt; 14}</code></pre>
+<p><strong>Remark:</strong> This time the generated code was automatically evaluated when the DSL cell was evaluated.</p>
+<p><strong>Remark:</strong> The DSL parsing cell has light blue background, the DSL evaluation cell has light yellow background.</p>
+<p>Here we can see the output from Raku before it is post-processed in ExternalParsersHookup`ToDSLCode:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>res <span class="ex">=</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>   ToDSLCode<span class="op">[</span><span class="st">&quot;DSL TARGET Python::pandas;load the dataset mtcars ;group by the column cyl;show counts&quot;</span><span class="op">,</span> <span class="fu">Method</span> <span class="ot">-&gt;</span> <span class="fu">Identity</span><span class="op">]</span>;</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>ResourceFunction<span class="op">[</span><span class="st">&quot;GridTableForm&quot;</span><span class="op">][</span><span class="fu">List</span> @@@ <span class="fu">Normal</span><span class="op">[</span>KeySort@res<span class="op">],</span> <span class="fu">TableHeadings</span> <span class="ot">-&gt;</span> <span class="op">{</span><span class="st">&quot;Key&quot;</span><span class="op">,</span> <span class="st">&quot;Value&quot;</span><span class="op">}]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0u5k3a35gzoof.png" /></p>
+<p>The underlying Raku function is ToDSLCode from the package <a href="https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation">”DSL::Shared::Utilities::ComprehensiveTranslation”</a>:</p>
+<pre class="perl6"><code>ToDSLCode(&#39;DSL TARGET Python::pandas;
+load the dataset mtcars ;
+group by the column cyl;
+show counts&#39;)
+
+{CODE =&gt; obj = example_dataset(&#39;mtcars&#39;)obj = obj.groupby([\&quot;cyl\&quot;])print(obj.size()),
+ COMMAND =&gt; DSL TARGET Python::pandas;load the dataset mtcars ;group by the column cyl;show counts, 
+ DSL =&gt; DSL::English::DataQueryWorkflows, 
+ DSLFUNCTION =&gt; proto sub ToDataQueryWorkflowCode (Str $command, Str $target = \&quot;tidyverse\&quot;, |) {*}, 
+ DSLTARGET =&gt; Python::pandas, 
+ USERID =&gt; }</code></pre>
+<p><strong>Remark:</strong> By default Raku’s ToDSLCode returns a hash. WL’s ToDSLCode returns an association with Method-&gt;Identity.</p>
+<h2 id="web-service">Web service</h2>
+<p>We can provide a Web service via the constellation of Raku libraries <a href="https://cro.services">Cro</a> that translates natural language DSL specifications into executable code. See the video [AAv4] for a demonstration of such a system. Below we refer to it as the Cro Web Service (CWS).</p>
+<h3 id="getting-template-code">Getting template code</h3>
+<p>Here is an example of using CWS through Mathematica’s web interaction function <a href="https://reference.wolfram.com/language/ref/URLRead.html">URLRead</a>, [WRI3], in order to get the R code of Latent Semantic Analysis (LSA) workflow:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>command <span class="ex">=</span> <span class="st">&quot;use aAbstracts; make document term matrix;apply LSI functions IDF, None, Cosine; extract 40 topics using method SVD;echo topics table&quot;</span> <span class="sc">//</span> <span class="fu">StringTrim</span>;</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>res <span class="ex">=</span> Import@URLRead<span class="op">[</span>&lt;<span class="sc">|</span><span class="st">&quot;Scheme&quot;</span> <span class="ot">-&gt;</span> <span class="st">&quot;http&quot;</span><span class="op">,</span> <span class="st">&quot;Domain&quot;</span> <span class="ot">-&gt;</span> <span class="st">&quot;accendodata.net&quot;</span><span class="op">,</span> <span class="st">&quot;Port&quot;</span> <span class="ot">-&gt;</span> <span class="st">&quot;5040&quot;</span><span class="op">,</span> <span class="st">&quot;Path&quot;</span> <span class="ot">-&gt;</span> <span class="op">{</span><span class="st">&quot;translate&quot;</span><span class="op">,</span> <span class="st">&quot;qas&quot;</span><span class="op">},</span> <span class="st">&quot;Query&quot;</span> <span class="ot">-&gt;</span> &lt;<span class="sc">|</span><span class="st">&quot;command&quot;</span> <span class="ot">-&gt;</span> command<span class="op">,</span> <span class="st">&quot;lang&quot;</span> <span class="ot">-&gt;</span> <span class="st">&quot;R&quot;</span><span class="sc">|</span>&gt;<span class="sc">|</span>&gt;<span class="op">]</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ResourceFunction<span class="op">[</span><span class="st">&quot;GridTableForm&quot;</span><span class="op">][</span><span class="fu">List</span> @@@ <span class="fu">ImportString</span><span class="op">[</span>res<span class="op">,</span> <span class="st">&quot;JSON&quot;</span><span class="op">],</span> <span class="fu">TableHeadings</span> <span class="ot">-&gt;</span> <span class="op">{</span><span class="st">&quot;Key&quot;</span><span class="op">,</span> <span class="st">&quot;Value&quot;</span><span class="op">}]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1em852uqkxidb.png" /></p>
+<p>The code was obtained by using a LSA template, the slots of which were filled-in by utilizing a Question Answering System (QAS). See the project <a href="https://github.com/antononcube/NLP-Template-Engine">“NLP Template Engine”</a> and the movie <a href="https://youtu.be/a6PvmZnvF9I">“NLP Template Engine, Part 1”</a>.</p>
+<p><strong>Remark:</strong> The QAS utilized in this implementation is based on WL’s function <a href="https://reference.wolfram.com/language/ref/FindTextualAnswer.html.en">FindTextualAnswer</a>.</p>
+<h3 id="schematic-overview">Schematic overview</h3>
+<p>Here is a components diagram of the process utilized above:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ImageCrop@Import<span class="op">[</span><span class="st">&quot;https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSL-Web-Service-via-Cro-with-WE-QAS.jpg&quot;</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0p6duuveas2jd.png" /></p>
+<p>The components are (left to right):</p>
+<ul>
+<li><p>Any notebook or Integrated Development Environment (IDE) editable file.</p></li>
+<li><p>Web service API for CWS</p>
+<ul>
+<li>We can also have an <a href="https://antononcube.shinyapps.io/DSL-evaluations/">interactive interface</a>, say, hosted at <a href="https://www.shinyapps.io">shinyapps.io</a>.</li>
+</ul></li>
+<li><p>Web service run on a certain server</p>
+<ul>
+<li>The diagram indicates that I use <a href="https://www.digitalocean.com">DigitalOcean</a>.</li>
+</ul></li>
+<li><p>CWS that is up and running</p></li>
+<li><p>Up and running Wolfram Engine to which CWS connects via ZeroMQ</p></li>
+</ul>
+<p>Here is some narrative for getting DSL translation code by the NLP Template Engine:</p>
+<ol type="1">
+<li><p>In a notebook invoke a call to CWS</p></li>
+<li><p>CWS uses the “resident” process implemented in Raku (using the family of libraries Cro)</p></li>
+<li><p>CWS connects to Wolfram Engine through ZeroMQ</p></li>
+<li><p>Wolfram Engine uses the packages of NLP Template Engine to fill-in the slots of relevant code templates</p>
+<ol type="1">
+<li>The relevant templates a guessed by a Machine Learning classifier.</li>
+</ol></li>
+<li><p>The result is given back to the notebook</p></li>
+</ol>
+<h2 id="encoders-and-decoders">Encoders and decoders</h2>
+<h3 id="setup">Setup</h3>
+<p>Here we load a WL package with a decoder of Raku expressions:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuDecoder.m&quot;</span><span class="op">]</span></span></code></pre></div>
+<p>Here we load a WL package with an encoder to Raku expressions:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuEncoder.m&quot;</span><span class="op">]</span></span></code></pre></div>
+<p>Here we load a Raku package that has functions to encode Raku objects into WL expressions:</p>
+<pre class="perl6"><code>use Mathematica::Serializer;
+
+(*&quot;(Any)&quot;*)</code></pre>
+<h3 id="encoding-to-raku">Encoding to Raku</h3>
+<p>Here we create a small random dataset:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SeedRandom</span><span class="op">[</span><span class="dv">12</span><span class="op">]</span>;</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>dsRand <span class="ex">=</span> ResourceFunction<span class="op">[</span><span class="st">&quot;RandomTabularDataset&quot;</span><span class="op">][{</span><span class="dv">4</span><span class="op">,</span> <span class="dv">3</span><span class="op">}]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0e28qoh61g8ud.png" /></p>
+<p>Here is how the dataset looks encoded in Raku (an array of hashes):</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ToRakuCode<span class="op">[</span>dsRand<span class="op">]</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*&quot;[%(&#39;agree&#39;=&gt;-7.08447,&#39;prankster&#39;=&gt;&#39;while&#39;,&#39;rapture&#39;=&gt;-34),%(&#39;agree&#39;=&gt;-8.28714,&#39;prankster&#39;=&gt;&#39;extreme&#39;,&#39;rapture&#39;=&gt;86),%(&#39;agree&#39;=&gt;1.69727,&#39;prankster&#39;=&gt;&#39;esprit&#39;,&#39;rapture&#39;=&gt;-2),%(&#39;agree&#39;=&gt;9.38245,&#39;prankster&#39;=&gt;&#39;wintergreen&#39;,&#39;rapture&#39;=&gt;52)]&quot;*)</span></span></code></pre></div>
+<p>Here we assign the encoded dataset to a Raku variable:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>RakuInputExecute<span class="op">[</span><span class="st">&quot;my @dsAWs = &quot;</span> &lt;&gt; ToRakuCode<span class="op">[</span>dsRand<span class="op">]]</span>;</span></code></pre></div>
+<p>Here is the dataset tabulated in Raku:</p>
+<pre class="perl6"><code>use Data::Reshapers;
+say to-pretty-table(@dsAWs)
+
+# +---------+-------------+-----------+
+# | rapture |  prankster  |   agree   |
+# +---------+-------------+-----------+
+# |   -34   |    while    | -7.084470 |
+# |    86   |   extreme   | -8.287140 |
+# |    -2   |    esprit   |  1.697270 |
+# |    52   | wintergreen |  9.382450 |
+# +---------+-------------+-----------+</code></pre>
+<h3 id="decoding-from-raku">Decoding from Raku</h3>
+<p>In the following Raku cell we encode the result as a WL expression:</p>
+<pre class="perl6"><code>@dsAWs==&gt;encode-to-wl()
+
+(*&quot;WLEncoded[List[Association[Rule[\&quot;rapture\&quot;,-34],Rule[\&quot;prankster\&quot;,\&quot;while\&quot;],Rule[\&quot;agree\&quot;,Rational[-708447,100000]]],Association[Rule[\&quot;rapture\&quot;,86],Rule[\&quot;agree\&quot;,Rational[-414357,50000]],Rule[\&quot;prankster\&quot;,\&quot;extreme\&quot;]],Association[Rule[\&quot;agree\&quot;,Rational[169727,100000]],Rule[\&quot;rapture\&quot;,-2],Rule[\&quot;prankster\&quot;,\&quot;esprit\&quot;]],Association[Rule[\&quot;rapture\&quot;,52],Rule[\&quot;agree\&quot;,Rational[187649,20000]],Rule[\&quot;prankster\&quot;,\&quot;wintergreen\&quot;]]]]&quot;*)</code></pre>
+<p>Here the string above is converted to a WL expression:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ToExpression</span><span class="op">[</span><span class="sc">%</span><span class="op">]</span> <span class="sc">//</span> <span class="fu">First</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/08okmkt54fg6k.png" /></p>
+<p>Here we set Raku cells to use the decoding function FromRakuCode if the head of the expression is WLEncoded:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SetOptions</span><span class="op">[</span>RakuInputExecute<span class="op">,</span> <span class="fu">Epilog</span> <span class="ot">-&gt;</span> FromRakuCode<span class="op">]</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*{&quot;ModuleDirectory&quot; -&gt; &quot;&quot;, &quot;ModuleName&quot; -&gt; &quot;&quot;, &quot;Process&quot; -&gt; Automatic, Epilog -&gt; FromRakuCode}*)</span></span></code></pre></div>
+<p>Let us evaluate the previous Raku cell again (we get a WL Dataset object right away):</p>
+<pre class="perl6"><code>@dsAWs==&gt;encode-to-wl()</code></pre>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0d4rpdkdiyhea.png" /></p>
+<h2 id="example-numeric-word-forms">Example: Numeric word forms</h2>
+<p>We showed some examples of parsing numeric word forms in the section “RakuMode”. In this section we extend those examples in order to demonstrate how Raku can be used in Mathematica to extend or replace existing functionalities or provide missing ones.</p>
+<p>Here we make an association of numbers and their numeric word forms in English, then tabulate that association:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SeedRandom</span><span class="op">[</span><span class="dv">26</span><span class="op">]</span>;</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>aNumericWordForms <span class="ex">=</span> KeySort@Association<span class="op">[</span># <span class="ot">-&gt;</span> IntegerName<span class="op">[</span>#<span class="op">,</span> <span class="op">{</span><span class="st">&quot;English&quot;</span><span class="op">,</span> <span class="st">&quot;Words&quot;</span><span class="op">}]</span> &amp; <span class="sc">/</span>@ <span class="fu">Join</span><span class="op">[</span><span class="fu">RandomInteger</span><span class="op">[</span><span class="dv">10</span><span class="sc">^</span><span class="dv">4</span><span class="op">,</span> <span class="dv">3</span><span class="op">],</span> <span class="fu">RandomInteger</span><span class="op">[</span><span class="dv">10</span><span class="sc">^</span><span class="dv">7</span><span class="op">,</span> <span class="dv">3</span><span class="op">]]]</span>;</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>ResourceFunction<span class="op">[</span><span class="st">&quot;GridTableForm&quot;</span><span class="op">][</span>aNumericWordForms<span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1cjnkb7z3ojvw.png" /></p>
+<p>Here make another number-to-word-form association using multiple languages:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SeedRandom</span><span class="op">[</span><span class="dv">26</span><span class="op">]</span>;</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>aNumericWordForms2 <span class="ex">=</span> KeySort@Association<span class="op">[</span># <span class="ot">-&gt;</span> IntegerName<span class="op">[</span>#<span class="op">,</span> <span class="op">{</span><span class="fu">RandomChoice</span><span class="op">[{</span><span class="st">&quot;Bulgarian&quot;</span><span class="op">,</span> <span class="st">&quot;Japanese&quot;</span><span class="op">,</span> <span class="st">&quot;Spanish&quot;</span><span class="op">}],</span> <span class="st">&quot;Words&quot;</span><span class="op">}]</span> &amp; <span class="sc">/</span>@ <span class="fu">Join</span><span class="op">[</span><span class="fu">RandomInteger</span><span class="op">[</span><span class="dv">10</span><span class="sc">^</span><span class="dv">4</span><span class="op">,</span> <span class="dv">3</span><span class="op">],</span> <span class="fu">RandomInteger</span><span class="op">[</span><span class="dv">10</span><span class="sc">^</span><span class="dv">7</span><span class="op">,</span> <span class="dv">3</span><span class="op">]]]</span>;</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ResourceFunction<span class="op">[</span><span class="st">&quot;GridTableForm&quot;</span><span class="op">][</span>aNumericWordForms2<span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1gjtq62uz503c.png" /></p>
+<p>Mathematica (Version 13) can parse English numeric word forms</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>SemanticInterpretation <span class="sc">/</span>@ aNumericWordForms</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*&lt;|16 -&gt; 16, 4286 -&gt; 4286, 5481 -&gt; 5481, 29695 -&gt; 29695, 8224333 -&gt; 8224333, 9537119 -&gt; 9537119|&gt;*)</span></span></code></pre></div>
+<p>But, at this point Mathematica (Version 13) cannot parse numeric word forms in other languages:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>SemanticInterpretation<span class="op">[</span>Values<span class="op">[</span>aNumericWordForms2<span class="op">]]</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*{$Failed, $Failed, $Failed, $Failed, $Failed, $Failed}*)</span></span></code></pre></div>
+<p>The Raku package “Lingua::NumericWordForms” recognizes (automatically) a dozen of languages. Here is an example:</p>
+<pre class="perl6"><code>from-numeric-word-form([&#39;two hundred and five&#39;, &#39;двеста осемдесет и седем&#39;]):p
+
+# (english =&gt; 205 bulgarian =&gt; 287)</code></pre>
+<p>Here is example of Raku-parsing of the values of the association created above:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>RakuInputExecute<span class="op">[</span><span class="st">&quot;from-numeric-word-form(&quot;</span> &lt;&gt; ToRakuCode<span class="op">[</span>Values<span class="op">[</span>aNumericWordForms2<span class="op">]]</span> &lt;&gt;<span class="st">&quot;):p&quot;</span><span class="op">]</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*&quot;(japanese =&gt; 16 bulgarian =&gt; 4286 spanish =&gt; 5481 japanese =&gt; 29695 spanish =&gt; 8224333 japanese =&gt; 9537119)&quot;*)</span></span></code></pre></div>
+<h3 id="performance">Performance</h3>
+<p>Raku converts faster than WL numeric word forms into numbers. Here is the WL timing:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  SemanticInterpretation<span class="op">[</span>Values<span class="op">[</span>aNumericWordForms<span class="op">]]</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">(*{0.786108, {1131, 7504, 9970, 1016128, 5341656, 6865271}}*)</span></span></code></pre></div>
+<p>Here is the Raku timing:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  RakuInputExecute<span class="op">[</span><span class="st">&quot;from-numeric-word-form(&quot;</span> &lt;&gt; ToRakuCode<span class="op">[</span>Values<span class="op">[</span>aNumericWordForms<span class="op">]]</span> &lt;&gt;<span class="st">&quot;)&quot;</span><span class="op">]</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co">(*{0.226441, &quot;(1131 7504 9970 1016128 5341656 6865271)&quot;}*)</span></span></code></pre></div>
+<h2 id="example-stoichiometry">Example: Stoichiometry</h2>
+<p>In this section we make a brief comparison of Mathematica and Raku over chemical elements data retrieval, molecular mass calculations, and chemical equation balancing.</p>
+<p>In 2007, while working on <a href="https://www.wolframalpha.com">WolframAlpha</a> (W|A) , I wrote a chemical molecules parser, and functions for molecular mass calculations and chemical equation balancing. In the beginning of 2021 I wrote similar functions for Raku, see the package <a href="https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV">Chemistry::Stoichiometry</a>, [AAp13].</p>
+<p>Mathematica Version 6.0 (released in 2007) introduced the function <a href="https://reference.wolfram.com/language/ref/ElementData.html">ElementData</a>. In Mathematica Version 13.0 (released December 2021) has the function <a href="https://reference.wolfram.com/language/ref/ReactionBalance.html">ReactionBalance</a> that balances chemical equations.</p>
+<p>Here we load the Raku package [AAp13]:</p>
+<pre class="perl6"><code>use Chemistry::Stoichiometry;</code></pre>
+<h3 id="chemical-element-data">Chemical element data</h3>
+<p>Here we get element data for Clorine:</p>
+<pre class="perl6"><code>chemical-element-data(‘Cl’);
+
+# {Abbreviation =&gt; Cl, AtomicNumber =&gt; 17, AtomicWeight =&gt; 35.45, Block =&gt; p, Group =&gt; 17, Name =&gt; chlorine, 
+# Period =&gt; 3, Series =&gt; Halogen, StandardName =&gt; Chlorine}</code></pre>
+<p>Mathematica has a much larger list element properties:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ElementData</span><span class="op">[</span><span class="st">&quot;Cl&quot;</span><span class="op">,</span> <span class="st">&quot;Properties&quot;</span><span class="op">]</span> <span class="sc">//</span> <span class="fu">Length</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*86*)</span></span></code></pre></div>
+<p>But let us get the properties that Raku has:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>lsProps <span class="ex">=</span> <span class="op">{</span><span class="st">&quot;Abbreviation&quot;</span><span class="op">,</span> <span class="st">&quot;AtomicNumber&quot;</span><span class="op">,</span> <span class="st">&quot;AtomicWeight&quot;</span><span class="op">,</span> <span class="st">&quot;Block&quot;</span><span class="op">,</span> <span class="st">&quot;Group&quot;</span><span class="op">,</span> <span class="st">&quot;Name&quot;</span><span class="op">,</span> <span class="st">&quot;Period&quot;</span><span class="op">,</span> <span class="st">&quot;Series&quot;</span><span class="op">,</span> <span class="st">&quot;StandardName&quot;</span><span class="op">}</span>;</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Map</span><span class="op">[</span># <span class="ot">-&gt;</span> <span class="fu">ElementData</span><span class="op">[</span><span class="st">&quot;Cl&quot;</span><span class="op">,</span> #<span class="op">]</span> &amp;<span class="op">,</span> lsProps<span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0j1ehb4atls73.png" /></p>
+<p>Both Mathematica and Raku know the full names of the chemical elements, but Raku has multi-language support:</p>
+<pre class="perl6"><code>&lt;Bulgarian English German Japanese Persian Russian Spanish&gt;.map({ $_ =&gt; chemical-element(‘Cl’, $_ ) })
+
+# (Bulgarian =&gt; Хлор English =&gt; Chlorine German =&gt; Chlor Japanese =&gt; 塩素 Russian =&gt; Хлор Spanish =&gt; Cloro)&quot;*)</code></pre>
+<pre class="perl6"><code>[atomic-weight(‘ガリウム’), chemical-element-data(‘oxygen’):weight, chemical-element-data(‘кислород’):abbr]
+
+# [69.723 15.999 O]</code></pre>
+<h3 id="molecular-mass">Molecular mass</h3>
+<p>Here we assign a molecule formula (of “diphenyliodonium bromide”) to a variable in Raku:</p>
+<pre class="perl6"><code>my $molecule=‘(C6H5)2IBr’
+
+# (C6H5)2IBr</code></pre>
+<p>Here using Mathematica we find the molecular mass:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>ChemicalFormula<span class="op">[</span><span class="fu">StringTrim</span><span class="op">[</span><span class="sc">%</span><span class="op">]][</span><span class="st">&quot;MolecularMass&quot;</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1afakvynpdbqu.png" /></p>
+<p>Here is the molecular mass computed with Raku:</p>
+<pre class="perl6"><code>molecular-mass($molecule)
+
+# 361.02047000000005</code></pre>
+<p>In both cases the molecule formula is parsed into pairs of element names and multipliers and for each pair the mass is computed using the corresponding element atomic mass; then the masses corresponding to all pairs are totaled.</p>
+<h3 id="chemical-equation-balancing">Chemical equation balancing</h3>
+<p>Chemical equation balancing can be done representing the molecules in the equation as points of a vector space, and then solving a corresponding system of linear equations.</p>
+<p>Here we assign to a Raku variable a chemical equation string:</p>
+<pre class="perl6"><code>my $chemEq=‘C2H5OH + O2 = H2O + CO2’;
+
+# &quot;C2H5OH + O2 = H2O + CO2&quot;</code></pre>
+<p>Here we balance the equation with Mathematica:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ReactionBalance<span class="op">[</span><span class="sc">%</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0gilts1bdhhl4.png" /></p>
+<p>Here we balance the equation with Raku:</p>
+<pre class="perl6"><code>balance-chemical-equation($chemEq)
+
+# [1*C2H5OH + 3*O2 -&gt; 2*CO2 + 3*H2O]</code></pre>
+<p>(We can see that results are the same.)</p>
+<h2 id="making-of-the-dslmode-cells">Making of the DSLMode cells</h2>
+<p>Initially I borrowed ideas from the <a href="https://resources.wolframcloud.com/FunctionRepository">Wolfram Function Repository (WFR)</a> function <a href="https://resources.wolframcloud.com/FunctionRepository/resources/DarkMode/">“DarkMode”</a>. After that I was pretty much directed by <a href="https://community.wolfram.com/web/kubapod">Kuba Podkalicki</a> how to design and implement the functionalities behind the DSL cells.</p>
+<p>The package <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/DSLMode.m">“DSLMode.m”</a> is small, just “a front” for the pretty big package <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/ExternalParsersHookup.m">“ExternalParsersHookup.m”</a>, which has all DSLs from the <a href="https://conf.raku.org/talk/157">RakuForPrediction project</a> being represented in it.</p>
+<p>DSL cell has a hard copy of the Raku cell style data from <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m">“RakuMode.m”</a> in order to have only one package dependency (that of <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/ExternalParsersHookup.m">“ExternalParsersHookup.m”</a> .)</p>
+<h2 id="making-of-the-rakumode-cell">Making of the RakuMode cell</h2>
+<p>I tried to make the Raku cells to resemble external evaluation cells to a large degree, but still look decisively different.</p>
+<ul>
+<li><p>As background cell color I used background color in the input/output cells in the <a href="https://raku.org">Raku site</a> documentation.</p>
+<ul>
+<li>E.g. here: https://docs.raku.org/language/objects .</li>
+</ul></li>
+<li><p>Finding and making the “prefix” cell icon took a fairly long time.</p>
+<ul>
+<li><p>I used the logo images from this GitHub repository: https://github.com/MadcapJake/metamorphosis .</p></li>
+<li><p>After some experimentation the “hex camelia” logos seem to fit the best.</p></li>
+</ul></li>
+<li><p>The package “RakuMode.m” had several revisions.</p>
+<ul>
+<li>The latest is to refactor the hex-camelia graphics in a different package, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/HexCameliaIcons.m">“HexCameliaIcons.m”</a>.</li>
+</ul></li>
+<li><p>Except the Raku cell itself, probably the most interesting or peculiar part of the package “RakuMode.m” is that it has the ZeroMQ Raku code it uses as a WL string template.</p></li>
+</ul>
+<h3 id="cell-icon">Cell icon</h3>
+<p>Here are some <a href="https://github.com/MadcapJake/metamorphosis">Camelia logos</a>:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>ResourceFunction<span class="op">[</span><span class="st">&quot;GridTableForm&quot;</span><span class="op">][{{</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/MadcapJake/metamorphosis/master/images/Orig-Camelia.png&quot;</span><span class="op">],</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/uzluisf/metamorphosis/master/hex_camelia/perl6-color-logo1.png&quot;</span><span class="op">]}},</span> </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">TableHeadings</span> <span class="ot">-&gt;</span> <span class="op">{</span><span class="st">&quot;Standard&quot;</span><span class="op">,</span> <span class="st">&quot;Hex&quot;</span><span class="op">},</span> <span class="fu">Background</span> <span class="ot">-&gt;</span> <span class="cn">None</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0oj2r4aoag3et.png" /></p>
+<p>Here is the graphics object used to make the image of the Camelia icon used for Raku cells:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/HexCameliaIcons.m&quot;</span><span class="op">]</span>;</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>GetHexCameliaGraphics<span class="op">[]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0r4qg16bo0ugj.png" /></p>
+<p><strong>Remark:</strong> A selected GitHub repository image was croped and vectorized with <a href="https://reference.wolfram.com/language/ref/ImageGraphics.html">ImageGraphics</a>. For more details see the descriptions in the package <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/HexCameliaIcons.m">“HexCameliaIcons.m”</a>, [AAp3].</p>
+<h3 id="zeromq-template-code">ZeroMQ template code</h3>
+<p>Here is the Raku code string template for the ZeroMQ connection:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Magnify</span><span class="op">[</span>RakuMode`Private`zmqScript<span class="op">,</span> <span class="fl">0.8</span><span class="op">]</span></span></code></pre></div>
+<p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0fq8e2ahieogt.png" /></p>
+<h3 id="comparison-with-other-external-evaluation-cells">Comparison with other external evaluation cells</h3>
+<p>Here is how the Raku cell looks compared to other external evaluator cells:</p>
+<pre class="perl6"><code>1+1_000</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fl">4</span><span class="op">^</span><span class="fl">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">+</span><span class="dv">1_000</span></span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>{<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">2</span>)}</span></code></pre></div>
+<p>(The order of the cells above is Raku, Julia, Python, R.)</p>
+<h2 id="future-plans">Future plans</h2>
+<p>Here are future plans that (mostly) directly related to the Mathematica-and-Raku connectivity functionalities discussed above:</p>
+<ul>
+<li><p>More robust WL to Raku encoder.</p></li>
+<li><p>More robust ZeroMQ connection maintenance and support.</p></li>
+<li><p>Raku slang for Wolfram Language.</p></li>
+<li><p>Raku slang for DSL workflows.</p></li>
+<li><p>Making similar connections from Raku to other languages (Python, Julia).</p>
+<ul>
+<li>Already done for R.</li>
+</ul></li>
+</ul>
+<h2 id="references">References</h2>
+<h3 id="functions">Functions</h3>
+<p>[WRI1][ Wolfram Research, (2014), <a href="https://reference.wolfram.com/language/ref/RunProcess.html.en">RunProcess</a>, Wolfram Language function, https://reference.wolfram.com/language/ref/RunProcess.html.</p>
+<p>[WRI2] Wolfram Research, (2014), <a href="https://reference.wolfram.com/language/ref/StartProcess.html">StartProcess</a>, Wolfram Language function, https://reference.wolfram.com/language/ref/StartProcess.html.</p>
+<p>[WRI3] Wolfram Research, (2016), <a href="https://reference.wolfram.com/language/ref/URLRead.html.en">URLRead</a>, Wolfram Language function, https://reference.wolfram.com/language/ref/URLRead.html.</p>
+<h3 id="mathematica-packages">Mathematica packages</h3>
+<p>[AAp1] Anton Antonov, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/DSLMode.m">DSLMode Mathematica package</a>, (2020-2021), <a href="https://github.com/antononcube/ConversationalAgents">ConversationalAgents at GitHub/antononcube</a>.</p>
+<p>[AAp2] Anton Antonov, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/ExternalParsersHookup.m">ExternalParsersHookup Mathematica package</a>, (2020-2021), <a href="https://github.com/antononcube/ConversationalAgents">ConversationalAgents at GitHub/antononcube</a>.</p>
+<p>[AAp3] Anton Antonov, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/HexCameliaIcons.m">HexCameliaIcons Mathematica package</a>, (2021), <a href="https://github.com/antononcube/ConversationalAgents">ConversationalAgents at GitHub/antononcube</a>.</p>
+<p>[AAp4] Anton Antonov, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuCommand.m">RakuCommand Mathematica package</a>, (2021), <a href="https://github.com/antononcube/ConversationalAgents">ConversationalAgents at GitHub/antononcube</a>.</p>
+<p>[AAp5] Anton Antonov, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuDecoder.m">RakuDecoder Mathematica package</a>, (2021), <a href="https://github.com/antononcube/ConversationalAgents">ConversationalAgents at GitHub/antononcube</a>.</p>
+<p>[AAp6] Anton Antonov, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuEncoder.m">RakuEncoder Mathematica package</a>, (2021), <a href="https://github.com/antononcube/ConversationalAgents">ConversationalAgents at GitHub/antononcube</a>.</p>
+<p>[AAp7] Anton Antonov, <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m">RakuMode Mathematica package</a>, (2020-2021), <a href="https://github.com/antononcube/ConversationalAgents">ConversationalAgents at GitHub/antononcube</a>.</p>
+<h3 id="raku-packages">Raku packages</h3>
+<p>[AAp9] Anton Antonov, <a href="https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV">Text::CodeProcessing</a>, (2021), <a href="https://modules.raku.org">Raku Modules</a>.</p>
+<p>[AAp10] Anton Antonov, <a href="https://modules.raku.org/dist/Lingua::NumericWordForms:cpan:ANTONOV">Lingua::NumericWordForms</a>, (2021), <a href="https://modules.raku.org">Raku Modules</a>.</p>
+<p>[AAp11] Anton Antonov, <a href="https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV">Data::Reshapers</a>, (2021), <a href="https://modules.raku.org">Raku Modules</a>.</p>
+<p>[AAp12] Anton Antonov, <a href="https://github.com/antononcube/Raku-DSL-English-DataQueryWorkflows">DSL::English::DataQueryWorkflows Raku package</a>, (2020), <a href="https://github.com/antononcube">GitHub/antononcube</a>.</p>
+<p>[AAp13] Anton Antonov, <a href="https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV">Chemistry::Stoichiometry</a>, (2021), <a href="https://modules.raku.org">Raku Modules</a>.</p>
+<h3 id="repositories">Repositories</h3>
+<p>[AAr1] Anton Antonov, <a href="https://github.com/antononcube/RakuForPrediction-book">“Raku for Prediction” book</a>, (2021), <a href="https://github.com/antononcube">GitHub/antononcube</a>.</p>
+<p>[AAr2] Anton Antonov, <a href="https://github.com/antononcube/NLP-Template-Engine">NLP Template Engine</a>, (2021), <a href="https://github.com/antononcube">GitHub/antononcube</a>.</p>
+<p>[BD1] Brian Duggan et al., <a href="https://github.com/bduggan/p6-jupyter-kernel">p6-jupyter-kernel</a>, (2017-2020), <a href="https://github.com/bduggan">GitHub/bduggan</a>.</p>
+<h3 id="videos">Videos</h3>
+<p>[AAv1] Anton Antonov, <a href="https://www.youtube.com/watch?v=pQk5jwoMSxs">“Multi-language Data-Wrangling Conversational Agent”</a>, WTC-2020 presentation, (2020),<a href="https://www.youtube.com/channel/UCJekgf6k62CQHdENWf2NgAQ">Wolfram at YouTube</a>.</p>
+<p>[AAv2] Anton Antonov, <a href="https://conf.raku.org/talk/157">“Raku for Prediction”</a>, (2021), The Raku Conference.</p>
+<p>[AAv3] Anton Antonov, <a href="https://youtu.be/a6PvmZnvF9I">“NLP Template Engine, Part 1”</a>, (2021), <a href="https://www.youtube.com/playlist?list=PLke9UbqjOSOi1fc0NkJTdK767cL9XHJF0">Simplified Machine Learning Workflows at YouTube.</a></p>
+<p>[AAv4] Anton Antonov, <a href="https://www.youtube.com/watch?v=wS1lqMDdeIY">“Doing it like a Cro (Raku data wrangling Shortcuts demo)”</a>, (2021), <a href="https://www.youtube.com/playlist?list=PLke9UbqjOSOi1fc0NkJTdK767cL9XHJF0">Simplified Machine Learning Workflows at YouTube.</a></p>

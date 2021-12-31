@@ -243,13 +243,13 @@ The target users are data scientists (full time, part time, and complete newbies
 
 - Know that their Raku data wrangling efforts are relatively easily reproduced in other programming languages or systems
 
-Alternatively, we can say that the target audiences are:
+Alternatively, we can say that the target users are:
 
 1. Data scientist impostors
 
 1. Code baristas
 
-1. Experienced data scientist who want to speed up their work
+1. Experienced data scientists who want to speed up their work
 
 1. Data scientists who want to learn Raku
 

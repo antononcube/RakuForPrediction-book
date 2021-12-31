@@ -166,7 +166,7 @@ And vice versa -- the shoemaker's children will hop around properly shod.
 
 ... *aka* ***“Data structures and methodology”*** *(Also, means “given foundation” in Latin.)*
 
-Let us give or outline the basic definitions of our Raku data wrangling endeavor.
+Let us define or outline the basic concepts of our Raku data wrangling endeavor.
 
 ### Dataset vs Data frame
 

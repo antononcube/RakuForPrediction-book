@@ -464,7 +464,7 @@ example-dataset('COUNT::smoking')
 
 The main package function, `example-dataset`, has the adverb `keep`. 
 If that adverb is given then `example-dataset` stores the web-retrieved data in the directory `XDG_DATA_HOME` and subsequently retrieves it from there. 
-See ["Freedesktop.org Specifications"](https://specifications.freedesktop.org) and [JS1] for more details 
+See ["Freedesktop.org Specifications"](https://specifications.freedesktop.org) and [JS1] for more details on
 what is the concrete value of the environmental variable `XDG_DATA_HOME`.
 
 ------

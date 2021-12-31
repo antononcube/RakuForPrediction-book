@@ -217,7 +217,7 @@ Points 2 and 3 are, of course, consequences of point 1.
 
 ### Data structures in Raku
 
-The data structures we focus on are datasets, and concretely in Raku we have the following dataset representations
+The data structures we focus on are datasets, and concretely in Raku we have the following dataset representations:
 
 1. Array of hashes
 
@@ -235,9 +235,9 @@ The order of the representations indicates their importance during the implement
 
 When the framework and constellation of data wrangling functionalities matures all four data structures will have correct and consistent treatment.
 
-### Target audience
+### Target users
 
-The target audience are data scientists (full time, part time, and complete newbies) that want to:
+The target users are data scientists (full time, part time, and complete newbies) that want to:
 
 - Do data wrangling of typical data science datasets with Raku
 

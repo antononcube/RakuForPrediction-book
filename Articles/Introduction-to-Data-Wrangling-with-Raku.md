@@ -335,7 +335,7 @@ In data wrangling and data analysis the following three operations are non-basic
 
 See [AA1, Wk1, Wk2, AAv1-AAv4] for more details.
 
-**Remark:** The package [Data::Reshapers](https://github.com/antononcube/Raku-Data-Reshapers), [AAp2], provides all of the functions mention in this sub-section.
+**Remark:** The package ["Data::Reshapers"](https://github.com/antononcube/Raku-Data-Reshapers), [AAp2], provides all of the functions mentioned in this sub-section.
 
 ------
 
@@ -344,11 +344,11 @@ See [AA1, Wk1, Wk2, AAv1-AAv4] for more details.
 ... *aka* ***“Data acquisition of well known datasets into Raku”***.
 
 We have to have access to some typical datasets used in (academic) Statistics classes or in books and packages that 
-exemplify Statistics concepts, or have orvexplain related software designs and know-how. 
+exemplify Statistics concepts, or explain related software designs and know-how. 
 And, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in 
 their interaction with others.
 
-The Raku package `Data::ExamplesDatasets` provides functions for obtaining (relatively well known) example datasets. 
+The Raku package "Data::ExamplesDatasets" provides functions for obtaining (relatively well known) example datasets. 
 That package itself contains only datasets metadata -- the datasets are downloaded from the repository 
 [Rdatasets](https://github.com/vincentarelbundock/Rdatasets/), 
 [VAB1]. 

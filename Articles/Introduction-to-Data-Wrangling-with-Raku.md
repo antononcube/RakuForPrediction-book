@@ -1,7 +1,7 @@
 
 # Introduction to data wrangling with Raku
 
-**Version 0.9**
+**Version 1.0**
 
 Anton Antonov   
 [RakuForPrediction at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
@@ -54,8 +54,8 @@ As for data acquisition -- I have a
 [AAr1, AAv6],
 which has a conversational agent that uses code generation through a Raku package, [AAp7].
 In order to discuss and exemplify data wrangling we have to utilize certain data acquisition functionalities.
-Because of that, below are given explanations and examples of using Raku packages for retrieval of popular, well known datasets and 
-for generation of random datasets.  
+Because of that, below are given explanations and examples of using Raku packages for retrieval of popular, 
+well known datasets and for generation of random datasets.  
 
 This document is fairly technical -- readers can just read or skim the next section and the section 
 "Doing it like a Cro" and be done. Some might want to look and skim over the super-technical version 
@@ -127,7 +127,8 @@ ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main
 
 ![1ljtfejml1s9s](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png)
 
-Here is an example of translating English data wrangling specs into Bulgarian, Korean, and Spanish data wrangling specs:
+In order to illustrate the multilinguality of the approach here is an example of translating 
+English data wrangling specs into Bulgarian, Korean, and Spanish data wrangling specs:
 
 ```perl6
 for <Bulgarian Korean Spanish> -> $l {
@@ -227,13 +228,15 @@ The data structures we focus on are datasets, and concretely in Raku we have the
 
 1. Hash of arrays
 
-The order of the representations indicates their importance during the implementation of Raku data wrangling functionalities presented here: 
+The order of the representations indicates their importance during the implementation of Raku data wrangling 
+functionalities presented here: 
 
 - Functionalities for the first two are primary and have unit tests
 
 - Additionally, we accommodate the use of the last two.
 
-When the framework and constellation of data wrangling functionalities matures all four data structures will have correct and consistent treatment.
+When the framework and constellation of data wrangling functionalities matures all four data structures will have 
+correct and consistent treatment.
 
 ### Target users
 
@@ -281,15 +284,23 @@ Here are some properties of the methodology / flow chart:
 
 - It is assumed that in real applications several iterations (loops) have to be run over the flow chart
 
-In the world of the programming language R the orange blocks represent the so called Split-Transform-Combine pattern; see the article ["The Split-Apply-Combine Strategy for Data Analysis"](https://www.jstatsoft.org/article/view/v040i01) by Hadley Wickham, [[HW1](https://www.jstatsoft.org/article/view/v040i01)].
+In the world of the programming language R the orange blocks represent the so called Split-Transform-Combine pattern; 
+see the article 
+["The Split-Apply-Combine Strategy for Data Analysis"](https://www.jstatsoft.org/article/view/v040i01) 
+by Hadley Wickham, [[HW1](https://www.jstatsoft.org/article/view/v040i01)].
 
-**Remark:** R was (and probably still is) a fairly arcane programming language, so the explicit introduction of the Split-Transform-Combine pattern was of great help to R programers. On the other hand, that pattern is fairly old and well known: it is inherent to SQL and it is met in parallel programming. (For example, see the WL function [ParallelCombine](http://reference.wolfram.com/mathematica/ref/ParallelCombine.html), [WRI2].)
+**Remark:** R was (and probably still is) a fairly arcane programming language, so the explicit introduction of the 
+Split-Transform-Combine pattern was of great help to R programmers. On the other hand, that pattern is fairly old 
+and well known: it is inherent to SQL and it is met in parallel programming. 
+(For example, see the WL function 
+[`ParallelCombine`](http://reference.wolfram.com/mathematica/ref/ParallelCombine.html), 
+[WRI2].)
 
-Here is a simple use case scenario walkthrough:
+Here is a simple use case scenario walk-through:
 
 1. Obtain a tabular dataset from a warehouse.
 
-2. Summarize and examine the dataset and decide that does not have the desired form and content.
+2. Summarize and examine the dataset and decide that it does not have the desired form and content.
 
     - I.e. the data have to be wrangled.
 
@@ -301,7 +312,7 @@ Here is a simple use case scenario walkthrough:
 
 6. Transform each group by combining the values of each column in some way.
 
-    - For example finding means or standard deviations of numerical columns.
+    - For example, finding means or standard deviations of numerical columns.
 
 7. Combine the transformed groups (into one “flat” tabular dataset.)
 
@@ -335,7 +346,9 @@ In data wrangling and data analysis the following three operations are non-basic
 
 See [AA1, Wk1, Wk2, AAv1-AAv4] for more details.
 
-**Remark:** The package ["Data::Reshapers"](https://github.com/antononcube/Raku-Data-Reshapers), [AAp2], provides all of the functions mentioned in this sub-section.
+**Remark:** The package 
+["Data::Reshapers"](https://github.com/antononcube/Raku-Data-Reshapers), 
+[AAp2], provides all functions mentioned in this sub-section.
 
 ------
 
@@ -343,14 +356,16 @@ See [AA1, Wk1, Wk2, AAv1-AAv4] for more details.
 
 ... *aka* ***“Data acquisition of well known datasets into Raku”***.
 
-We have to have access to some typical datasets used in (academic) Statistics classes or in books and packages that 
-exemplify Statistics concepts, or explain related software designs and know-how. 
-And, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in 
+We have to have access to some typical datasets used in Statistics teaching classes or in books and packages that 
+exemplify Statistics concepts or explain related software designs and know-how. 
+Also, of course, having those datasets would greatly benefit the data scientist impostors and the code baristas in 
 their interaction with others.
 
-The Raku package "Data::ExamplesDatasets" provides functions for obtaining (relatively well known) example datasets. 
+The Raku package 
+["Data::ExamplesDatasets"](https://github.com/antononcube/Raku-Data-ExampleDatasets),
+[AAp3], provides functions for obtaining (relatively well known) example datasets. 
 That package itself contains only datasets metadata -- the datasets are downloaded from the repository 
-[Rdatasets](https://github.com/vincentarelbundock/Rdatasets/), 
+["Rdatasets"](https://github.com/vincentarelbundock/Rdatasets/), 
 [VAB1]. 
 
 Here we get a famous example dataset using a regex:
@@ -413,7 +428,8 @@ records-summary(delete-columns(get-datasets-metadata(),<Title CSV Doc>), max-tal
 # +---------------------+------------------+--------------------+------------------+--------------------+--------------------+-----------------------+--------------------+---------------------+
 ```
 
-Here is a histogram of the distribution of the number of rows across the examples datasets (getting the data in Raku, plotting the histogram with WL):
+Here is a histogram of the distribution of the number of rows across the examples datasets 
+(getting the data in Raku, plotting the histogram with WL):
 
 ```perl6
 select-columns(get-datasets-metadata(),"Rows")
@@ -431,7 +447,10 @@ The values of the plot above are logarithms with base 10. We can see that the ma
 
 ### Dataset identifiers
 
-A dataset identifier is composed with a package name and an item name, separated by `"::"`. As it can be seen in the summary table above, a package can have multiple items, and the same item name might be found in multiple packages. Hence, with certain dataset specifications the function `example-dataset` gives a warning of multiple packages without retrieving any data:
+A dataset identifier is composed with a package name and an item name, separated by `"::"`. 
+As it can be seen in the summary table above, a package can have multiple items, and the same item name might be found 
+in multiple packages. Hence, with certain dataset specifications the function `example-dataset` gives a warning 
+of multiple packages without retrieving any data:
 
 ```perl6
 example-dataset(/ .* smoking .* /)
@@ -442,7 +461,8 @@ example-dataset(/ .* smoking .* /)
 #ERROR: COUNT::smoking	https://vincentarelbundock.github.io/Rdatasets/csv/COUNT/smoking.csv(Any)
 ```
 
-Here we retrieve a specific dataset using an identifier that is comprised of the package name and item name (separated with “::”):
+Here we retrieve a specific dataset using an identifier that consists of the package name and item name 
+(separated with "::"):
 
 ```perl6
 example-dataset('COUNT::smoking')
@@ -463,9 +483,10 @@ example-dataset('COUNT::smoking')
 ### Memoization
 
 The main package function, `example-dataset`, has the adverb `keep`. 
-If that adverb is given then `example-dataset` stores the web-retrieved data in the directory `XDG_DATA_HOME` and subsequently retrieves it from there. 
-See ["Freedesktop.org Specifications"](https://specifications.freedesktop.org) and [JS1] for more details on
-what is the concrete value of the environmental variable `XDG_DATA_HOME`.
+If that adverb is given then `example-dataset` stores the web-retrieved data in the directory `XDG_DATA_HOME` 
+and subsequently retrieves it from there. See 
+["Freedesktop.org Specifications"](https://specifications.freedesktop.org) 
+and [JS1] for more details on what is the concrete value of the environmental variable `XDG_DATA_HOME`.
 
 ------
 
@@ -473,10 +494,12 @@ what is the concrete value of the environmental variable `XDG_DATA_HOME`.
 
 ... *aka* ***“Generate Your Own Datasets”***. *(Not “Get Your Own Dog”.)*
 
-Instead of example datasets and dealing with potential problems, like, retrieving them, or just finding one, or two, or five that fit what we want to experiment with, why not simply generate random tabular datasets?! 
+Instead of example datasets and dealing with potential problems, like, retrieving them, or just finding one, or two, 
+or five that fit what we want to experiment with, why not simply generate random tabular datasets?! 
 
-The function `random-tabular-dataset` of the package "Data::Generators", [AAp4], generates random tabular datasets 
-using as arguments shape- and generators specs. 
+The function `random-tabular-dataset` of the package 
+["Data::Generators"](https://modules.raku.org/dist/Data::Generators:cpan:ANTONOV), 
+[AAp4], generates random tabular datasets using as arguments shape- and generators specs. 
 
 ### Completely random
 
@@ -531,7 +554,7 @@ $tblWork==>encode-to-wl
 ... *aka* ***“Espresso machine for code baristas”*** or ***“Data wrangling code generation”***.
 
 Instead of expecting people to know how to use certain Raku packages and commands for data wrangling why not 
-“just” generate the Raku code for them using natural language specifications? 
+"just" generate the Raku code for them using natural language specifications? 
 Good code baristas, then, can modify that code to client’s requirements.
 
 Here we load the comprehensive translation package, [AAp8]:
@@ -585,6 +608,10 @@ say "counts: ", $obj>>.elems
 **Remark:**  For the same natural language command we can generate data wrangling code for other languages: 
 Julia, Python, R, Wolfram Language.
 
+The data wrangling natural language commands translator is based on DTWM described in the section 
+"Datum fundamentum" above. For more extensive examples of its use see the presentation
+["Multi-language Data-Wrangling Conversational Agent"](https://www.youtube.com/watch?v=pQk5jwoMSxs).
+
 ------
 
 ## Doing it like a Cro
@@ -592,8 +619,8 @@ Julia, Python, R, Wolfram Language.
 ... *aka* ***“Using a Cro-made web service for data wrangling code generation”***.
 
 Thinking further about the professional lives of data scientist impostors and code baristas we can provide a Web service 
--- via the constellation of Raku libraries Cro -- that translates natural language DSL into executable code. 
-See the video [AAv5] for a demonstration of such a system. Below we refer to it as the Cro Web Service (CWS). 
+that translates natural language DSL into executable code. I implemented such Web service via the constellation of 
+Raku libraries Cro; below we refer to it as the Cro Web Service (CWS). See the video [AAv5] for a demonstration.
 
 ### Getting code through the Web API
 
@@ -694,7 +721,7 @@ In that diagram we can trace the following Shortcuts execution steps:
 
 The principle “there is more than one way to do it” is often found to be too constraining or too blocking. 
 In my experience, code baristas and IT technology managers prefer one way of doing things. 
-Also, not to be too exposed to the paradox of choice too much. 
+Also, not to be too exposed to the Paradox of choice too much. 
 If anything, voluntary simplicity and predictable mediocrity are preferred. 
 Which is fine, since we have a solution that serves well the simple minded when they are single minded. 
 
@@ -706,14 +733,15 @@ Here are the elements of the proposed solution:
 
 - Simple to learn and keep in mind data wrangling methodology
 
-- The generated programming codes are expected to be “good starting points”
+- The generated programming codes are expected to be "good starting points"
 
     - I.e. additionally tweaked by users according to desired outcomes.
 
 We can rephrase and summarize the above as:
 
-- The abstract data wrangling representation with a grammar for natural language commands allows different
-  data wrangling implementations to be made for each programming language.
+- Rapid specification of data wrangling workflows is achieved by using an abstract grammar representation
+  of data wrangling natural language commands, which allows different
+  data wrangling implementations to be made for each programming language of interest.
 
 Let us also point out that the proposed DSL data wrangling solution does not cover *all possible* 
 data wrangling undertakings, but I claim that for tabular data collections we can streamline any complicated 
@@ -748,7 +776,7 @@ The DSL data wrangling solution adheres to Larry's statement:
 ### Lao Tze
 
 The approach can be additionally justified by referring to Lao Tze’s 
-[Tao Te Ching](https://en.wikipedia.org/wiki/Tao_Te_Ching) 
+["Tao Te Ching"](https://en.wikipedia.org/wiki/Tao_Te_Ching),
 [Book 1, Chapter 11](https://www.egreenway.com/taoism/ttclz11.htm).
 
 Here is a translation of that chapter:
@@ -763,7 +791,7 @@ Therefore, what has a positive existence serves for profitable adaptation,
 and what has not that for actual usefulness.  
 > ~ Translated by James Legge, 1891, Chapter 11
 
-Here are some points that clarify how the DSL data wrangling solution can be seen as manifestation of the
+Here are some points that clarify how the DSL data wrangling solution can be seen as a manifestation of the
 outlined principle:
 
 - We use a slang not just for the coolness of pronouncing its words, but because of the things 
@@ -785,8 +813,8 @@ outlined principle:
   the DSL is translated to.
 
 **Remark:** I used similar justification for translating Mathematica expressions for High Performance Fortran (HPF).   
-See [AA3, AAn3]. Basically, the "negative existence" of Mathematica expressions and HPF were kind of similar 
-and that allowed to write a translator from Mathematica to HPF.
+See [AA3, AAn3]. Basically, the "negative existence" of Mathematica functional programming expressions and 
+HPF are kind of similar and that allowed to write a translator from Mathematica to HPF.
 
 -------
 
@@ -794,16 +822,19 @@ and that allowed to write a translator from Mathematica to HPF.
 
 ... *aka* ***“The data wrangling user guide is quite boring”***.
 
+I had the intent to publish this document in ["Raku Advent Calendar"](https://raku-advent.blog).
+(Did not happen.)
+
 One of the 
 ["Raku Advent Calendar"](https://raku-advent.blog)
 organizers after seeing one of my very initial drafts asked me to do something more "lighthearted." 
 
-(I am not going to names, but I will say that he uses the initials "JJ" and wrote a Raku cook-book.)
+(I am not going to say names, but I will say that he uses the initials "JJ" and wrote a Raku cook-book.)
 
 Well, this document is my lighthearted version of what I wanted to say about my efforts to endow the Raku ecosystem 
 with data wrangling capabilities that resemble approaches in other, well known systems. 
 
-The original, “heavy-brained” version is [AA1]. The heavy-brained version compiles all explanations
+The original, "heavy-brained" version is [AA1]. The heavy-brained version compiles all explanations
 and usage examples given in the README files of the Raku packages [AAp1 ÷ AAp4].
 
 **Remark:** There is a related
@@ -820,7 +851,7 @@ project.
 
 The short version of the tale is the following:
 
-> The Wolf, the Ram, and the Raccoon went into a socket. The socket was provided by [ZeroMQ](https://zeromq.org). (The end.)
+> The Wolf, the Ram, and the Raccoon talked through a socket. The socket was provided by [ZeroMQ](https://zeromq.org). (The end.)
 
 The long version is given in 
 ["Connecting Raku to Mathematica"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Connecting-Mathematica-and-Raku.md), 
@@ -852,7 +883,7 @@ Here are some Raku-centric implications of the last statement:
     - Comparison with other languages "doing the same thing"
 
 Here is an example of using the serializer command `encode-to-wl` to convert a tabular dataset generated in Raku 
-with the command `random-tabular-dataset` and displaying it in Mathematica as a “native” 
+with the command `random-tabular-dataset` and displaying it in Mathematica as a "native" 
 [`Dataset`](https://reference.wolfram.com/language/ref/Dataset.html) 
 object, [WRI1]:
 
@@ -882,15 +913,16 @@ WL is the backend programming language in the software system.” Or something s
 
 ## Too green to be Red
 
-*... aka* ***“Didn’t implement data wrangling for Red and couldn’t install it”***.
+*... aka* ***“Didn’t implement data wrangling for Red and couldn't install it”***.
 
 I am using standard Raku data structures in this document. It would have been nice to show examples of 
 data wrangling using the Raku package 
 [Red](https://github.com/FCO/Red), 
 [[FCO1](https://modules.raku.org/dist/Red:cpan:FCO)]. 
-My reasons for not doing it can be summarized as "too much immaturity." More precisely:
+My reasons for not doing it can be summarized as "too much immaturity everywhere." More precisely:
 
-- I did not have time to implement Red actions to the module `DSL::English::DataQueryWorkflows`
+- I did not have time to implement Red actions to the module 
+["DSL::English::DataQueryWorkflows"](https://github.com/antononcube/Raku-DSL-English-DataQueryWorkflows), [AAp6]
 
     - I also have not sufficiently “understood” `Red`.
 
@@ -1018,9 +1050,12 @@ use DSL::Shared::Utilities::ComprehensiveTranslation;
 
 ### Articles, books
 
-[AA1] Anton Antonov, Data wrangling in Raku, (2021), RakuForPrediction-book at GitHub.
+[AA1] Anton Antonov, "Data wrangling in Raku", (2021), RakuForPrediction-book at GitHub.
 
-[AA2] Anton Antonov, Connecting Raku to Mathematica, (2021), RakuForPrediction-book at GitHub.
+[AA2] Anton Antonov, 
+["Connecting Raku to Mathematica"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Connecting-Mathematica-and-Raku.md), 
+(2021), 
+[RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book).
 
 [AA3] Anton Antonov,
 ["Translating Mathematica expressions to High Performance Fortran"](https://library.wolfram.com/infocenter/MathSource/5143/HPF.pdf),

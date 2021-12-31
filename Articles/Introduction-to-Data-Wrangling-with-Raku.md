@@ -125,7 +125,7 @@ The following diagram:
 ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png"]
 ```
 
-![1ljtfejml1s9s](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png)
 
 In order to illustrate the multilinguality of the approach here is an example of translating 
 English data wrangling specs into Bulgarian, Korean, and Spanish data wrangling specs:
@@ -266,7 +266,7 @@ The following flow-chart encompasses the data transformations workflows we consi
 plWorkflows = ImageCrop@Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.png"]
 ```
 
-![0y4qdm1z0svvv](https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.jpg)
+![](https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/ConceptualDiagrams/Tabular-data-transformation-workflows.jpg)
 
 **Remark:** We are going to refer to the methodology represented by the flow chart above as the 
 ***Data Transformation Workflows Model*** (DTWM). 
@@ -375,7 +375,7 @@ my $iris=example-dataset(/iris $/);
 $iris==>encode-to-wl
 ```
 
-![1dhat25a5thym](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1dhat25a5thym.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1dhat25a5thym.png)
 
 Here are the dimensions of the dataset we just imported:
 
@@ -400,7 +400,7 @@ Here we use WL to display dataset’s documentation:
 WebImage[StringTrim@Out[145]]
 ```
 
-![1coskwrjgeumu](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1coskwrjgeumu.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1coskwrjgeumu.png)
 
 ### Summarizing the datasets collection
 
@@ -441,7 +441,7 @@ select-columns(get-datasets-metadata(),"Rows")
 Histogram[Log10@Normal[%["Rows"]], PlotRange -> All, PlotTheme -> "Detailed", FrameLabel -> {"lg of number of rows", "count"}, PlotLabel -> "Distribution of the number of rows of the example datasets"]
 ```
 
-![1cx8e3kb02ggb](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1cx8e3kb02ggb.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1cx8e3kb02ggb.png)
 
 The values of the plot above are logarithms with base 10. We can see that the majority of the datasets have between 10 and 1000 rows, which is also “confirmed” with the summary table above.
 
@@ -511,7 +511,7 @@ random-tabular-dataset()
 ==>encode-to-wl
 ```
 
-![0pa4gx1mt42s9](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0pa4gx1mt42s9.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/0pa4gx1mt42s9.png)
 
 ### Specified column names and column value generators
 
@@ -523,7 +523,7 @@ random-tabular-dataset(10, <Task Story Epic>, generators=>{Task=>&random-pet-nam
 ==>encode-to-wl
 ```
 
-![1od87l5ns165l](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1od87l5ns165l.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1od87l5ns165l.png)
 
 **Remark:** The column “Story” does not have a user specified generator, hence a generator was (randomly) chosen for it.
 
@@ -544,7 +544,7 @@ my $tblWork=random-tabular-dataset(10,
 $tblWork==>encode-to-wl
 ```
 
-![16092phxsxor8](Diagrams/Introduction-to-Data-Wrangling-with-Raku/16092phxsxor8.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/16092phxsxor8.png)
 
 
 ------
@@ -648,7 +648,7 @@ Here we convert the JSON output from CWS and display it in a tabular form:
 ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadings -> {"Key", "Value"}]
 ```
 
-![0yjdl2h650tsp](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0yjdl2h650tsp.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/0yjdl2h650tsp.png)
 
 #### Latent semantic analysis R code
 
@@ -669,7 +669,7 @@ res = Import@URLRead[<|"Scheme" -> "http",
 ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadings -> {"Key", "Value"}]
 ```
 
-![1x6v7pe98sefw](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1x6v7pe98sefw.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1x6v7pe98sefw.png)
 
 **Remark:** As it can be seen above, CWS can be given user identifiers, which allows for additional personalization 
 of the parsing and interpretation results.
@@ -683,7 +683,7 @@ Here is a diagram that shows the components of the system utilized through
 ImageCrop[Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSL-Web-Service-via-Cro-with-WE-QAS-Shortcuts.png"]]
 ```
 
-![0ak5mpudq4tcm](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0ak5mpudq4tcm.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/0ak5mpudq4tcm.png)
 
 In that diagram we can trace the following Shortcuts execution steps:
 
@@ -903,7 +903,7 @@ say to-pretty-table(random-tabular-dataset(3,5))
 random-tabular-dataset(3,5)==>encode-to-wl()
 ```
 
-![06rfvy2fpqecy](Diagrams/Introduction-to-Data-Wrangling-with-Raku/06rfvy2fpqecy.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/06rfvy2fpqecy.png)
 
 **Remark:** In this document I use Mathematica and Wolfram Language (WL) as synonyms. 
 If we have to be precise, we should say something like “Mathematica is the software system (product) and 
@@ -986,29 +986,29 @@ Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/maste
 Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuDecoder.m"]
 ```
 
-![19g68tfvhmqnr](Diagrams/Introduction-to-Data-Wrangling-with-Raku/19g68tfvhmqnr.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/19g68tfvhmqnr.png)
 
 ```mathematica
 Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/DSLMode.m"]
 ```
 
-![0yzyhr88sy21g](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0yzyhr88sy21g.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/0yzyhr88sy21g.png)
 
-![1wmxsuqlgnswh](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1wmxsuqlgnswh.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1wmxsuqlgnswh.png)
 
-![0ofsa237g19ec](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0ofsa237g19ec.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/0ofsa237g19ec.png)
 
-![0dfjtj85b54nu](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0dfjtj85b54nu.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/0dfjtj85b54nu.png)
 
-![1tq8z9o4nkf07](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1tq8z9o4nkf07.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1tq8z9o4nkf07.png)
 
-![1ot545n8z1fd0](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1ot545n8z1fd0.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1ot545n8z1fd0.png)
 
-![1l6gk8lswm9h6](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1l6gk8lswm9h6.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1l6gk8lswm9h6.png)
 
-![1loegav1evtwf](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1loegav1evtwf.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1loegav1evtwf.png)
 
-![0owv72jay6frn](Diagrams/Introduction-to-Data-Wrangling-with-Raku/0owv72jay6frn.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/0owv72jay6frn.png)
 
 ### Start Raku process
 
@@ -1021,7 +1021,7 @@ SetOptions[RakuInputExecute, Epilog -> (FromRakuCode[#, DisplayFunction -> (Data
 StartRakuProcess["Raku" -> "/Applications/Rakudo/bin/raku"]
 ```
 
-![1rrcnu0nl91a6](Diagrams/Introduction-to-Data-Wrangling-with-Raku/1rrcnu0nl91a6.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Introduction-to-Data-Wrangling-with-Raku/1rrcnu0nl91a6.png)
 
 ```mathematica
 RakuMode[]

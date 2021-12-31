@@ -61,7 +61,7 @@ This document is fairly technical -- readers can just read or skim the next sect
 "Doing it like a Cro" and be done. Some might want to look and skim over the super-technical version 
 "Data wrangling with Raku", [AA1].
 
-**Remark:** Occasionally the code below might have the Raku `expression ==>encode-to-wl()`. 
+**Remark:** Occasionally the code below might have the Raku expression `==>encode-to-wl()`. 
 This is for serializing Raku objects into 
 [Wolfram Language (WL)](https://en.wikipedia.org/wiki/Wolfram_Language) 
 expressions. 

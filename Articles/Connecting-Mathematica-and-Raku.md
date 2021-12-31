@@ -1,6 +1,6 @@
 # Connecting Mathematica and Raku
 
-**Version 0.7**
+**Version 0.8**
 
 Anton Antonov    
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
@@ -104,7 +104,7 @@ The following mind-map shows the topics covered in this document from a “packa
 ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.png"]
 ```
 
-![0twc0u46iiya5](Diagrams/Connecting-Mathematica-and-Raku/0twc0u46iiya5.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0twc0u46iiya5.png)
 
 ### Reading orientation
 
@@ -130,6 +130,14 @@ A list of short descriptions of the sections below and their importance follows.
 
 - ***“Future plans”*** outlines future plans for related development efforts.
 
+### Execution
+
+This notebook can be executed, but Raku have to be installed for that. 
+The function `StartRakuProcess` takes the option setting `Raku->"some/path/to/raku"` that allows to specify 
+where the Raku executable is. (To get Raku see https://raku.org or https://rakudo.org .)
+
+------
+
 ## The journey
 
 This diagram summarizes my “Raku connectivity” journey:
@@ -138,7 +146,7 @@ This diagram summarizes my “Raku connectivity” journey:
 plJourney = ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Raku-hook-up-to-notebooks-journey.jpg"]
 ```
 
-![0azdgmmhtn602](Diagrams/Connecting-Mathematica-and-Raku/0azdgmmhtn602.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0azdgmmhtn602.png)
 
 Here is some narration:
 
@@ -204,6 +212,8 @@ Here is some narration:
 
     1. The Raku-to-Wolfram-Engine connection was used in dedicated Web services.
 
+------
+
 ## RakuMode
 
 Here we load the ["RakuMode.m"](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m) package:
@@ -212,7 +222,7 @@ Here we load the ["RakuMode.m"](https://github.com/antononcube/ConversationalAge
 Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuMode.m"]
 ```
 
-![019tm4hg43dpy](Diagrams/Connecting-Mathematica-and-Raku/019tm4hg43dpy.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/019tm4hg43dpy.png)
 
 **Remark:** The package ["RakuMode.m"](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m) is very lightweight code-wise. The only “large part” is the Camelia icon for the Raku evaluation cells.
 
@@ -246,7 +256,7 @@ Let us make an intentional omission in order to illustrate that RunProcess is us
 1+1_000
 ```
 
-![1qx8lyemquwgg](Diagrams/Connecting-Mathematica-and-Raku/1qx8lyemquwgg.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1qx8lyemquwgg.png)
 
 
 We get the message above because we essentially executed the shell command:
@@ -255,11 +265,11 @@ We get the message above because we essentially executed the shell command:
 raku -e "1_1_000"
 ```
 
-![06aldtvfu2gf0](Diagrams/Connecting-Mathematica-and-Raku/06aldtvfu2gf0.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/06aldtvfu2gf0.png)
 
-![0axdqw853zczv](Diagrams/Connecting-Mathematica-and-Raku/0axdqw853zczv.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0axdqw853zczv.png)
 
-![0m2y8cd79n6v7](Diagrams/Connecting-Mathematica-and-Raku/0m2y8cd79n6v7.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0m2y8cd79n6v7.png)
 
 ### Via ZeroMQ
 
@@ -271,7 +281,7 @@ First we start a Raku process:
 StartRakuProcess[]
 ```
 
-![0brgm1yborxld](Diagrams/Connecting-Mathematica-and-Raku/0brgm1yborxld.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0brgm1yborxld.png)
 
 Here we create a Raku cell -- using the shortcut “Shift-|” -- and specify the loading of the package [”Lingua::NumericWordForms”](https://modules.raku.org/dist/Lingua::NumericWordForms:cpan:ANTONOV):
 
@@ -307,7 +317,7 @@ Let us provide a schematic description of the example in the previous sub-sectio
 ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Raku-execution-in-Mathematica-notebook.jpg"]
 ```
 
-![0ufb0tefazu9g](Diagrams/Connecting-Mathematica-and-Raku/0ufb0tefazu9g.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0ufb0tefazu9g.png)
 
 Here is a narrative for the flow chart above:
 
@@ -339,6 +349,8 @@ Here is a narrative for the flow chart above:
 
 **Remark:** In the flow chart there is an optional application of the Mathematica and Raku encoders and decoders. The examples below provide more details.
 
+------
+
 ## DSLMode
 
 Here we load the DSLMode package (which triggers the loading of other packages for different computational workflows):
@@ -347,23 +359,23 @@ Here we load the DSLMode package (which triggers the loading of other packages f
 Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/DSLMode.m"];
 ```
 
-![1k6gc0yam33d7](Diagrams/Connecting-Mathematica-and-Raku/1k6gc0yam33d7.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1k6gc0yam33d7.png)
 
-![1fr7yisd7duix](Diagrams/Connecting-Mathematica-and-Raku/1fr7yisd7duix.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1fr7yisd7duix.png)
 
-![07thl9qnsfb7y](Diagrams/Connecting-Mathematica-and-Raku/07thl9qnsfb7y.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/07thl9qnsfb7y.png)
 
-![09prrph90tspg](Diagrams/Connecting-Mathematica-and-Raku/09prrph90tspg.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/09prrph90tspg.png)
 
-![0a7g9xk2k3t6x](Diagrams/Connecting-Mathematica-and-Raku/0a7g9xk2k3t6x.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0a7g9xk2k3t6x.png)
 
-![0cilz41olsms0](Diagrams/Connecting-Mathematica-and-Raku/0cilz41olsms0.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0cilz41olsms0.png)
 
-![17pj1nyjw6yuk](Diagrams/Connecting-Mathematica-and-Raku/17pj1nyjw6yuk.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/17pj1nyjw6yuk.png)
 
-![09e7rsgw6829m](Diagrams/Connecting-Mathematica-and-Raku/09e7rsgw6829m.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/09e7rsgw6829m.png)
 
-![0r49s4dj7y85u](Diagrams/Connecting-Mathematica-and-Raku/0r49s4dj7y85u.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0r49s4dj7y85u.png)
 
 Here we convert the notebook into DSL-mode:
 
@@ -442,7 +454,7 @@ res =
 ResourceFunction["GridTableForm"][List @@@ Normal[KeySort@res], TableHeadings -> {"Key", "Value"}]
 ```
 
-![0u5k3a35gzoof](Diagrams/Connecting-Mathematica-and-Raku/0u5k3a35gzoof.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0u5k3a35gzoof.png)
 
 The underlying Raku function is ToDSLCode from the package [”DSL::Shared::Utilities::ComprehensiveTranslation”](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation):
 
@@ -462,6 +474,8 @@ show counts')
 
 **Remark:** By  default Raku’s ToDSLCode returns a hash. WL’s ToDSLCode returns an association with Method->Identity.
 
+------
+
 ## Web service
 
 We can provide a Web service via the constellation of Raku libraries [Cro](https://cro.services) that translates natural language DSL specifications into executable code. See the video [AAv4] for a demonstration of such a system. Below we refer to it as the Cro Web Service (CWS). 
@@ -479,7 +493,7 @@ res = Import@URLRead[<|"Scheme" -> "http", "Domain" -> "accendodata.net", "Port"
 ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadings -> {"Key", "Value"}]
 ```
 
-![1em852uqkxidb](Diagrams/Connecting-Mathematica-and-Raku/1em852uqkxidb.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1em852uqkxidb.png)
 
 The code was obtained by using a LSA template, the slots of which were filled-in by utilizing a Question Answering System (QAS). See the project ["NLP Template Engine"](https://github.com/antononcube/NLP-Template-Engine) and the movie ["NLP Template Engine, Part 1"](https://youtu.be/a6PvmZnvF9I). 
 
@@ -493,7 +507,7 @@ Here is a components diagram of the process utilized above:
 ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSL-Web-Service-via-Cro-with-WE-QAS.jpg"]
 ```
 
-![0p6duuveas2jd](Diagrams/Connecting-Mathematica-and-Raku/0p6duuveas2jd.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0p6duuveas2jd.png)
 
 The components are (left to right):
 
@@ -515,15 +529,17 @@ Here is some narrative for getting DSL translation code by the NLP Template Engi
 
 1. In a notebook invoke a call to CWS
 
-1. CWS uses the “resident” process implemented in Raku (using the family of libraries Cro)
+2. CWS uses the “resident” process implemented in Raku (using the family of libraries Cro)
 
-1. CWS connects to Wolfram Engine through ZeroMQ
+3. CWS connects to Wolfram Engine through ZeroMQ
 
-1. Wolfram Engine uses the packages of NLP Template Engine to fill-in the slots of relevant code templates
+4. Wolfram Engine uses the packages of NLP Template Engine to fill-in the slots of relevant code templates
 
-    1. The relevant templates a guessed by a Machine Learning classifier.
+   - The relevant templates a guessed by a Machine Learning classifier.
 
-1. The result is given back to the notebook
+5. The result is given back to the notebook
+
+------
 
 ## Encoders and decoders
 
@@ -558,7 +574,7 @@ SeedRandom[12];
 dsRand = ResourceFunction["RandomTabularDataset"][{4, 3}]
 ```
 
-![0e28qoh61g8ud](Diagrams/Connecting-Mathematica-and-Raku/0e28qoh61g8ud.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0e28qoh61g8ud.png)
 
 Here is how the dataset looks encoded in Raku (an array of hashes):
 
@@ -606,7 +622,7 @@ Here the string above is converted to a WL expression:
 ToExpression[%] // First
 ```
 
-![08okmkt54fg6k](Diagrams/Connecting-Mathematica-and-Raku/08okmkt54fg6k.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/08okmkt54fg6k.png)
 
 
 
@@ -624,7 +640,9 @@ Let us evaluate the previous Raku cell again (we get a WL Dataset object right a
 @dsAWs==>encode-to-wl()
 ```
 
-![0d4rpdkdiyhea](Diagrams/Connecting-Mathematica-and-Raku/0d4rpdkdiyhea.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0d4rpdkdiyhea.png)
+
+------
 
 ## Example: Numeric word forms
 
@@ -638,7 +656,7 @@ aNumericWordForms = KeySort@Association[# -> IntegerName[#, {"English", "Words"}
 ResourceFunction["GridTableForm"][aNumericWordForms]
 ```
 
-![1cjnkb7z3ojvw](Diagrams/Connecting-Mathematica-and-Raku/1cjnkb7z3ojvw.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1cjnkb7z3ojvw.png)
 
 Here make another number-to-word-form association using multiple languages:
 
@@ -648,7 +666,7 @@ aNumericWordForms2 = KeySort@Association[# -> IntegerName[#, {RandomChoice[{"Bul
 ResourceFunction["GridTableForm"][aNumericWordForms2]
 ```
 
-![1gjtq62uz503c](Diagrams/Connecting-Mathematica-and-Raku/1gjtq62uz503c.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1gjtq62uz503c.png)
 
 Mathematica (Version 13) can parse English numeric word forms
 
@@ -704,6 +722,8 @@ AbsoluteTiming[
 (*{0.226441, "(1131 7504 9970 1016128 5341656 6865271)"}*)
 ```
 
+------
+
 ## Example: Stoichiometry
 
 In this section we make a brief comparison of Mathematica and Raku over chemical elements data retrieval, molecular mass calculations, and chemical equation balancing.
@@ -744,7 +764,7 @@ lsProps = {"Abbreviation", "AtomicNumber", "AtomicWeight", "Block", "Group", "Na
 Map[# -> ElementData["Cl", #] &, lsProps]
 ```
 
-![0j1ehb4atls73](Diagrams/Connecting-Mathematica-and-Raku/0j1ehb4atls73.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0j1ehb4atls73.png)
 
 Both Mathematica and Raku know the full names of the chemical elements, but Raku has multi-language support:
 
@@ -776,7 +796,7 @@ Here using Mathematica we find the molecular mass:
 ChemicalFormula[StringTrim[%]]["MolecularMass"]
 ```
 
-![1afakvynpdbqu](Diagrams/Connecting-Mathematica-and-Raku/1afakvynpdbqu.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1afakvynpdbqu.png)
 
 Here is the molecular mass computed with Raku:
 
@@ -806,7 +826,7 @@ Here we balance the equation with Mathematica:
 ReactionBalance[%]
 ```
 
-![0gilts1bdhhl4](Diagrams/Connecting-Mathematica-and-Raku/0gilts1bdhhl4.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0gilts1bdhhl4.png)
 
 Here we balance the equation with Raku:
 
@@ -817,6 +837,8 @@ balance-chemical-equation($chemEq)
 ```
 
 (We can see that results are the same.)
+
+------
 
 ## Making of the DSLMode cells
 
@@ -838,6 +860,8 @@ DSL cell has a hard copy of the Raku cell style data from
 in order to have only one package dependency (that of 
 [“ExternalParsersHookup.m”](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/ExternalParsersHookup.m)
 .)
+
+------
 
 ## Making of the RakuMode cell
 
@@ -870,7 +894,7 @@ ResourceFunction["GridTableForm"][{{
   TableHeadings -> {"Standard", "Hex"}, Background -> None]
 ```
 
-![0oj2r4aoag3et](Diagrams/Connecting-Mathematica-and-Raku/0oj2r4aoag3et.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0oj2r4aoag3et.png)
 
 Here is the graphics object used to make the image of the Camelia icon used for Raku cells:
 
@@ -879,7 +903,7 @@ Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/maste
 GetHexCameliaGraphics[]
 ```
 
-![0r4qg16bo0ugj](Diagrams/Connecting-Mathematica-and-Raku/0r4qg16bo0ugj.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0r4qg16bo0ugj.png)
 
 **Remark:** A selected GitHub repository image was croped and vectorized with [ImageGraphics](https://reference.wolfram.com/language/ref/ImageGraphics.html). For more details see the descriptions in the package ["HexCameliaIcons.m"](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/HexCameliaIcons.m), [AAp3].
 
@@ -891,7 +915,7 @@ Here is the Raku code string template for the ZeroMQ connection:
 Magnify[RakuMode`Private`zmqScript, 0.8]
 ```
 
-![0fq8e2ahieogt](Diagrams/Connecting-Mathematica-and-Raku/0fq8e2ahieogt.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0fq8e2ahieogt.png)
 
 ### Comparison with other external evaluation cells
 
@@ -915,6 +939,8 @@ Here is how the Raku cell looks compared to other external evaluator cells:
 
 (The order of the cells above is Raku, Julia, Python, R.)
 
+------
+
 ## Future plans
 
 Here are future plans that (mostly) directly related to the Mathematica-and-Raku connectivity functionalities discussed above:
@@ -930,6 +956,8 @@ Here are future plans that (mostly) directly related to the Mathematica-and-Raku
 - Making similar connections from Raku to other languages (Python, Julia).
 
     - Already done for R.
+
+------
 
 ## References
 

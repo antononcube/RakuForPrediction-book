@@ -53,8 +53,8 @@ As for data acquisition -- I have a
 [Data Acquisition Engine project](https://github.com/antononcube/Data-Acquisition-Engine-project), 
 [AAr1, AAv6],
 which has a conversational agent that uses code generation through a Raku package, [AAp7].
-Since in order to discuss and exemplify data wrangling we have to utilize certain data acquisition functionalities
-below are given explanations and examples of using Raku packages for retrieval of popular, well known datasets and 
+In order to discuss and exemplify data wrangling we have to utilize certain data acquisition functionalities.
+Because of that, below are given explanations and examples of using Raku packages for retrieval of popular, well known datasets and 
 for generation of random datasets.  
 
 This document is fairly technical -- readers can just read or skim the next section and the section 

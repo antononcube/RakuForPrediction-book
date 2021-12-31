@@ -291,7 +291,7 @@ Here is a simple use case scenario walkthrough:
 
 2. Summarize and examine the dataset and decide that does not have the desired form and content.
 
-    1. I.e. the data have to be wrangled.
+    - I.e. the data have to be wrangled.
 
 3. Select only the columns that have the data of interest.
 
@@ -301,9 +301,9 @@ Here is a simple use case scenario walkthrough:
 
 6. Transform each group by combining the values of each column in some way.
 
-    1. For example finding means or standard deviations of numerical columns.
+    - For example finding means or standard deviations of numerical columns.
 
-7. Combine the transformed groups (into one “flat” tabular datasets.)
+7. Combine the transformed groups (into one “flat” tabular dataset.)
 
 8. Reshape the data into long format and export it. 
 

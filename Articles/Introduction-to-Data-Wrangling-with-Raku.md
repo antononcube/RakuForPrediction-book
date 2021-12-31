@@ -170,7 +170,7 @@ Let us define or outline the basic concepts of our Raku data wrangling endeavor.
 
 ### Dataset vs Data frame
 
-Here are a certain intuitive definitions of datasets and data frames:
+Here are certain intuitive definitions of datasets and data frames:
 
 - A ***dataset*** is a table that as a data structure is most naturally interpreted as an array of hashes, each hash representing a *row* in the table.
 

@@ -475,7 +475,7 @@ what is the concrete value of the environmental variable `XDG_DATA_HOME`.
 
 Instead of example datasets and dealing with potential problems, like, retrieving them, or just finding one, or two, or five that fit what we want to experiment with, why not simply generate random tabular datasets?! 
 
-The function `random-tabular-dataset` of the package `Data::Generators`, [AAp4], generates random tabular datasets 
+The function `random-tabular-dataset` of the package "Data::Generators", [AAp4], generates random tabular datasets 
 using as arguments shape- and generators specs. 
 
 ### Completely random
@@ -554,7 +554,7 @@ show counts'
 # "load dataset starwars;replace missing with \"NA\";group by homeworld;show counts"
 ```
 
-Here we translate that command to WL:
+Here we translate that command to Raku:
 
 ```perl6
 ToDSLCode('dsl target Raku::Reshapers;'~$command):code

@@ -27,7 +27,9 @@ Additional, related topics are:
 
 1. The making and utilization of Domain Specific Language (DSL) cells
 
-**Remark:** In this document I use Mathematica and Wolfram Language (WL) as synonyms. If we have to be precise, we could say something like “Mathematica is the software system and WL is the backend programming language in the software system.”
+**Remark:** In this document I use Mathematica and Wolfram Language (WL) as synonyms. If we have to be precise, 
+we could say something like “Mathematica is the software system and WL is the backend programming language in 
+the software system.”
 
 ### Preliminary examples
 
@@ -64,7 +66,7 @@ Here are some Mathematica-centric reasons about the usefulness of connecting Mat
 
 - Raku has built-in UTF-8 symbols treatment and bignums, hence it is interesting to compare its computational model with that of Mathematica or other external evaluators that Mathematica supports.
 
-    - In my view Raku is the only “true” *potential* competitors of Mathematica that is not a LISP descendant.
+    - In my view Raku is the only “true” *potential* competitor of Mathematica that is not a LISP descendant.
 
         - I plan to discuss this in another document, not in this one. 
 
@@ -72,7 +74,7 @@ Here are some Mathematica-centric reasons about the usefulness of connecting Mat
 
 - The utilization of the constellation of DSL packages for code generation.
 
-    - I admit, this is a very biased and personal reson.
+    - I admit, this is a very biased and personal reason.
 
 #### Raku-centric answers
 

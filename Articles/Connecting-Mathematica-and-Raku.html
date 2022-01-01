@@ -85,6 +85,9 @@ show counts</code></pre>
 <li><p><strong><em>“Making of the Raku cell”</em></strong> discusses how the Raku cell (style data) and “prefix” icon was programmed.</p></li>
 <li><p><strong><em>“Future plans”</em></strong> outlines future plans for related development efforts.</p></li>
 </ul>
+<h3 id="execution">Execution</h3>
+<p>This notebook can be executed, but Raku have to be installed for that. The function <code>StartRakuProcess</code> takes the option setting <code>Raku-&gt;"some/path/to/raku"</code> that allows to specify where the Raku executable is. (To get Raku see https://raku.org or https://rakudo.org .)</p>
+<hr />
 <h2 id="the-journey">The journey</h2>
 <p>This diagram summarizes my “Raku connectivity” journey:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plJourney <span class="ex">=</span> ImageCrop@Import<span class="op">[</span><span class="st">&quot;https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Raku-hook-up-to-notebooks-journey.jpg&quot;</span><span class="op">]</span></span></code></pre></div>
@@ -141,6 +144,7 @@ show counts</code></pre>
 <li><p>The Raku-to-Wolfram-Engine connection was used in dedicated Web services.</p></li>
 </ol></li>
 </ol>
+<hr />
 <h2 id="rakumode">RakuMode</h2>
 <p>Here we load the <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m">“RakuMode.m”</a> package:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuMode.m&quot;</span><span class="op">]</span></span></code></pre></div>
@@ -212,6 +216,7 @@ show counts</code></pre>
 <li><p>The result of the Raku cell evaluation is placed in the notebook as an output cell</p></li>
 </ol>
 <p><strong>Remark:</strong> In the flow chart there is an optional application of the Mathematica and Raku encoders and decoders. The examples below provide more details.</p>
+<hr />
 <h2 id="dslmode">DSLMode</h2>
 <p>Here we load the DSLMode package (which triggers the loading of other packages for different computational workflows):</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Import</span><span class="op">[</span><span class="st">&quot;https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/DSLMode.m&quot;</span><span class="op">]</span>;</span></code></pre></div>
@@ -278,6 +283,7 @@ show counts&#39;)
  DSLTARGET =&gt; Python::pandas, 
  USERID =&gt; }</code></pre>
 <p><strong>Remark:</strong> By default Raku’s ToDSLCode returns a hash. WL’s ToDSLCode returns an association with Method-&gt;Identity.</p>
+<hr />
 <h2 id="web-service">Web service</h2>
 <p>We can provide a Web service via the constellation of Raku libraries <a href="https://cro.services">Cro</a> that translates natural language DSL specifications into executable code. See the video [AAv4] for a demonstration of such a system. Below we refer to it as the Cro Web Service (CWS).</p>
 <h3 id="getting-template-code">Getting template code</h3>
@@ -312,11 +318,12 @@ show counts&#39;)
 <li><p>CWS uses the “resident” process implemented in Raku (using the family of libraries Cro)</p></li>
 <li><p>CWS connects to Wolfram Engine through ZeroMQ</p></li>
 <li><p>Wolfram Engine uses the packages of NLP Template Engine to fill-in the slots of relevant code templates</p>
-<ol type="1">
+<ul>
 <li>The relevant templates a guessed by a Machine Learning classifier.</li>
-</ol></li>
+</ul></li>
 <li><p>The result is given back to the notebook</p></li>
 </ol>
+<hr />
 <h2 id="encoders-and-decoders">Encoders and decoders</h2>
 <h3 id="setup">Setup</h3>
 <p>Here we load a WL package with a decoder of Raku expressions:</p>
@@ -365,6 +372,7 @@ say to-pretty-table(@dsAWs)
 <p>Let us evaluate the previous Raku cell again (we get a WL Dataset object right away):</p>
 <pre class="perl6"><code>@dsAWs==&gt;encode-to-wl()</code></pre>
 <p><img src="https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0d4rpdkdiyhea.png" /></p>
+<hr />
 <h2 id="example-numeric-word-forms">Example: Numeric word forms</h2>
 <p>We showed some examples of parsing numeric word forms in the section “RakuMode”. In this section we extend those examples in order to demonstrate how Raku can be used in Mathematica to extend or replace existing functionalities or provide missing ones.</p>
 <p>Here we make an association of numbers and their numeric word forms in English, then tabulate that association:</p>
@@ -406,10 +414,11 @@ say to-pretty-table(@dsAWs)
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co">(*{0.226441, &quot;(1131 7504 9970 1016128 5341656 6865271)&quot;}*)</span></span></code></pre></div>
+<hr />
 <h2 id="example-stoichiometry">Example: Stoichiometry</h2>
 <p>In this section we make a brief comparison of Mathematica and Raku over chemical elements data retrieval, molecular mass calculations, and chemical equation balancing.</p>
-<p>In 2007, while working on <a href="https://www.wolframalpha.com">WolframAlpha</a> (W|A) , I wrote a chemical molecules parser, and functions for molecular mass calculations and chemical equation balancing. In the beginning of 2021 I wrote similar functions for Raku, see the package <a href="https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV">Chemistry::Stoichiometry</a>, [AAp13].</p>
-<p>Mathematica Version 6.0 (released in 2007) introduced the function <a href="https://reference.wolfram.com/language/ref/ElementData.html">ElementData</a>. In Mathematica Version 13.0 (released December 2021) has the function <a href="https://reference.wolfram.com/language/ref/ReactionBalance.html">ReactionBalance</a> that balances chemical equations.</p>
+<p>In 2007, while working on <a href="https://www.wolframalpha.com">WolframAlpha</a> (W|A), I wrote a chemical molecules parser, and functions for molecular mass calculations and chemical equation balancing. In the beginning of 2021 I wrote similar functions for Raku; see the package <a href="https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV">“Chemistry::Stoichiometry”</a>, [AAp13].</p>
+<p>Mathematica Version 6.0 (released in 2007) introduced the function <a href="https://reference.wolfram.com/language/ref/ElementData.html"><code>ElementData</code></a>. Mathematica Version 13.0 (released December 2021) has the function <a href="https://reference.wolfram.com/language/ref/ReactionBalance.html"><code>ReactionBalance</code></a> that balances chemical equations.</p>
 <p>Here we load the Raku package [AAp13]:</p>
 <pre class="perl6"><code>use Chemistry::Stoichiometry;</code></pre>
 <h3 id="chemical-element-data">Chemical element data</h3>
@@ -460,10 +469,12 @@ say to-pretty-table(@dsAWs)
 
 # [1*C2H5OH + 3*O2 -&gt; 2*CO2 + 3*H2O]</code></pre>
 <p>(We can see that results are the same.)</p>
+<hr />
 <h2 id="making-of-the-dslmode-cells">Making of the DSLMode cells</h2>
 <p>Initially I borrowed ideas from the <a href="https://resources.wolframcloud.com/FunctionRepository">Wolfram Function Repository (WFR)</a> function <a href="https://resources.wolframcloud.com/FunctionRepository/resources/DarkMode/">“DarkMode”</a>. After that I was pretty much directed by <a href="https://community.wolfram.com/web/kubapod">Kuba Podkalicki</a> how to design and implement the functionalities behind the DSL cells.</p>
 <p>The package <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/DSLMode.m">“DSLMode.m”</a> is small, just “a front” for the pretty big package <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/ExternalParsersHookup.m">“ExternalParsersHookup.m”</a>, which has all DSLs from the <a href="https://conf.raku.org/talk/157">RakuForPrediction project</a> being represented in it.</p>
 <p>DSL cell has a hard copy of the Raku cell style data from <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m">“RakuMode.m”</a> in order to have only one package dependency (that of <a href="https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/ExternalParsersHookup.m">“ExternalParsersHookup.m”</a> .)</p>
+<hr />
 <h2 id="making-of-the-rakumode-cell">Making of the RakuMode cell</h2>
 <p>I tried to make the Raku cells to resemble external evaluation cells to a large degree, but still look decisively different.</p>
 <ul>
@@ -505,6 +516,7 @@ say to-pretty-table(@dsAWs)
 <div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">+</span><span class="dv">1_000</span></span></code></pre></div>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>{<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">2</span>)}</span></code></pre></div>
 <p>(The order of the cells above is Raku, Julia, Python, R.)</p>
+<hr />
 <h2 id="future-plans">Future plans</h2>
 <p>Here are future plans that (mostly) directly related to the Mathematica-and-Raku connectivity functionalities discussed above:</p>
 <ul>
@@ -517,6 +529,7 @@ say to-pretty-table(@dsAWs)
 <li>Already done for R.</li>
 </ul></li>
 </ul>
+<hr />
 <h2 id="references">References</h2>
 <h3 id="functions">Functions</h3>
 <p>[WRI1][ Wolfram Research, (2014), <a href="https://reference.wolfram.com/language/ref/RunProcess.html.en">RunProcess</a>, Wolfram Language function, https://reference.wolfram.com/language/ref/RunProcess.html.</p>

@@ -726,11 +726,20 @@ AbsoluteTiming[
 
 ## Example: Stoichiometry
 
-In this section we make a brief comparison of Mathematica and Raku over chemical elements data retrieval, molecular mass calculations, and chemical equation balancing.
+In this section we make a brief comparison of Mathematica and Raku over chemical elements data retrieval, 
+molecular mass calculations, and chemical equation balancing.
 
-In 2007, while working on [WolframAlpha](https://www.wolframalpha.com) (W|A) , I wrote a chemical molecules parser, and functions for molecular mass calculations and chemical equation balancing. In the beginning of 2021 I wrote similar functions for Raku, see the package [Chemistry::Stoichiometry](https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV), [AAp13].
+In 2007, while working on [WolframAlpha](https://www.wolframalpha.com) (W|A), I wrote a chemical molecules parser, 
+and functions for molecular mass calculations and chemical equation balancing. 
+In the beginning of 2021 I wrote similar functions for Raku; see the package 
+["Chemistry::Stoichiometry"](https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV), 
+[AAp13].
 
-Mathematica Version 6.0 (released in 2007) introduced the function [ElementData](https://reference.wolfram.com/language/ref/ElementData.html). In Mathematica Version 13.0 (released December 2021) has the function [ReactionBalance](https://reference.wolfram.com/language/ref/ReactionBalance.html) that balances chemical equations.
+Mathematica Version 6.0 (released in 2007) introduced the function 
+[`ElementData`](https://reference.wolfram.com/language/ref/ElementData.html). 
+Mathematica Version 13.0 (released December 2021) has the function 
+[`ReactionBalance`](https://reference.wolfram.com/language/ref/ReactionBalance.html) 
+that balances chemical equations.
 
 Here we load the Raku package [AAp13]:
 

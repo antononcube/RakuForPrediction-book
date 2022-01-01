@@ -7,9 +7,10 @@ Anton Antonov
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com)  
 December 2021  
 
+
 ## Introduction
 
-Connecting Mathematica and Raku allows facilitating and leveraging some interesting synergies between the two systems. 
+Connecting [Mathematica](https://www.wolfram.com/mathematica/) and [Raku](https://raku.org) allows facilitating and leveraging some interesting synergies between the two systems.
 
 In this document we describe several ways of connecting Mathematica and Raku:
 
@@ -27,9 +28,7 @@ Additional, related topics are:
 
 1. The making and utilization of Domain Specific Language (DSL) cells
 
-**Remark:** In this document I use Mathematica and Wolfram Language (WL) as synonyms. If we have to be precise, 
-we could say something like “Mathematica is the software system and WL is the backend programming language in 
-the software system.”
+**Remark:** In this document I use Mathematica and Wolfram Language (WL) as synonyms. If we have to be precise, we could say something like “Mathematica is the software system and WL is the backend programming language in the software system.”
 
 ### Preliminary examples
 
@@ -38,10 +37,11 @@ Here is an example of a Raku cell:
 ```perl6
 say (1+1_000)**2
 
-# "1002001"
+(*"1002001"*)
 ```
 
-Here is an example of Domain Specific Language (DSL) cell that does parsing and interpretation only (generates code, does not evaluates it):
+Here is an example of a Domain Specific Language (DSL) cell that does parsing and interpretation only 
+(generates code, does not evaluate it):
 
 ```dsl
 DSL MODULE DataQuery;
@@ -58,7 +58,7 @@ Echo[Map[ Length, obj], "counts:"]
 
 (Below we provide more detailed examples.)
 
-### Why is this useful? 
+### Why is this useful?
 
 #### Mathematica-centric answers
 
@@ -68,11 +68,11 @@ Here are some Mathematica-centric reasons about the usefulness of connecting Mat
 
     - In my view Raku is the only “true” *potential* competitor of Mathematica that is not a LISP descendant.
 
-        - I plan to discuss this in another document, not in this one. 
+        - I plan to discuss this in another document, not in this one.
 
 - Raku has a great built-in system of grammars and interpreter actions, which can be used to complete, replace, or amplify WL’s built-in functionalities.
 
-- The utilization of the constellation of DSL packages for code generation.
+- The utilization of a constellation of DSL packages for code generation from the [”Raku for Prediction” project](https://github.com/antononcube/RakuForPrediction-book).
 
     - I admit, this is a very biased and personal reason.
 
@@ -90,9 +90,12 @@ Here are some Raku-centric reasons about the usefulness of connecting Mathematic
 
     - Other programming languages that can be run in Mathematica notebooks: Python, R, Julia, etc.
 
+    - It is a great way to demonstrate the ideas and abilities of the 
+      [“Raku for Prediction” project](https://github.com/antononcube/RakuForPrediction-book).
+
 - [Literate programming](https://en.wikipedia.org/wiki/Literate_programming).
 
-- Comparative testing of results correctness: 
+- Comparative testing of results correctness:
 
     - Verifying that new Raku implementations do "the right thing"
 
@@ -100,33 +103,34 @@ Here are some Raku-centric reasons about the usefulness of connecting Mathematic
 
 ### Orientation mind-map
 
-The following mind-map shows the topics covered in this document from a “package perspective” (the [linked PDF version](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.pdf) has “life” hyperlinks):
+The following mind-map shows the topics covered in this document from a “package perspective” (the 
+[linked PDF version](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.pdf) 
+has “life” hyperlinks):
 
-```mathematica
-ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.png"]
-```
-
-![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0twc0u46iiya5.png)
+[![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/Connecting-Mathematica-and-Raku-mind-map.pdf)
 
 ### Reading orientation
 
-A list of short descriptions of the sections below and their importance follows. (The **important** sections are written with bold font weight; the ***not important*** ones in bold font weight and italic slant.)
+A list of short descriptions of the sections below and their importance follows. 
+(The **important** sections are written with bold font weight; the ***not important*** ones in bold font weight and italic slant.)
 
-- ***“The journey”*** outlines my development efforts to make Raku available into Mathematica (and Jupyter) notebooks.
+- ***“The journey”*** outlines my development efforts to make Raku available into Mathematica notebooks and other types of documents.
 
 - **“RakuMode”** describes the use of Raku cells in notebooks.
 
 - **“DSLMode”** describes the use of DSL cells that utilize Raku evaluations.
 
-- **“Web service”** describes the [web service](https://antononcube.shinyapps.io/DSL-evaluations/) programmed in Raku that leverages the use of the [Wolfram Engine](https://www.wolfram.com/engine/) for generating code through a [NLP Template Engine](https://github.com/antononcube/NLP-Template-Engine).
+- **“Web service”** describes the [web service](https://antononcube.shinyapps.io/DSL-evaluations/) 
+   programmed in Raku that leverages the use of the [Wolfram Engine](https://www.wolfram.com/engine/) 
+   for generating code through a [NLP Template Engine](https://github.com/antononcube/NLP-Template-Engine).
 
 - ***“Encoders and decoders”*** discusses the programming and application of Raku and WL encoders.
 
 - **“Example: Numeric word forms”** shows how Raku package commands can be used to parse integer names generated with WL built-in commands. (A “synergy” demo.)
 
-- ***“Example: Stoichiometry”*** shows how Raku package commands can be used to retrieve chemical elements data and balance chemical equations, and how that compares to the WL built-in functionalities. (A “comparison” demo.)
+- ***“Example: Stoichiometry”*** shows how Raku package commands can be used to retrieve chemical elements data and balance chemical equations, and how that compares to WL’s built-in functionalities. (A “comparison” demo.)
 
-- ***“Making of the DSL cells”*** discusses how the DSL cells (style data) was programmed.
+- ***“Making of the DSL cells”*** discusses how the DSL cells (style data) were programmed.
 
 - ***“Making of the Raku cell”*** discusses how the Raku cell (style data) and “prefix” icon was programmed.
 
@@ -154,65 +158,65 @@ Here is some narration:
 
 1. I developed a dozen of Raku DSL packages that can translate natural language specifications into executable programming code in different languages.
 
-1. Initially I used simple Operating System (OS) redirection calls to get the code generated by the DSL packages from specialized DSL-mode cells.
+2. Initially I used simple Operating System (OS) redirection calls to get the code generated by the DSL packages from specialized DSL-mode cells.
 
     1. For example, the WTC-2020 presentation [“Multi-language Data-Wrangling Conversational Agent”](https://www.youtube.com/watch?v=pQk5jwoMSxs),  [AAv1], used that mechanism.
 
-    1. At that point I developed the Python, R, and WL packages with names ["ExternalParsersHookup"](https://github.com/antononcube/ConversationalAgents/tree/master/Packages/).
+    2. At that point I developed the Python, R, and WL packages with names ["ExternalParsersHookup"](https://github.com/antononcube/ConversationalAgents/tree/master/Packages/).
 
-    1. I also implemented related Raku-mode and DSL-mode notebook styles for Mathematica.
+    3. I also implemented related Raku-mode and DSL-mode notebook styles for Mathematica.
 
-1. The initial approach had two significant problems:
+3. The initial approach had two significant problems:
 
     1. The Raku and DSL cells did not “keep state” between each other -- each cell was executing code on its own.
 
-    1. The evaluation was slow, since every time Raku had to be started and the corresponding packages loaded.
+    2. The evaluation was slow, since every time Raku had to be started and the corresponding packages loaded.
 
-1. The want to “do it right” raised a fair amount of questions; the main ones are:
+4. The want to “do it right” raised a fair amount of questions; the main ones are:
 
     1. How to start a resident process from within, say, Mathematica? 
 
-    1. How to establish a connection to that process?
+    2. How to establish a connection to that process?
 
-    1. What are the applicable (and “standard”) software components or solutions for that kind of architectures?
+    3. What are the applicable (and “standard”) software components or solutions for that kind of architectures?
 
-1. Turned out Mathematica was fairly well equipped to do these kind of inter-process connections. 
+5. Turned out Mathematica was fairly well equipped to do these kind of inter-process connections. 
 
     1. See the guides:
 
-        1. ["Direct Control of External Processes"](https://reference.wolfram.com/language/guide/DirectControlOfExternalProcesses.html)
+        - ["Direct Control of External Processes"](https://reference.wolfram.com/language/guide/DirectControlOfExternalProcesses.html)
 
-        1. ["External Language Interfaces"](https://reference.wolfram.com/language/guide/ExternalLanguageInterfaces.html)
+        - ["External Language Interfaces"](https://reference.wolfram.com/language/guide/ExternalLanguageInterfaces.html)
 
-    1. I was aware of many of the external process WL functionalities, but [SocketConnect](https://reference.wolfram.com/language/ref/SocketConnect.html) had the relatively recent addition of [ZeroMQ](https://zeromq.org) (in 2017) which I was not aware of.
+    2. I was aware of many of the external process WL functionalities, but [SocketConnect](https://reference.wolfram.com/language/ref/SocketConnect.html) had the relatively recent addition of [ZeroMQ](https://zeromq.org) (in 2017) which I was not aware of.
 
-1. Research and reading for possible solutions.
+6. Research and reading for possible solutions.
 
     1. Considered JVM architectures and org-mode related solutions.
 
-    1. The [Babel org-mode](https://orgmode.org/worg/org-contrib/babel/) solution I found for evaluating Raku source blocks was very nice and insightful to read, but essentially the same as my first Mathematica-to-Raku connection solution.
+    2. The [Babel org-mode](https://orgmode.org/worg/org-contrib/babel/) solution I found for evaluating Raku source blocks was very nice and insightful to read, but essentially the same as my first Mathematica-to-Raku connection solution.
 
-1. After some research and reading I decided to use [ZeroMQ](https://zeromq.org).
+7. After some research and reading I decided to use [ZeroMQ](https://zeromq.org).
 
     1. ZeroMQ is used by other external evaluators in Mathematica (explained well in the documentation.)
 
-    1. The [ZeroMQ documentation](https://zeromq.org/get-started/) is fun to read and has examples in multiple programming languages.
+    2. The [ZeroMQ documentation](https://zeromq.org/get-started/) is fun to read and has examples in multiple programming languages.
 
-1. It seemed better to generalize the problem and develop a Raku module for sandboxed Raku execution.
+8. It seemed better to generalize the problem and develop a Raku module for sandboxed Raku execution.
 
     1. The evaluation cells are now the code cells in notebooks, or Markdown, org-mode, or Raku Pod6 files.
 
-    1. The sandboxed Raku can have a “persistent” context that is accessed by the evaluation cells.
+    2. The sandboxed Raku can have a “persistent” context that is accessed by the evaluation cells.
 
-    1. Implemented the Raku package ["Text::CodeProcessing"](https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV), [AAp9].
+    3. Implemented the Raku package ["Text::CodeProcessing"](https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV), [AAp9].
 
-    1. Studied the work on [connecting Raku to Jupyter by Brian Duggan](https://github.com/bduggan/p6-jupyter-kernel), [BD1].
+    4. Studied the work on [connecting Raku to Jupyter by Brian Duggan](https://github.com/bduggan/p6-jupyter-kernel), [BD1].
 
-1. Implemented the corresponding WL packages that utilize the Raku package [“Text::CodeProcessing”](https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV).
+9. Implemented the corresponding WL packages that utilize the Raku package [“Text::CodeProcessing”](https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV).
 
     1. Made several versions of those implementations connecting Raku to R, Python, and Wolfram Engine.
 
-    1. The Raku-to-Wolfram-Engine connection was used in dedicated Web services.
+    2. The Raku-to-Wolfram-Engine connection was used in dedicated Web services.
 
 ------
 
@@ -244,7 +248,11 @@ Raku-mode cells execute Raku code via either:
 
 ### No ZeroMQ connections
 
-Without ZeroMQ sockets ["RakuMode.m"](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m) uses the (very lightweight) package ["RakuCommand.m"](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuCommand.m). Here is an example:
+Without ZeroMQ sockets 
+["RakuMode.m"](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuMode.m) 
+uses the (very lightweight) package 
+["RakuCommand.m"](https://github.com/antononcube/ConversationalAgents/blob/master/Packages/WL/RakuCommand.m). 
+Here is an example:
 
 ```perl6
 say(1+1_000)
@@ -327,27 +335,27 @@ Here is a narrative for the flow chart above:
 
     1. StartRakuProcess uses StartProcess to start Raku 
 
-    1. Socket connection is established with the Raku process though ZeroMQ
+    2. Socket connection is established with the Raku process though ZeroMQ
 
-1. The Raku process loads the package [”Text::CodeProcessing”](https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV)
+2. The Raku process loads the package [”Text::CodeProcessing”](https://modules.raku.org/dist/Text::CodeProcessing:cpan:ANTONOV)
 
     1. That package is used to start a sandboxed Raku environment 
 
-    1. The sandboxed Raku environment can be seen as REPL that has its own context
+    2. The sandboxed Raku environment can be seen as REPL that has its own context
 
-1. The user makes a Raku cell and enters Raku code
+3. The user makes a Raku cell and enters Raku code
 
-1. The user triggers the evaluation of the cell
+4. The user triggers the evaluation of the cell
 
-1. The cell content evaluation is done with the function RakuInputExecute
+5. The cell content evaluation is done with the function RakuInputExecute
 
     1. Raku code is converted to a binary array and sent through a ZeroMQ socket to Raku REPL
 
-    1. Raku REPL evaluates the code 
+    2. Raku REPL evaluates the code 
 
-    1. The result is send back to WL through the ZeroMQ socket
+    3. The result is send back to WL through the ZeroMQ socket
 
-1. The result of the Raku cell evaluation is placed in the notebook as an output cell
+6. The result of the Raku cell evaluation is placed in the notebook as an output cell
 
 **Remark:** In the flow chart there is an optional application of the Mathematica and Raku encoders and decoders. The examples below provide more details.
 
@@ -480,11 +488,15 @@ show counts')
 
 ## Web service
 
-We can provide a Web service via the constellation of Raku libraries [Cro](https://cro.services) that translates natural language DSL specifications into executable code. See the video [AAv4] for a demonstration of such a system. Below we refer to it as the Cro Web Service (CWS). 
+We can provide a Web service via the constellation of Raku libraries [Cro](https://cro.services) 
+that translates natural language DSL specifications into executable code. See the video [AAv4] for a demonstration of 
+such a system. Below we refer to it as the Cro Web Service (CWS). 
 
 ### Getting template code
 
-Here is an example of using CWS through Mathematica’s web interaction function [URLRead](https://reference.wolfram.com/language/ref/URLRead.html), [WRI3], in order to get the R code of Latent Semantic Analysis (LSA) workflow:
+Here is an example of using CWS through Mathematica’s web interaction function 
+[`URLRead`](https://reference.wolfram.com/language/ref/URLRead.html), [WRI3], 
+in order to get the R code of Latent Semantic Analysis (LSA) workflow:
 
 ```mathematica
 command = "use aAbstracts; make document term matrix;apply LSI functions IDF, None, Cosine; extract 40 topics using method SVD;echo topics table" // StringTrim;
@@ -497,9 +509,14 @@ ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadi
 
 ![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/1em852uqkxidb.png)
 
-The code was obtained by using a LSA template, the slots of which were filled-in by utilizing a Question Answering System (QAS). See the project ["NLP Template Engine"](https://github.com/antononcube/NLP-Template-Engine) and the movie ["NLP Template Engine, Part 1"](https://youtu.be/a6PvmZnvF9I). 
+The code was obtained by using a LSA template, the slots of which were filled-in by utilizing a Question Answering System (QAS). 
+See the project 
+["NLP Template Engine"](https://github.com/antononcube/NLP-Template-Engine) 
+and the movie 
+["NLP Template Engine, Part 1"](https://youtu.be/a6PvmZnvF9I). 
 
-**Remark:** The QAS utilized in this implementation is based on WL’s function [FindTextualAnswer](https://reference.wolfram.com/language/ref/FindTextualAnswer.html.en).
+**Remark:** The QAS utilized in this implementation is based on WL’s function 
+[FindTextualAnswer](https://reference.wolfram.com/language/ref/FindTextualAnswer.html.en).
 
 ### Schematic overview
 
@@ -731,10 +748,10 @@ AbsoluteTiming[
 In this section we make a brief comparison of Mathematica and Raku over chemical elements data retrieval, 
 molecular mass calculations, and chemical equation balancing.
 
-In 2007, while working on [WolframAlpha](https://www.wolframalpha.com) (W|A), I wrote a chemical molecules parser, 
-and functions for molecular mass calculations and chemical equation balancing. 
-In the beginning of 2021 I wrote similar functions for Raku; see the package 
-["Chemistry::Stoichiometry"](https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV), 
+In 2007, while working on [WolframAlpha](https://www.wolframalpha.com) (W|A) , I wrote the first versions of W|A’s 
+chemical molecules parser and functions for molecular mass calculations and chemical equation balancing. 
+(See the raw chapters in [AAr3].) In the beginning of 2021 I wrote similar functions for Raku, see the package 
+[”Chemistry::Stoichiometry”](https://modules.raku.org/dist/Chemistry::Stoichiometry:cpan:ANTONOV), 
 [AAp13].
 
 Mathematica Version 6.0 (released in 2007) introduced the function 
@@ -751,13 +768,13 @@ use Chemistry::Stoichiometry;
 
 ### Chemical element data
 
-Here we get element data for Clorine:
+Here we get element data for Chlorine:
 
 ```perl6
 chemical-element-data(‘Cl’);
 
 # {Abbreviation => Cl, AtomicNumber => 17, AtomicWeight => 35.45, Block => p, Group => 17, Name => chlorine, 
-# Period => 3, Series => Halogen, StandardName => Chlorine}
+#  Period => 3, Series => Halogen, StandardName => Chlorine}
 ```
 
 Mathematica has a much larger list element properties:
@@ -777,7 +794,8 @@ Map[# -> ElementData["Cl", #] &, lsProps]
 
 ![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Connecting-Mathematica-and-Raku/0j1ehb4atls73.png)
 
-Both Mathematica and Raku know the full names of the chemical elements, but Raku has multi-language support:
+Both Mathematica and Raku know the full names of the chemical elements, but Raku has multi-language support.
+Here we use Raku to retrieve the names of Chlorine in different languages using the abbreviation "Cl":
 
 ```perl6
 <Bulgarian English German Japanese Persian Russian Spanish>.map({ $_ => chemical-element(‘Cl’, $_ ) })
@@ -785,10 +803,21 @@ Both Mathematica and Raku know the full names of the chemical elements, but Raku
 # (Bulgarian => Хлор English => Chlorine German => Chlor Japanese => 塩素 Russian => Хлор Spanish => Cloro)"*)
 ```
 
+Here we get different types of data using Japanese, English, and Russian element names:
+
 ```perl6
 [atomic-weight(‘ガリウム’), chemical-element-data(‘oxygen’):weight, chemical-element-data(‘кислород’):abbr]
 
 # [69.723 15.999 O]
+```
+
+The Japanese name “ガリウム” above is for Gallium:
+
+```perl6
+chemical-element-data(‘ガリウム’)
+
+# {Abbreviation => Ga, AtomicNumber => 31, AtomicWeight => 69.723, Block => p, Group => 13, Name => gallium, 
+#  Period => 4, Series => PoorMetal, StandardName => Gallium}
 ```
 
 ### Molecular mass
@@ -1031,11 +1060,25 @@ Here are future plans that (mostly) directly related to the Mathematica-and-Raku
 
 ### Repositories
 
-[AAr1] Anton Antonov, ["Raku for Prediction" book](https://github.com/antononcube/RakuForPrediction-book), (2021), [GitHub/antononcube](https://github.com/antononcube).
+[AAr1] Anton Antonov, 
+["Raku for Prediction" book](https://github.com/antononcube/RakuForPrediction-book), 
+(2021), 
+[GitHub/antononcube](https://github.com/antononcube).
 
-[AAr2] Anton Antonov, [NLP Template Engine](https://github.com/antononcube/NLP-Template-Engine), (2021), [GitHub/antononcube](https://github.com/antononcube).
+[AAr2] Anton Antonov, 
+[NLP Template Engine](https://github.com/antononcube/NLP-Template-Engine), 
+(2021), 
+[GitHub/antononcube](https://github.com/antononcube).
 
-[BD1] Brian Duggan et al., [p6-jupyter-kernel](https://github.com/bduggan/p6-jupyter-kernel), (2017-2020), [GitHub/bduggan](https://github.com/bduggan).
+[AAr3] Anton Antonov, 
+["Mathematica for Chemists and Chemical Engineers" book project](https://github.com/antononcube/MathematicaForChemistsAndChemicalEngineers-book), 
+(2020), 
+[GitHub/antononcube](https://github.com/antononcube).
+
+[BD1] Brian Duggan et al., 
+[p6-jupyter-kernel](https://github.com/bduggan/p6-jupyter-kernel), 
+(2017-2020), 
+[GitHub/bduggan](https://github.com/bduggan).
 
 ### Videos
 

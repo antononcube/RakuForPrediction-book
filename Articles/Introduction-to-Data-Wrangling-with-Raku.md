@@ -122,10 +122,10 @@ The following diagram:
 - Represents “with-Raku” efforts bottom-right
 
 ```mathematica
-ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png"]
+ImageCrop@Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling-Dec-2021-state.png"]
 ```
 
-![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling%20-Dec-2021-state.png)
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Diagrams/DSLs-Interpreter-for-Data-Wrangling-Dec-2021-state.png)
 
 In order to illustrate the multilinguality of the approach here is an example of translating 
 English data wrangling specs into Bulgarian, Korean, and Spanish data wrangling specs:

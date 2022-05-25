@@ -99,7 +99,7 @@
 - Добив на данни : Data acquisition
 - Изкустен Интелект (ИИ) : Artificial Intelligence (AI)
 - Канал : Socket
-- Латентно Семантичен Анализ (ЛСА): Latent Semantic Analysis (LSA)
+- Латентно Семантичен Анализ (ЛСА) : Latent Semantic Analysis (LSA)
 - Масив : Array
 - Мемоаризация : Memoization
 - Модулни тестове : Unit tests
@@ -383,7 +383,7 @@ transpose($tbl)
 
 - [Преобразуване към дълъг формат](https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow)
 
-- [Преобразуване към широк формат](https://en.wikipedia.org/wiki/Wide_and_narrow_data#Wide)
+- [Преобразуване към широк формат](https://en.wikipedia.org/wiki/Wide_and_narrow_data#Wide).
 
 За повече подробности вижте [AA1, Wk1, Wk2, AAv1-AAv4].
 
@@ -917,6 +917,7 @@ ResourceFunction["GridTableForm"][List @@@ ImportString[res, "JSON"], TableHeadi
 ["Advent of Code"](https://adventofcode.com/2021).
 
 -------
+
 ## Приказка за вълка, овена и миещата мечка
 
 ... *или* ***"Свързване на Raku с Mathematica"***.

@@ -33,7 +33,7 @@ points = RandomVariate[GammaDistribution[5, 1], 50];
 ResourceFunction["RecordsSummary"][points]
 ```
 
-![1v3fe9820vj7e](./Diagrams/Outlier-detection-in-a-list-of-numbers/1v3fe9820vj7e.png)
+![1v3fe9820vj7e](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/1v3fe9820vj7e.png)
 
 If we sort those numbers in descending order and plot them we get:
 
@@ -42,7 +42,7 @@ points = points // Sort // Reverse;
 ListPlot[points, PlotStyle -> {PointSize[0.015]}, PlotTheme -> "Detailed", PlotRange -> All, Filling -> Axis, ImageSize -> Medium]
 ```
 
-![1kpkp8mq0pg6j](./Diagrams/Outlier-detection-in-a-list-of-numbers/1kpkp8mq0pg6j.png)
+![1kpkp8mq0pg6j](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/1kpkp8mq0pg6j.png)
 
 ```mathematica
 OutlierPosition[lsPoints]
@@ -104,7 +104,7 @@ Here we plot the data and the outliers:
 ListPlot[{points, Transpose[{pos, points[[pos]]}]}, PlotStyle -> {{PointSize[0.02]}, {Red, PointSize[0.012]}}, Filling -> Axis, PlotRange -> All, PlotTheme -> "Detailed", ImageSize -> Medium, PlotLegends -> {"data", "outliers"}]
 ```
 
-![08n44gi4n6adx](./Diagrams/Outlier-detection-in-a-list-of-numbers/08n44gi4n6adx.png)
+![08n44gi4n6adx](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/08n44gi4n6adx.png)
 
 Instead of the mean value we can use another reference point, like the median value. 
 
@@ -116,8 +116,6 @@ First let us load the outlier identification package:
 
 ```perl6
 use Statistics::OutlierIdentifiers;
-
-(*"(Any)"*)
 ```
 
 We can find the outliers in a list of numbers with the function outlier-identifier (using the adverb "values"):
@@ -125,7 +123,7 @@ We can find the outliers in a list of numbers with the function outlier-identifi
 ```perl6
 outlier-identifier(@points):values
 
-(*"(9.82048 8.78346 8.55282 7.94426 7.6337 7.43507 7.25105 7.18306 7.1653 6.66771 6.44773 6.27979 2.65329 2.59209 1.92725 1.88537)"*)
+# (9.82048 8.78346 8.55282 7.94426 7.6337 7.43507 7.25105 7.18306 7.1653 6.66771 6.44773 6.27979 2.65329 2.59209 1.92725 1.88537)
 ```
 
 The package has three functions for the calculation of outlier identifier parameters over a list of numbers:
@@ -133,7 +131,9 @@ The package has three functions for the calculation of outlier identifier parame
 ```perl6
 .say for (&hampel-identifier-parameters, &splus-quartile-identifier-parameters, &quartile-identifier-parameters).map({ $_ => $_.(@points) });
 
-(*"&hampel-identifier-parameters => (2.678434884 6.211945116)&splus-quartile-identifier-parameters => (-0.31888 9.8688)&quartile-identifier-parameters => (1.89827 6.99211)"*)
+&hampel-identifier-parameters => (2.678434884 6.211945116)
+&splus-quartile-identifier-parameters => (-0.31888 9.8688)
+&quartile-identifier-parameters => (1.89827 6.99211)
 ```
 
 Elements of the number list that are outside of the numerical interval made by one of these pairs of numbers are considered outliers.
@@ -144,7 +144,7 @@ In many cases we want only the top outliers or only the bottom outliers. We can 
 @points ==> 
 outlier-identifier(identifier => &top-outliers o &hampel-identifier-parameters ):values
 
-(*"(9.82048 8.78346 8.55282 7.94426 7.6337 7.43507 7.25105 7.18306 7.1653 6.66771 6.44773 6.27979)"*)
+# (9.82048 8.78346 8.55282 7.94426 7.6337 7.43507 7.25105 7.18306 7.1653 6.66771 6.44773 6.27979)
 ```
 
 ------
@@ -183,14 +183,16 @@ Here is a plot of the (sorted) values:
 ListPlot[vals, PlotRange -> All, PlotTheme -> "Detailed"]
 ```
 
-![0y61ylref7zde](./Diagrams/Outlier-detection-in-a-list-of-numbers/0y61ylref7zde.png)
+![0y61ylref7zde](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/0y61ylref7zde.png)
 
 Here we find the outlier positions for each identifier:
 
 ```perl6
 (&hampel-identifier-parameters, &splus-quartile-identifier-parameters, &quartile-identifier-parameters).map({ $_.name => outlier-identifier(@vals, identifier=>$_) }).Hash==>encode-to-wl()
 
-(*<|"hampel-identifier-parameters" -> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76,77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 592, 593, 594, 595, 596, 597, 598, 599}, "splus-quartile-identifier-parameters" -> {0, 1, 2, 3, 596, 597, 598,599}, "quartile-identifier-parameters" -> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 542, 543, 544, 545, 546, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 592, 593, 594, 595, 596, 597, 598, 599}|>*)
+# <|"hampel-identifier-parameters" -> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76,77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 592, 593, 594, 595, 596, 597, 598, 599}, 
+"splus-quartile-identifier-parameters" -> {0, 1, 2, 3, 596, 597, 598,599}, 
+"quartile-identifier-parameters" -> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 542, 543, 544, 545, 546, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 592, 593, 594, 595, 596, 597, 598, 599}|>
 ```
 
 Here we assign the last Raku value -- a hash -- to a WL variable:
@@ -206,7 +208,7 @@ vals2 = Transpose[{Range[Length[vals]], vals}];
 ListPlot[{vals2, vals2[[aOutliers[#] + 1]]}, PlotLabel -> #, ImageSize -> Medium, PlotStyle -> {{}, {Red, PointSize[0.01]}}, PlotTheme -> "Detailed", PlotRange -> All] & /@ Sort[Keys[aOutliers]]
 ```
 
-![01tqeugm6tcii](./Diagrams/Outlier-detection-in-a-list-of-numbers/01tqeugm6tcii.png)
+![01tqeugm6tcii](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/01tqeugm6tcii.png)
 
 We can see that the Hampel outlier identifier is most "permissive" at labeling points as outliers, and the SPLUS quartile-based identifier is the most "conservative."
 
@@ -243,7 +245,7 @@ points = RakuInputExecute["@points==>encode-to-wl()"];
 grData = ListPlot[points, PlotRange -> All, PlotStyle -> Gray, PlotTheme -> "Detailed", ImageSize -> Medium]
 ```
 
-![10jw29bko1kjj](./Diagrams/Outlier-detection-in-a-list-of-numbers/10jw29bko1kjj.png)
+![10jw29bko1kjj](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/10jw29bko1kjj.png)
 
 ### Best fit line
 
@@ -279,7 +281,7 @@ grLine = Plot[x*m + b, {x, Min[points[[All, 1]]], Max[points[[All, 1]]]}];
 Show[{grData, grLine}]
 ```
 
-![0uhd1yjdca24j](./Diagrams/Outlier-detection-in-a-list-of-numbers/0uhd1yjdca24j.png)
+![0uhd1yjdca24j](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/0uhd1yjdca24j.png)
 
 ### Fit-wise outliers
 
@@ -317,7 +319,7 @@ grBottomOutliers =
 Legended[ Show[{grData, grLine, grTopOutliers, grBottomOutliers}, ImageSize -> Large],  SwatchLegend[{Gray, Blue, Red}, {"data", "top outliers", "bottom outliers"}]]
 ```
 
-![10g4x6f5c7z0i](./Diagrams/Outlier-detection-in-a-list-of-numbers/10g4x6f5c7z0i.png)
+![10g4x6f5c7z0i](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/10g4x6f5c7z0i.png)
 
 ------
 
@@ -329,7 +331,7 @@ KillRakuProcess[]
 StartRakuProcess["Raku" -> "~/.rakubrew/shims/raku"]
 ```
 
-![0oelkun1d4hsw](./Diagrams/Outlier-detection-in-a-list-of-numbers/0oelkun1d4hsw.png)
+![0oelkun1d4hsw](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/0oelkun1d4hsw.png)
 
 ### Serializers load
 

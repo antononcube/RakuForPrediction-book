@@ -9,13 +9,15 @@ May 2022
 
 Outlier identification is indispensable for data cleaning, normalization, and analysis.
 
-I frequently include outlier identification in the interfaces and algorithms I make for search and prediction engines. Another, fundamental application of 1D outlier detection is in algorithms for anomalies detection in time series. (See [AAv1, AAv2].)
+I frequently include outlier identification in the interfaces and algorithms I make for search and recommendation engines. Another, fundamental application of 1D outlier detection is in algorithms for anomalies detection in time series. (See [AAv1, AAv2].)
 
 My first introduction to outlier detection was through the book [“Mining Imperfect Data: Dealing with Contamination and Incomplete Records”](http://books.google.com/books/about/Mining_Imperfect_Data.html?id=4FH1QJFMRzEC) by Ronald K. Pearson, [RKP1].
 
 This notebook shows examples of using the Raku package ["Statistics::OutlierIdentifiers"](https://github.com/antononcube/Raku-Statistics-OutlierIdentifiers), [AAp1]. There are related Mathematica and R packages; see [AAp2, AAp3].
 
 **Remark:** This Mathematica notebook uses the Raku connection described in [AA2]. See the section "Setup" at the end. The Raku function for data summarization is described in [AA3].
+
+------
 
 ## Outlier detection basics
 
@@ -145,6 +147,8 @@ outlier-identifier(identifier => &top-outliers o &hampel-identifier-parameters )
 (*"(9.82048 8.78346 8.55282 7.94426 7.6337 7.43507 7.25105 7.18306 7.1653 6.66771 6.44773 6.27979)"*)
 ```
 
+------
+
 ## Comparison
 
 Here is a visual comparison of the three outlier identifiers in the package Statistics::OutlierIdentifiers:
@@ -205,6 +209,8 @@ ListPlot[{vals2, vals2[[aOutliers[#] + 1]]}, PlotLabel -> #, ImageSize -> Medium
 ![01tqeugm6tcii](./Diagrams/Outlier-detection-in-a-list-of-numbers/01tqeugm6tcii.png)
 
 We can see that the Hampel outlier identifier is most "permissive" at labeling points as outliers, and the SPLUS quartile-based identifier is the most "conservative."
+
+------
 
 ## Application example
 
@@ -312,6 +318,8 @@ Legended[ Show[{grData, grLine, grTopOutliers, grBottomOutliers}, ImageSize -> L
 ```
 
 ![10g4x6f5c7z0i](./Diagrams/Outlier-detection-in-a-list-of-numbers/10g4x6f5c7z0i.png)
+
+------
 
 ## Setup
 

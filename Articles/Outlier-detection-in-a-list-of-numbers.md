@@ -283,6 +283,14 @@ Show[{grData, grLine}]
 
 ![0uhd1yjdca24j](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Outlier-detection-in-a-list-of-numbers/0uhd1yjdca24j.png)
 
+**Remark:** Of course, we can quickly check the Raku line fit result with WL:
+
+```mathematica
+Fit[points, {1, x}, x]
+
+(* 200.132 - 0.299957 x *)
+```
+
 ### Fit-wise outliers
 
 Let us find the points that are the closest and are the most distant from the fitted line. 

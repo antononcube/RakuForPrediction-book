@@ -82,7 +82,7 @@ records-summary(@points)
 # +---------------------+
 ```
 
-Here is the first step:
+Here is the first and second steps combined:
 
 ```perl6
 @points.pairs.grep({ $_.value > 1.5 * mean(@points) })
@@ -90,7 +90,7 @@ Here is the first step:
 (*"(0 => 9.82048 1 => 8.78346 2 => 8.55282 3 => 7.94426 4 => 7.6337 5 => 7.43507)"*)
 ```
 
-Here we transfer the found outlier positions from Raku to WL:
+Here we transfer the found outlier positions (the keys of the pairs above) from Raku to WL:
 
 ```mathematica
 pos = 1 + RakuInputExecute["@points.pairs.grep({ $_.value > 1.5 * mean(@points) })>>.key ==>encode-to-wl()"]
@@ -112,13 +112,13 @@ Obviously, we can also use a multiplier different than 1.5.
 
 ## Using the package
 
-First let us load the outlier identification package:
+First let us load the [outlier identification package](https://raku.land/cpan:ANTONOV/Statistics::OutlierIdentifiers):
 
 ```perl6
 use Statistics::OutlierIdentifiers;
 ```
 
-We can find the outliers in a list of numbers with the function outlier-identifier (using the adverb "values"):
+We can find the outliers in a list of numbers with the function `outlier-identifier` (using the adverb "values"):
 
 ```perl6
 outlier-identifier(@points):values
@@ -138,7 +138,9 @@ The package has three functions for the calculation of outlier identifier parame
 
 Elements of the number list that are outside of the numerical interval made by one of these pairs of numbers are considered outliers.
 
-In many cases we want only the top outliers or only the bottom outliers. We can use the functions top-outliers and bottom-outliers for that. Here is an example with for finding top outliers using the Hampel outlier identifier:
+In many cases we want only the top outliers or only the bottom outliers. 
+We can use the functions `top-outliers` and `bottom-outliers` for that. 
+Here is an example of finding top outliers using the Hampel outlier identifier:
 
 ```perl6
 @points ==> 
@@ -147,15 +149,19 @@ outlier-identifier(identifier => &top-outliers o &hampel-identifier-parameters )
 # (9.82048 8.78346 8.55282 7.94426 7.6337 7.43507 7.25105 7.18306 7.1653 6.66771 6.44773 6.27979)
 ```
 
+**Remark:** We use the [composition operator](https://docs.raku.org/language/operators#infix_o,_infix_∘) in the code above.
+
 ------
 
 ## Comparison
 
-Here is a visual comparison of the three outlier identifiers in the package Statistics::OutlierIdentifiers:
+Here is a visual comparison of the three outlier identifiers in the package 
+["Statistics::OutlierIdentifiers"](https://raku.land/cpan:ANTONOV/Statistics::OutlierIdentifiers):
 
 Assume we have a (sorted) list of values: 
 
 ```perl6
+use Data::Generators;
 my @vals = random-variate(NormalDistribution.new(:mean(12), :sd(6)), 600).sort;
 records-summary(@vals)
 

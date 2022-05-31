@@ -87,7 +87,7 @@ Here is the first and second steps combined:
 ```perl6
 @points.pairs.grep({ $_.value > 1.5 * mean(@points) })
 
-(*"(0 => 9.82048 1 => 8.78346 2 => 8.55282 3 => 7.94426 4 => 7.6337 5 => 7.43507)"*)
+# (0 => 9.82048 1 => 8.78346 2 => 8.55282 3 => 7.94426 4 => 7.6337 5 => 7.43507)
 ```
 
 Here we transfer the found outlier positions (the keys of the pairs above) from Raku to WL:
@@ -131,9 +131,9 @@ The package has three functions for the calculation of outlier identifier parame
 ```perl6
 .say for (&hampel-identifier-parameters, &splus-quartile-identifier-parameters, &quartile-identifier-parameters).map({ $_ => $_.(@points) });
 
-&hampel-identifier-parameters => (2.678434884 6.211945116)
-&splus-quartile-identifier-parameters => (-0.31888 9.8688)
-&quartile-identifier-parameters => (1.89827 6.99211)
+# &hampel-identifier-parameters => (2.678434884 6.211945116)
+# &splus-quartile-identifier-parameters => (-0.31888 9.8688)
+# &quartile-identifier-parameters => (1.89827 6.99211)
 ```
 
 Elements of the number list that are outside of the numerical interval made by one of these pairs of numbers are considered outliers.
@@ -241,7 +241,7 @@ my $input = '333,129  39,189 140,156 292,134 393,52  160,166 362,122  13,193
 my @points = $input.words».split(',')».Int;
 @points.elems
 
-(*"48"*)
+# 48
 ```
 
 Here we plot the points:
@@ -312,7 +312,7 @@ Here we find the top outliers:
 ```perl6
 my @topPos = outlier-identifier(@diffs, identifier => (&top-outliers o &hampel-identifier-parameters));
 
-(*"[0 3 4 6 13 21 25 34 40 41]"*)
+# [0 3 4 6 13 21 25 34 40 41] 
 ```
 
 Here we find the bottom outliers:

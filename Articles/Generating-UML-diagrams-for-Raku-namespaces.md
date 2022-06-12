@@ -288,7 +288,7 @@ Here are the classes and roles in that namespace:
 ```perl6
 .say for namespace-types( 'MyPackageClass' )
 
-(*"((D) (A) (B) (C))"*)
+# ((D) (A) (B) (C))
 ```
 
 Here we show the meta-object types of the module types (classes and roles):
@@ -296,7 +296,10 @@ Here we show the meta-object types of the module types (classes and roles):
 ```perl6
 .say for namespace-types( 'MyPackageClass' ):how-pairs
 
-(*"MyPackageClass::D => Perl6::Metamodel::ClassHOWMyPackageClass::A => Perl6::Metamodel::ParametricRoleGroupHOWMyPackageClass::B => Perl6::Metamodel::ParametricRoleGroupHOWMyPackageClass::C => Perl6::Metamodel::ClassHOW"*)
+# MyPackageClass::D => Perl6::Metamodel::ClassHOW
+# MyPackageClass::A => Perl6::Metamodel::ParametricRoleGroupHOW
+# MyPackageClass::B => Perl6::Metamodel::ParametricRoleGroupHOW
+# MyPackageClass::C => Perl6::Metamodel::ClassHOW
 ```
 
 ### UML diagrams

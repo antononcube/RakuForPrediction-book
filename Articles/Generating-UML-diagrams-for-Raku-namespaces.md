@@ -44,7 +44,7 @@ use UML::Translators;
 to-uml-spec('ML::StreamsBlendingRecommender'):!methods:!attributes;
 ```
 
-![1ha9khgzozmsr](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1ha9khgzozmsr.png)
+![1ha9khgzozmsr](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1ha9khgzozmsr.png)
 
 Here is an example using WL's graph visualization capabilities through the WL package, ["UMLDiagramGeneration.m"](https://github.com/antononcube/MathematicaForPrediction/blob/master/Misc/UMLDiagramGeneration.m), [AAp2, AA2]:
 
@@ -52,7 +52,7 @@ Here is an example using WL's graph visualization capabilities through the WL pa
 to-uml-spec('ML::StreamsBlendingRecommender', format=>'wl', image-size=>1000, graph-layout=>'CircularEmbedding'):!methods:!attributes;
 ```
 
-![1whw5ugompa5x](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1whw5ugompa5x.png)
+![1whw5ugompa5x](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1whw5ugompa5x.png)
 
 ### Command line examples
 
@@ -68,7 +68,7 @@ The package "UML::Translators" provides a Command Line Interface (CLI) function.
 # "EntityColumn" -> False, VertexLabelStyle -> "Text", ImageSize -> Large, GraphLayout -> Automatic]
 ```
 
-![1h0uycy9ygg3d](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1h0uycy9ygg3d.png)
+![1h0uycy9ygg3d](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1h0uycy9ygg3d.png)
 
 Here is a shell command that generates an UML diagram PNG image (and places in a temporary folder):
 
@@ -76,7 +76,7 @@ Here is a shell command that generates an UML diagram PNG image (and places in a
 to-uml-spec --/methods --/attributes "ML::StreamsBlendingRecommender" | java -jar ~/Downloads/plantuml-1.2022.5.jar -pipe -tpng > /tmp/myuml.png 
 ```
 
-![0xxfprrudm7t1](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0xxfprrudm7t1.png)
+![0xxfprrudm7t1](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0xxfprrudm7t1.png)
 
 See the [PlantUML site](https://plantuml.com) in order to obtain the [PlantUML JAR file](https://plantuml.com/download) and get [details on command line running](https://plantuml.com/command-line). (Available output types, etc.)
 
@@ -156,7 +156,7 @@ Consider the example:
 to-uml-spec('Cro'):!methods:!attributes:remove-unlinked;
 ```
 
-![1h9du27a060w3](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1h9du27a060w3.png)
+![1h9du27a060w3](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1h9du27a060w3.png)
 
 The example above uses the "orchestration pipeline":  WLZMQRakuZMQWLOS-shellPlantUML-jarOS-shellWL. Here is the corresponding graph:
 
@@ -164,7 +164,7 @@ The example above uses the "orchestration pipeline":  WLZMQRakuZMQWL
 PipelineGraph[{"WL", "ZeroMQ", "Raku", "ZeroMQ", "WL", "OS-shell", "PlantUML.jar", "OS-shell", "WL"}, ImageSize -> 1000]
 ```
 
-![02mq5oe1mpl89](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/02mq5oe1mpl89.png)
+![02mq5oe1mpl89](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/02mq5oe1mpl89.png)
 
 We call this first pipeline "***WL-Raku-PlantUML***".
 
@@ -176,7 +176,7 @@ Consider the example:
 to-wl-uml-spec('Cro', graph-layout=>'RadialEmbedding', image-size=>1000):!methods:!attributes;
 ```
 
-![1u2tx1kpexvxl](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1u2tx1kpexvxl.png)
+![1u2tx1kpexvxl](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1u2tx1kpexvxl.png)
 
 The example above uses the much simpler pipeline:  WLZMQRakuZMQWL. Here is the corresponding graph:
 
@@ -184,7 +184,7 @@ The example above uses the much simpler pipeline:  WLZMQRakuZMQWL. H
 PipelineGraph[{"WL", "ZeroMQ", "Raku", "ZeroMQ", "WL"}, ImageSize -> Large]
 ```
 
-![109wnj36n5jep](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/109wnj36n5jep.png)
+![109wnj36n5jep](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/109wnj36n5jep.png)
 
 We call this second pipeline "***WL-Raku-WLUML***".
 
@@ -198,7 +198,7 @@ The following flow-chart summarize the general workflow that applies to Raku scr
 Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-generation.pdf", "PageGraphics"][[1]]
 ```
 
-[![1ug80fg7yeabq](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1ug80fg7yeabq.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-generation.pdf)
+[![1ug80fg7yeabq](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1ug80fg7yeabq.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-generation.pdf)
 
 #### Scenario walk-through
 
@@ -258,7 +258,7 @@ There multiple "small" decisions that has to be made in order to have an useful 
 Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf", "PageGraphics"][[1]]
 ```
 
-[![152r0lttq700h](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/152r0lttq700h.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf)
+[![152r0lttq700h](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/152r0lttq700h.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf)
 
 **Remark:** [The linked PDF file of the mind-map](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf) has "live" hyperlinks.
 
@@ -310,7 +310,7 @@ Here is the corresponding UML diagram generated through SVG export/import of the
 to-plant-uml-spec('MyPackageClass')
 ```
 
-![12q0syc7jumhg](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/12q0syc7jumhg.png)
+![12q0syc7jumhg](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/12q0syc7jumhg.png)
 
 Here is the corresponding UML diagram generated with the Raku-WL pipeline:
 
@@ -318,7 +318,7 @@ Here is the corresponding UML diagram generated with the Raku-WL pipeline:
 to-wl-uml-spec('MyPackageClass', image-size=>500)
 ```
 
-![062a9y7ap7k5n](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/062a9y7ap7k5n.png)
+![062a9y7ap7k5n](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/062a9y7ap7k5n.png)
 
 ### UML specs
 
@@ -418,7 +418,7 @@ grJava2 = grJava /. {Thickness[x_?NumberQ] :> Sequence[{Thick}], {JoinedCurve[x_
 ResourceFunction["GridTableForm"][{{Head[grJava], grJava, grJava2}}, TableHeadings -> {"Expression head", "Imported", "Transformed"}, Background -> None, Alignment -> Top]
 ```
 
-![0165mfrbajdhk](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0165mfrbajdhk.png)
+![0165mfrbajdhk](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0165mfrbajdhk.png)
 
 Here we generate a PNG image for the UML spec:
 
@@ -433,7 +433,7 @@ imgJava2 = Fold[ImageEffect, imgJava, {"Decolorization", {"Jitter", 0.8}}];
 ResourceFunction["GridTableForm"][{Prepend[Magnify[#, 2.5] & /@ {imgJava, imgJava2}, Head[imgJava]]}, TableHeadings -> {"Expression head", "Imported", "Transformed"}, Background -> None, Alignment -> Top]
 ```
 
-![0um8m0x081gvf](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0um8m0x081gvf.png)
+![0um8m0x081gvf](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0um8m0x081gvf.png)
 
 **Remark:** We can make the Java PlantUML program to use PNG images (instead of the default SVG) with the command:
 
@@ -544,7 +544,7 @@ Here is an UML diagram of "ML::StreamsBlendingRecommender" that includes the met
 to-uml-spec('ML::StreamsBlendingRecommender')
 ```
 
-![0ip9j603wq2eq](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0ip9j603wq2eq.png)
+![0ip9j603wq2eq](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0ip9j603wq2eq.png)
 
 ### UML diagrams through WL graphs
 
@@ -554,7 +554,7 @@ The function to-wl-uml-spec can take the options image-size and graph-layout ( s
 to-wl-uml-spec('Data::Reshapers', image-size=>700, graph-layout=>'CircularEmbedding')
 ```
 
-![14y3850rx0480](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/14y3850rx0480.png)
+![14y3850rx0480](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/14y3850rx0480.png)
 
 Here we produce the UML diagram for the package ["Cro"](https://cro.services):
 
@@ -562,7 +562,7 @@ Here we produce the UML diagram for the package ["Cro"](https://cro.services):
 to-wl-uml-spec('Cro', graph-layout=>'{"PackingLayout"->"Layered"}', image-size=>800):methods:!attributes
 ```
 
-![1b1simyunnpcg](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1b1simyunnpcg.png)
+![1b1simyunnpcg](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1b1simyunnpcg.png)
 
 **Remark:** Currently WL-UML function does not visualize classes that are parents or children.
 
@@ -582,7 +582,7 @@ Here we generate the corresponding UML diagram invoking the function JavaPlantUM
 JavaPlantUML[smetanaSpec]
 ```
 
-![0ngpfgq7nduhv](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0ngpfgq7nduhv.png)
+![0ngpfgq7nduhv](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/0ngpfgq7nduhv.png)
 
 ### Using PlantUML Web service
 
@@ -598,7 +598,7 @@ Here we call the PlantUML Web service with that spec via the Python library "pla
 PythonWebPlantUML[useCaseSpec]
 ```
 
-![00mp40apjdde0](./Diagrams/Generating-UML-diagrams-for-Raku-namespaces/00mp40apjdde0.png)
+![00mp40apjdde0](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/00mp40apjdde0.png)
 
 ## Glitches
 

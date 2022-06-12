@@ -25,7 +25,8 @@ The making of the actual UML diagrams is done through two "engines": PlantUML an
 
 **Remark:** Mathematica notebooks can have initialization cells, that are (optionally) run before executing any code of the notebook. See the initialization cells in the section "Setup" below.
 
-**Remark:** The WL option setting SetOptions[RakuInputExecute,Epilog->UMLGraphEpilog] allows for automatic conversion of the Raku cell results that are UML specs into UML diagrams.
+**Remark:** The WL option setting `SetOptions[RakuInputExecute,Epilog->UMLGraphEpilog]` allows for automatic conversion of the Raku cell results that are UML specs into UML diagrams.
+**Remark:** The WL option setting `SetOptions[RakuInputExecute,Epilog->UMLGraphEpilog]`S allows for automatic conversion of the Raku cell results that are UML specs into UML diagrams.
 
 ### Usage examples
 

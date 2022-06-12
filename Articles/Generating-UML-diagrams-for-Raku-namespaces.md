@@ -253,7 +253,7 @@ Here is a list of additional details and clarifications:
 
 ### Feature breakdown
 
-There multiple "small" decisions that has to be made in order to have an useful system that satisfies -- at least to a point -- the motivation wants listed above. The following mind-map shows the breakdown of the envisioned features and their implementation status:
+There multiple "small" decisions that has to be made in order to have a useful system that satisfies -- at least to a point -- the motivation wants listed above. The following mind-map shows the breakdown of the envisioned features and their implementation status:
 
 ```mathematica
 Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf", "PageGraphics"][[1]]
@@ -323,13 +323,13 @@ to-wl-uml-spec('MyPackageClass', image-size=>500)
 
 ### UML specs
 
-In order to get the UML spec in the notebook we have reset the option of the WL function RakuInputExecute:
+In order to get the UML spec in the notebook we have reset the option of the WL function `RakuInputExecute`:
 
 ```mathematica
 SetOptions[RakuInputExecute, Epilog -> FromRakuCode];
 ```
 
-Here is the UML spec corresponding to the Raku class MyPackageClass:
+Here is the UML spec corresponding to the Raku class `MyPackageClass`:
 
 ```perl6
 to-plant-uml-spec('MyPackageClass')
@@ -388,7 +388,9 @@ Here we make the WL function RakuInputExecute to return UML diagrams when UML sp
 SetOptions[RakuInputExecute, Epilog -> UMLGraphEpilog];
 ```
 
-**Remark:** For this notebook the setting above is first done in the setup section; see below. In that way UML diagrams generation becomes more immediate and interactive. The implementation of UMLGraphEpilog is also given the setup section.
+**Remark:** For this notebook the setting above is first done in the setup section; see below. 
+In that way UML diagrams generation becomes more immediate and interactive. 
+The implementation of `UMLGraphEpilog` is also given the setup section.
 
 ## Images vs graphics objects
 

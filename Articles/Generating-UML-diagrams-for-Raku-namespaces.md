@@ -34,7 +34,7 @@ Here are the classes and roles found in the Raku package ["ML::StreamsBlendingRe
 ```perl6
 namespace-types('ML::StreamsBlendingRecommender')
 
-(*"((UtilityFunctions) (LSAEndowedSBR) (AbstractSBR) (CoreSBR) (CompositeSBR) (LSATopicSBR))"*)
+# ((UtilityFunctions) (LSAEndowedSBR) (AbstractSBR) (CoreSBR) (CompositeSBR) (LSATopicSBR))
 ```
 
 Here is an example we generate the corresponding UML diagram (by using the Java JAR file provided by the site PlantUML, [PUML1]):
@@ -278,7 +278,7 @@ module MyPackageClass {
     class D does B is C { has $!d-var; method d1 {} }
 }
 
-(*"(MyPackageClass)"*)
+# (MyPackageClass)
 ```
 
 ### Classes and roles
@@ -329,8 +329,42 @@ Here is the UML spec corresponding to the Raku class MyPackageClass:
 
 ```perl6
 to-plant-uml-spec('MyPackageClass')
+```
 
-(*"@startumlclass MyPackageClass::D  {{field} $!c-var{field} $!d-var{method} BUILDALL{method} b1{method} d1}MyPackageClass::D --|> MyPackageClass::CMyPackageClass::D --|> MyPackageClass::AMyPackageClass::D --|> MyPackageClass::Bclass MyPackageClass::A <<role>> {{method} a1}class MyPackageClass::B <<role>> {{method} b1}class MyPackageClass::C  {{field} $!c-var{method} BUILDALL{method} a1{method} c1}MyPackageClass::C --|> MyPackageClass::A@enduml"*)
+```puml
+@startuml
+class MyPackageClass::D  {
+  {field} $!c-var
+  {field} $!d-var
+  {method} BUILDALL
+  {method} b1
+  {method} d1
+}
+MyPackageClass::D --|> MyPackageClass::C
+MyPackageClass::D --|> MyPackageClass::A
+MyPackageClass::D --|> MyPackageClass::B
+
+
+class MyPackageClass::A <<role>> {
+  {method} a1
+}
+
+
+class MyPackageClass::B <<role>> {
+  {method} b1
+}
+
+
+class MyPackageClass::C  {
+  {field} $!c-var
+  {method} BUILDALL
+  {method} a1
+  {method} c1
+}
+MyPackageClass::C --|> MyPackageClass::A
+
+
+@enduml
 ```
 
 Here we get the corresponding WL-graph spec:
@@ -338,7 +372,10 @@ Here we get the corresponding WL-graph spec:
 ```perl6
 to-wl-uml-spec('MyPackageClass')
 
-(*"UMLClassGraph[\"Parents\" -> Flatten[{\"MyPackageClass::D\" \\[DirectedEdge] \"MyPackageClass::C\", \"MyPackageClass::D\" \\[DirectedEdge] \"MyPackageClass::A\", \"MyPackageClass::D\" \\[DirectedEdge] \"MyPackageClass::B\", \"MyPackageClass::C\" \\[DirectedEdge] \"MyPackageClass::A\"}],\"RegularMethods\" -> Flatten[{\"MyPackageClass::D\" -> {\"BUILDALL\", \"b1\", \"d1\"}, \"MyPackageClass::A\" -> {\"a1\"}, \"MyPackageClass::B\" -> {\"b1\"}, \"MyPackageClass::C\" -> {\"BUILDALL\", \"a1\", \"c1\"}}],\"Abstract\" -> Flatten[{\"MyPackageClass::A\", \"MyPackageClass::B\", \"MyPackageClass::A\"}],\"EntityColumn\" -> False, VertexLabelStyle -> \"Text\", ImageSize -> Large, GraphLayout -> Automatic]"*)
+# UMLClassGraph[\"Parents\" -> Flatten[{\"MyPackageClass::D\" \\[DirectedEdge] \"MyPackageClass::C\", \"MyPackageClass::D\" \\[DirectedEdge] \"MyPackageClass::A\", \"MyPackageClass::D\" \\[DirectedEdge] \"MyPackageClass::B\", \"MyPackageClass::C\" \\[DirectedEdge] \"MyPackageClass::A\"}],
+# \"RegularMethods\" -> Flatten[{\"MyPackageClass::D\" -> {\"BUILDALL\", \"b1\", \"d1\"}, \"MyPackageClass::A\" -> {\"a1\"}, \"MyPackageClass::B\" -> {\"b1\"}, \"MyPackageClass::C\" -> {\"BUILDALL\", \"a1\", \"c1\"}}],
+# \"Abstract\" -> Flatten[{\"MyPackageClass::A\", \"MyPackageClass::B\", \"MyPackageClass::A\"}],
+# \"EntityColumn\" -> False, VertexLabelStyle -> \"Text\", ImageSize -> Large, GraphLayout -> Automatic]"*)
 ```
 
 Here we make the WL function RakuInputExecute to return UML diagrams when UML specs are generated from the Raku code:
@@ -420,7 +457,16 @@ Here are the classes, roles, and constants found in the package ["ML::TriesWithF
 ```perl6
 .say for namespace-types( 'ML::TriesWithFrequencies' ):how-pairs
 
-(*"ML::TriesWithFrequencies::TrieTraverse => Perl6::Metamodel::ParametricRoleGroupHOWML::TriesWithFrequencies::LeafProbabilitiesGatherer => Perl6::Metamodel::ClassHOWML::TriesWithFrequencies::RegexBasedRemover => Perl6::Metamodel::ClassHOWML::TriesWithFrequencies::ThresholdBasedRemover => Perl6::Metamodel::ClassHOWML::TriesWithFrequencies::Trie => Perl6::Metamodel::ClassHOWML::TriesWithFrequencies::Trieish => Perl6::Metamodel::ParametricRoleGroupHOWTRIEROOT => StrML::TriesWithFrequencies::ParetoBasedRemover => Perl6::Metamodel::ClassHOWTRIEVALUE => StrML::TriesWithFrequencies::PathsGatherer => Perl6::Metamodel::ClassHOW"*)
+# ML::TriesWithFrequencies::TrieTraverse => Perl6::Metamodel::ParametricRoleGroupHOW
+# ML::TriesWithFrequencies::LeafProbabilitiesGatherer => Perl6::Metamodel::ClassHOW
+# ML::TriesWithFrequencies::RegexBasedRemover => Perl6::Metamodel::ClassHOW
+# ML::TriesWithFrequencies::ThresholdBasedRemover => Perl6::Metamodel::ClassHOW
+# ML::TriesWithFrequencies::Trie => Perl6::Metamodel::ClassHOW
+# ML::TriesWithFrequencies::Trieish => Perl6::Metamodel::ParametricRoleGroupHOW
+# TRIEROOT => Str
+# ML::TriesWithFrequencies::ParetoBasedRemover => Perl6::Metamodel::ClassHOW
+# TRIEVALUE => Str
+# ML::TriesWithFrequencies::PathsGatherer => Perl6::Metamodel::ClassHOW"
 ```
 
 Here are the classes, grammars, and roles found in the package ["Chemistry::Stoichiometry"](https://raku.land/cpan:ANTONOV/Chemistry::Stoichiometry),  [AAp5]:
@@ -472,7 +518,19 @@ Here are the functions in the package ["Data::Reshapers"](https://raku.land/cpan
 ```perl6
 .say for namespace-types( 'Data::Reshapers' ):how-pairs
 
-(*"delete-columns => Subcross-tabulate => Subget-lake-mead-levels-dataset => Sub+{Callable[Positional]}summarize-at => Subto-wide-format => Subget-titanic-dataset => Sub+{Callable[Positional]}to-long-format => Subto-pretty-table => Subgroup-by => Subdimensions => Subtranspose => Subrename-columns => Subjoin-across => Subdata-reshape => Subselect-columns => Sub"*)
+# delete-columns => Sub
+# cross-tabulate => Sub
+# get-lake-mead-levels-dataset => Sub+{Callable[Positional]}
+# summarize-at => Subto-wide-format => Sub
+# get-titanic-dataset => Sub+{Callable[Positional]}
+# to-long-format => Sub
+# to-pretty-table => Sub
+# group-by => Subdimensions => Sub
+# transpose => Sub
+# rename-columns => Sub
+# join-across => Sub
+# data-reshape => Sub
+# select-columns => Sub
 ```
 
 ### Full UML diagrams

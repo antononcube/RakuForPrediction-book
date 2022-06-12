@@ -9,7 +9,7 @@ June 2022
 
 ## Introduction
 
-In this document / notebook we discuss the use of Java, Python, Raku, and Wolfram Language (WL) packages for the generation of [Unified Modeling Language (UML)](https://en.wikipedia.org/wiki/Unified_Modeling_Language) diagrams, [Wk1], from Raku code.
+In this notebook we discuss the use of Java, Python, Raku, and Wolfram Language (WL) packages for the generation of [Unified Modeling Language (UML)](https://en.wikipedia.org/wiki/Unified_Modeling_Language) diagrams, [Wk1], from Raku code.
 
 In principle, given Raku's introspection abilities, we should be able to "just" traverse package namespaces, classes, class attributes and methods, and generate UML diagram specifications. This is done with the Raku package ["UML::Translators"](https://raku.land/zef:antononcube/UML::Translators), [AAp1].
 

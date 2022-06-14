@@ -26,7 +26,6 @@ The making of the actual UML diagrams is done through two "engines": PlantUML an
 **Remark:** Mathematica notebooks can have initialization cells, that are (optionally) run before executing any code of the notebook. See the initialization cells in the section "Setup" below.
 
 **Remark:** The WL option setting `SetOptions[RakuInputExecute,Epilog->UMLGraphEpilog]` allows for automatic conversion of the Raku cell results that are UML specs into UML diagrams.
-**Remark:** The WL option setting `SetOptions[RakuInputExecute,Epilog->UMLGraphEpilog]`S allows for automatic conversion of the Raku cell results that are UML specs into UML diagrams.
 
 ### Usage examples
 
@@ -121,7 +120,7 @@ This sub-section has more precise problem formulations.
 
 - Generate corresponding UML diagrams
 
-The main motivations for the "To-UML-problem" problem are:
+The main motivations for the *To-UML-problem* are:
 
 - The ability to quickly inform ourselves for the structure of a Raku package or namespace.
 
@@ -592,7 +591,14 @@ JavaPlantUML[smetanaSpec]
 Consider the following [use case spec](https://plantuml.com/use-case-diagram):
 
 ```mathematica
-useCaseSpec = "@startumlskinparam actorStyle awesome:User: --> (Use)\"Main Admin\" as Admin\"Use the application\" as (Use)Admin --> (Admin the application)@enduml";
+useCaseSpec = "
+@startuml
+skinparam actorStyle awesome
+:User: --> (Use)
+\"Main Admin\" as Admin
+\"Use the application\" as (Use)
+Admin --> (Admin the application)
+@enduml";
 ```
 
 Here we call the PlantUML Web service with that spec via the Python library "plantuml", [DNp1]:
@@ -602,6 +608,51 @@ PythonWebPlantUML[useCaseSpec]
 ```
 
 ![00mp40apjdde0](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/00mp40apjdde0.png)
+
+### PlantUML specs generation in WL
+
+Here we generate PlantUML DSL spec using the function PlantUMLSpec of 
+["UMLDiagramGeneration.m"](https://github.com/antononcube/MathematicaForPrediction/blob/master/Misc/UMLDiagramGeneration.m), [AAp2]:
+
+```mathematica
+umlSpec = PlantUMLSpec["Parents" -> {"MyPackageClass::D" \[DirectedEdge] "MyPackageClass::C", "MyPackageClass::D" \[DirectedEdge] "MyPackageClass::A", "MyPackageClass::D" \[DirectedEdge] "MyPackageClass::B", "MyPackageClass::C" \[DirectedEdge] "MyPackageClass::A"}, "AbstractMethods" -> {"MyPackageClass::A" -> {"a1"}, "MyPackageClass::B" -> {"b1"}}, "RegularMethods" -> {"MyPackageClass::D" -> {"BUILDALL", "b1", "d1"}, "MyPackageClass::C" -> {"BUILDALL", "a1", "c1"}}, "Abstract" -> {"MyPackageClass::A", "MyPackageClass::B", "MyPackageClass::A"}]
+
+(*
+"@startuml
+abstract MyPackageClass::A{
+ {abstract} a1
+}
+
+abstract MyPackageClass::B{
+ {abstract} b1
+}
+
+class MyPackageClass::C{
+ BUILDALL
+ a1
+ c1
+}
+MyPackageClass::C --> MyPackageClass::A
+
+class MyPackageClass::D{
+ BUILDALL
+ b1
+ d1
+}
+MyPackageClass::D --> MyPackageClass::C
+MyPackageClass::D --> MyPackageClass::A
+MyPackageClass::D --> MyPackageClass::B
+@enduml"
+*)
+```
+
+Here we is the corresponding UML diagram using the JavaPlantUML of [AAp2]:
+
+```mathematica
+JavaPlantUML[umlSpec]
+```
+
+![13brvvxez3u4q](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/13brvvxez3u4q.png)
 
 ## Glitches
 

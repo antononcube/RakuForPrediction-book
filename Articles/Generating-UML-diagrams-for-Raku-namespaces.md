@@ -654,6 +654,8 @@ JavaPlantUML[umlSpec]
 
 ![13brvvxez3u4q](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/13brvvxez3u4q.png)
 
+------
+
 ## Glitches
 
 The Raku package "UML::Translators" and the *combinations* of related functionalities with other systems (Java, Python, WL, ZeroMQ) discussed in this notebook have numerous "small" glitches. Nevertheless, I find the package and related orchestration pipelines useful -- they are able to provide quick insights and good enough documentation diagrams. At least for the Raku packages I develop or have the inclination to deal with. 

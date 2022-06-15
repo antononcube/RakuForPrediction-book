@@ -198,7 +198,7 @@ The following flow-chart summarize the general workflow that applies to Raku scr
 Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-generation.pdf", "PageGraphics"][[1]]
 ```
 
-[![1ug80fg7yeabq](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1ug80fg7yeabq.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-generation.pdf)
+[![1ug80fg7yeabq](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/1ug80fg7yeabq.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/UML-diagrams-generation.pdf)
 
 #### Scenario walk-through
 
@@ -258,7 +258,7 @@ There multiple "small" decisions that has to be made in order to have a useful s
 Import["https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf", "PageGraphics"][[1]]
 ```
 
-[![152r0lttq700h](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/152r0lttq700h.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf)
+[![152r0lttq700h](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/152r0lttq700h.png)](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-namespaces/UML-diagrams-mind-map.pdf)
 
 **Remark:** [The linked PDF file of the mind-map](https://github.com/antononcube/RakuForPrediction-book/raw/main/Articles/Diagrams/Generating-UML-diagrams-for-Raku-name-spaces/UML-diagrams-mind-map.pdf) has "live" hyperlinks.
 

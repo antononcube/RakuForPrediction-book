@@ -106,9 +106,7 @@ my %tries;
         .node-probabilities
         .echo-function({ %tries<node-probabilities> = $_ })
         .shrink
-        .echo-function({ %tries<shrunk> = $_ })
-        .retrieve(<ba r>)
-        .form;
+        .echo-function({ %tries<shrunk> = $_ });
 
 say to-pretty-table([%tries>>.form,], align => 'l');
 ```

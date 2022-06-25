@@ -1,5 +1,7 @@
 # Data::Generators
 
+## Introduction
+
 This blog post proclaims and describes the Raku package
 [Data::Generators](https://raku.land/zef:antononcube/Data::Generators), [AAp0],
 that has functions for generating random strings, words, pet names, vectors, arrays, and
@@ -15,6 +17,32 @@ like the following are easier to use:
 
 ```{raku, eval = FALSE}
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
+```
+
+The function `random-tabular-dataset` of this package -- and the package 
+["Data::ExampleDatasets"](https://raku.land/zef:antononcube/Data::ExampleDatasets), [AAp2] --
+made easier and more complete the development and testing of 
+["Data::Resphapers"](https://raku.land/zef:antononcube/Data::Reshapers), [AAp1, AA1].
+
+
+
+---------
+
+## Neat example
+
+Here is an example that showcases all functions in this package:
+
+```perl6
+use Data::Generators;
+use Data::Reshapers;
+
+random-tabular-dataset(12, <String Real Word PetName JobTitle>, 
+                       generators => {String => &random-string, 
+                       Real => {random-real(12,$_)}, 
+                       Word => &random-word, 
+                       PetName => &random-pet-name, 
+                       JobTitle => &random-pretentious-job-title})
+==> to-pretty-table                       
 ```
 
 ------
@@ -266,29 +294,17 @@ datasets are generated. (The long format implementation is high in my TOOD list.
 
 ---------
 
-## Neat example
-
-Here is an example that showcases all functions in this package:
-
-```perl6
-random-tabular-dataset(12, <String Real Word PetName JobTitle>, 
-                       generators => {String => &random-string, 
-                       Real => {random-real(12,$_)}, 
-                       Word => &random-word, 
-                       PetName => &random-pet-name, 
-                       JobTitle => &random-pretentious-job-title})
-==> to-pretty-table                       
-```
-
-
----------
-
 
 ## References
 
 ### Articles
 
 [AA1] Anton Antonov,
+["Introduction to Data Wrangling with Raku"](https://rakuforprediction.wordpress.com/2021/12/31/introduction-to-data-wrangling-with-raku),
+(2021),
+[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
+
+[AA2] Anton Antonov,
 ["Pets licensing data analysis"](https://mathematicaforprediction.wordpress.com/2020/01/20/pets-licensing-data-analysis/), 
 (2020), 
 [MathematicaForPrediction at WordPress](https://mathematicaforprediction.wordpress.com).
@@ -333,5 +349,15 @@ Wolfram Language function.
 
 [AAp0] Anton Antonov,
 [Data::Generators Raku package](https://github.com/antononcube/Raku-Data-Generators),
+(2021),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp1] Anton Antonov,
+[Data::Reshapers Raku package](https://github.com/antononcube/Raku-Data-Reshapers),
+(2021),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp2] Anton Antonov,
+[Data::ExampleDatasets Raku package](https://github.com/antononcube/Raku-Data-ExampleDatasets),
 (2021),
 [GitHub/antononcube](https://github.com/antononcube).

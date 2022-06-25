@@ -256,7 +256,7 @@ The function `random-tabular-dataset` can be used generate tabular *datasets*.
 
 **Remark:** In this module a *dataset* is (usually) an array of arrays of pairs.
 The dataset data structure resembles closely Mathematica's data structure 
-[`Dataset`]https://reference.wolfram.com/language/ref/Dataset.html), [WRI2]. 
+[`Dataset`](https://reference.wolfram.com/language/ref/Dataset.html), [WRI2]. 
 
 **Remark:** The programming languages R and S have a data structure called "data frame" that
 corresponds to dataset. (In the Python world the package `pandas` provides data frames.)

@@ -171,7 +171,7 @@ Here is a plot made with Mathematica using the Mathematica-to-Raku connection de
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
 [AA3] Anton Antonov,
-["Data::Reshapers"](hhttps://rakuforprediction.wordpress.com/2022/06/25/datagenerators/),
+["Data::Generators"](hhttps://rakuforprediction.wordpress.com/2022/06/25/datagenerators/),
 (2022),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 

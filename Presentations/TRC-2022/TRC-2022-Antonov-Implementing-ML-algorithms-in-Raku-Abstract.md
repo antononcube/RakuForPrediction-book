@@ -2,12 +2,14 @@
 
 ## Abstract
 
-In this presentation we discuss the implementations different Machine Learning (ML) 
-algorithms in Raku. Their main workflows are also demonstrated. 
-We concentrate on the software engineering elements of behind the corresponding packages
-and how ML algorithms can be utilized with Raku's unique features. 
+In this presentation we discuss the implementations of different Machine Learning (ML) algorithms in Raku.
 
-Here is a list of the ML algorithms that are outlined and demonstrated:
+The main themes of the presentation are:
+- ML workflows demonstration
+- Software engineering perspective on ML implementations
+- ML algorithms utilization with Raku's unique features
+
+Here is a list of the considered ML algorithms:
 
 - Fundamental data analysis
   - Outlier identifiers ("ML::OutlierIdentifiers")
@@ -24,15 +26,14 @@ Here is a list of the ML algorithms that are outlined and demonstrated:
   - Association Rule Learning (ARL) ("ML::AssociationRuleLearning")
   - Regression
   - Latent Semantic Analysis (LSA)
-  
-Here is the corresponding mind-map: 
 
-[![](./org/Implementing-ML-algorithms-in-Raku-mind-map.png)](./org/Implementing-ML-algorithms-in-Raku-mind-map.pdf)
+Here is a corresponding mind-map:
 
-The document 
-["Trie based classifiers evaluation"](../../Articles/Trie-based-classifiers-evaluation.md)
-provides an example for application of the Raku packages mentioned above 
+![](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/TRC-2022/org/Implementing-ML-algorithms-in-Raku-mind-map.png)
 
+The document
+["Trie based classifiers evaluation"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Trie-based-classifiers-evaluation.md)
+provides an example application of the Raku packages mentioned above.
 -------
 
 ## References

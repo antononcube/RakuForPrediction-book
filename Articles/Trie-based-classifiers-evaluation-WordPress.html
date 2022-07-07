@@ -1,0 +1,310 @@
+<h2 id="introduction">Introduction</h2>
+In this document we show how to evaluate <a href="https://raku.land/zef:antononcube/ML::TriesWithFrequencies">TriesWithFrequencies</a>, [AA5, AAp7], based classifiers created over well known Machine Learning (ML) datasets. The computations are done with packages from <a href="https://raku.land">Raku’s ecosystem</a>.
+
+The classifiers based on TriesWithFrequencies can be seen as some sort of <a href="https://mathematicaforprediction.wordpress.com/2013/10/18/generation-of-naive-bayesian-classifiers/">Naive Bayesian Classifiers (NBCs)</a>.
+
+We use the workflow summarized in this flowchart:
+
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForPrediction/master/MarkdownDocuments/Diagrams/A-monad-for-classification-workflows/Classification-workflow-horizontal-layout.jpg" />
+
+For more details on classification workflows see the article <a href="https://mathematicaforprediction.wordpress.com/2018/05/15/a-monad-for-classification-workflows/">“A monad for classification workflows”</a>. [AA1].
+<h3 id="document-execution">Document execution</h3>
+This is a “computable Markdown document” – the Raku cells are (context-consecutively) evaluated with the <a href="https://en.wikipedia.org/wiki/Literate_programming">“literate programming”</a> package <a href="https://raku.land/cpan:ANTONOV/Text::CodeProcessing">“Text::CodeProcessing”</a>, [AA2, AAp5].
+
+<strong>Remark:</strong> This document <em>can be</em> also made using the Mathematica-and-Raku connector, [AA3], but by utilizing the package “Text::Plot”, [AAp6, AA8], to produce (informative enough) graphs, that is “less needed.”
+
+<hr />
+
+<h2 id="data">Data</h2>
+Here we get Titanic data using the package “Data::Reshapers”, [AA3, AAp2]:
+<pre class="perl6"><code>use Data::Reshapers;
+my @dsTitanic=get-titanic-dataset(headers=&gt;'auto');
+dimensions(@dsTitanic)</code></pre>
+<pre><code># (1309 5)</code></pre>
+Here is data sample:
+<pre class="perl6"><code>to-pretty-table( @dsTitanic.pick(5), field-names =&gt; &lt;passengerAge passengerClass passengerSex passengerSurvival&gt;)</code></pre>
+<pre><code># +--------------+----------------+--------------+-------------------+
+# | passengerAge | passengerClass | passengerSex | passengerSurvival |
+# +--------------+----------------+--------------+-------------------+
+# |      40      |      1st       |    female    |      survived     |
+# |      20      |      3rd       |     male     |        died       |
+# |      30      |      2nd       |     male     |        died       |
+# |      30      |      3rd       |     male     |        died       |
+# |      -1      |      3rd       |    female    |      survived     |
+# +--------------+----------------+--------------+-------------------+</code></pre>
+Here is a summary:
+<pre class="perl6"><code>use Data::Summarizers;
+records-summary(@dsTitanic)</code></pre>
+<pre><code># +---------------+----------------+-----------------+-------------------+----------------+
+# | passengerSex  | passengerClass | id              | passengerSurvival | passengerAge   |
+# +---------------+----------------+-----------------+-------------------+----------------+
+# | male   =&gt; 843 | 3rd =&gt; 709     | 503     =&gt; 1    | died     =&gt; 809   | 20      =&gt; 334 |
+# | female =&gt; 466 | 1st =&gt; 323     | 421     =&gt; 1    | survived =&gt; 500   | -1      =&gt; 263 |
+# |               | 2nd =&gt; 277     | 726     =&gt; 1    |                   | 30      =&gt; 258 |
+# |               |                | 936     =&gt; 1    |                   | 40      =&gt; 190 |
+# |               |                | 659     =&gt; 1    |                   | 50      =&gt; 88  |
+# |               |                | 446     =&gt; 1    |                   | 60      =&gt; 57  |
+# |               |                | 260     =&gt; 1    |                   | 0       =&gt; 56  |
+# |               |                | (Other) =&gt; 1302 |                   | (Other) =&gt; 63  |
+# +---------------+----------------+-----------------+-------------------+----------------+</code></pre>
+
+<hr />
+
+<h2 id="trie-creation">Trie creation</h2>
+For demonstration purposes let us create a <em>shorter</em> trie and display it in tree form:
+<pre class="perl6"><code>use ML::TriesWithFrequencies;
+my $trTitanicShort =
+  @dsTitanic.map({ $_&lt;passengerClass passengerSex passengerSurvival&gt; }).&amp;trie-create
+  .shrink;
+say $trTitanicShort.form;  </code></pre>
+<pre><code># TRIEROOT =&gt; 1309
+# ├─1st =&gt; 323
+# │ ├─female =&gt; 144
+# │ │ ├─died =&gt; 5
+# │ │ └─survived =&gt; 139
+# │ └─male =&gt; 179
+# │   ├─died =&gt; 118
+# │   └─survived =&gt; 61
+# ├─2nd =&gt; 277
+# │ ├─female =&gt; 106
+# │ │ ├─died =&gt; 12
+# │ │ └─survived =&gt; 94
+# │ └─male =&gt; 171
+# │   ├─died =&gt; 146
+# │   └─survived =&gt; 25
+# └─3rd =&gt; 709
+#   ├─female =&gt; 216
+#   │ ├─died =&gt; 110
+#   │ └─survived =&gt; 106
+#   └─male =&gt; 493
+#     ├─died =&gt; 418
+#     └─survived =&gt; 75</code></pre>
+Here is a mosaic plot that corresponds to the trie above:
+
+<img class="alignnone size-full wp-image-203" src="https://rakuforprediction.files.wordpress.com/2022/07/titanic-mosaic-plot.png" alt="Titanic-mosaic-plot" width="703" height="670" />
+
+(The plot is made with Mathematica.)
+
+<hr />
+
+<h2 id="trie-classifier">Trie classifier</h2>
+In order to make certain reproducibility statements for the kind of experiments shown here, we use random seeding (with <code>srand</code>) before any computations that use pseudo-random numbers. Meaning, one would expect Raku code that starts with an <code>srand</code> statement (e.g. <code>srand(889)</code>) to produce the same pseudo random numbers if it is executed multiple times (without changing it.)
+
+<strong>Remark:</strong> Per <a href="https://stackoverflow.com/a/71631427/14163984">this comment</a> it seems that a setting of <code>srand</code> guarantees the production of reproducible between runs random sequences on the particular combination of hardware-OS-software Raku is executed on.
+<pre class="perl6"><code>srand(889)</code></pre>
+<pre><code># 889</code></pre>
+Here we split the data into training and testing data:
+<pre class="perl6"><code>my ($dsTraining, $dsTesting) = take-drop( @dsTitanic.pick(*), floor(0.8 * @dsTitanic.elems));
+say $dsTraining.elems;
+say $dsTesting.elems;</code></pre>
+<pre><code># 1047
+# 262</code></pre>
+(The function <code>take-drop</code> is from “Data::Reshapers”. It follows Mathematica’s <a href="https://reference.wolfram.com/language/ref/TakeDrop.html"><code>TakeDrop</code></a>, [WRI1].)
+
+Alternatively, we can say that:
+<ol type="1">
+    <li>We get indices of dataset rows to make the training data</li>
+    <li>We obtain the testing data indices as the complement of the training indices</li>
+</ol>
+<strong>Remark:</strong> It is better to do stratified sampling, i.e. apply <code>take-drop</code> per each label.
+
+Here we make a trie with the training data:
+<pre class="perl6"><code>my $trTitanic = $dsTraining.map({ $_.&lt;passengerClass passengerSex passengerAge passengerSurvival&gt; }).Array.&amp;trie-create;
+$trTitanic.node-counts</code></pre>
+<pre><code># {Internal =&gt; 63, Leaves =&gt; 85, Total =&gt; 148}</code></pre>
+Here is an example <em>decision</em>-classification:
+<pre class="perl6"><code>$trTitanic.classify(&lt;1st female&gt;)</code></pre>
+<pre><code># survived</code></pre>
+Here is an example <em>probabilities</em>-classification:
+<pre class="perl6"><code>$trTitanic.classify(&lt;2nd male&gt;, prop=&gt;'Probs')</code></pre>
+<pre><code># {died =&gt; 0.851063829787234, survived =&gt; 0.14893617021276595}</code></pre>
+We want to classify across all testing data, but not all testing data records might be present in the trie. Let us check that such testing records are few (or none):
+<pre class="perl6"><code>$dsTesting.grep({ !$trTitanic.is-key($_&lt;passengerClass passengerSex passengerAge&gt;) }).elems</code></pre>
+<pre><code># 0</code></pre>
+Let us remove the records that cannot be classified:
+<pre class="perl6"><code>$dsTesting = $dsTesting.grep({ $trTitanic.is-key($_&lt;passengerClass passengerSex passengerAge&gt;) });
+$dsTesting.elems</code></pre>
+<pre><code># 262</code></pre>
+Here we classify all testing records (and show a few of the results):
+<pre class="perl6"><code>my @testingRecords = $dsTesting.map({ $_.&lt;passengerClass passengerSex passengerAge&gt; }).Array;
+my @clRes = $trTitanic.classify(@testingRecords).Array;
+@clRes.head(5)</code></pre>
+<pre><code># (died died died survived died)</code></pre>
+Here is a tally of the classification results:
+<pre class="perl6"><code>tally(@clRes)</code></pre>
+<pre><code># {died =&gt; 186, survived =&gt; 76}</code></pre>
+(The function <code>tally</code> is from “Data::Summarizers”. It follows Mathematica’s <a href="https://reference.wolfram.com/language/ref/Tally.html"><code>Tally</code></a>, [WRI2].)
+
+Here we make a Receiver Operating Characteristic (ROC) record, [AA5, AAp4]:
+<pre class="perl6"><code>use ML::ROCFunctions;
+my %roc = to-roc-hash('survived', 'died', select-columns( $dsTesting, 'passengerSurvival')&gt;&gt;.values.flat, @clRes)</code></pre>
+<pre><code># {FalseNegative =&gt; 45, FalsePositive =&gt; 15, TrueNegative =&gt; 141, TruePositive =&gt; 61}</code></pre>
+
+<hr />
+
+<h2 id="trie-classification-with-roc-plots">Trie classification with ROC plots</h2>
+In the next code cell we classify all testing data records. For each record:
+<ul>
+    <li>Get probabilities hash</li>
+    <li>Add to that hash the actual label</li>
+    <li>Make sure the hash has both survival labels</li>
+</ul>
+<pre class="perl6"><code>use Hash::Merge;
+my @clRes =
+do for [|$dsTesting] -&gt; $r {
+    my $res = [|$trTitanic.classify( $r&lt;passengerClass passengerSex passengerAge&gt;,  prop =&gt; 'Probs' ), Actual =&gt; $r&lt;passengerSurvival&gt;].Hash;
+    merge-hash( { died =&gt; 0, survived =&gt; 0}, $res)
+}</code></pre>
+Here we obtain the range of the label “survived”:
+<pre class="perl6"><code>my @vals = flatten(select-columns(@clRes, 'survived')&gt;&gt;.values);
+(min(@vals), max(@vals))</code></pre>
+<pre><code># (0 1)</code></pre>
+Here we make list of decision thresholds:
+<pre class="perl6"><code>my @thRange = min(@vals), min(@vals) + (max(@vals)-min(@vals))/30 ... max(@vals);
+records-summary(@thRange)</code></pre>
+<pre><code># +-------------------------------+
+# | numerical                     |
+# +-------------------------------+
+# | Max    =&gt; 0.9999999999999999  |
+# | Min    =&gt; 0                   |
+# | Mean   =&gt; 0.5000000000000001  |
+# | 3rd-Qu =&gt; 0.7666666666666666  |
+# | 1st-Qu =&gt; 0.2333333333333333  |
+# | Median =&gt; 0.49999999999999994 |
+# +-------------------------------+</code></pre>
+In the following code cell for each threshold:
+<ul>
+    <li>For each classification hash decide on “survived” if the
+        corresponding value is greater or equal to the threshold</li>
+    <li>Make threshold’s ROC-hash</li>
+</ul>
+<pre class="perl6"><code>my @rocs = @thRange.map(-&gt; $th { to-roc-hash('survived', 'died',
+                                                select-columns(@clRes, 'Actual')&gt;&gt;.values.flat,
+                                                select-columns(@clRes, 'survived')&gt;&gt;.values.flat.map({ $_ &gt;= $th ?? 'survived' !! 'died' })) });</code></pre>
+<pre><code># [{FalseNegative =&gt; 0, FalsePositive =&gt; 156, TrueNegative =&gt; 0, TruePositive =&gt; 106} {FalseNegative =&gt; 0, FalsePositive =&gt; 148, TrueNegative =&gt; 8, TruePositive =&gt; 106} .]</code></pre>
+Here is the obtained ROC-hash table:
+<pre class="perl6"><code>to-pretty-table(@rocs)</code></pre>
+<pre><code># +---------------+---------------+--------------+--------------+
+# | FalsePositive | FalseNegative | TrueNegative | TruePositive |
+# +---------------+---------------+--------------+--------------+
+# |      156      |       0       |      0       |     106      |
+# |      148      |       0       |      8       |     106      |
+# |      137      |       2       |      19      |     104      |
+# |      104      |       9       |      52      |      97      |
+# |       97      |       10      |      59      |      96      |
+# |       72      |       13      |      84      |      93      |
+# |       72      |       13      |      84      |      93      |
+# |       55      |       15      |     101      |      91      |
+# |       46      |       19      |     110      |      87      |
+# |       42      |       23      |     114      |      83      |
+# |       33      |       28      |     123      |      78      |
+# |       25      |       36      |     131      |      70      |
+# |       22      |       39      |     134      |      67      |
+# |       22      |       39      |     134      |      67      |
+# |       18      |       40      |     138      |      66      |
+# |       18      |       40      |     138      |      66      |
+# |       10      |       51      |     146      |      55      |
+# |       10      |       51      |     146      |      55      |
+# |       4       |       54      |     152      |      52      |
+# |       3       |       57      |     153      |      49      |
+# |       3       |       57      |     153      |      49      |
+# |       3       |       57      |     153      |      49      |
+# |       3       |       57      |     153      |      49      |
+# |       3       |       57      |     153      |      49      |
+# |       3       |       57      |     153      |      49      |
+# |       3       |       57      |     153      |      49      |
+# |       3       |       60      |     153      |      46      |
+# |       2       |       72      |     154      |      34      |
+# |       2       |       72      |     154      |      34      |
+# |       2       |       89      |     154      |      17      |
+# |       2       |       89      |     154      |      17      |
+# +---------------+---------------+--------------+--------------+</code></pre>
+Here is the corresponding ROC plot:
+<pre class="perl6"><code>use Text::Plot;
+text-list-plot(roc-functions('FPR')(@rocs), roc-functions('TPR')(@rocs),
+                width =&gt; 70, height =&gt; 25,
+                x-label =&gt; 'FPR', y-label =&gt; 'TPR' )</code></pre>
+<pre><code># +--+------------+-----------+-----------+-----------+------------+---+
+# |                                                                    |
+# +                                                        *    *  *   +  1.00
+# |                                                                    |
+# |                                         * *                        |
+# |                        *      *                                    |
+# |                    *                                               |
+# +                   *                                                +  0.80
+# |               *                                                    |
+# |                                                                    |
+# |            *                                                       |
+# |         * *                                                        |       T
+# +                                                                    +  0.60 P
+# |      *                                                             |       R
+# |    *                                                               |
+# |   *                                                                |
+# +   *                                                                +  0.40
+# |                                                                    |
+# |   *                                                                |
+# |                                                                    |
+# |                                                                    |
+# +                                                                    +  0.20
+# |   *                                                                |
+# |                                                                    |
+# +--+------------+-----------+-----------+-----------+------------+---+
+#    0.00         0.20        0.40        0.60        0.80         1.00
+#                                  FPR</code></pre>
+We can see the Trie classifier has reasonable prediction abilities – we get ≈ 75% True Positive Rate (TPR) with for relatively small False Positive Rate (FPR), ≈ 20%.
+
+Here is a ROC plot made with Mathematica (using a different Trie over Titanic data):
+
+<img class="alignnone size-full wp-image-209" src="https://rakuforprediction.files.wordpress.com/2022/07/titanic-trie-classifier-roc-plot-1.png" alt="Titanic-Trie-classifier-ROC-plot" width="450" height="447" />
+
+<hr />
+
+<h2 id="improvements">Improvements</h2>
+For simplicity the workflow above was kept “naive.” A better workflow would include:
+<ul>
+    <li>Stratified partitioning of training and testing data</li>
+    <li>K-fold cross-validation</li>
+    <li>Variable significance finding</li>
+    <li>Specifically for Tries with frequencies: using different order of variables while constructing the trie</li>
+</ul>
+<strong>Remark:</strong> K-fold cross-validation can be “simply”achieved by running this document multiple times using different random seeds.
+
+<hr />
+
+<h2 id="references">References</h2>
+<h3 id="articles">Articles</h3>
+[AA1] Anton Antonov, <a href="https://mathematicaforprediction.wordpress.com/2018/05/15/a-monad-for-classification-workflows/">“A monad for classification workflows”</a>, (2018), <a href="https://mathematicaforprediction.wordpress.com">MathematicaForPrediction at WordPress</a>.
+
+[AA2] Anton Antonov, <a href="https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/">“Raku Text::CodeProcessing”</a>, (2021), <a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a>.
+
+[AA3] Anton Antonov, <a href="https://rakuforprediction.wordpress.com/2021/12/30/connecting-mathematica-and-raku/">“Connecting Mathematica and Raku”</a>, (2021), <a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a>.
+
+[AA4] Anton Antonov, <a href="https://rakuforprediction.wordpress.com/2021/12/31/introduction-to-data-wrangling-with-raku/">“Introduction to data wrangling with Raku”</a>, (2021), <a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a>.
+
+[AA5] Anton Antonov, <a href="https://rakuforprediction.wordpress.com/2022/06/22/mltrieswithfrequencies/">“ML::TriesWithFrequencies”</a>, (2022), <a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a>.
+
+[AA6] Anton Antonov, <a href="https://rakuforprediction.wordpress.com/2022/06/25/datagenerators/">“Data::Generators”</a>, (2022), <a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a>.
+
+[AA7] Anton Antonov, <a href="https://rakuforprediction.wordpress.com/2022/06/30/mlrocfunctions/">“ML::ROCFunctions”</a>, (2022), <a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a>.
+
+[AA8] Anton Antonov, <a href="https://rakuforprediction.wordpress.com/2022/07/05/textplot/">“Text::Plot”</a>, (2022), <a href="https://rakuforprediction.wordpress.com">RakuForPrediction at WordPress</a>.
+
+[Wk1] Wikipedia entry, <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">“Receiver operating characteristic”</a>.
+<h3 id="packages">Packages</h3>
+[AAp1] Anton Antonov, <a href="https://github.com/antononcube/Raku-Data-Generators">Data::Generators Raku package</a>, (2021), <a href="https://github.com/antononcube">GitHub/antononcube</a>.
+
+[AAp2] Anton Antonov, <a href="https://github.com/antononcube/Raku-Data-Reshapers">Data::Reshapers Raku package</a>, (2021), <a href="https://github.com/antononcube">GitHub/antononcube</a>.
+
+[AAp3] Anton Antonov, <a href="https://github.com/antononcube/Raku-Data-Summarizers">Data::Summarizers Raku package</a>, (2021), <a href="https://github.com/antononcube">GitHub/antononcube</a>.
+
+[AAp4] Anton Antonov, <a href="https://github.com/antononcube/Raku-ML-ROCFunctions">ML::ROCFunctions Raku package</a>, (2022), <a href="https://github.com/antononcube">GitHub/antononcube</a>.
+
+[AAp5] Anton Antonov, <a href="https://github.com/antononcube/Raku-Text-CodeProcessing">Text::CodeProcessing Raku package</a>, (2021), <a href="https://github.com/antononcube">GitHub/antononcube</a>.
+
+[AAp6] Anton Antonov, <a href="https://github.com/antononcube/Raku-Text-Plot">Text::Plot Raku package</a>, (2022), <a href="https://github.com/antononcube">GitHub/antononcube</a>.
+
+[AAp7] Anton Antonov, <a href="https://github.com/antononcube/Raku-ML-TriesWithFrequencies">ML::TriesWithFrequencies Raku package</a>, (2021), <a href="https://github.com/antononcube">GitHub/antononcube</a>.
+<h3 id="functions">Functions</h3>
+[WRI1] Wolfram Research (2015), <a href="https://reference.wolfram.com/language/ref/TakeDrop.html">TakeDrop</a>, Wolfram Language function, (updated 2015).
+
+[WRI2] Wolfram Research (2007), <a href="https://reference.wolfram.com/language/ref/Tally.html">Tally</a>, Wolfram Language function.

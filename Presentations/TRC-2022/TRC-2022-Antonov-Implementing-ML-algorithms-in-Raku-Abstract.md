@@ -33,7 +33,7 @@ Here is a corresponding mind-map:
 
 The document
 ["Trie based classifiers evaluation"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Trie-based-classifiers-evaluation.md)
-provides an example application of the Raku packages mentioned above.
+describes an example application of the Raku packages mentioned above.
 -------
 
 ## References

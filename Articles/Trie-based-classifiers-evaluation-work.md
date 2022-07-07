@@ -79,6 +79,10 @@ shown here, we use random seeding (with `srand`) before any computations that us
 Meaning, one would expect Raku code that starts with an `srand` statement (e.g. `srand(889)`)
 to produce the same pseudo random numbers if it is executed multiple times (without changing it.)
 
+**Remark:** Per [this comment](https://stackoverflow.com/a/71631427/14163984) it seems that 
+a setting of `srand` guarantees the production of reproducible between runs random sequences 
+on the particular combination of hardware-OS-software Raku is executed on.
+
 ```perl6
 srand(889)
 ```

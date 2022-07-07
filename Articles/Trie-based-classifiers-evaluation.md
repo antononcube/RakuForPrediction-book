@@ -49,11 +49,11 @@ to-pretty-table( @dsTitanic.pick(5), field-names => <passengerAge passengerClass
 # +--------------+----------------+--------------+-------------------+
 # | passengerAge | passengerClass | passengerSex | passengerSurvival |
 # +--------------+----------------+--------------+-------------------+
-# |      40      |      1st       |    female    |      survived     |
+# |      50      |      1st       |    female    |      survived     |
 # |      20      |      3rd       |     male     |        died       |
-# |      30      |      2nd       |     male     |        died       |
-# |      30      |      3rd       |     male     |        died       |
-# |      -1      |      3rd       |    female    |      survived     |
+# |      20      |      3rd       |     male     |        died       |
+# |      -1      |      3rd       |     male     |        died       |
+# |      70      |      1st       |     male     |        died       |
 # +--------------+----------------+--------------+-------------------+
 ```
 
@@ -64,18 +64,18 @@ use Data::Summarizers;
 records-summary(@dsTitanic)
 ```
 ```
-# +---------------+----------------+-----------------+-------------------+----------------+
-# | passengerSex  | passengerClass | id              | passengerSurvival | passengerAge   |
-# +---------------+----------------+-----------------+-------------------+----------------+
-# | male   => 843 | 3rd => 709     | 503     => 1    | died     => 809   | 20      => 334 |
-# | female => 466 | 1st => 323     | 421     => 1    | survived => 500   | -1      => 263 |
-# |               | 2nd => 277     | 726     => 1    |                   | 30      => 258 |
-# |               |                | 936     => 1    |                   | 40      => 190 |
-# |               |                | 659     => 1    |                   | 50      => 88  |
-# |               |                | 446     => 1    |                   | 60      => 57  |
-# |               |                | 260     => 1    |                   | 0       => 56  |
-# |               |                | (Other) => 1302 |                   | (Other) => 63  |
-# +---------------+----------------+-----------------+-------------------+----------------+
+# +----------------+-------------------+----------------+-----------------+---------------+
+# | passengerAge   | passengerSurvival | passengerClass | id              | passengerSex  |
+# +----------------+-------------------+----------------+-----------------+---------------+
+# | 20      => 334 | died     => 809   | 3rd => 709     | 977     => 1    | male   => 843 |
+# | -1      => 263 | survived => 500   | 1st => 323     | 1286    => 1    | female => 466 |
+# | 30      => 258 |                   | 2nd => 277     | 776     => 1    |               |
+# | 40      => 190 |                   |                | 1166    => 1    |               |
+# | 50      => 88  |                   |                | 202     => 1    |               |
+# | 60      => 57  |                   |                | 878     => 1    |               |
+# | 0       => 56  |                   |                | 735     => 1    |               |
+# | (Other) => 63  |                   |                | (Other) => 1302 |               |
+# +----------------+-------------------+----------------+-----------------+---------------+
 ```
 
 -------
@@ -131,6 +131,10 @@ shown here, we use random seeding (with `srand`) before any computations that us
 Meaning, one would expect Raku code that starts with an `srand` statement (e.g. `srand(889)`)
 to produce the same pseudo random numbers if it is executed multiple times (without changing it.)
 
+**Remark:** Per [this comment](https://stackoverflow.com/a/71631427/14163984) it seems that 
+a setting of `srand` guarantees the production of reproducible between runs random sequences 
+on the particular combination of hardware-OS-software Raku is executed on.
+
 ```perl6
 srand(889)
 ```
@@ -185,7 +189,7 @@ Here is an example *probabilities*-classification:
 $trTitanic.classify(<2nd male>, prop=>'Probs')
 ```
 ```
-# {died => 0.851063829787234, survived => 0.14893617021276595}
+# {died => 0.851063829787234, survived => 0.14893617021276598}
 ```
 
 We want to classify across all testing data, but not all testing data records might be present in the trie. 
@@ -216,7 +220,7 @@ my @clRes = $trTitanic.classify(@testingRecords).Array;
 @clRes.head(5)
 ```
 ```
-# (died died died survived died)
+# (died died died died died)
 ```
 
 Here is a tally of the classification results:
@@ -225,7 +229,7 @@ Here is a tally of the classification results:
 tally(@clRes)
 ```
 ```
-# {died => 186, survived => 76}
+# {died => 185, survived => 77}
 ```
 
 (The function `tally` is from "Data::Summarizers". It follows Mathematica's 
@@ -238,7 +242,7 @@ use ML::ROCFunctions;
 my %roc = to-roc-hash('survived', 'died', select-columns( $dsTesting, 'passengerSurvival')>>.values.flat, @clRes)
 ```
 ```
-# {FalseNegative => 45, FalsePositive => 15, TrueNegative => 141, TruePositive => 61}
+# {FalseNegative => 45, FalsePositive => 16, TrueNegative => 140, TruePositive => 61}
 ```
 
 -------
@@ -283,12 +287,12 @@ records-summary(@thRange)
 # +-------------------------------+
 # | numerical                     |
 # +-------------------------------+
-# | Max    => 0.9999999999999999  |
-# | Min    => 0                   |
-# | Mean   => 0.5000000000000001  |
-# | 3rd-Qu => 0.7666666666666666  |
-# | 1st-Qu => 0.2333333333333333  |
 # | Median => 0.49999999999999994 |
+# | Max    => 0.9999999999999999  |
+# | 3rd-Qu => 0.7666666666666666  |
+# | Mean   => 0.5000000000000001  |
+# | Min    => 0                   |
+# | 1st-Qu => 0.2333333333333333  |
 # +-------------------------------+
 ```
 

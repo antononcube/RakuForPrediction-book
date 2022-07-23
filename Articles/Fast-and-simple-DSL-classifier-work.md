@@ -12,20 +12,57 @@ In this (computational Markdown) document we show how to derive with Raku a fast
 Machine Learning (ML) classifier that classifies natural language commands into 
 Domain Specific Language (DSL) labels.
 
-For example, such classifier should classify the command:
-
-```
-calculate item term matrix
-```
-
+For example, such classifier should classify the command *"calculate item term matrix"*
 as a Latent Semantic Analysis (LSA) workflow command. (And give it, say, the label `LatentSemanticAnalysis`.) 
 
 The primary motivation for making DSL-classifier is to speed up the parsing specifications that
 belong to a (somewhat) large collection of workflows. (For example, the Raku package [AAp5] has twelve workflows.)
 
+### DSL specifications
+
+Here are example computational DSL specs for the workflows 
+*Classification*, *Latent Semantic Analysis*, and *Quantile Regression*:
+
+```shell
+ToDSLCode WL "
+DSL MODULE Classification;
+use the dataset dfGoods;
+split data with ratio 0.8;
+make a logistic regression classifier;
+show accuracy, precision;
+"
+```
+
+```shell
+ToDSLCode R "
+DSL MODULE LatentSemanticAnalysis;
+use aDocs;
+create document-term matrix;
+apply LSI functions IDF, Frequency, and Cosine;
+extract 36 topics with the method NNMF and max steps 12;
+show topics table 
+"
+```
+
+```shell
+ToDSLCode R "
+DSL MODULE QuantileRegression;
+use dfStocksVolume;
+summarize data;
+computed quantile regression with 30 knots and order 2;
+show date list plot 
+"
+```
+
+### Problem formulation
+
+For a given DSL specification order the available DSL parsers according to how likely
+each of them is to parse the given specification completely.
+
+
 ------
 
-# Procedures outline
+## Procedures outlines
 
 In this section we outline: 
 
@@ -35,11 +72,69 @@ In this section we outline:
 
 - The derivation of the DSL-classifier
 
+It is assumed that:
+
+- We have two or more DSL parsers.
+- For each parser we can obtain a *parsing residual* -- the number characters it could not parse.
+
+If the parsing residual is 0 then we say that the parser "exhausted the specification" or "parsed the specification completely."  
+
+### Inputs
+
+- A computational DSL specification
+- A list of available DSL parsers
+
 ### Brute force DSL parsing
+
+1. Random shuffle the available DSL parsers
+2. Attempt parsing with each of the available DSL parsers
+3. If any parser gives 0 residual then stop the loop and use that parser as "working parser." 
+4. The parser that gives smallest residual is chosen and "working parser."
 
 ### Parsing with the help of a DSL-classifier
 
-### Derivation of the DSL-classifier
+1. Apply the DSL classifier to the given spec and order the DSL parsers according to the obtained classification probabilities
+2. Do the "Brute force DSL parsing" steps 2, 3, and 4.
+
+### Derivation of DSL-classifier
+
+1. For each of the DSLs generate a few hundred random commands using their grammars.
+   - Label each command with the DSL it was generated with. 
+   - Export to a JSON file and / or CSV file.
+2. Ingest the DSL commands data into a hash (dictionary or association.)
+3. Do basic data analysis 
+   - Summarize the textual data.
+   - Split the commands into words.
+   - Remove stop words, random words, words with (too many) special symbols.
+   - Find, summarize, and display word frequencies.
+4. Split the data into training and testing parts.
+   - Do stratified splitting, per label.
+5. Turn each command into a trie phrase:
+   - Split the command into words
+   - Keep frequent enough words (as found in step 3)
+   - Sort the words and append the DSL label 
+6. Make a trie with trie commands of the training data part.
+7. Evaluate the trie classifier over the trie commands of the testing data part.
+8. Show classification success rates and confusion matrix. 
+
+**Remark:** The trie classifiers are made with the Raku package
+["ML::TriesWithFrequencies"](https://raku.land/zef:antononcube/ML::TriesWithFrequencies), [AAp9].
+
+### Association rules study
+
+1. Create Association Rule Learning (ARL) baskets of words.
+   - Put all words to lower case
+   - Filter words using different criteria:
+     - Remove stop words
+     - Keep dictionary words
+     - Remove words that have special symbols or are random strings
+2. Find frequent sets that include the DSL labels.
+3. Examine frequent sets.
+4. Using the frequent sets create and evaluate trie classifier.
+
+**Remark:** ARL algorithm Apriori can be implemented via Tries. See for example the Apriori
+implementation in the Raku package
+["ML::AssociationRuleLearning"](https://raku.land/zef:antononcube/ML::AssociationRuleLearning), [AAp7].
 
 ------
 ## Load packages
@@ -112,21 +207,174 @@ my %wordTallies2 = %wordTallies.grep({ $_.value >= 10 && $_.key.chars > 1 && $_.
 ```
 
 ```perl6
-my %wordTallies3 = %wordTallies2.grep({ $_.key ~~ / ^ (<:L> | '-')+ $ /});
+my %wordTallies3 = %wordTallies2.grep({ $_.key ~~ / ^ [<:L> | '-']+ $ /});
 %wordTallies3.elems
 ```
 
 ```perl6
-my @tbls = do for %wordTallies3.pairs.sort(-*.value).rotor(40) {to-pretty-table(transpose([$_>>.key, $_>>.value]).map({ %(<word count>.Array Z=> $_.Array) }), align => 'l', field-names=><word count>).Str}
-to-pretty-table( [%( ^@tbls.elems Z=> @tbls ),], field-names => (0..^@tbls.elems)>>.Str, align => 'l', header=> False, vertical-char => ' ', horizontal-char => ' ');
+my @tbls = do for %wordTallies3.pairs.sort(-*.value).rotor(40) { to-pretty-table(transpose([$_>>.key, $_>>.value])
+.map({ %(<word count>.Array Z=> $_.Array) }), align => 'l', field-names => <word count>).Str }
+to-pretty-table([%( ^@tbls.elems Z=> @tbls),], field-names => (0 ..^ @tbls.elems)>>.Str, align => 'l', :!header, vertical-char => ' ', horizontal-char => ' ');
 ```
 
+------
+
+## Data split
+
+```perl6
+srand(83);
+my %splitGroups = @wCommands.categorize({ $_.value });
+%splitGroups>>.elems
+```
+
+```perl6
+my %split = %splitGroups.map( -> $g { $g.key => %( ['training', 'testing'] Z=> take-drop($g.value, 0.75)) });
+%split>>.elems
+```
+
+```perl6
+my %split2;
+for %split.kv -> $k, $v { 
+	%split2<training> = %split2<training>.append(|$v<training>); 
+	%split2<testing> = %split2<testing>.append(|$v<testing>);
+};
+%split2>>.elems
+```
+
+```perl6
+.raku.say for %split2<training>.pick(6)
+```
+
+------
+
+## Trie creation
+
+Here we take the unique DSL commands labels:
+
+```perl6
+my @labels = unique(@wCommands>>.value)
+```
+
+Here we make derive a set of "known words" set using the "frequent enough" words of training data:
+
+```perl6
+%wordTallies = %split2<training>>>.key.map({ $_.split(/ \s | ',' /) }).&flatten>>.trim>>.lc.&tally;
+%wordTallies2 = %wordTallies.grep({ $_.value ≥ 6 && $_.key.chars > 1 && $_.key !(elem) stopwords-iso('English')});
+%wordTallies3 = %wordTallies2.grep({ $_.key ~~ / ^ [<:L> | '-']+ $ /});
+%wordTallies3.elems
+```
+
+```perl6
+my %knownWords = Set(%wordTallies3);
+%knownWords.elems
+```
+
+Here we define sub the converts a command into trie-phrase: 
+
+```perl6
+multi make-trie-basket(Str $command, %knownWords) {
+	$command.split(/\s | ','/)>>.trim>>.lc.grep({ $_ (elem) %knownWords }).unique.sort.Array
+}
+
+multi make-trie-basket(Pair $p, %knownWords) {
+   make-trie-basket($p.key, %knownWords).append($p.value)
+}
+```
+
+Here is an example invocation `make-trie-basket`:
+
+```perl6
+my $rb = %split2<training>.pick;
+say $rb.raku;
+say make-trie-basket($rb, %knownWords).raku;
+```
+
+Here we convert all training data commands into trie-phrases:
+
+```perl6
+my $tStart = now;
+
+my @training = %split2<training>.map({ make-trie-basket($_, %knownWords) }).Array;
+
+say "Time to process traning commands: {now - $tStart}."
+```
+
+Here we make the trie:
+
+```perl6
+$tStart = now;
+
+my $trDSL = @training.&trie-create.node-probabilities;
+
+say "Time to make the DSL trie: {now - $tStart}."
+```
+
+Here are the trie node counts:
+
+```perl6
+$trDSL.node-counts
+```
+
+------
+
+## Confusion matrix
+
+In this section we put together the confusion matrix of derived trie classifier over the testing data.
+
+First we define a function that gives actual and predicted DSL-labels for given training rules:
+
+```perl6
+sub make-cf-couple(Pair $p) {
+    my $query = make-trie-basket($p.key, %knownWords);
+    my $lbl = $trDSL.classify($query, :!verify-key-existence);
+    %(actual => $p.value, predicted => ($lbl ~~ Str) ?? $lbl !! 'NA', command => $p.key)
+}
+```
+
+Here we classify all commands in the testing data part:
+
+```perl6
+my $tStart = now;
+
+my @actualPredicted = %split2<testing>.map({ make-cf-couple($_) }).Array;
+
+my $tEnd = now;
+say "Total time to classify with the DSL trie: {$tEnd - $tStart}.";
+say "Time per classification: {($tEnd - $tStart)/@actualPredicted.elems}."
+```
+
+Here is the confusion matrix (using `cross-tabulate` of 
+["Data::Reshapers"](https://raku.land/zef:antononcube/Data::Reshapers), [AAp3]):
+
+```perl6
+my $ct = cross-tabulate(@actualPredicted, "actual", "predicted");
+to-pretty-table($ct, field-names=>@labels.sort.Array.append('NA'))
+```
+
+Here are the corresponding fractions:
+
+```perl6
+my $ct2 = $ct.map({ $_.key => $_.value <</>> $_.value.values.sum });
+to-pretty-table($ct2, field-names=>@labels.sort.Array.append('NA'))
+```
+
+Here we show a sample of confused (misclassified) commands:
+
+```perl6
+srand(883);
+to-pretty-table(@actualPredicted.grep({ $_<actual> ne $_<predicted> }).pick(12).sort({ $_<command> }), field-names=><actual predicted command>, align=>'l')
+```
+
+By examining the confusion matrix we can conclude that the classifier is good enough.
 
 -----
 
 ## Association rules
 
-```perl6
+In this section we go through the association rules finding outlined above. 
+We do not present the classifier with frequent sets, but experiments with 
+
+```{perl6, eval=FALSE}
 my @labels = unique(@wCommands>>.value)
 ```
 ```
@@ -196,122 +444,6 @@ say "Timing: {$tEnd - $tStart}."
 # (data form set) => 20
 ```
 
-------
-
-## Data split
-
-```perl6
-srand(83);
-my %splitGroups = @wCommands.categorize({ $_.value });
-%splitGroups>>.elems
-```
-
-```perl6
-my %split = %splitGroups.map( -> $g { $g.key => %( ['training', 'testing'] Z=> take-drop($g.value, 0.75)) });
-%split>>.elems
-```
-
-```perl6
-my %split2;
-for %split.kv -> $k, $v { 
-	%split2<training> = %split2<training>.append(|$v<training>); 
-	%split2<testing> = %split2<testing>.append(|$v<testing>);
-};
-%split2>>.elems
-```
-
-```perl6
-.raku.say for %split2<training>.pick(6)
-```
-
-------
-
-## Trie creation
-
-```perl6
-my @labels = unique(@wCommands>>.value)
-```
-
-```perl6
-my %knownWords = Set(%wordTallies2);
-%knownWords.elems
-```
-
-```perl6
-multi make-trie-basket(Str $command, %knownWords) {
-	$command.split(/\s | ','/)>>.trim>>.lc.grep({ $_ (elem) %knownWords }).unique.sort.Array
-}
-
-multi make-trie-basket(Pair $p, %knownWords) {
-   make-trie-basket($p.key, %knownWords).append($p.value)
-}
-```
-
-```perl6
-make-trie-basket($rb, %knownWords).raku
-```
-
-```perl6
-my $tStart = now;
-
-my @training = %split2<training>.map({ make-trie-basket($_, %knownWords) }).Array;
-
-say "Time to process traning commands: {now - $tStart}."
-```
-
-```perl6
-$tStart = now;
-
-my $trDSL = @training.&trie-create.node-probabilities;
-
-say "Time to make the DSL trie: {now - $tStart}."
-```
-
-Here are the trie node counds:
-
-```perl6
-$trDSL.node-counts
-```
-
-------
-
-## Confusion matrix
-
-In this section we put together the confusion matrix of derived trie classifier over the testing data.
-
-First we define a function that gives actual and predicted DSL-labels for given training rules:
-
-```perl6
-sub make-cf-couple2(Pair $p) {
-    my $query = make-trie-basket($p.key, %knownWords);
-    my $lbl = $trDSL.classify($query, :!verify-key-existence);
-    %(actual => $p.value, predicted => ($lbl ~~ Str) ?? $lbl !! 'NA')
-}
-```
-
-```perl6
-my $tStart = now;
-
-my @actualPredicted = %split2<testing>.map({ make-cf-couple2($_) }).Array;
-
-my $tEnd = now;
-say "Total time to classify with the DSL trie: {$tEnd - $tStart}.";
-say "Time per classification: {($tEnd - $tStart)/@actualPredicted.elems}."
-```
-
-Here is the confusion matrix:
-
-```perl6
-my $ct = cross-tabulate(@actualPredicted, "actual", "predicted");
-to-pretty-table($ct, field-names=>@labels.sort.Array.append('NA'))
-```
-
-Here are the corresponding fractions:
-
-```perl6
-my $ct2 = $ct.map({ $_.key => $_.value <</>> $_.value.values.sum });
-to-pretty-table($ct2, field-names=>@labels.sort.Array.append('NA'))
-```
 
 ------
 

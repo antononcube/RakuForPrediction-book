@@ -192,24 +192,51 @@ srand(33);
 
 ## Word tallies
 
+Here we get (English) dictionary words (using the function `random-word` from 
+["Data::Generators"](https://raku.land/zef:antononcube/Data::Generators), [AAp1]):
+
+```perl6
+my %dictionaryWords = Set(random-word(Inf)>>.lc);
+%dictionaryWords.elems
+```
+
+Here we:
+
+1. Split each keys (i.e. commands) of the data pairs into words 
+2. Flatten into one list of words 
+3. Trim each word and turn into lower case
+4. Find word tallies (using the function `tally` from ["Data::Summarizers"](https://raku.land/zef:antononcube/Data::Summarizers), [AAp4].)
+
 ```perl6
 my %wordTallies = @wCommands>>.key.map({ $_.split(/ \s | ',' /) }).&flatten>>.trim>>.lc.&tally;
 %wordTallies.elems
 ```
 
+Show summary of the word tallies:
+
 ```perl6
 records-summary(%wordTallies.values.List)
 ```
 
+Here we filter the word tallies to be only with words that are:
+- Have frequency 10 or higher
+- Dictionary words 
+- Not English stop words (using the function `stopwords-iso` from ["Lingua::StopwordsISO"](https://raku.land/cpan:ANTONOV/Lingua::StopwordsISO), [AAp6])
+
 ```perl6
-my %wordTallies2 = %wordTallies.grep({ $_.value >= 10 && $_.key.chars > 1 && $_.key !(elem) stopwords-iso('English')});
+my %wordTallies2 = %wordTallies.grep({ $_.value ≥ 10 && $_.key.chars > 1 && $_ ∈ %dictionaryWords && $_.key ∉ stopwords-iso('English')});
 %wordTallies2.elems
 ```
+
+Instead of checking for dictionary words -- or in conjunction -- we can filter to have only words 
+that made of letters and dashes:
 
 ```perl6
 my %wordTallies3 = %wordTallies2.grep({ $_.key ~~ / ^ [<:L> | '-']+ $ /});
 %wordTallies3.elems
 ```
+
+Here we tabulate the most frequent  
 
 ```perl6
 my @tbls = do for %wordTallies3.pairs.sort(-*.value).rotor(40) { to-pretty-table(transpose([$_>>.key, $_>>.value])
@@ -221,16 +248,24 @@ to-pretty-table([%( ^@tbls.elems Z=> @tbls),], field-names => (0 ..^ @tbls.elems
 
 ## Data split
 
+In this section we split the data into training and testing parts. The split is stratified per DSL.
+
+We categorize the DSL commands according to their DSL:
+
 ```perl6
 srand(83);
 my %splitGroups = @wCommands.categorize({ $_.value });
 %splitGroups>>.elems
 ```
 
+Here we split each category with the ratio 0.75 (using the function `take-drop` from ["Data::Reshapers"](https://raku.land/zef:antononcube/Data::Reshapers), [AAp3]): 
+
 ```perl6
 my %split = %splitGroups.map( -> $g { $g.key => %( ['training', 'testing'] Z=> take-drop($g.value.pick(*), 0.75)) });
 %split>>.elems
 ```
+
+Here we aggregate the training and testing parts for each category and show the corresponding sizes: 
 
 ```perl6
 my %split2;
@@ -240,6 +275,8 @@ for %split.kv -> $k, $v {
 };
 %split2>>.elems
 ```
+
+Here we show a sample of commands from the training part:
 
 ```perl6
 .raku.say for %split2<training>.pick(6)
@@ -372,78 +409,102 @@ By examining the confusion matrix we can conclude that the classifier is good en
 ## Association rules
 
 In this section we go through the association rules finding outlined above. 
-We do not present the classifier with frequent sets, but experiments with 
+
+**Remark"** We do not present the trie classifier making and results with frequent sets, 
+but I can (bravely) declare that experiments with trie classifiers made with the words 
+of the found frequent sets produce very similar results as the ones with word-tallies.
+
+Here we process the "word baskets" made from the DSL commands and corresponding DSL workflow labels:
 
 ```{perl6, eval=FALSE}
-my @labels = unique(@wCommands>>.value)
-```
-```
-# [Classification LatentSemanticAnalysis NeuralNetworkCreation QuantileRegression RandomTabularDataset Recommendations]
-```
-
-```{perl6, eval=FALSE)
 my $tStart = now;
 
-my @baskets = @wCommands.map({ ($_.key.split(/\s | ','/)>>.trim.grep({ $_.chars > 0 && $_ ~~ /<:L>+/ && $_ !(elem) stopwords-iso('English')})).Array.append($_.value) }).Array;
+my @baskets = @wCommands.map({ ($_.key.split(/\s | ','/)>>.trim.grep({ $_.chars > 0 && $_ ~~ /<:L>+/ && $_ ∈ %dictionaryWords && $_ ∉ stopwords-iso('English')})).Array.append($_.value) }).Array;
 
 say "Number of baskets: {@baskets.elems}";
 
 say "Time to process baskets {now - $tStart}."
 ```
-```
-# Number of baskets: 4020
-# Time to process baskets 16.899949751.
+
+```{perl6, eval=FALSE}
+# Number of baskets: 5220
+# Time to process baskets 17.622710602.
 ```
 
-```{perl6, eval=FALSE)
+Here is a sample of the baskets:
+
+```{perl6, eval=FALSE}
+.say for @baskets.pick(6) 
+```
+
+```{perl6, eval=FALSE}
+# [transform symbolic numeric Classification]
+# [echo data time series data graph QuantileRegression]
+# [verify Classification]
+# [compute moving average QuantileRegression]
+# [calculate rescale add context time series data default step QuantileRegression]
+# [partition LatentSemanticAnalysis]
+```
+
+Here is a summary of the basket sizes:
+
+```{perl6, eval=FALSE}
 records-summary(@baskets>>.elems)
 ```
-```
+
+```{perl6, eval=FALSE}
 # +--------------------+
 # | numerical          |
 # +--------------------+
 # | Min    => 1        |
-# | Mean   => 5.871891 |
-# | Max    => 60       |
-# | Median => 5        |
-# | 1st-Qu => 3        |
-# | 3rd-Qu => 6        |
+# | 3rd-Qu => 5        |
+# | Max    => 37       |
+# | 1st-Qu => 2        |
+# | Mean   => 4.081418 |
+# | Median => 3        |
 # +--------------------+
 ```
+
+Here we find frequent sets of words (using the function `frequent-sets` from 
+["ML::AssociationRuleLearning"](https://raku.land/zef:antononcube/ML::AssociationRuleLearning), [AAp7]):
 
 ```{perl6, eval=FALSE}
 my $tStart = now;
 
-my @freqSets = frequent-sets(@baskets.grep({ 3 < $_.elems < 40 }).Array, min-support => 0.005, min-number-of-items => 2, max-number-of-items => 6):counts;
+my @freqSets = frequent-sets(@baskets.grep({ 3 < $_.elems }).Array, min-support => 0.005, min-number-of-items => 2, max-number-of-items => 6):counts;
 
 say "\t\tNumber of frequent sets: {@freqSets.elems}.";
 
 my $tEnd = now;
 say "Timing: {$tEnd - $tStart}."
 ```
+
+```{perl6, eval=FALSE}
+# Number of frequent sets: 5110.
+# Timing: 138.428897789.
 ```
-# Number of frequent sets: 3444.
-# Timing: 270.399003228.
-```
+
+Here is a sample of the found frequent sets:
 
 ```{perl6, eval=FALSE}
 .say for @freqSets.pick(12)
 ```
-```
-# (create data random-driven tabular) => 17
-# (RandomTabularDataset random rows values) => 17
-# (create frame randomized) => 17
-# (RandomTabularDataset data random) => 110
-# (QuantileRegression calculate outliers time) => 18
-# (RandomTabularDataset create frame) => 59
-# (frame randomized) => 43
-# (arbitrary generate set) => 17
-# (RandomTabularDataset chance driven tabular variables) => 17
-# (driven frame tabular) => 28
-# (RandomTabularDataset random rows) => 32
-# (data form set) => 20
-```
 
+```{perl6, eval=FALSE}
+# (form frame max tabular values) => 17
+# (LatentSemanticAnalysis item matrix word) => 41
+# (RandomTabularDataset chance data frame tabular values) => 12
+# (create data random values) => 12
+# (data max randomized set tabular) => 12
+# (generate max names) => 18
+# (matrix term) => 70
+# (RandomTabularDataset data generate max min names) => 13
+# (RandomTabularDataset arbitrary form frame) => 12
+# (arbitrary data randomized) => 13
+# (RandomTabularDataset chance data driven min set) => 18
+# (create set tabular) => 47
+
+```
 
 ------
 

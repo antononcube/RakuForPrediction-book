@@ -21,11 +21,11 @@ belong to a (somewhat) large collection of workflow DSLs. (For example, the Raku
 *Remark:* Such classifier is used in the Mathematica package provided by the 
 ["NLP Template Engine" project](https://github.com/antononcube/NLP-Template-Engine), [AAr1, AAv1]. 
 
-Here is mind-map that summarizes the methodology of ML classifier making, [AA1]:
+Here is a mind-map that summarizes the methodology of ML classifier making, [AA1]:
 
 ![](https://raw.githubusercontent.com/antononcube/SimplifiedMachineLearningWorkflows-book/master/Diagrams/Making-competitions-classifiers-mind-map.png)
 
-Here is a "big picture" flow-chart that *encompasses* procedures outlined and implemented in this documents:
+Here is a "big picture" flow-chart that *encompasses* the procedures outlined and implemented in this documents:
 
 ![](https://github.com/antononcube/NLP-Template-Engine/raw/main/Documents/Diagrams/General/Computation-workflow-type-classifier-making.png)
 

@@ -9,14 +9,29 @@ July 2022
 ## Introduction
 
 In this (computational Markdown) document we show how to derive with Raku a fast and simple 
-Machine Learning (ML) classifier that classifies natural language commands into 
-Domain Specific Language (DSL) labels.
+Machine Learning (ML) classifier that classifies natural language commands made with 
+Domain Specific Languages (DSLs) of a set of computational workflows.
 
-For example, such classifier should classify the command *"calculate item term matrix"*
-as a Latent Semantic Analysis (LSA) workflow command. (And give it, say, the label `LatentSemanticAnalysis`.) 
+For example, such classifier should classify the command *"calculate document term matrix"*
+as a Latent Semantic Analysis (LSA) workflow command. (And, say, give it the label "LatentSemanticAnalysis".) 
 
-The primary motivation for making DSL-classifier is to speed up the parsing specifications that
-belong to a (somewhat) large collection of workflows. (For example, the Raku package [AAp5] has twelve workflows.)
+The primary motivation for making DSL-classifier is to speed up the parsing of specifications that
+belong to a (somewhat) large collection of workflow DSLs. (For example, the Raku package [AAp5] has twelve workflows.)
+
+*Remark:* Such classifier is used in the Mathematica package provided by the 
+["NLP Template Engine" project](https://github.com/antononcube/NLP-Template-Engine), [AAr1, AAv1]. 
+
+Here is mind-map that summarizes the methodology of ML classifier making, [AA1]:
+
+![](https://raw.githubusercontent.com/antononcube/SimplifiedMachineLearningWorkflows-book/master/Diagrams/Making-competitions-classifiers-mind-map.png)
+
+Here is a "big picture" flow-chart that *encompasses* procedures outlined and implemented in this documents:
+
+![](https://github.com/antononcube/NLP-Template-Engine/raw/main/Documents/Diagrams/General/Computation-workflow-type-classifier-making.png)
+
+This article can be seen as an extension of the article 
+["Trie-based classifiers evaluation"](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/), 
+[AA2].
 
 ### DSL specifications
 
@@ -59,7 +74,6 @@ show date list plot
 For a given DSL specification order the available DSL parsers according to how likely
 each of them is to parse the given specification completely.
 
-
 ------
 
 ## Procedures outlines
@@ -71,6 +85,8 @@ In this section we outline:
 - The modification of the brute force procedure by using the DSL-classifier
 
 - The derivation of the DSL-classifier
+
+- Possible applications of Association Rule Learning algorithms
 
 It is assumed that:
 
@@ -98,7 +114,7 @@ If the parsing residual is 0 then we say that the parser "exhausted the specific
 
 ### Derivation of DSL-classifier
 
-1. For each of the DSLs generate a few hundred random commands using their grammars.
+1. For each of the DSLs generate at least a few hundred random commands using their grammars.
    - Label each command with the DSL it was generated with. 
    - Export to a JSON file and / or CSV file.
 2. Ingest the DSL commands data into a hash (dictionary or association.)
@@ -139,7 +155,7 @@ implementation in the Raku package
 ------
 ## Load packages
 
-Load the Raku packages used below:
+Here we load the Raku packages used below:
 
 ```perl6
 use ML::AssociationRuleLearning;
@@ -219,7 +235,8 @@ records-summary(%wordTallies.values.List)
 ```
 
 Here we filter the word tallies to be only with words that are:
-- Have frequency 10 or higher
+- Have frequency ten or higher
+- Have at least two characters
 - Dictionary words 
 - Not English stop words (using the function `stopwords-iso` from ["Lingua::StopwordsISO"](https://raku.land/cpan:ANTONOV/Lingua::StopwordsISO), [AAp6])
 
@@ -410,11 +427,11 @@ By examining the confusion matrix we can conclude that the classifier is good en
 
 In this section we go through the association rules finding outlined above. 
 
-**Remark"** We do not present the trie classifier making and results with frequent sets, 
+**Remark:** We do not present the trie classifier making and results with frequent sets, 
 but I can (bravely) declare that experiments with trie classifiers made with the words 
-of the found frequent sets produce very similar results as the ones with word-tallies.
+of found frequent sets produce very similar results as the trie classifiers with word-tallies.
 
-Here we process the "word baskets" made from the DSL commands and corresponding DSL workflow labels:
+Here we process the "word baskets" made from the DSL commands and append corresponding DSL workflow labels:
 
 ```{perl6, eval=FALSE}
 my $tStart = now;
@@ -508,9 +525,36 @@ Here is a sample of the found frequent sets:
 
 ------
 
+## Conclusion
+
+We also experimented with a Recommender-based Classifier (RC) -- the accuracy results with RC were slightly better (2±1%) than the trie-based classifier,
+but RC is ≈10 times slower. We plan to discuss its training and results in subsequent article.
+
+Since we find the performance of the trie-based classifier satisfactory -- both accuracy-wise and speed-wise --
+we make a classifier with all of the DSL commands data. See the resource file 
+["dsl-trie-classifier.raku"](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation/blob/main/resources/dsl-trie-classifier.raku), 
+of [AAp5].
+
+```perl6
+my $trie-to-export = [|%split2<training>, |%split2<testing>].map({ make-trie-basket2($_, %knownWords) }).Array.&trie-create;
+$trie-to-export.node-counts;
+```
+
+------
+
 ## References
 
 ### Articles
+
+[AA1] Anton Antonov,
+["A monad for classification workflows"](https://mathematicaforprediction.wordpress.com/2018/05/15/a-monad-for-classification-workflows/),
+(2018),
+[MathematicaForPrediction at WordPress](https://mathematicaforprediction.wordpress.com).
+
+[AA2] Anton Antonov,
+["Trie-based classifiers evaluation"](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/),
+(2022),
+[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/).
 
 ### Packages, repositories
 
@@ -564,9 +608,21 @@ Here is a sample of the found frequent sets:
 (2022),
 [GitHub/antononcube](https://github.com/antononcube).
 
+[AAr1] Anton Antonov,
+[NLP Template Engine](https://github.com/antononcube/NLP-Template-Engine),
+(2021),
+[GitHub/antononcube](https://github.com/antononcube).
+
 ### Videos
 
-[AAv1] Anton Antonov
+[AAv1] Anton Antonov, 
+["NLP Template Engine, Part 1"](https://youtu.be/a6PvmZnvF9I), 
+(2021), 
+[Simplified Machine Learning Workflows at YouTube](https://www.youtube.com/playlist?list=PLke9UbqjOSOi1fc0NkJTdK767cL9XHJF0).
+
+[AAv2] Anton Antonov
 ["Raku for Prediction"](https://www.youtube.com/watch?v=frpCBjbQtnA),
 (2021),
-[TRC-2021](https://conf.raku.org/2021)
+[TRC-2021](https://conf.raku.org/2021).
+
+

@@ -228,7 +228,7 @@ my %splitGroups = @wCommands.categorize({ $_.value });
 ```
 
 ```perl6
-my %split = %splitGroups.map( -> $g { $g.key => %( ['training', 'testing'] Z=> take-drop($g.value, 0.75)) });
+my %split = %splitGroups.map( -> $g { $g.key => %( ['training', 'testing'] Z=> take-drop($g.value.pick(*), 0.75)) });
 %split>>.elems
 ```
 
@@ -259,7 +259,7 @@ Here we make derive a set of "known words" set using the "frequent enough" words
 
 ```perl6
 %wordTallies = %split2<training>>>.key.map({ $_.split(/ \s | ',' /) }).&flatten>>.trim>>.lc.&tally;
-%wordTallies2 = %wordTallies.grep({ $_.value ≥ 6 && $_.key.chars > 1 && $_.key !(elem) stopwords-iso('English')});
+%wordTallies2 = %wordTallies.grep({ $_.value ≥ 12 && $_.key.chars > 1 && $_.key ∉ stopwords-iso('English')});
 %wordTallies3 = %wordTallies2.grep({ $_.key ~~ / ^ [<:L> | '-']+ $ /});
 %wordTallies3.elems
 ```

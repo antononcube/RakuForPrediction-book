@@ -224,7 +224,7 @@ Here we filter the word tallies to be only with words that are:
 - Not English stop words (using the function `stopwords-iso` from ["Lingua::StopwordsISO"](https://raku.land/cpan:ANTONOV/Lingua::StopwordsISO), [AAp6])
 
 ```perl6
-my %wordTallies2 = %wordTallies.grep({ $_.value ≥ 10 && $_.key.chars > 1 && $_ ∈ %dictionaryWords && $_.key ∉ stopwords-iso('English')});
+my %wordTallies2 = %wordTallies.grep({ $_.value ≥ 10 && $_.key.chars > 1 && $_.key ∈ %dictionaryWords && $_.key ∉ stopwords-iso('English')});
 %wordTallies2.elems
 ```
 
@@ -376,7 +376,7 @@ my $tStart = now;
 my @actualPredicted = %split2<testing>.map({ make-cf-couple($_) }).Array;
 
 my $tEnd = now;
-say "Total time to classify with the DSL trie: {$tEnd - $tStart}.";
+say "Total time to classify {%split2<testing>.elems} tests with the DSL trie: {$tEnd - $tStart}.";
 say "Time per classification: {($tEnd - $tStart)/@actualPredicted.elems}."
 ```
 

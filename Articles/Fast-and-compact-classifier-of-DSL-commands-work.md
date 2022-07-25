@@ -265,7 +265,7 @@ my %wordTallies3 = %wordTallies2.grep({ $_.key ~~ / ^ [<:L> | '-']+ $ /});
 %wordTallies3.elems
 ```
 
-Here we tabulate the most frequent  
+Here we tabulate the most frequent words (in descending order):
 
 ```perl6
 my @tbls = do for %wordTallies3.pairs.sort(-*.value).rotor(40) { to-pretty-table(transpose([$_>>.key, $_>>.value])
@@ -279,19 +279,24 @@ to-pretty-table([%( ^@tbls.elems Z=> @tbls),], field-names => (0 ..^ @tbls.elems
 
 In this section we split the data into training and testing parts. The split is stratified per DSL.
 
-We categorize the DSL commands according to their DSL:
+Here we:
+- Categorize the DSL commands according to their DSL label 
+- Tabulate the corresponding number of commands per label
 
 ```perl6
 srand(83);
 my %splitGroups = @wCommands.categorize({ $_.value });
-%splitGroups>>.elems
+to-pretty-table([%splitGroups>>.elems,])
 ```
 
-Here we split each category with the ratio 0.75 (using the function `take-drop` from ["Data::Reshapers"](https://raku.land/zef:antononcube/Data::Reshapers), [AAp3]): 
+Here each category is:
+- Randomly shuffled 
+- Split into training and testing parts with the ratio 0.75 (using the function `take-drop` from ["Data::Reshapers"](https://raku.land/zef:antononcube/Data::Reshapers), [AAp3])
+- The corresponding number of elements are tabulated
 
 ```perl6
 my %split = %splitGroups.map( -> $g { $g.key => %( ['training', 'testing'] Z=> take-drop($g.value.pick(*), 0.75)) });
-%split>>.elems
+to-pretty-table(%split.map({ $_.key => $_.value>>.elems }))
 ```
 
 Here we aggregate the training and testing parts for each category and show the corresponding sizes: 
@@ -539,8 +544,8 @@ Here is a sample of the found frequent sets:
 
 ## Conclusion
 
-We also experimented with a Recommender-based Classifier (RC) -- the accuracy results with RC were slightly better (2±1%) than the trie-based classifier,
-but RC is ≈10 times slower. We plan to discuss its training and results in subsequent article.
+We also experimented with a Recommender-based Classifier (RC) -- the accuracy results with RC were slightly better (4±2%) than the trie-based classifier,
+but RC is ≈10 times slower. We plan to discuss RC training and results in a subsequent article.
 
 Since we find the performance of the trie-based classifier satisfactory -- both accuracy-wise and speed-wise --
 we make a classifier with all of the DSL commands data. See the resource file 
@@ -548,7 +553,7 @@ we make a classifier with all of the DSL commands data. See the resource file
 of [AAp5].
 
 ```perl6
-my $trie-to-export = [|%split2<training>, |%split2<testing>].map({ make-trie-basket2($_, %knownWords) }).Array.&trie-create;
+my $trie-to-export = [|%split2<training>, |%split2<testing>].map({ make-trie-basket($_, %knownWords) }).Array.&trie-create;
 $trie-to-export.node-counts;
 ```
 

@@ -1,4 +1,5 @@
-# Fast and simple DSL classifier
+# Fast and compact classifier of DSL commands
+***AKA "Fairly fast and accurate trie-based classifier of DSL commands"***  
 
 Anton Antonov   
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)   

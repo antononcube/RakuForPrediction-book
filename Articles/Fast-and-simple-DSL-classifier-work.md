@@ -19,7 +19,7 @@ The primary motivation for making DSL-classifier is to speed up the parsing of s
 belong to a (somewhat) large collection of workflow DSLs. (For example, the Raku package [AAp5] has twelve workflows.)
 
 *Remark:* Such classifier is used in the Mathematica package provided by the 
-["NLP Template Engine" project](https://github.com/antononcube/NLP-Template-Engine), [AAr1, AAv1]. 
+["NLP Template Engine" project](https://github.com/antononcube/NLP-Template-Engine), [AAr2, AAv1]. 
 
 Here is a mind-map that summarizes the methodology of ML classifier making, [AA1]:
 
@@ -35,7 +35,7 @@ This article can be seen as an extension of the article
 
 ### DSL specifications
 
-Here are example computational DSL specs for the workflows 
+Here are example of computational DSL specifications for the workflows 
 *Classification*, *Latent Semantic Analysis*, and *Quantile Regression*:
 
 ```shell
@@ -72,7 +72,7 @@ show date list plot
 ### Problem formulation
 
 For a given DSL specification order the available DSL parsers according to how likely
-each of them is to parse the given specification completely.
+each of them is to parse the given DSL specification completely.
 
 ------
 
@@ -174,7 +174,7 @@ use Data::ExampleDatasets;
 
 ## Load text data
 
-Read the text data from a CSV file (using `example-dataset` from 
+Read the text data -- the labeled DSL commands -- from a CSV file (using `example-dataset` from 
 ["Data::ExampleDatasets"](https://github.com/antononcube/Raku-Data-ExampleDatasets), [AAp2]):
 
 ```perl6
@@ -203,6 +203,17 @@ Show a sample of the pairs:
 srand(33);
 .say for @wCommands.pick(12).sort
 ```
+
+**Remark:** The random labeled DSL commands ingested above were generated using the grammars of the project
+[ConversationalAgents at GitHub](https://github.com/antononcube/ConversationalAgents), [AAr1],
+and the function `GrammarRandomSentences` of the Mathematica package 
+["FunctionalParsers.m"](https://github.com/antononcube/MathematicaForPrediction/blob/master/FunctionalParsers.m), [AAp12]. 
+
+**Remark:** Currently it is very hard to generate random sentences using grammars in Raku.
+That is also true for other grammar systems. (If that kind of functionality exists, it is usually added
+much latter in development phase.) I am hopeful that the
+[Raku AST project](https://news.perlfoundation.org/post/2022-02-raku-ast-grant)
+is going to greatly facilitate grammar-based random sentence generation.
 
 ------
 
@@ -556,7 +567,7 @@ $trie-to-export.node-counts;
 (2022),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/).
 
-### Packages, repositories
+### Packages
 
 [AAp1] Anton Antonov,
 [Data::Generators Raku package](https://github.com/antononcube/Raku-Data-Generators),
@@ -608,9 +619,21 @@ $trie-to-export.node-counts;
 (2022),
 [GitHub/antononcube](https://github.com/antononcube).
 
+[AAp11] Anton Antonov,
+[Functional parsers Mathematica package](https://github.com/antononcube/MathematicaForPrediction/blob/master/FunctionalParsers.m),
+(2014),
+[MathematicaForPrediction at GitHub](https://github.com/antononcube/MathematicaForPrediction).
+
+### Repositories
+
 [AAr1] Anton Antonov,
+[ConversationalAgents project](https://github.com/antononcube/ConversationalAgents),
+(2017-2022),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAr2] Anton Antonov,
 [NLP Template Engine](https://github.com/antononcube/NLP-Template-Engine),
-(2021),
+(2021-2022),
 [GitHub/antononcube](https://github.com/antononcube).
 
 ### Videos

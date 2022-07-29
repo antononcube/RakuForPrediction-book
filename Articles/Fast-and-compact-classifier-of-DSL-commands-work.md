@@ -435,9 +435,14 @@ my $ct2 = $ct.map({ $_.key => $_.value <</>> $_.value.values.sum });
 to-pretty-table($ct2, field-names=>@labels.sort.Array.append('NA'))
 ```
 
-By examining the confusion matrices and we can conclude that the classifier is good enough.
+Here is the diagonal of the confusion matrix:
 
-**Remark:** We examine the diagonals of the matrices and what are the most frequent confusions.  
+```perl6
+.say for @labels.map({ $_ => $ct2.Hash{$_;$_} })
+```
+
+By examining the confusion matrices and we can conclude that the classifier is good enough.
+(We examine the diagonals of the matrices and the most frequent confusions.)
 
 **Remark:** We addition to the confusion matrix we can do compute the Top-K query statistics -- not done here.
 (Top-2 query statistic is answering the question: "Is the expected label in the top 2 most probable labels?")

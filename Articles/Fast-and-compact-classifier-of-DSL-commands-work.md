@@ -438,7 +438,7 @@ to-pretty-table($ct2, field-names=>@labels.sort.Array.append('NA'))
 Here is the diagonal of the confusion matrix:
 
 ```perl6
-.say for @labels.map({ $_ => $ct2.Hash{$_;$_} })
+to-pretty-table( @labels.map({ $_ => $ct2.Hash{$_;$_} }) )
 ```
 
 By examining the confusion matrices and we can conclude that the classifier is good enough.

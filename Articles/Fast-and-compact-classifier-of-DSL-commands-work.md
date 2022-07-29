@@ -113,7 +113,7 @@ If the parsing residual is 0 then we say that the parser "exhausted the specific
 1. Apply the DSL classifier to the given spec and order the DSL parsers according to the obtained classification probabilities
 2. Do the "Brute force DSL parsing" steps 2, 3, and 4.
 
-### Derivation of DSL-classifier
+### Derivation of a DSL-classifier
 
 1. For each of the DSLs generate at least a few hundred random commands using their grammars.
    - Label each command with the DSL it was generated with. 
@@ -326,7 +326,7 @@ Here we take the unique DSL commands labels:
 my @labels = unique(@wCommands>>.value)
 ```
 
-Here we make derive a set of "known words" set using the "frequent enough" words of training data:
+Here we make a "known words" set using the "frequent enough" words of the training data:
 
 ```perl6
 %wordTallies = %split2<training>>>.key.map({ $_.split(/ \s | ',' /) }).&flatten>>.trim>>.lc.&tally;
@@ -340,7 +340,7 @@ my %knownWords = Set(%wordTallies3);
 %knownWords.elems
 ```
 
-Here we define sub the converts a command into trie-phrase: 
+Here we define sub that converts a command into trie-phrase: 
 
 ```perl6
 multi make-trie-basket(Str $command, %knownWords) {
@@ -386,6 +386,12 @@ Here are the trie node counts:
 $trDSL.node-counts
 ```
 
+Here is an example classification of a command:
+
+```perl6
+$trDSL.classify(make-trie-basket('show the outliers', %knownWords), prop => 'Probabilities'):!verify-key-existence
+```
+
 ------
 
 ## Confusion matrix
@@ -429,6 +435,13 @@ my $ct2 = $ct.map({ $_.key => $_.value <</>> $_.value.values.sum });
 to-pretty-table($ct2, field-names=>@labels.sort.Array.append('NA'))
 ```
 
+By examining the confusion matrices and we can conclude that the classifier is good enough.
+
+**Remark:** We examine the diagonals of the matrices and what are the most frequent confusions.  
+
+**Remark:** We addition to the confusion matrix we can do compute the Top-K query statistics -- not done here.
+(Top-2 query statistic is answering the question: "Is the expected label in the top 2 most probable labels?")
+
 Here we show a sample of confused (misclassified) commands:
 
 ```perl6
@@ -436,7 +449,7 @@ srand(883);
 to-pretty-table(@actualPredicted.grep({ $_<actual> ne $_<predicted> }).pick(12).sort({ $_<command> }), field-names=><actual predicted command>, align=>'l')
 ```
 
-By examining the confusion matrix we can conclude that the classifier is good enough.
+**Remark:** We observe that a certain proportion of the misclassified commands are ambiguous -- they do not belong to one DSL.
 
 -----
 

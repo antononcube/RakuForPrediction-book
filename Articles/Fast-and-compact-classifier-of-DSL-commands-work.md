@@ -9,17 +9,18 @@ July 2022
 
 ## Introduction
 
-In this (computational Markdown) document we show how to derive with Raku a fast and simple 
-Machine Learning (ML) classifier that classifies natural language commands made with 
-Domain Specific Languages (DSLs) of a set of computational workflows.
+In this (computational Markdown) document we show how to derive with Raku a fast, accurate, and compact 
+Machine Learning (ML) classifier that classifies natural language commands made within
+the Domain Specific Languages (DSLs) of a certain set of computational ML workflows.
 
 For example, such classifier should classify the command *"calculate document term matrix"*
 as a Latent Semantic Analysis (LSA) workflow command. (And, say, give it the label "LatentSemanticAnalysis".) 
 
-The primary motivation for making DSL-classifier is to speed up the parsing of specifications that
-belong to a (somewhat) large collection of workflow DSLs. (For example, the Raku package [AAp5] has twelve workflows.)
+The primary motivation for making a DSL-classifier is to speed up the parsing of specifications that
+belong to a (somewhat) large collection of computational workflow DSLs. 
+(For example, the Raku package [AAp5] has twelve workflows.)
 
-*Remark:* Such classifier is used in the Mathematica package provided by the 
+**Remark:** Such classifier is used in the Mathematica package provided by the 
 ["NLP Template Engine" project](https://github.com/antononcube/NLP-Template-Engine), [AAr2, AAv1]. 
 
 Here is a mind-map that summarizes the methodology of ML classifier making, [AA1]:
@@ -83,9 +84,9 @@ In this section we outline:
 
 - The brute force DSL parsing procedure
 
-- The modification of the brute force procedure by using the DSL-classifier
+- The modification of the brute force procedure by using a DSL-classifier
 
-- The derivation of the DSL-classifier
+- The derivation of a DSL-classifier
 
 - Possible applications of Association Rule Learning algorithms
 
@@ -103,14 +104,14 @@ If the parsing residual is 0 then we say that the parser "exhausted the specific
 
 ### Brute force DSL parsing
 
-1. Random shuffle the available DSL parsers
-2. Attempt parsing with each of the available DSL parsers
-3. If any parser gives 0 residual then stop the loop and use that parser as "working parser." 
-4. The parser that gives smallest residual is chosen and "working parser."
+1. Random shuffle the available DSL parsers.
+2. Attempt parsing with each of the available DSL parsers.
+3. If any parser gives a zero residual then stop the loop and use that parser as a "working parser." 
+4. The parser that gives the smallest residual is chosen as a "working parser."
 
 ### Parsing with the help of a DSL-classifier
 
-1. Apply the DSL classifier to the given spec and order the DSL parsers according to the obtained classification probabilities
+1. Apply the DSL classifier to the given spec and order the DSL parsers according to the obtained classification probabilities.
 2. Do the "Brute force DSL parsing" steps 2, 3, and 4.
 
 ### Derivation of a DSL-classifier
@@ -154,6 +155,7 @@ implementation in the Raku package
 ["ML::AssociationRuleLearning"](https://raku.land/zef:antononcube/ML::AssociationRuleLearning), [AAp7].
 
 ------
+
 ## Load packages
 
 Here we load the Raku packages used below:

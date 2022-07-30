@@ -23,17 +23,48 @@ belong to a (somewhat) large collection of computational workflow DSLs.
 **Remark:** Such classifier is used in the Mathematica package provided by the 
 ["NLP Template Engine" project](https://github.com/antononcube/NLP-Template-Engine), [AAr2, AAv1]. 
 
+**Remark:** This article can be seen as an extension of the article
+["Trie-based classifiers evaluation"](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/),
+[AA2].
+
+### General classifier making workflow
+
 Here is a mind-map that summarizes the methodology of ML classifier making, [AA1]:
 
 ![](https://raw.githubusercontent.com/antononcube/SimplifiedMachineLearningWorkflows-book/master/Diagrams/Making-competitions-classifiers-mind-map.png)
+
+### Big picture flow chart
 
 Here is a "big picture" flow-chart that *encompasses* the procedures outlined and implemented in this documents:
 
 ![](https://github.com/antononcube/NLP-Template-Engine/raw/main/Documents/Diagrams/General/Computation-workflow-type-classifier-making.png)
 
-This article can be seen as an extension of the article 
-["Trie-based classifiers evaluation"](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/), 
-[AA2].
+Here is a narration of the flow chart:
+
+1. Get a set of computational workflows as an input
+ 
+2. If the there sufficient textual data
+
+   1. Make a classifier
+   
+   2. Evaluate the classifier's measurements 
+   
+   3. If the classifier is good enough export it
+      
+      - Finish
+   
+   4. Else
+      
+      - Go to Step 2
+
+3. If the textual data is not sufficient 
+
+    1. If specifications can be automatically generated:
+       - Generate specifications and store them in a database
+    2. Else
+       - Manually write specifications and store them in a database
+    3. Go to Step 2  
+    
 
 ### DSL specifications
 
@@ -177,6 +208,8 @@ use Data::ExampleDatasets;
 
 ## Load text data
 
+In this section we show load data and do rudimentary pre-processing.
+
 Read the text data -- the labeled DSL commands -- from a CSV file (using `example-dataset` from 
 ["Data::ExampleDatasets"](https://github.com/antononcube/Raku-Data-ExampleDatasets), [AAp2]):
 
@@ -187,7 +220,6 @@ my @tbl = example-dataset('https://raw.githubusercontent.com/antononcube/NLP-Tem
 
 Show summary of the data (using `records-summary` from 
 ["Data::Summarizers"](https://github.com/antononcube/Raku-Data-Summarizers), [AAp4]):
-
 
 ```perl6
 records-summary(@tbl)
@@ -222,6 +254,8 @@ is going to greatly facilitate grammar-based random sentence generation.
 
 ## Word tallies
 
+In this section we analyze the words presence in the DSL commands.
+
 Here we get (English) dictionary words (using the function `random-word` from 
 ["Data::Generators"](https://raku.land/zef:antononcube/Data::Generators), [AAp1]):
 
@@ -232,7 +266,7 @@ my %dictionaryWords = Set(random-word(Inf)>>.lc);
 
 Here we:
 
-1. Split each keys (i.e. commands) of the data pairs into words 
+1. Split into words the key (i.e. command) of each of the data pairs
 2. Flatten into one list of words 
 3. Trim each word and turn into lower case
 4. Find word tallies (using the function `tally` from ["Data::Summarizers"](https://raku.land/zef:antononcube/Data::Summarizers), [AAp4].)
@@ -447,7 +481,7 @@ By examining the confusion matrices and we can conclude that the classifier is g
 (We examine the diagonals of the matrices and the most frequent confusions.)
 
 **Remark:** We addition to the confusion matrix we can do compute the Top-K query statistics -- not done here.
-(Top-2 query statistic is answering the question: "Is the expected label in the top 2 most probable labels?")
+(Top-2 query statistic is answering the question: "Is the expected label one of the top 2 most probable labels?")
 
 Here we show a sample of confused (misclassified) commands:
 
@@ -564,9 +598,25 @@ Here is a sample of the found frequent sets:
 
 ## Conclusion
 
-We also experimented with a Recommender-based Classifier (RC) -- the accuracy results with RC were slightly better (4±2%) than the trie-based classifier,
+In this section we discuss assumptions, alternatives, and "final" classifier deployment.
+
+### Hopes
+
+It is hoped that the classifier created with the procedures above is going to be adequate in the 
+"real world." This is largely dependent on the quality of the training data. 
+
+The data presented and used above use grammar-rules generated commands and those commands are generalized by:
+- Removing the sequential order of the words
+- Using only frequent enough, dictionary words
+
+### Using a recommender instead
+
+We also experimented with a Recommender-based Classifier (RC) -- 
+the accuracy results with RC were slightly better (4±2%) than the trie-based classifier,
 but RC is ≈10 times slower. We plan to discuss RC training and results in a subsequent article.
 
+### Final result
+ 
 Since we find the performance of the trie-based classifier satisfactory -- both accuracy-wise and speed-wise --
 we make a classifier with all of the DSL commands data. See the resource file 
 ["dsl-trie-classifier.raku"](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation/blob/main/resources/dsl-trie-classifier.raku), 

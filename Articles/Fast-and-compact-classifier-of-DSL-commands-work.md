@@ -104,12 +104,14 @@ show date list plot
 
 ### Problem formulation
 
-It is assumed that:
-
-- We have two or more DSL parsers.
-- For each parser we can obtain a *parsing residual* -- the number characters it could not parse.
+**Definition:** We refer to the number of characters a parser could not parse as *parsing residual*.
 
 **Definition:** If the parsing residual is 0 then we say that the parser "exhausted the specification" or "parsed the specification completely."
+
+*Assumptions:* It is assumed that:
+
+- We have two or more DSL parsers.
+- For each parser we can obtain a *parsing residual*.
 
 **Problem:** For a given DSL specification order the available DSL parsers according to how likely
 each of them is to parse the given DSL specification completely.

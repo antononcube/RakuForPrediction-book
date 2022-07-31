@@ -43,11 +43,11 @@ Here is a narration of the flow chart:
 
 1. Get a set of computational workflows as an input
  
-2. If the there sufficient textual data
+2. If the textual data is sufficiently large
 
    1. Make a classifier
    
-   2. Evaluate the classifier's measurements 
+   2. Evaluate classifier's measurements 
    
    3. If the classifier is good enough export it
       
@@ -57,7 +57,7 @@ Here is a narration of the flow chart:
       
       - Go to Step 2
 
-3. If the textual data is not sufficient 
+3. Else
 
     1. If specifications can be automatically generated:
        - Generate specifications and store them in a database
@@ -68,7 +68,7 @@ Here is a narration of the flow chart:
 
 ### DSL specifications
 
-Here are example of computational DSL specifications for the workflows 
+Here are examples of computational DSL specifications for the workflows 
 *Classification*, *Latent Semantic Analysis*, and *Quantile Regression*:
 
 ```shell
@@ -104,7 +104,14 @@ show date list plot
 
 ### Problem formulation
 
-For a given DSL specification order the available DSL parsers according to how likely
+It is assumed that:
+
+- We have two or more DSL parsers.
+- For each parser we can obtain a *parsing residual* -- the number characters it could not parse.
+
+**Definition:** If the parsing residual is 0 then we say that the parser "exhausted the specification" or "parsed the specification completely."
+
+**Problem:** For a given DSL specification order the available DSL parsers according to how likely
 each of them is to parse the given DSL specification completely.
 
 ------
@@ -121,13 +128,6 @@ In this section we outline:
 
 - Possible applications of Association Rule Learning algorithms
 
-It is assumed that:
-
-- We have two or more DSL parsers.
-- For each parser we can obtain a *parsing residual* -- the number characters it could not parse.
-
-If the parsing residual is 0 then we say that the parser "exhausted the specification" or "parsed the specification completely."  
-
 ### Inputs
 
 - A computational DSL specification
@@ -135,10 +135,10 @@ If the parsing residual is 0 then we say that the parser "exhausted the specific
 
 ### Brute force DSL parsing
 
-1. Random shuffle the available DSL parsers.
+1. Randomly shuffle the available DSL parsers.
 2. Attempt parsing with each of the available DSL parsers.
-3. If any parser gives a zero residual then stop the loop and use that parser as a "working parser." 
-4. The parser that gives the smallest residual is chosen as a "working parser."
+3. If any parser gives a zero residual then stop the loop and use that parser as "the work parser." 
+4. The parser that gives the smallest residual is chosen as "the work parser."
 
 ### Parsing with the help of a DSL-classifier
 
@@ -151,11 +151,11 @@ If the parsing residual is 0 then we say that the parser "exhausted the specific
    - Label each command with the DSL it was generated with. 
    - Export to a JSON file and / or CSV file.
 2. Ingest the DSL commands data into a hash (dictionary or association.)
-3. Do basic data analysis 
-   - Summarize the textual data.
-   - Split the commands into words.
-   - Remove stop words, random words, words with (too many) special symbols.
-   - Find, summarize, and display word frequencies.
+3. Do basic data analysis.
+   - Summarize the textual data
+   - Split the commands into words
+   - Remove stop words, random words, words with (too many) special symbols
+   - Find, summarize, and display word frequencies
 4. Split the data into training and testing parts.
    - Do stratified splitting, per label.
 5. Turn each command into a trie phrase:
@@ -206,9 +206,9 @@ use Data::ExampleDatasets;
 
 ------
 
-## Load text data
+## Obtain textual data
 
-In this section we show load data and do rudimentary pre-processing.
+In this section we show how we obtain the textual data and do rudimentary pre-processing.
 
 Read the text data -- the labeled DSL commands -- from a CSV file (using `example-dataset` from 
 ["Data::ExampleDatasets"](https://github.com/antononcube/Raku-Data-ExampleDatasets), [AAp2]):
@@ -239,7 +239,7 @@ srand(33);
 .say for @wCommands.pick(12).sort
 ```
 
-**Remark:** The random labeled DSL commands ingested above were generated using the grammars of the project
+**Remark:** The labeled DSL commands ingested above were generated using the grammars of the project
 [ConversationalAgents at GitHub](https://github.com/antononcube/ConversationalAgents), [AAr1],
 and the function `GrammarRandomSentences` of the Mathematica package 
 ["FunctionalParsers.m"](https://github.com/antononcube/MathematicaForPrediction/blob/master/FunctionalParsers.m), [AAp12]. 
@@ -256,13 +256,16 @@ is going to greatly facilitate grammar-based random sentence generation.
 
 In this section we analyze the words presence in the DSL commands.
 
-Here we get (English) dictionary words (using the function `random-word` from 
+Here we get more than 80,000 English dictionary words (using the function `random-word` from 
 ["Data::Generators"](https://raku.land/zef:antononcube/Data::Generators), [AAp1]):
 
 ```perl6
 my %dictionaryWords = Set(random-word(Inf)>>.lc);
 %dictionaryWords.elems
 ```
+
+**Remark::** The set `%dictionaryWords` is most likely a subset of the generally "known English words." 
+(And in this document we a fine with that.)  
 
 Here we:
 
@@ -293,8 +296,8 @@ my %wordTallies2 = %wordTallies.grep({ $_.value ≥ 10 && $_.key.chars > 1 && $_
 %wordTallies2.elems
 ```
 
-Instead of checking for dictionary words -- or in conjunction -- we can filter to have only words 
-that made of letters and dashes:
+Instead of checking for dictionary words -- or in conjunction -- we can filter the word tallies to be only 
+with words that are made of letters and dashes:
 
 ```perl6
 my %wordTallies3 = %wordTallies2.grep({ $_.key ~~ / ^ [<:L> | '-']+ $ /});
@@ -356,7 +359,7 @@ Here we show a sample of commands from the training part:
 
 ## Trie creation
 
-Here we take the unique DSL commands labels:
+Here we obtain the unique DSL commands labels:
 
 ```perl6
 my @labels = unique(@wCommands>>.value)
@@ -376,7 +379,7 @@ my %knownWords = Set(%wordTallies3);
 %knownWords.elems
 ```
 
-Here we define sub that converts a command into trie-phrase: 
+Here we define a sub that converts commands into trie-phrases: 
 
 ```perl6
 multi make-trie-basket(Str $command, %knownWords) {
@@ -434,7 +437,7 @@ $trDSL.classify(make-trie-basket('show the outliers', %knownWords), prop => 'Pro
 
 In this section we put together the confusion matrix of derived trie classifier over the testing data.
 
-First we define a function that gives actual and predicted DSL-labels for given training rules:
+First we define a sub that gives the actual and predicted DSL-labels for a given training rule:
 
 ```perl6
 sub make-cf-couple(Pair $p) {
@@ -477,8 +480,10 @@ Here is the diagonal of the confusion matrix:
 to-pretty-table( @labels.map({ $_ => $ct2.Hash{$_;$_} }) )
 ```
 
-By examining the confusion matrices and we can conclude that the classifier is good enough.
+By examining the confusion matrices we can conclude that the classifier is accurate enough.
 (We examine the diagonals of the matrices and the most frequent confusions.)
+
+By examining the computational timings we conclude that the classifier is both accurate and fast enough.
 
 **Remark:** We addition to the confusion matrix we can do compute the Top-K query statistics -- not done here.
 (Top-2 query statistic is answering the question: "Is the expected label one of the top 2 most probable labels?")
@@ -490,7 +495,7 @@ srand(883);
 to-pretty-table(@actualPredicted.grep({ $_<actual> ne $_<predicted> }).pick(12).sort({ $_<command> }), field-names=><actual predicted command>, align=>'l')
 ```
 
-**Remark:** We observe that a certain proportion of the misclassified commands are ambiguous -- they do not belong to one DSL.
+**Remark:** We observe that a certain proportion of the misclassified commands are ambiguous -- they do not belong to only one DSL.
 
 -----
 
@@ -498,9 +503,9 @@ to-pretty-table(@actualPredicted.grep({ $_<actual> ne $_<predicted> }).pick(12).
 
 In this section we go through the association rules finding outlined above. 
 
-**Remark:** We do not present the trie classifier making and results with frequent sets, 
+**Remark:** We do not present the trie classifier making and accuracy results with frequent sets, 
 but I can (bravely) declare that experiments with trie classifiers made with the words 
-of found frequent sets produce very similar results as the trie classifiers with word-tallies.
+of found frequent sets produce very similar results as the trie classifiers with (simple) word-tallies.
 
 Here we process the "word baskets" made from the DSL commands and append corresponding DSL workflow labels:
 
@@ -619,12 +624,16 @@ but RC is ≈10 times slower. We plan to discuss RC training and results in a su
  
 Since we find the performance of the trie-based classifier satisfactory -- both accuracy-wise and speed-wise --
 we make a classifier with all of the DSL commands data. See the resource file 
-["dsl-trie-classifier.raku"](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation/blob/main/resources/dsl-trie-classifier.raku), 
+["dsl-trie-classifier.json"](https://github.com/antononcube/Raku-DSL-Shared-Utilities-ComprehensiveTranslation/blob/main/resources/dsl-trie-classifier.json), 
 of [AAp5].
 
 ```perl6
 my $trie-to-export = [|%split2<training>, |%split2<testing>].map({ make-trie-basket($_, %knownWords) }).Array.&trie-create;
 $trie-to-export.node-counts;
+```
+
+```perl6
+spurt 'dsl-trie-classifier.json', $trie-to-export.JSON;
 ```
 
 ------

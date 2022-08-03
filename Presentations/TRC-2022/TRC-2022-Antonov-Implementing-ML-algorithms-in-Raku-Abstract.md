@@ -12,18 +12,19 @@ The main themes of the presentation are:
 Here is a list of the considered ML algorithms:
 
 - Fundamental data analysis
-  - Outlier identifiers ("ML::OutlierIdentifiers")
-  - Cross tabulation ("Data::Reshapers")
-  - Summarization ("Data::Summarizers")
+  - Outlier identifiers (["ML::OutlierIdentifiers"](https://raku.land/zef:antononcube/ML::OutlierIdentifiers))
+  - Cross tabulation (["Data::Reshapers"](https://raku.land/zef:antononcube/Data::Reshapers))
+  - Summarization (["Data::Summarizers"](https://raku.land/zef:antononcube/Data::Summarizers))
   - Pareto principle adherence
 - Supervised learning
   - Classifiers
-  - Receiver Operating Characteristics (ROCs) ("ML::ROCFunctions")
+  - Receiver Operating Characteristics (ROCs) (["ML::ROCFunctions"](https://raku.land/zef:antononcube/ML::ROCFunctions))
 - Unsupervised learning
-  - Clustering
-  - Tries with frequencies ("ML::TriesWithFrequencies")
-  - Streams Blending Recommender (SBR) ("ML::StreamsBlendingRecommender")
-  - Association Rule Learning (ARL) ("ML::AssociationRuleLearning")
+  - Clustering (["ML::Clustering"](https://raku.land/zef:antononcube/ML::Clustering))
+    - Distance functions
+  - Tries with frequencies (["ML::TriesWithFrequencies"](https://raku.land/zef:antononcube/ML::TriesWithFrequencies))
+  - Streams Blending Recommender (SBR) (["ML::StreamsBlendingRecommender"](https://raku.land/zef:antononcube/ML::StreamsBlendingRecommender))
+  - Association Rule Learning (ARL) (["ML::AssociationRuleLearning"](https://raku.land/zef:antononcube/ML::AssociationRuleLearning))
   - Regression
   - Latent Semantic Analysis (LSA)
 

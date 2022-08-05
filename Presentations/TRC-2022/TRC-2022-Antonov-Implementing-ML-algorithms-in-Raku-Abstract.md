@@ -38,9 +38,9 @@ Here is a corresponding mind-map:
 
 The documents
 ["Trie based classifiers evaluation"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Trie-based-classifiers-evaluation.md),
-[AA2], and
+[AA3], and
 ["Fast and compact classifier of DSL commands"](https://rakuforprediction.wordpress.com/2022/07/31/fast-and-compact-classifier-of-dsl-commands/),
-[AA3],
+[AA4],
 provide example applications of the Raku packages mentioned above.
 
 -------
@@ -55,11 +55,16 @@ provide example applications of the Raku packages mentioned above.
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
 [AA2] Anton Antonov,
-["Trie based classifiers evaluation"](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/),
+["Outlier detection in a list of numbers](https://rakuforprediction.wordpress.com/2022/05/29/outlier-detection-in-a-list-of-numbers/),
 (2022),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
 [AA3] Anton Antonov,
+["Trie based classifiers evaluation"](https://rakuforprediction.wordpress.com/2022/07/07/trie-based-classifiers-evaluation/),
+(2022),
+[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
+
+[AA4] Anton Antonov,
 ["Fast and compact classifier of DSL commands"](https://rakuforprediction.wordpress.com/2022/07/31/fast-and-compact-classifier-of-dsl-commands/),
 (2022),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
@@ -138,23 +143,28 @@ provide example applications of the Raku packages mentioned above.
 [GitHub/antononcube](https://github.com/antononcube).
 
 [AAp13] Anton Antonov,
+[ML::OutlierIdentifiers Raku package](https://github.com/antononcube/Raku-ML-OutlierIdentifiers),
+(2022),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp14] Anton Antonov,
 [ML::StreamsBlendingRecommender Raku package](https://github.com/antononcube/Raku-ML-StreamsBlendingRecommender),
 (2021),
 [GitHub/antononcube](https://github.com/antononcube).
 
-[AAp14] Anton Antonov,
+[AAp15] Anton Antonov,
 [ML::TriesWithFrequencies Raku package](https://github.com/antononcube/Raku-ML-TriesWithFrequencies),
 (2021),
 [GitHub/antononcube](https://github.com/antononcube).
 
 #### Other
 
-[AAp15] Anton Antonov,
+[AAp16] Anton Antonov,
 [Text::Plot Raku package](https://github.com/antononcube/Raku-Text-Plot),
 (2022),
 [GitHub/antononcube](https://github.com/antononcube).
 
-[AAp16] Anton Antonov,
+[AAp17] Anton Antonov,
 [UML::Translators Raku package](https://github.com/antononcube/Raku-UML-Translators),
 (2021),
 [GitHub/antononcube](https://github.com/antononcube).

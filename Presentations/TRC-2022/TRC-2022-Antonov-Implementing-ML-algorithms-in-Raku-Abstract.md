@@ -1,5 +1,7 @@
 # Implementing Machine Learning algorithms in Raku
 
+***[TRC-2022 talk link](https://conf.raku.org/talk/170)***
+
 ## Abstract
 
 In this presentation we discuss the implementations of different Machine Learning (ML) algorithms in Raku.

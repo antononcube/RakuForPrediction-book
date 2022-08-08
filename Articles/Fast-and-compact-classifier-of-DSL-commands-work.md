@@ -267,7 +267,7 @@ my %dictionaryWords = Set(random-word(Inf)>>.lc);
 ```
 
 **Remark::** The set `%dictionaryWords` is most likely a subset of the generally "known English words." 
-(And in this document we a fine with that.)  
+(And in this document we are fine with that.)  
 
 Here we:
 
@@ -393,7 +393,7 @@ multi make-trie-basket(Pair $p, %knownWords) {
 }
 ```
 
-Here is an example invocation `make-trie-basket`:
+Here is an example invocation of `make-trie-basket`:
 
 ```perl6
 my $rb = %split2<training>.pick;
@@ -504,6 +504,9 @@ to-pretty-table(@actualPredicted.grep({ $_<actual> ne $_<predicted> }).pick(12).
 ## Association rules
 
 In this section we go through the association rules finding outlined above. 
+
+**Remark:** The found frequent sets can be used for ML "feature engineering."
+They can also be seen as a supplement or alternative to the ML classification "importance of variables" investigations.
 
 **Remark:** We do not present the trie classifier making and accuracy results with frequent sets, 
 but I can (bravely) declare that experiments with trie classifiers made with the words 

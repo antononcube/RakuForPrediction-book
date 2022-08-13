@@ -108,7 +108,7 @@ show date list plot
 
 **Definition:** If the parsing residual is 0 then we say that the parser "exhausted the specification" or "parsed the specification completely."
 
-*Assumptions:* It is assumed that:
+**Assumptions:** It is assumed that:
 
 - We have two or more DSL parsers.
 - For each parser we can obtain a *parsing residual*.

@@ -947,6 +947,8 @@ Software engineering observations (again)
 
 ## Code
 
+The code in this section (slide) has to be evaluated if the corresponding notebook is executed in Mathematica. 
+
 ### NLP Template Engine
 
 ```mathematica

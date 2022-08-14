@@ -1,8 +1,6 @@
----
-
 # Implementing Machine Learning algorithms in Raku
 
-**Anton Antonov
+**Anton Antonov   
 Accendo Data LLC**
 
 ### ***TRC 2022***

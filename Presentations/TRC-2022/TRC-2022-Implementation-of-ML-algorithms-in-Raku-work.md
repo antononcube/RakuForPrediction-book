@@ -907,31 +907,31 @@ Software engineering observations (again)
 
 ### Packages
 
-[AAp1] Anton Antonov, Data::Generators Raku package, (2021), GitHub/antononcube.
+[AAp1] Anton Antonov, Data::Generators Raku package, (2021), GitHub/antononcube.
 
-[AAp2] Anton Antonov, Data::ExampleDatasets Raku package, (2022), GitHub/antononcube.
+[AAp2] Anton Antonov, Data::ExampleDatasets Raku package, (2022), GitHub/antononcube.
 
-[AAp3] Anton Antonov, Data::Reshapers Raku package, (2021), GitHub/antononcube.
+[AAp3] Anton Antonov, Data::Reshapers Raku package, (2021), GitHub/antononcube.
 
-[AAp4] Anton Antonov, Data::Summarizers Raku package, (2021), GitHub/antononcube.
+[AAp4] Anton Antonov, Data::Summarizers Raku package, (2021), GitHub/antononcube.
 
-[AAp5] Anton Antonov, DSL::Bulgarian Raku package, (2022), GitHub/antononcube.
+[AAp5] Anton Antonov, DSL::Bulgarian Raku package, (2022), GitHub/antononcube.
 
-[AAp5] Anton Antonov, DSL::English::DataQueryWorkflows Raku package, (2020-2022), GitHub/antononcube.
+[AAp5] Anton Antonov, DSL::English::DataQueryWorkflows Raku package, (2020-2022), GitHub/antononcube.
 
-[AAp5] Anton Antonov, DSL::Shared::Utilities::ComprehensiveTranslation Raku package, (2020-2022), GitHub/antononcube.
+[AAp5] Anton Antonov, DSL::Shared::Utilities::ComprehensiveTranslation Raku package, (2020-2022), GitHub/antononcube.
 
-[AAp7] Anton Antonov, ML::AssociationRuleLearning Raku package, (2022), GitHub/antononcube.
+[AAp7] Anton Antonov, ML::AssociationRuleLearning Raku package, (2022), GitHub/antononcube.
 
-[AAp8] Anton Antonov, ML::ROCFunctions Raku package, (2022), GitHub/antononcube.
+[AAp8] Anton Antonov, ML::ROCFunctions Raku package, (2022), GitHub/antononcube.
 
 [AAp7] Anton Antonov, ML::StreamsBlendingRecommender Raku package, (2022), GitHub/antononcube.
 
-[AAp9] Anton Antonov, ML::TriesWithFrequencies Raku package, (2021), GitHub/antononcube.
+[AAp9] Anton Antonov, ML::TriesWithFrequencies Raku package, (2021), GitHub/antononcube.
 
 [AAp10] Anton Antonov, Text::CodeProcessing Raku package, (2021), GitHub/antononcube.
 
-[AAp10] Anton Antonov, Text::Plot Raku package, (2022), GitHub/antononcube.
+[AAp10] Anton Antonov, Text::Plot Raku package, (2022), GitHub/antononcube.
 
 ### Functions
 

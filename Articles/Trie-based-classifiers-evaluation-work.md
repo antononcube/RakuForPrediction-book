@@ -222,7 +222,7 @@ text-list-plot(roc-functions('FPR')(@rocs), roc-functions('TPR')(@rocs),
 ```
 
 We can see the Trie classifier has reasonable prediction abilities -- 
-we get ≈ 75% True Positive Rate (TPR) with for relatively small False Positive Rate (FPR), ≈ 20%. 
+we get ≈ 75% True Positive Rate (TPR) with relatively small False Positive Rate (FPR), ≈ 20%. 
 
 Here is a ROC plot made with Mathematica (using a different Trie over Titanic data):
 

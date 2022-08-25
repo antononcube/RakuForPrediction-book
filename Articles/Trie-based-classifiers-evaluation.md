@@ -49,11 +49,11 @@ to-pretty-table( @dsTitanic.pick(5), field-names => <passengerAge passengerClass
 # +--------------+----------------+--------------+-------------------+
 # | passengerAge | passengerClass | passengerSex | passengerSurvival |
 # +--------------+----------------+--------------+-------------------+
-# |      50      |      1st       |    female    |      survived     |
+# |      80      |      1st       |     male     |      survived     |
+# |      20      |      2nd       |     male     |        died       |
 # |      20      |      3rd       |     male     |        died       |
-# |      20      |      3rd       |     male     |        died       |
-# |      -1      |      3rd       |     male     |        died       |
 # |      70      |      1st       |     male     |        died       |
+# |      30      |      2nd       |     male     |        died       |
 # +--------------+----------------+--------------+-------------------+
 ```
 
@@ -64,18 +64,18 @@ use Data::Summarizers;
 records-summary(@dsTitanic)
 ```
 ```
-# +----------------+-------------------+----------------+-----------------+---------------+
-# | passengerAge   | passengerSurvival | passengerClass | id              | passengerSex  |
-# +----------------+-------------------+----------------+-----------------+---------------+
-# | 20      => 334 | died     => 809   | 3rd => 709     | 977     => 1    | male   => 843 |
-# | -1      => 263 | survived => 500   | 1st => 323     | 1286    => 1    | female => 466 |
-# | 30      => 258 |                   | 2nd => 277     | 776     => 1    |               |
-# | 40      => 190 |                   |                | 1166    => 1    |               |
-# | 50      => 88  |                   |                | 202     => 1    |               |
-# | 60      => 57  |                   |                | 878     => 1    |               |
-# | 0       => 56  |                   |                | 735     => 1    |               |
-# | (Other) => 63  |                   |                | (Other) => 1302 |               |
-# +----------------+-------------------+----------------+-----------------+---------------+
+# +----------------+---------------+-------------------+-----------------+----------------+
+# | passengerAge   | passengerSex  | passengerSurvival | id              | passengerClass |
+# +----------------+---------------+-------------------+-----------------+----------------+
+# | 20      => 334 | male   => 843 | died     => 809   | 483     => 1    | 3rd => 709     |
+# | -1      => 263 | female => 466 | survived => 500   | 1176    => 1    | 1st => 323     |
+# | 30      => 258 |               |                   | 370     => 1    | 2nd => 277     |
+# | 40      => 190 |               |                   | 1014    => 1    |                |
+# | 50      => 88  |               |                   | 1173    => 1    |                |
+# | 60      => 57  |               |                   | 821     => 1    |                |
+# | 0       => 56  |               |                   | 200     => 1    |                |
+# | (Other) => 63  |               |                   | (Other) => 1302 |                |
+# +----------------+---------------+-------------------+-----------------+----------------+
 ```
 
 -------
@@ -189,7 +189,7 @@ Here is an example *probabilities*-classification:
 $trTitanic.classify(<2nd male>, prop=>'Probs')
 ```
 ```
-# {died => 0.851063829787234, survived => 0.14893617021276598}
+# {died => 0.849624060150376, survived => 0.15037593984962405}
 ```
 
 We want to classify across all testing data, but not all testing data records might be present in the trie. 
@@ -220,7 +220,7 @@ my @clRes = $trTitanic.classify(@testingRecords).Array;
 @clRes.head(5)
 ```
 ```
-# (died died died died died)
+# (survived died survived died died)
 ```
 
 Here is a tally of the classification results:
@@ -229,7 +229,7 @@ Here is a tally of the classification results:
 tally(@clRes)
 ```
 ```
-# {died => 185, survived => 77}
+# {died => 176, survived => 86}
 ```
 
 (The function `tally` is from "Data::Summarizers". It follows Mathematica's 
@@ -242,7 +242,7 @@ use ML::ROCFunctions;
 my %roc = to-roc-hash('survived', 'died', select-columns( $dsTesting, 'passengerSurvival')>>.values.flat, @clRes)
 ```
 ```
-# {FalseNegative => 45, FalsePositive => 16, TrueNegative => 140, TruePositive => 61}
+# {FalseNegative => 37, FalsePositive => 15, TrueNegative => 139, TruePositive => 71}
 ```
 
 -------
@@ -264,7 +264,7 @@ do for [|$dsTesting] -> $r {
 }
 ```
 ```
-# [{Actual => died, died => 0.9024390243902439, survived => 0.0975609756097561} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.6538461538461539, survived => 0.34615384615384615} {Actual => died, died => 0.5, survived => 0.5} {Actual => died, died => 0.75, survived => 0.25} {Actual => survived, died => 0.038461538461538464, survived => 0.9615384615384616} {Actual => survived, died => 0.5, survived => 0.5} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => survived, died => 0.7, survived => 0.3} {Actual => died, died => 1, survived => 0} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => died, died => 0.6190476190476191, survived => 0.38095238095238093} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0, survived => 1} {Actual => died, died => 0.8571428571428571, survived => 0.14285714285714285} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => survived, died => 0.125, survived => 0.875} {Actual => survived, died => 0.6538461538461539, survived => 0.34615384615384615} {Actual => died, died => 0.9545454545454546, survived => 0.045454545454545456} {Actual => survived, died => 0.41509433962264153, survived => 0.5849056603773585} {Actual => died, died => 0.9487179487179487, survived => 0.05128205128205128} {Actual => survived, died => 0.41509433962264153, survived => 0.5849056603773585} {Actual => survived, died => 0.034482758620689655, survived => 0.9655172413793104} {Actual => survived, died => 0.5, survived => 0.5} {Actual => survived, died => 0.034482758620689655, survived => 0.9655172413793104} {Actual => died, died => 0.9024390243902439, survived => 0.0975609756097561} {Actual => died, died => 0.5384615384615384, survived => 0.46153846153846156} {Actual => died, died => 1, survived => 0} {Actual => survived, died => 0.7037037037037037, survived => 0.2962962962962963} {Actual => survived, died => 0.11538461538461539, survived => 0.8846153846153846} {Actual => died, died => 0.8571428571428571, survived => 0.14285714285714285} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => died, died => 0.41509433962264153, survived => 0.5849056603773585} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => survived, died => 0.034482758620689655, survived => 0.9655172413793104} {Actual => died, died => 0.9024390243902439, survived => 0.0975609756097561} {Actual => survived, died => 0.125, survived => 0.875} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => survived, died => 0, survived => 1} {Actual => survived, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.9545454545454546, survived => 0.045454545454545456} {Actual => died, died => 0.6842105263157895, survived => 0.3157894736842105} {Actual => survived, died => 0, survived => 1} {Actual => died, died => 0.6842105263157895, survived => 0.3157894736842105} {Actual => survived, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => died, died => 0.7619047619047619, survived => 0.23809523809523808} {Actual => died, died => 0.8467741935483871, survived => 0.1532258064516129} {Actual => died, died => 0.5, survived => 0.5} {Actual => died, died => 0.9487179487179487, survived => 0.05128205128205128} {Actual => died, died => 0.9024390243902439, survived => 0.0975609756097561} {Actual => died, died => 0.8467741935483871, survived => 0.1532258064516129} {Actual => died, died => 0.8467741935483871, survived => 0.1532258064516129} {Actual => died, died => 0.5, survived => 0.5} {Actual => died, died => 0, survived => 1} {Actual => died, died => 0.75, survived => 0.25} {Actual => survived, died => 0.6842105263157895, survived => 0.3157894736842105} {Actual => died, died => 0.8571428571428571, survived => 0.14285714285714285} {Actual => survived, died => 0, survived => 1} {Actual => survived, died => 0.6538461538461539, survived => 0.34615384615384615} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => survived, died => 0.15384615384615385, survived => 0.8461538461538461} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => died, died => 0.8467741935483871, survived => 0.1532258064516129} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => survived, died => 0.5384615384615384, survived => 0.46153846153846156} {Actual => died, died => 0.5, survived => 0.5} {Actual => died, died => 0.9545454545454546, survived => 0.045454545454545456} {Actual => survived, died => 0.5, survived => 0.5} {Actual => survived, died => 0.6538461538461539, survived => 0.34615384615384615} {Actual => died, died => 0.9487179487179487, survived => 0.05128205128205128} {Actual => survived, died => 0.8467741935483871, survived => 0.1532258064516129} {Actual => died, died => 0.7037037037037037, survived => 0.2962962962962963} {Actual => survived, died => 0.034482758620689655, survived => 0.9655172413793104} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.7619047619047619, survived => 0.23809523809523808} {Actual => died, died => 0.782051282051282, survived => 0.21794871794871795} {Actual => died, died => 0.6428571428571429, survived => 0.35714285714285715} {Actual => died, died => 0.7, survived => 0.3} {Actual => died, died => 0.9545454545454546, survived => 0.045454545454545456} {Actual => survived, died => 0.038461538461538464, survived => 0.9615384615384616} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.8467741935483871, survived => 0.1532258064516129} {Actual => survived, died => 0.6538461538461539, survived => 0.34615384615384615} {Actual => survived, died => 0.038461538461538464, survived => 0.9615384615384616} {Actual => died, died => 0.9024390243902439, survived => 0.0975609756097561} {Actual => survived, died => 0.5, survived => 0.5} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.5, survived => 0.5} {Actual => died, died => 1, survived => 0} {Actual => died, died => 1, survived => 0} {Actual => died, died => 0.8467741935483871, survived => 0.1532258064516129} {Actual => survived, died => 0.038461538461538464, survived => 0.9615384615384616} {Actual => died, died => 0.8888888888888888, survived => 0.1111111111111111} {Actual => died, died => 0.911504424778761, survived => 0.08849557522123894} {Actual => died, died => 0.9487179487179487, survived => 0.05128205128205128} {Actual => survived, died => 0.125, survived => 0.875} {Actual => survived, died => 0.5, survived => 0.5} ...]
+# [{Actual => survived, died => 0.35294117647058826, survived => 0.6470588235294118} {Actual => died, died => 0.8888888888888888, survived => 0.1111111111111111} {Actual => survived, died => 0, survived => 1} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.5714285714285714, survived => 0.42857142857142855} {Actual => survived, died => 0.48, survived => 0.52} {Actual => died, died => 0.5172413793103449, survived => 0.4827586206896552} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => survived, died => 0.6296296296296297, survived => 0.37037037037037035} {Actual => died, died => 0.8857142857142857, survived => 0.11428571428571428} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => died, died => 0.8857142857142857, survived => 0.11428571428571428} {Actual => survived, died => 0.48, survived => 0.52} {Actual => survived, died => 0.926829268292683, survived => 0.07317073170731707} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => survived, died => 0.45098039215686275, survived => 0.5490196078431373} {Actual => survived, died => 0.8857142857142857, survived => 0.11428571428571428} {Actual => died, died => 0.5172413793103449, survived => 0.4827586206896552} {Actual => died, died => 0.5238095238095238, survived => 0.47619047619047616} {Actual => died, died => 0.8125, survived => 0.1875} {Actual => died, died => 0.6190476190476191, survived => 0.38095238095238093} {Actual => survived, died => 0, survived => 1} {Actual => died, died => 1, survived => 0} {Actual => died, died => 0.926829268292683, survived => 0.07317073170731707} {Actual => survived, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.926829268292683, survived => 0.07317073170731707} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => survived, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => survived, died => 0.16666666666666666, survived => 0.8333333333333334} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => survived, died => 0.07692307692307693, survived => 0.9230769230769231} {Actual => died, died => 0.8787878787878788, survived => 0.12121212121212122} {Actual => survived, died => 0.6296296296296297, survived => 0.37037037037037035} {Actual => died, died => 0.6153846153846154, survived => 0.38461538461538464} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => survived, died => 0, survived => 1} {Actual => survived, died => 0, survived => 1} {Actual => survived, died => 0.8125, survived => 0.1875} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.6153846153846154, survived => 0.38461538461538464} {Actual => survived, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => survived, died => 0.09523809523809523, survived => 0.9047619047619048} {Actual => died, died => 0.7906976744186046, survived => 0.20930232558139536} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.926829268292683, survived => 0.07317073170731707} {Actual => survived, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.8857142857142857, survived => 0.11428571428571428} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => died, died => 0.07692307692307693, survived => 0.9230769230769231} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => died, died => 0.75, survived => 0.25} {Actual => survived, died => 0.7906976744186046, survived => 0.20930232558139536} {Actual => died, died => 0.75, survived => 0.25} {Actual => survived, died => 0.45098039215686275, survived => 0.5490196078431373} {Actual => survived, died => 0.35294117647058826, survived => 0.6470588235294118} {Actual => survived, died => 0, survived => 1} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.8787878787878788, survived => 0.12121212121212122} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => died, died => 0.5172413793103449, survived => 0.4827586206896552} {Actual => died, died => 0.8787878787878788, survived => 0.12121212121212122} {Actual => died, died => 0.6190476190476191, survived => 0.38095238095238093} {Actual => died, died => 0.6153846153846154, survived => 0.38461538461538464} {Actual => survived, died => 0.16666666666666666, survived => 0.8333333333333334} {Actual => died, died => 0.8787878787878788, survived => 0.12121212121212122} {Actual => died, died => 0.48, survived => 0.52} {Actual => died, died => 0.6153846153846154, survived => 0.38461538461538464} {Actual => survived, died => 0.07692307692307693, survived => 0.9230769230769231} {Actual => survived, died => 0.16666666666666666, survived => 0.8333333333333334} {Actual => died, died => 0.5172413793103449, survived => 0.4827586206896552} {Actual => died, died => 0.8181818181818182, survived => 0.18181818181818182} {Actual => survived, died => 0.48, survived => 0.52} {Actual => survived, died => 0, survived => 1} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => died, died => 0.865546218487395, survived => 0.13445378151260504} {Actual => died, died => 0.7906976744186046, survived => 0.20930232558139536} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.35294117647058826, survived => 0.6470588235294118} {Actual => died, died => 0.6153846153846154, survived => 0.38461538461538464} {Actual => died, died => 0.8857142857142857, survived => 0.11428571428571428} {Actual => survived, died => 0.09523809523809523, survived => 0.9047619047619048} {Actual => died, died => 0.48, survived => 0.52} {Actual => died, died => 0.8888888888888888, survived => 0.1111111111111111} {Actual => survived, died => 0.07692307692307693, survived => 0.9230769230769231} {Actual => died, died => 0.7906976744186046, survived => 0.20930232558139536} {Actual => died, died => 0.75, survived => 0.25} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => survived, died => 0.16666666666666666, survived => 0.8333333333333334} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.8888888888888888, survived => 0.1111111111111111} {Actual => survived, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => survived, died => 0.45098039215686275, survived => 0.5490196078431373} {Actual => died, died => 0.09523809523809523, survived => 0.9047619047619048} {Actual => died, died => 0.9203539823008849, survived => 0.07964601769911504} {Actual => died, died => 0.96, survived => 0.04} {Actual => survived, died => 0, survived => 1} {Actual => survived, died => 0, survived => 1} {Actual => died, died => 0, survived => 1} ...]
 ```
 
 Here we obtain the range of the label "survived":
@@ -287,12 +287,12 @@ records-summary(@thRange)
 # +-------------------------------+
 # | numerical                     |
 # +-------------------------------+
-# | Median => 0.49999999999999994 |
 # | Max    => 0.9999999999999999  |
 # | 3rd-Qu => 0.7666666666666666  |
-# | Mean   => 0.5000000000000001  |
-# | Min    => 0                   |
 # | 1st-Qu => 0.2333333333333333  |
+# | Min    => 0                   |
+# | Median => 0.49999999999999994 |
+# | Mean   => 0.5000000000000001  |
 # +-------------------------------+
 ```
 
@@ -307,7 +307,7 @@ my @rocs = @thRange.map(-> $th { to-roc-hash('survived', 'died',
                                                 select-columns(@clRes, 'survived')>>.values.flat.map({ $_ >= $th ?? 'survived' !! 'died' })) });
 ```
 ```
-# [{FalseNegative => 0, FalsePositive => 156, TrueNegative => 0, TruePositive => 106} {FalseNegative => 0, FalsePositive => 148, TrueNegative => 8, TruePositive => 106} {FalseNegative => 2, FalsePositive => 137, TrueNegative => 19, TruePositive => 104} {FalseNegative => 9, FalsePositive => 104, TrueNegative => 52, TruePositive => 97} {FalseNegative => 10, FalsePositive => 97, TrueNegative => 59, TruePositive => 96} {FalseNegative => 13, FalsePositive => 72, TrueNegative => 84, TruePositive => 93} {FalseNegative => 13, FalsePositive => 72, TrueNegative => 84, TruePositive => 93} {FalseNegative => 15, FalsePositive => 55, TrueNegative => 101, TruePositive => 91} {FalseNegative => 19, FalsePositive => 46, TrueNegative => 110, TruePositive => 87} {FalseNegative => 23, FalsePositive => 42, TrueNegative => 114, TruePositive => 83} {FalseNegative => 28, FalsePositive => 33, TrueNegative => 123, TruePositive => 78} {FalseNegative => 36, FalsePositive => 25, TrueNegative => 131, TruePositive => 70} {FalseNegative => 39, FalsePositive => 22, TrueNegative => 134, TruePositive => 67} {FalseNegative => 39, FalsePositive => 22, TrueNegative => 134, TruePositive => 67} {FalseNegative => 40, FalsePositive => 18, TrueNegative => 138, TruePositive => 66} {FalseNegative => 40, FalsePositive => 18, TrueNegative => 138, TruePositive => 66} {FalseNegative => 51, FalsePositive => 10, TrueNegative => 146, TruePositive => 55} {FalseNegative => 51, FalsePositive => 10, TrueNegative => 146, TruePositive => 55} {FalseNegative => 54, FalsePositive => 4, TrueNegative => 152, TruePositive => 52} {FalseNegative => 57, FalsePositive => 3, TrueNegative => 153, TruePositive => 49} {FalseNegative => 57, FalsePositive => 3, TrueNegative => 153, TruePositive => 49} {FalseNegative => 57, FalsePositive => 3, TrueNegative => 153, TruePositive => 49} {FalseNegative => 57, FalsePositive => 3, TrueNegative => 153, TruePositive => 49} {FalseNegative => 57, FalsePositive => 3, TrueNegative => 153, TruePositive => 49} {FalseNegative => 57, FalsePositive => 3, TrueNegative => 153, TruePositive => 49} {FalseNegative => 57, FalsePositive => 3, TrueNegative => 153, TruePositive => 49} {FalseNegative => 60, FalsePositive => 3, TrueNegative => 153, TruePositive => 46} {FalseNegative => 72, FalsePositive => 2, TrueNegative => 154, TruePositive => 34} {FalseNegative => 72, FalsePositive => 2, TrueNegative => 154, TruePositive => 34} {FalseNegative => 89, FalsePositive => 2, TrueNegative => 154, TruePositive => 17} {FalseNegative => 89, FalsePositive => 2, TrueNegative => 154, TruePositive => 17}]
+# [{FalseNegative => 0, FalsePositive => 154, TrueNegative => 0, TruePositive => 108} {FalseNegative => 1, FalsePositive => 150, TrueNegative => 4, TruePositive => 107} {FalseNegative => 1, FalsePositive => 147, TrueNegative => 7, TruePositive => 107} {FalseNegative => 10, FalsePositive => 116, TrueNegative => 38, TruePositive => 98} {FalseNegative => 13, FalsePositive => 84, TrueNegative => 70, TruePositive => 95} {FalseNegative => 19, FalsePositive => 64, TrueNegative => 90, TruePositive => 89} {FalseNegative => 24, FalsePositive => 61, TrueNegative => 93, TruePositive => 84} {FalseNegative => 25, FalsePositive => 51, TrueNegative => 103, TruePositive => 83} {FalseNegative => 28, FalsePositive => 46, TrueNegative => 108, TruePositive => 80} {FalseNegative => 28, FalsePositive => 46, TrueNegative => 108, TruePositive => 80} {FalseNegative => 29, FalsePositive => 46, TrueNegative => 108, TruePositive => 79} {FalseNegative => 29, FalsePositive => 46, TrueNegative => 108, TruePositive => 79} {FalseNegative => 34, FalsePositive => 31, TrueNegative => 123, TruePositive => 74} {FalseNegative => 34, FalsePositive => 28, TrueNegative => 126, TruePositive => 74} {FalseNegative => 34, FalsePositive => 28, TrueNegative => 126, TruePositive => 74} {FalseNegative => 37, FalsePositive => 15, TrueNegative => 139, TruePositive => 71} {FalseNegative => 45, FalsePositive => 11, TrueNegative => 143, TruePositive => 63} {FalseNegative => 51, FalsePositive => 4, TrueNegative => 150, TruePositive => 57} {FalseNegative => 51, FalsePositive => 4, TrueNegative => 150, TruePositive => 57} {FalseNegative => 51, FalsePositive => 4, TrueNegative => 150, TruePositive => 57} {FalseNegative => 53, FalsePositive => 3, TrueNegative => 151, TruePositive => 55} {FalseNegative => 53, FalsePositive => 3, TrueNegative => 151, TruePositive => 55} {FalseNegative => 53, FalsePositive => 3, TrueNegative => 151, TruePositive => 55} {FalseNegative => 53, FalsePositive => 3, TrueNegative => 151, TruePositive => 55} {FalseNegative => 53, FalsePositive => 3, TrueNegative => 151, TruePositive => 55} {FalseNegative => 53, FalsePositive => 3, TrueNegative => 151, TruePositive => 55} {FalseNegative => 61, FalsePositive => 3, TrueNegative => 151, TruePositive => 47} {FalseNegative => 61, FalsePositive => 3, TrueNegative => 151, TruePositive => 47} {FalseNegative => 83, FalsePositive => 1, TrueNegative => 153, TruePositive => 25} {FalseNegative => 83, FalsePositive => 1, TrueNegative => 153, TruePositive => 25} {FalseNegative => 84, FalsePositive => 1, TrueNegative => 153, TruePositive => 24}]
 ```
 
 Here is the obtained ROC-hash table:
@@ -316,41 +316,41 @@ Here is the obtained ROC-hash table:
 to-pretty-table(@rocs)
 ```
 ```
-# +---------------+---------------+--------------+--------------+
-# | FalsePositive | FalseNegative | TrueNegative | TruePositive |
-# +---------------+---------------+--------------+--------------+
-# |      156      |       0       |      0       |     106      |
-# |      148      |       0       |      8       |     106      |
-# |      137      |       2       |      19      |     104      |
-# |      104      |       9       |      52      |      97      |
-# |       97      |       10      |      59      |      96      |
-# |       72      |       13      |      84      |      93      |
-# |       72      |       13      |      84      |      93      |
-# |       55      |       15      |     101      |      91      |
-# |       46      |       19      |     110      |      87      |
-# |       42      |       23      |     114      |      83      |
-# |       33      |       28      |     123      |      78      |
-# |       25      |       36      |     131      |      70      |
-# |       22      |       39      |     134      |      67      |
-# |       22      |       39      |     134      |      67      |
-# |       18      |       40      |     138      |      66      |
-# |       18      |       40      |     138      |      66      |
-# |       10      |       51      |     146      |      55      |
-# |       10      |       51      |     146      |      55      |
-# |       4       |       54      |     152      |      52      |
-# |       3       |       57      |     153      |      49      |
-# |       3       |       57      |     153      |      49      |
-# |       3       |       57      |     153      |      49      |
-# |       3       |       57      |     153      |      49      |
-# |       3       |       57      |     153      |      49      |
-# |       3       |       57      |     153      |      49      |
-# |       3       |       57      |     153      |      49      |
-# |       3       |       60      |     153      |      46      |
-# |       2       |       72      |     154      |      34      |
-# |       2       |       72      |     154      |      34      |
-# |       2       |       89      |     154      |      17      |
-# |       2       |       89      |     154      |      17      |
-# +---------------+---------------+--------------+--------------+
+# +--------------+---------------+---------------+--------------+
+# | TrueNegative | FalseNegative | FalsePositive | TruePositive |
+# +--------------+---------------+---------------+--------------+
+# |      0       |       0       |      154      |     108      |
+# |      4       |       1       |      150      |     107      |
+# |      7       |       1       |      147      |     107      |
+# |      38      |       10      |      116      |      98      |
+# |      70      |       13      |       84      |      95      |
+# |      90      |       19      |       64      |      89      |
+# |      93      |       24      |       61      |      84      |
+# |     103      |       25      |       51      |      83      |
+# |     108      |       28      |       46      |      80      |
+# |     108      |       28      |       46      |      80      |
+# |     108      |       29      |       46      |      79      |
+# |     108      |       29      |       46      |      79      |
+# |     123      |       34      |       31      |      74      |
+# |     126      |       34      |       28      |      74      |
+# |     126      |       34      |       28      |      74      |
+# |     139      |       37      |       15      |      71      |
+# |     143      |       45      |       11      |      63      |
+# |     150      |       51      |       4       |      57      |
+# |     150      |       51      |       4       |      57      |
+# |     150      |       51      |       4       |      57      |
+# |     151      |       53      |       3       |      55      |
+# |     151      |       53      |       3       |      55      |
+# |     151      |       53      |       3       |      55      |
+# |     151      |       53      |       3       |      55      |
+# |     151      |       53      |       3       |      55      |
+# |     151      |       53      |       3       |      55      |
+# |     151      |       61      |       3       |      47      |
+# |     151      |       61      |       3       |      47      |
+# |     153      |       83      |       1       |      25      |
+# |     153      |       83      |       1       |      25      |
+# |     153      |       84      |       1       |      24      |
+# +--------------+---------------+---------------+--------------+
 ```
 
 Here is the corresponding ROC plot:
@@ -362,37 +362,37 @@ text-list-plot(roc-functions('FPR')(@rocs), roc-functions('TPR')(@rocs),
                 x-label => 'FPR', y-label => 'TPR' )
 ```
 ```
-# +--+------------+-----------+-----------+-----------+------------+---+        
+# +---+-----------+-----------+-----------+------------+-----------+---+        
 # |                                                                    |        
-# +                                                        *    *  *   +  1.00  
+# +                                                             ** *   +  1.00  
 # |                                                                    |        
-# |                                         * *                        |        
-# |                        *      *                                    |        
-# |                    *                                               |        
-# +                   *                                                +  0.80  
-# |               *                                                    |        
+# |                                                 *                  |        
+# |                                    *                               |        
 # |                                                                    |        
-# |            *                                                       |        
-# |         * *                                                        |       T
+# +                            *                                       +  0.80  
+# |                       *   *                                        |        
+# |                     *                                              |        
+# |              **                                                    |        
+# |         *                                                          |       T
 # +                                                                    +  0.60 P
-# |      *                                                             |       R
+# |       *                                                            |       R
 # |    *                                                               |        
-# |   *                                                                |        
-# +   *                                                                +  0.40  
+# |    *                                                               |        
+# |                                                                    |        
+# +    *                                                               +  0.40  
+# |                                                                    |        
+# |                                                                    |        
+# |                                                                    |        
 # |                                                                    |        
 # |   *                                                                |        
-# |                                                                    |        
-# |                                                                    |        
 # +                                                                    +  0.20  
-# |   *                                                                |        
-# |                                                                    |        
-# +--+------------+-----------+-----------+-----------+------------+---+        
-#    0.00         0.20        0.40        0.60        0.80         1.00       
+# +---+-----------+-----------+-----------+------------+-----------+---+        
+#     0.00        0.20        0.40        0.60         0.80        1.00       
 #                                  FPR
 ```
 
 We can see the Trie classifier has reasonable prediction abilities -- 
-we get ≈ 75% True Positive Rate (TPR) with for relatively small False Positive Rate (FPR), ≈ 20%. 
+we get ≈ 75% True Positive Rate (TPR) with relatively small False Positive Rate (FPR), ≈ 20%. 
 
 Here is a ROC plot made with Mathematica (using a different Trie over Titanic data):
 

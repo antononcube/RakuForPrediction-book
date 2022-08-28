@@ -2,9 +2,11 @@
 
 ## Introduction
 
-This document proclaims and briefly describes the Raku package "DSL::English::DataQueryWorkflows".
+This document proclaims and briefly describes the Raku package 
+["DSL::English::DataQueryWorkflows"](https://raku.land/zef:antononcube/DSL::English::DataQueryWorkflows).
 
-"DSL::English::DataQueryWorkflows" has grammar and action classes for the parsing and interpretation of natural
+["DSL::English::DataQueryWorkflows"](https://raku.land/zef:antononcube/DSL::English::DataQueryWorkflows) 
+has grammar- and action classes for the parsing and interpretation of natural
 Domain Specific Language (DSL) commands that specify data queries in the style of Standard Query Language (SQL) or
 [RStudio](https://rstudio.com)'s library [`tidyverse`](https://tidyverse.tidyverse.org).
 

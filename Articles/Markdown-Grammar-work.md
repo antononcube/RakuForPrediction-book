@@ -4,7 +4,7 @@
 
 This document proclaims and briefly describes the Raku package ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar).
 
-Markdown::Grammar has parser grammar suitable for making converters of Markdown files into files of different kind of formats:
+"Markdown::Grammar" has parser grammar suitable for making converters of Markdown files into files of different kind of formats:
 
 - [X] Mathematica notebook
 - [ ] RMarkdown notebook
@@ -107,6 +107,8 @@ graph TD
 ------
 
 ## Related work
+
+Here is a table of converters from- or to Markdown:
 
 | From \ To   | HTML                                                                                                                                           | Jupyter                                           | Markdown                                                                    | Mathematica                                                              | Pod6                                                                     |
 |-------------|------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------|

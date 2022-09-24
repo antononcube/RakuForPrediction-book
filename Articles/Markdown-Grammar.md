@@ -1,8 +1,11 @@
-# Markdown::Grammar (Raku package)
+# Markdown::Grammar
 
-## In brief
+## Introduction
 
-Markdown parser suitable for making converters of Markdown files into files of different kind of formats:
+This document proclaims and briefly describes the Raku package ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar).
+
+"Markdown::Grammar" has parser grammar suitable for making converters of Markdown files into files of different kind of formats:
+
 - [X] Mathematica notebook
 - [ ] RMarkdown notebook
 - [ ] Jupyter notebook
@@ -15,15 +18,16 @@ Markdown parser suitable for making converters of Markdown files into files of d
 
 I am most interested in generating Mathematica notebooks from Markdown.
 
-I have written fair amount of Raku-related Markdown documents. Many of those Markdown documents
-were generated from Mathematica notebooks using
+I have written 
+[a fair amount of Raku-related Markdown documents](https://github.com/antononcube/RakuForPrediction-book/tree/main/Articles). 
+Many of those Markdown documents were generated from Mathematica notebooks using
 [M2MD](https://github.com/kubaPod/M2MD), [JPp1].
 But of course, most of the time, further changes and embellishments were made over those Markdown documents.
 Hence it would be very nice to be able to go back to Mathematica.
 
 **Remark:** Raku can be used in Mathematica via the so called `RakuMode` -- see [AA1].
 
-**Remark:** Markdown documents with Raku cells can be evaluated with Command Line Interface (CLI)
+**Remark:** Markdown documents with Raku cells code can be evaluated with Command Line Interface (CLI)
 scripts of the package
 ["Text::CodeProcessing"](https://raku.land/cpan:ANTONOV/Text::CodeProcessing), [AAp1].
 For more details see the article
@@ -103,6 +107,8 @@ graph TD
 ------
 
 ## Related work
+
+Here is a table of converters from- or to Markdown:
 
 | From \ To   | HTML                                                                                                                                           | Jupyter                                           | Markdown                                                                    | Mathematica                                                              | Pod6                                                                     |
 |-------------|------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------|

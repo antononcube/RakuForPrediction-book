@@ -110,17 +110,26 @@ graph TD
 
 Here is a table of converters from- or to Markdown:
 
-| From \ To   | HTML                                                                                                                                           | Jupyter                                           | Markdown                                                                    | Mathematica                                                              | Pod6                                                                     |
-|-------------|------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| HTML        |                                                                                                                                                | [pandoc](https://pandoc.org)                      | [pandoc](https://pandoc.org)                                                |                                                                          |                                                                          | 
-| Jupyter     | [Jupyter](https://jupyter.org)                                                                                                                 |                                                   | [Jupyter](https://jupyter.org), [jupytext](https://jupytext.readthedocs.io) |                                                                          |                                                                          |
-| Markdown    | [pandoc](https://pandoc.org), [Markit](https://raku.land/cpan:UZLUISF/Markit), [Text::Markdown](https://raku.land/zef:JJMERELO/Text::Markdown) | [jupytext](https://jupytext.readthedocs.io)       |                                                                             | [Markdown::Grammar](https://raku.land/zef:antononcube/Markdown::Grammar) | [Markdown::Grammar](https://raku.land/zef:antononcube/Markdown::Grammar) | 
-| Mathematica |                                                                                                                                                |                                                   | [M2MD](https://github.com/kubaPod/M2MD)                                     |                                                                          |                                                                          |
-| Pod6        |                                                                                                                                                |                                                   | [Pod::To::Markdown](https://raku.land/cpan:SOFTMOTH/Pod::To::Markdown)      |                                                                          |                                                                          |
+| From \ To   | HTML                                                                                                                                             | Jupyter                                           | Markdown                                                                     | Mathematica                                                                                                                       | Pod6                                                                     |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| HTML        |                                                                                                                                                  | [pandoc](https://pandoc.org)                      | [pandoc](https://pandoc.org)                                                 |                                                                                                                                   |                                                                          | 
+| Jupyter     | [Jupyter](https://jupyter.org)                                                                                                                   |                                                   | [Jupyter](https://jupyter.org) , [jupytext](https://jupytext.readthedocs.io) |                                                                                                                                   |                                                                          |
+| Markdown    | [pandoc](https://pandoc.org) , [Markit](https://raku.land/cpan:UZLUISF/Markit) , [Text::Markdown](https://raku.land/zef:JJMERELO/Text::Markdown) | [jupytext](https://jupytext.readthedocs.io)       |                                                                              | [Markdown2WL](https://github.com/dishmint/Markdown2WL) , [Markdown::Grammar](https://raku.land/zef:antononcube/Markdown::Grammar) | [Markdown::Grammar](https://raku.land/zef:antononcube/Markdown::Grammar) | 
+| Mathematica |                                                                                                                                                  |                                                   | [M2MD](https://github.com/kubaPod/M2MD)                                      |                                                                                                                                   |                                                                          |
+| Pod6        |                                                                                                                                                  |                                                   | [Pod::To::Markdown](https://raku.land/cpan:SOFTMOTH/Pod::To::Markdown)       |                                                                                                                                   |                                                                          |
 
 
 **Remark:** [Pandoc](https://pandoc.org) attempts to be an universal converter, applicable for all couples of formats.
 
+**Remark:** Except
+["this package"](https://github.com/antononcube/Raku-Markdown-Grammar)
+there are no other converters from Markdown to
+[Pod6](https://docs.raku.org/language/pod).
+
+**Remark:** In general I like the idea of a Markdown-to-Mathematica converter written in Mathematica.
+The package
+["Markdown2WL"](https://github.com/dishmint/Markdown2WL)
+attempts that, but unfortunately it is fairly incomplete.
 ------
 
 ## Command line interface
@@ -205,6 +214,14 @@ from-markdown($mtext, to => 'pod6')
 
 ------
 
+## Acknowledgments
+
+Many thanks to Jakub (Kuba) Podkalicki for programming the package "M2MD", and helping me to understand
+a fair amount of Mathematica's
+[low-Level notebook programming](https://reference.wolfram.com/language/guide/LowLevelNotebookProgramming.html).
+
+------
+
 ## References
 
 ### Articles
@@ -213,6 +230,11 @@ from-markdown($mtext, to => 'pod6')
 ["Connecting Mathematica and Raku"](https://rakuforprediction.wordpress.com/2021/12/30/connecting-mathematica-and-raku/),
 (2021),
 [RakuForPrediction at WordPress]([https://rakuforprediction.wordpress.com/).
+
+[FZ1] Faizon Zaman,
+["Parsing markdown files"](https://community.wolfram.com/groups/-/m/t/2142852),
+(2021),
+[Community.wolfram.com](https://community.wolfram.com).
 
 ### Guides
 
@@ -228,6 +250,11 @@ from-markdown($mtext, to => 'pod6')
 [Text::CodeProcessing Raku package](https://github.com/antononcube/Raku-Text-CodeProcessing),
 (2021-2022),
 [GitHub/antononcube](https://github.com/antononcube).
+
+[FZp1] Faizon Zaman,
+[Markdown2WL Mathematica package](https://github.com/dishmint/Markdown2WL),
+(2021),
+[GitHub/dishmint](https://github.com/dishmint/Markdown2WL).
 
 [JPp1] Jakub Podkalicki,
 [M2MD](https://github.com/kubaPod/M2MD),

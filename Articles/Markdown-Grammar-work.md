@@ -12,6 +12,10 @@ This document proclaims and briefly describes the Raku package ["Markdown::Gramm
 - [X] Pod6 file
 - [ ] Org-mode file
 
+See the video
+["Markdown to Mathematica converter (CLI and StackExchange examples)"](https://www.youtube.com/watch?v=39ekokgnoqE), [AAv1],
+for a (quick, 7.5 min) demo.
+
 ### Motivation
 
 #### Mathematica notebooks
@@ -261,3 +265,9 @@ a fair amount of Mathematica's
 (2018-2022),
 [GitHub/kubaPod](https://github.com/kubaPod).
 
+### Videos
+
+[AAv1] Anton Antonov,
+["Markdown to Mathematica converter (CLI and StackExchange examples)"](https://www.youtube.com/watch?v=39ekokgnoqE),
+(2022),
+[Anton A. Antonov's channel at YouTube](https://www.youtube.com/channel/UC5qMPIsJeztfARXWdIw3Xzw).

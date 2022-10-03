@@ -44,7 +44,9 @@ package
 
 ### Other programming languages
 
-A versions of this document (or notebook) are made for other programming languges: Python, R, and Wolfram Language (WL). Here is a list of all notebooks hosted at GitHub repository ["RakuForPrediction-book"](https://github.com/antononcube/RakuForPrediction-book):
+Versions of this document (or notebook) are made for other programming languages: Python, R, and Wolfram Language (WL).
+Here is a list of all notebooks hosted at GitHub repository 
+["RakuForPrediction-book"](https://github.com/antononcube/RakuForPrediction-book):
 
 - [Python](https://github.com/antononcube/RakuForPrediction-book/blob/main/Notebooks/Jupyter/Standard-data-wrangling-commands-Python.ipynb)
 

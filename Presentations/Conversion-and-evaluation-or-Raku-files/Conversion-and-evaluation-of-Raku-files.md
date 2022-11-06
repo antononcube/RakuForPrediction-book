@@ -11,7 +11,9 @@ November 2022
 [![](./Conversion-andevaluation-of-Raku-files-YouTube-frame-1.png)](https://www.youtube.com/watch?v=GJO7YqjGn6o)
 
 This document has the slides of a presentation in which we do Raku files conversion and evaluation. 
-Those procedures allow doing literate programming with Raku.
+Those procedures facilitate
+[Literate programming](https://en.wikipedia.org/wiki/Literate_programming)
+with Raku.
 
 ------
 
@@ -19,7 +21,7 @@ Those procedures allow doing literate programming with Raku.
 
 - Main message
 
-    - Facilitation of [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) with Raku.
+    - Facilitation of [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) with Raku
 
 - [Get Markdown files](https://dev.to/lizmat/dont-fear-the-grepper-6-4i), [EM1]
 
@@ -43,7 +45,7 @@ Those procedures allow doing literate programming with Raku.
 
 ------
 
-## Mermaid Diagram
+## [Mermaid](https://mermaid.live) diagram
 
 ```mermaid
 graph TD

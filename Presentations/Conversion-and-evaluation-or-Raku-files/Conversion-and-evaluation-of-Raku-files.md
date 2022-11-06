@@ -5,6 +5,14 @@ Anton Antonov
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
 November 2022
 
+
+------
+
+[![](./Conversion-andevaluation-of-Raku-files-YouTube-frame-1.png)](https://www.youtube.com/watch?v=GJO7YqjGn6o)
+
+This document has the slides of a presentation in which we do Raku files conversion and evaluation. 
+Those procedures allow doing literate programming with Raku.
+
 ------
 
 ## Presentation plan
@@ -87,9 +95,21 @@ graph TD
 SystemOpen["http://localhost:8888/tree/GitHub/lizmat/articles"]
 ```
 
+![](./Conversion-andevaluation-of-Raku-files-Jupyter-notebook-1.png)
+
 -------
 
 ## Raku setup
+
+In order to use Raku in Mathematica we have to:
+
+- Load a "Raku mode" package
+
+- Covert the notebook into "Raku mode"
+
+- Start a Raku session. 
+
+**Remark:** If no Raku session is started then every Raku cell evaluation is "on its own", i.e. independent from the rest.
 
 ```mathematica
 Import["https://raw.githubusercontent.com/antononcube/ConversationalAgents/master/Packages/WL/RakuMode.m"]
@@ -155,16 +175,16 @@ Raku cell example:
 
 [AA1] Anton Antonov, ["Raku Text::CodeProcessing"](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/), (2021), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/).
 
-[AA2] Anton Antonov, "Connecting Mathematica and Raku", (2021), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/).
+[AA2] Anton Antonov, "Connecting Mathematica and Raku", (2021), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/).
 
 [EM1] Elizabeth Mattijsen,  ["Don't fear the grepper" series of articles](https://dev.to/lizmat/series/20328)  at Dev.to.
 
 ### Packages and programs
 
-[AAp1] Anton Antonov, "[Text::CodeProcessing](https://raku.land/zef:antononcube/Text::CodeProcessing)" Raku package, (2021), [GitHub/antononcube](https://github.com/antononcube).
+[AAp1] Anton Antonov, ["Text::CodeProcessing"](https://raku.land/zef:antononcube/Text::CodeProcessing) Raku package, (2021), [GitHub/antononcube](https://github.com/antononcube).
 
-[AAp2] Anton Antonov, "[Markdown::Grammar](https://raku.land/zef:antononcube/Markdown::Grammar)" Raku package, (2022), [GitHub/antononcube](https://github.com/antononcube).
+[AAp2] Anton Antonov, ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar) Raku package, (2022), [GitHub/antononcube](https://github.com/antononcube).
 
-[BDp1] Brian Duggan, [Jupyter::Kernel](https://raku.land/cpan:BDUGGAN/Jupyter::Kernel) Raku package, (2017), [GitHub/bduggan](https://github.com/bduggan).
+[BDp1] Brian Duggan, ["Jupyter::Kernel"](https://raku.land/cpan:BDUGGAN/Jupyter::Kernel) Raku package, (2017), [GitHub/bduggan](https://github.com/bduggan).
 
 [JTp1] [jupytext](https://jupytext.readthedocs.io/en/latest/) , "Jupyter Notebooks as Markdown Documents, Julia, Python or R Scripts", [jupytext.readthedocs.io](https://jupytext.readthedocs.io/en/latest/).

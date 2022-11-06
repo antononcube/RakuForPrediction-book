@@ -198,3 +198,13 @@ Dev.to.
 [BDp1] Brian Duggan, ["Jupyter::Kernel"](https://raku.land/cpan:BDUGGAN/Jupyter::Kernel) Raku package, (2017), [GitHub/bduggan](https://github.com/bduggan).
 
 [JTp1] [jupytext](https://jupytext.readthedocs.io/en/latest/) , "Jupyter Notebooks as Markdown Documents, Julia, Python or R Scripts", [jupytext.readthedocs.io](https://jupytext.readthedocs.io/en/latest/).
+
+-----
+
+## Comments
+
+### A comment for Mathematica users
+
+– The blog post proclaims a presentation made with Mathematica that shows conversion of a Markdown file into Mathematica notebook and a Jupyter notebook.
+
+– Ideally, the program [jupytext](https://jupytext.readthedocs.io/en/latest/) will be extended to deal with Mathematica notebooks.

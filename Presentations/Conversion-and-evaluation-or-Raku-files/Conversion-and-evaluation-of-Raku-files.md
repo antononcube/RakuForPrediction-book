@@ -173,11 +173,19 @@ Raku cell example:
 
 ### Articles
 
-[AA1] Anton Antonov, ["Raku Text::CodeProcessing"](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/), (2021), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/).
+[AA1] Anton Antonov, 
+["Raku Text::CodeProcessing"](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/), 
+(2021), 
+[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/).
 
-[AA2] Anton Antonov, "Connecting Mathematica and Raku", (2021), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/).
+[AA2] Anton Antonov, 
+["Connecting Mathematica and Raku"](https://rakuforprediction.wordpress.com/2021/12/30/connecting-mathematica-and-raku/), 
+(2021), 
+[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2021/07/13/raku-textcodeprocessing/).
 
-[EM1] Elizabeth Mattijsen,  ["Don't fear the grepper" series of articles](https://dev.to/lizmat/series/20328)  at Dev.to.
+[EM1] Elizabeth Mattijsen, 
+["Don't fear the grepper" series of articles](https://dev.to/lizmat/series/20328), 
+Dev.to.
 
 ### Packages and programs
 

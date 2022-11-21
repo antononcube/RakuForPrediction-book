@@ -1,4 +1,4 @@
-# Interactive Mermaid diagrams generation with Markdown evaluation
+# Interactive Mermaid diagrams generation via Markdown evaluation
 
 ## Introduction 
 
@@ -73,20 +73,6 @@ to-uml-spec('ML::Clustering', format => 'mermaid')
 # find_clusters --|> Callable
 # 
 # 
-# class ML_Clustering_DistanceFunctions {
-#   <<role>>
-#   +args-check()
-#   +bray-curtis-distance()
-#   +canberra-distance()
-#   +chessboard-distance()
-#   +cosine-distance()
-#   +distance()
-#   +euclidean-distance()
-#   +manhattan-distance()
-#   +squared-euclidean-distance()
-# }
-# 
-# 
 # class k_means {
 #   <<routine>>
 # }
@@ -112,6 +98,20 @@ to-uml-spec('ML::Clustering', format => 'mermaid')
 #   +squared-euclidean-distance()
 # }
 # ML_Clustering_KMeans --|> ML_Clustering_DistanceFunctions
+# 
+# 
+# class ML_Clustering_DistanceFunctions {
+#   <<role>>
+#   +args-check()
+#   +bray-curtis-distance()
+#   +canberra-distance()
+#   +chessboard-distance()
+#   +cosine-distance()
+#   +distance()
+#   +euclidean-distance()
+#   +manhattan-distance()
+#   +squared-euclidean-distance()
+# }
 ```
 
 Here we create **directly** a Mermaid cell into the Markdown file:
@@ -129,20 +129,6 @@ find_clusters --|> Routine
 find_clusters --|> Block
 find_clusters --|> Code
 find_clusters --|> Callable
-
-
-class ML_Clustering_DistanceFunctions {
-  <<role>>
-  +args-check()
-  +bray-curtis-distance()
-  +canberra-distance()
-  +chessboard-distance()
-  +cosine-distance()
-  +distance()
-  +euclidean-distance()
-  +manhattan-distance()
-  +squared-euclidean-distance()
-}
 
 
 class k_means {
@@ -170,6 +156,20 @@ class ML_Clustering_KMeans {
   +squared-euclidean-distance()
 }
 ML_Clustering_KMeans --|> ML_Clustering_DistanceFunctions
+
+
+class ML_Clustering_DistanceFunctions {
+  <<role>>
+  +args-check()
+  +bray-curtis-distance()
+  +canberra-distance()
+  +chessboard-distance()
+  +cosine-distance()
+  +distance()
+  +euclidean-distance()
+  +manhattan-distance()
+  +squared-euclidean-distance()
+}
 ```
 
 **Remark:** We use above the Markdown cell arguments `perl6, outputLang=mermaid, outputPrompt=NONE`. 
@@ -192,22 +192,22 @@ my @tbl = random-tabular-dataset(12, 3,
 say to-pretty-table(@tbl);
 ```
 ```
-# +-----------+-----------+------------+
-# |   Nukka   |    Jose   |  Atticus   |
-# +-----------+-----------+------------+
-# | 26.993108 |  5.121371 | 24.059709  |
-# | 32.584785 |  1.982418 | -8.021691  |
-# | 44.477633 | -1.768160 |  1.037729  |
-# | 10.738849 |  1.679274 | -2.170495  |
-# | 32.005235 | -1.953524 | -0.106297  |
-# | 39.800248 | -0.099708 | 16.759329  |
-# | 40.206338 | -0.369219 | -11.927352 |
-# | 29.874315 |  0.228058 | -1.048279  |
-# | 33.348450 |  1.150010 | -26.009811 |
-# | 47.127736 |  3.668894 | -22.681102 |
-# | 49.261273 |  2.854425 |  2.246407  |
-# | 23.403552 |  2.423418 | 18.699085  |
-# +-----------+-----------+------------+
+# +-----------+------------+
+# |   Millie  |    Bugs    |
+# +-----------+------------+
+# | 29.159099 | -22.055096 |
+# | 23.597089 | 18.742186  |
+# | 38.949468 | 20.467438  |
+# | 36.618747 | 30.769754  |
+# | 33.834064 |  8.845965  |
+# | 13.449753 |  0.864381  |
+# | 30.428488 | -16.790402 |
+# | 45.044762 | 43.667950  |
+# | 23.235956 |  9.065688  |
+# | 12.030539 | 13.997000  |
+# | 27.221591 | 10.788366  |
+# | 28.879709 | 34.705774  |
+# +-----------+------------+
 ```
 
 Here sum the columns:
@@ -216,7 +216,7 @@ Here sum the columns:
 @tbl.&transpose.map({ $_.key => [+] $_.value })
 ```
 ```
-# (Jose => 14.917257551261468 Atticus => -9.162769733472317 Nukka => 409.82151984716984)
+# (Millie => 342.4492631869889 Bugs => 153.06900576107373)
 ```
 
 Plot the sums with a Mermaid pie chart:
@@ -229,9 +229,8 @@ say ' title My Great Pie Chart!';
 ```mermaid
 pie showData
  title My Great Pie Chart!
- "Jose" : 14.917257551261468
- "Atticus" : -9.162769733472317
- "Nukka" : 409.82151984716984
+ "Bugs" : 153.06900576107373
+ "Millie" : 342.4492631869889
 ```
 
 ------
@@ -293,8 +292,6 @@ say 'mindmap';
 say $tr.form.subst( / '├' | '─' | '└' | '│' | '└' /, ' '):g;
 ```
 
-![](https://mermaid.ink/img/pako:eNplkEFvgyAYhv8K-c7GoCAoyXZqDzssTbqeFi5M6GYqaCgm64z_fWKz1a235-F9w5fvG6HutAEBtnHaql66w_5pu9_tDujhETHpEHqLRCMhpFaMUBst-zGE7B_30cgtPf1rn3-9jpRfE7Pi-wnt_YRVGhaHBKzxVjV6XmuMqYTwYayRIGbUyp8kSDfNPTWE7uXiahDBDyaBodcqmE2j3r2yII6qPc-vRjeh88_XOy3nSqBX7rXrbp3ZQYzwCYJykuKKVDnLS1zmBNMELiAyxlNCK84IK0rGecWnBL6WL3DKC1LhEheY5hmmpJy-AbvuaI0?type=png)
-
 Here we transform the trie into list of edges:
 
 ```perl6
@@ -302,19 +299,19 @@ my @edges = $tr.node-probabilities.root-to-leaf-paths>>.map({ "{$_.key}:{$_.valu
 .say for @edges.unique; 
 ```
 ```
+# TRIEROOT:1 --> b:0.6666666666666666
+# b:0.6666666666666666 --> a:1
+# a:1 --> l:0.25
+# l:0.25 --> m:1
+# a:1 --> r:0.75
+# r:0.75 --> k:0.3333333333333333
+# r:0.75 --> s:0.3333333333333333
 # TRIEROOT:1 --> c:0.3333333333333333
 # c:0.3333333333333333 --> e:1
 # e:1 --> l:0.5
 # l:0.5 --> l:1
 # e:1 --> r:0.5
 # r:0.5 --> t:1
-# TRIEROOT:1 --> b:0.6666666666666666
-# b:0.6666666666666666 --> a:1
-# a:1 --> r:0.75
-# r:0.75 --> s:0.3333333333333333
-# r:0.75 --> k:0.3333333333333333
-# a:1 --> l:0.25
-# l:0.25 --> m:1
 ```
 
 Here we plot it with Mermaid-JS as a **graph**:
@@ -325,19 +322,19 @@ say 'graph TD';
 ```
 ```mermaid
 graph TD
+TRIEROOT:1 --> b:0.6666666666666666
+b:0.6666666666666666 --> a:1
+a:1 --> l:0.25
+l:0.25 --> m:1
+a:1 --> r:0.75
+r:0.75 --> k:0.3333333333333333
+r:0.75 --> s:0.3333333333333333
 TRIEROOT:1 --> c:0.3333333333333333
 c:0.3333333333333333 --> e:1
 e:1 --> l:0.5
 l:0.5 --> l:1
 e:1 --> r:0.5
 r:0.5 --> t:1
-TRIEROOT:1 --> b:0.6666666666666666
-b:0.6666666666666666 --> a:1
-a:1 --> r:0.75
-r:0.75 --> s:0.3333333333333333
-r:0.75 --> k:0.3333333333333333
-a:1 --> l:0.25
-l:0.25 --> m:1
 ```
 
 ------

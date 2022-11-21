@@ -1,4 +1,4 @@
-# Interactive Mermaid diagrams generation with Markdown evaluation
+# Interactive Mermaid diagrams generation via Markdown evaluation
 
 ## Introduction 
 

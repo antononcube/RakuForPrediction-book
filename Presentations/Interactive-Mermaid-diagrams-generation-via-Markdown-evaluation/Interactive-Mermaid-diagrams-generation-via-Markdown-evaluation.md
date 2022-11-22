@@ -45,14 +45,17 @@ graph TD
     CMD[Make new Markdown file]
     MDw>"Markdown document - work"]
     MDd>"Markdown document - display"]
-    RC[/"Raku code<br>(in Markdown cells)"/]
-    MJSC[/"Mermaid-JS code<br>(in Markdown cells)"/]
+    RC[/"Raku code"/]
+    MJSC[/"Mermaid-JS code"/]
+    RO[/"Raku output"/]
     EMD[Evaluate Markdown file]
     TCP("Text::CodeProcessing")
     FCCE[[file-code-chunks-eval]]
     CMD -.-> |create|MDw
     CMD ---> RC ---> EMD ---> MJSC
+    EMD ---> RO
     MJSC ---> RC
+    RO ---> RC
     MDw -.-> EMD
     EMD -.-> |create/update|MDd
     MDw -.- MDd
@@ -67,6 +70,7 @@ graph TD
         RC
         EMD
         MJSC
+        RO
     end    
 ```
 
@@ -84,20 +88,6 @@ to-uml-spec('ML::Clustering', format => 'mermaid')
 ```
 ```
 # classDiagram
-# class ML_Clustering_DistanceFunctions {
-#   <<role>>
-#   +args-check()
-#   +bray-curtis-distance()
-#   +canberra-distance()
-#   +chessboard-distance()
-#   +cosine-distance()
-#   +distance()
-#   +euclidean-distance()
-#   +manhattan-distance()
-#   +squared-euclidean-distance()
-# }
-# 
-# 
 # class ML_Clustering_KMeans {
 #   +BUILDALL()
 #   +args-check()
@@ -116,13 +106,18 @@ to-uml-spec('ML::Clustering', format => 'mermaid')
 # ML_Clustering_KMeans --|> ML_Clustering_DistanceFunctions
 # 
 # 
-# class find_clusters {
-#   <<routine>>
+# class ML_Clustering_DistanceFunctions {
+#   <<role>>
+#   +args-check()
+#   +bray-curtis-distance()
+#   +canberra-distance()
+#   +chessboard-distance()
+#   +cosine-distance()
+#   +distance()
+#   +euclidean-distance()
+#   +manhattan-distance()
+#   +squared-euclidean-distance()
 # }
-# find_clusters --|> Routine
-# find_clusters --|> Block
-# find_clusters --|> Code
-# find_clusters --|> Callable
 # 
 # 
 # class k_means {
@@ -132,6 +127,15 @@ to-uml-spec('ML::Clustering', format => 'mermaid')
 # k_means --|> Block
 # k_means --|> Code
 # k_means --|> Callable
+# 
+# 
+# class find_clusters {
+#   <<routine>>
+# }
+# find_clusters --|> Routine
+# find_clusters --|> Block
+# find_clusters --|> Code
+# find_clusters --|> Callable
 ```
 
 Here we create **directly** a Mermaid cell into the Markdown file:
@@ -142,20 +146,6 @@ to-uml-spec('ML::Clustering', format => 'mermaid')
 ```
 ```mermaid
 classDiagram
-class ML_Clustering_DistanceFunctions {
-  <<role>>
-  +args-check()
-  +bray-curtis-distance()
-  +canberra-distance()
-  +chessboard-distance()
-  +cosine-distance()
-  +distance()
-  +euclidean-distance()
-  +manhattan-distance()
-  +squared-euclidean-distance()
-}
-
-
 class ML_Clustering_KMeans {
   +BUILDALL()
   +args-check()
@@ -174,13 +164,18 @@ class ML_Clustering_KMeans {
 ML_Clustering_KMeans --|> ML_Clustering_DistanceFunctions
 
 
-class find_clusters {
-  <<routine>>
+class ML_Clustering_DistanceFunctions {
+  <<role>>
+  +args-check()
+  +bray-curtis-distance()
+  +canberra-distance()
+  +chessboard-distance()
+  +cosine-distance()
+  +distance()
+  +euclidean-distance()
+  +manhattan-distance()
+  +squared-euclidean-distance()
 }
-find_clusters --|> Routine
-find_clusters --|> Block
-find_clusters --|> Code
-find_clusters --|> Callable
 
 
 class k_means {
@@ -190,6 +185,15 @@ k_means --|> Routine
 k_means --|> Block
 k_means --|> Code
 k_means --|> Callable
+
+
+class find_clusters {
+  <<routine>>
+}
+find_clusters --|> Routine
+find_clusters --|> Block
+find_clusters --|> Code
+find_clusters --|> Callable
 ```
 
 **Remark:** We use above the Markdown cell arguments `perl6, outputLang=mermaid, outputPrompt=NONE`. 
@@ -204,7 +208,7 @@ Here we generate a dataset with random numerical columns
 use Data::Generators;
 use Data::Reshapers;
 my @tbl = random-tabular-dataset(12, 3, 
-        column-names-generator => &random-pet-name, 
+        column-names-generator => { &random-pet-name($_, method => &pick) },
         generators => [
             { random-variate(NormalDistribution.new( µ => 10, σ => 20), $_ ) },
             { random-variate(NormalDistribution.new( µ => 2, σ => 2), $_ ) },
@@ -212,22 +216,22 @@ my @tbl = random-tabular-dataset(12, 3,
 say to-pretty-table(@tbl);
 ```
 ```
-# +-----------+--------------+-----------+
-# |  Benjamin | Toast 620855 |  Winnipeg |
-# +-----------+--------------+-----------+
-# | 38.687303 |  36.800622   | -1.703471 |
-# | 45.010285 |  24.808628   |  3.625238 |
-# | 33.474977 |  12.742349   |  7.985687 |
-# | 33.221726 |   6.886901   |  4.680690 |
-# | 37.911967 |  17.395599   |  0.939818 |
-# | 32.213583 |  -4.709242   |  1.993813 |
-# |  8.570701 |  23.532404   |  2.102780 |
-# | 41.673241 |  56.593960   |  2.947320 |
-# | 10.017131 |  39.715424   |  0.543017 |
-# | 16.476380 |  55.146798   |  2.722294 |
-# | 33.031580 |  13.924922   |  4.207806 |
-# | 16.546961 |  38.282381   |  3.811605 |
-# +-----------+--------------+-----------+
+# +-----------+-----------+------------+
+# |  Schmidt  | Loch Ness |  Atticus   |
+# +-----------+-----------+------------+
+# | -1.640302 | 28.378750 | 15.904661  |
+# |  2.385714 | 38.302540 | 24.213946  |
+# |  0.493925 | 38.725973 | 40.612606  |
+# |  4.505899 | 30.662067 | 18.584966  |
+# |  0.434399 | 16.541336 | 16.912362  |
+# |  3.721586 | 44.420603 | 33.003731  |
+# |  2.167267 | 34.555019 |  9.839326  |
+# |  0.816624 | 25.008163 | -36.824675 |
+# |  0.473044 | 32.095658 | 38.149468  |
+# |  3.436236 | 23.021088 | 24.750144  |
+# |  5.754028 | 38.892485 | 20.964051  |
+# | -0.590391 | 23.630289 | -8.537537  |
+# +-----------+-----------+------------+
 ```
 
 Here sum the columns:
@@ -236,7 +240,7 @@ Here sum the columns:
 @tbl.&transpose.map({ $_.key => [+] $_.value })
 ```
 ```
-# (Winnipeg => 33.85659837148244 Benjamin => 346.83583370867285 Toast 620855 => 321.12074583306253)
+# (Loch Ness => 374.233971547851 Schmidt => 21.95802958385876 Atticus => 197.57304922350048)
 ```
 
 Plot the sums with a Mermaid pie chart:
@@ -249,9 +253,9 @@ say ' title My Great Pie Chart!';
 ```mermaid
 pie showData
  title My Great Pie Chart!
- "Toast 620855" : 321.12074583306253
- "Winnipeg" : 33.85659837148244
- "Benjamin" : 346.83583370867285
+ "Loch Ness" : 374.233971547851
+ "Schmidt" : 21.95802958385876
+ "Atticus" : 197.57304922350048
 ```
 
 ------
@@ -320,12 +324,6 @@ my @edges = $tr.node-probabilities.root-to-leaf-paths>>.map({ "{$_.key}:{$_.valu
 .say for @edges.unique; 
 ```
 ```
-# TRIEROOT:1 --> c:0.3333333333333333
-# c:0.3333333333333333 --> e:1
-# e:1 --> l:0.5
-# l:0.5 --> l:1
-# e:1 --> r:0.5
-# r:0.5 --> t:1
 # TRIEROOT:1 --> b:0.6666666666666666
 # b:0.6666666666666666 --> a:1
 # a:1 --> r:0.75
@@ -333,6 +331,12 @@ my @edges = $tr.node-probabilities.root-to-leaf-paths>>.map({ "{$_.key}:{$_.valu
 # r:0.75 --> k:0.3333333333333333
 # a:1 --> l:0.25
 # l:0.25 --> m:1
+# TRIEROOT:1 --> c:0.3333333333333333
+# c:0.3333333333333333 --> e:1
+# e:1 --> l:0.5
+# l:0.5 --> l:1
+# e:1 --> r:0.5
+# r:0.5 --> t:1
 ```
 
 Here we plot it with Mermaid-JS as a **graph**:
@@ -343,12 +347,6 @@ say 'graph TD';
 ```
 ```mermaid
 graph TD
-TRIEROOT:1 --> c:0.3333333333333333
-c:0.3333333333333333 --> e:1
-e:1 --> l:0.5
-l:0.5 --> l:1
-e:1 --> r:0.5
-r:0.5 --> t:1
 TRIEROOT:1 --> b:0.6666666666666666
 b:0.6666666666666666 --> a:1
 a:1 --> r:0.75
@@ -356,6 +354,12 @@ r:0.75 --> s:0.3333333333333333
 r:0.75 --> k:0.3333333333333333
 a:1 --> l:0.25
 l:0.25 --> m:1
+TRIEROOT:1 --> c:0.3333333333333333
+c:0.3333333333333333 --> e:1
+e:1 --> l:0.5
+l:0.5 --> l:1
+e:1 --> r:0.5
+r:0.5 --> t:1
 ```
 
 ------

@@ -45,14 +45,17 @@ graph TD
     CMD[Make new Markdown file]
     MDw>"Markdown document - work"]
     MDd>"Markdown document - display"]
-    RC[/"Raku code<br>(in Markdown cells)"/]
-    MJSC[/"Mermaid-JS code<br>(in Markdown cells)"/]
+    RC[/"Raku code"/]
+    MJSC[/"Mermaid-JS code"/]
+    RO[/"Raku output"/]
     EMD[Evaluate Markdown file]
     TCP("Text::CodeProcessing")
     FCCE[[file-code-chunks-eval]]
     CMD -.-> |create|MDw
     CMD ---> RC ---> EMD ---> MJSC
+    EMD ---> RO
     MJSC ---> RC
+    RO ---> RC
     MDw -.-> EMD
     EMD -.-> |create/update|MDd
     MDw -.- MDd
@@ -67,6 +70,7 @@ graph TD
         RC
         EMD
         MJSC
+        RO
     end    
 ```
 
@@ -102,7 +106,7 @@ Here we generate a dataset with random numerical columns
 use Data::Generators;
 use Data::Reshapers;
 my @tbl = random-tabular-dataset(12, 3, 
-        column-names-generator => &random-pet-name, 
+        column-names-generator => { &random-pet-name($_, method => &pick) },
         generators => [
             { random-variate(NormalDistribution.new( µ => 10, σ => 20), $_ ) },
             { random-variate(NormalDistribution.new( µ => 2, σ => 2), $_ ) },

@@ -2,19 +2,37 @@
 
 ## Introduction 
 
-In this document (and related presentation) we the interactive making 
-[Mermaid-JS](https://mermaid-js.github.io/mermaid/)
+In this document (and related presentation) we discuss the interactive making of
+[Mermaid-JS](https://mermaid-js.github.io/mermaid/) diagrams
 via evaluation of code cells in Markdown documents.
 
 The "interactive" changes are possible because of the following package updates:
 
 - Markdown cells processed by ["Text::CodeProcessing"](https://raku.land/zef:antononcube/Text::CodeProcessing), [AAp1],
-  can have an argument that specifies the language of the output cells. 
-   - (E.g. `outputLang=mermaid`.)
+  can have an argument that specifies the language of the output cells.
+  - E.g. `output-lang=mermaid`.
 
-- ["UML::Translators"](https://raku.land/zef:antononcube/UML::Translators), [AAp2], can generate 
-  Mermaid-JS specs. 
-  - (In addition to [PlantUML](https://plantuml.com) and WL specs.) 
+- ["UML::Translators"](https://raku.land/zef:antononcube/UML::Translators), [AAp2], can generate
+  Mermaid-JS specs.
+  - (In addition to [PlantUML](https://plantuml.com) and WL specs.)
+
+Further, the "interactivity" relies on the automatic re-rendering of the used
+Integrate Development Environments (IDEs), like, 
+[IntelliJ IDEA](https://www.jetbrains.com/idea/), 
+[Commaide](https://commaide.com), or 
+Visual Studio Code.
+
+**Remark:** The preparation of this document and in the presentation, we use Command Line Interface (CLI) script
+`file-code-chunks-eval` provided by
+["Text::CodeProcessing"](https://raku.land/zef:antononcube/Text::CodeProcessing).
+
+**Remark:** ["Text::CodeProcessing"](https://raku.land/zef:antononcube/Text::CodeProcessing)
+also provides the script `cronify` that facilitates periodic execution of a shell command (with parameters.)
+It heavily borrows ideas and code from the chapter "Silent Cron, a Cron Wrapper" of the book,
+"Raku Fundamentals" by Moritz Lenz, [ML1]. 
+
+**Remark:** After some experimentation the script `cronify` was *not* found to
+be that useful for the "interactive" effect.  
 
 -------
 
@@ -31,13 +49,15 @@ graph TD
     MJSC[/"Mermaid-JS code<br>(in Markdown cells)"/]
     EMD[Evaluate Markdown file]
     TCP("Text::CodeProcessing")
+    FCCE[[file-code-chunks-eval]]
     CMD -.-> |create|MDw
     CMD ---> RC ---> EMD ---> MJSC
     MJSC ---> RC
     MDw -.-> EMD
     EMD -.-> |create/update|MDd
     MDw -.- MDd
-    EMD -..- TCP
+    EMD -..- |repeatedly|FCCE
+    FCCE -.- TCP
     subgraph Documents
         MDw
         MDd
@@ -165,6 +185,13 @@ say 'graph TD';
 (2022),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com/2022/11/05/conversion-and-evaluation-of-raku-files/).
 
+### Books
+
+[ML1] Moritz Lenz,
+["Raku Fundamentals: A Primer with Examples, Projects, and Case Studies"](https://www.google.com/books/edition/Raku_Fundamentals/MvyRzQEACAAJ?hl=en),
+2nd ed.
+(2020),
+Apress.
 
 ### Packages
 

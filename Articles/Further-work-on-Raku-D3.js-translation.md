@@ -93,8 +93,21 @@ Those prompted me to utilize that framework to use JavaScript.
 
 ## Refactoring via re-implementation in Python 
 
-Re-implementing the package (from Raku) to Python was great way to brainstorm the necessary refactoring of the
-JavaScript code snippets and related package architecture. See the examples in [AAp3].
+Re-implementing the package (from Raku) 
+[to Python](https://github.com/antononcube/Python-packages/tree/main/JavaScriptD3) 
+was great way to brainstorm the necessary refactoring of the JavaScript code snippets and related package architecture. 
+See the examples in [AAp3].
+
+--------
+
+## Multi-dataset visualizations
+
+The initial version of "JavaScript::D3" did not have multi-dataset support for bar charts and histograms.
+I figured out how to do that for bar charts; still working on histograms.
+
+Here is a bar chart example:
+
+![](./Diagrams/Further-work-on-the-Raku-D3.js-translation/BarChart-in-Jupyter-multi-dataset-1.png)
 
 --------
 
@@ -111,7 +124,7 @@ Implementing the corresponding functions required to:
 
 2. Be able to produce D3.js without placement wrappers (like HTML declaration, of JavaScript brackets for Jupyter.)
 
-The refactoring for 2. was required in order to have multiple plots in one Jupyter cesll. 
+The refactoring for 2. was required in order to have multiple plots in one Jupyter cell. 
 Also, it was fairly involved, although, it is "just" for gluing the main, core plotting parts.
 
 I wanted to do as much as possible on the Raku side:
@@ -120,7 +133,7 @@ I wanted to do as much as possible on the Raku side:
 
 - The plotting is done with D3.js
 
-**Remark:** The algorithms for drawing, say, Bezier curves through the random points are from trivial 
+**Remark:** The algorithms for drawing, say, Bezier curves through the random points are far from trivial 
 and D3.js does this very nicely.  
 
 Here is an example of random mandala generation:

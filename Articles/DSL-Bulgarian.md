@@ -47,6 +47,10 @@ The document organization is as follows:
 
 - The following section discusses the general software engineering strategy, and related design and implementation. 
 
+- The last section gives implementation details that exemplify some of the steps in the software strategy section.
+
+- Multiple references are given that provide further description, explanations, and examples of the discussed features.  
+
 ------
 
 ## Data query (wrangling) workflows
@@ -351,7 +355,7 @@ and its extension to with Bulgarian DSL code generation.
 
 Here is a corresponding (coarsely grained) narration:
 
-#### Tool and targets
+### Tool and targets
 
 Here are the translations tool and targets:
 
@@ -363,7 +367,7 @@ Here are the translations tool and targets:
 
 - Tertiary targets are Julia, Korean, Spanish
 
-#### Ground work
+### Ground work
 
 Here are the ground work steps of he Raku for Prediction system:
 
@@ -426,14 +430,14 @@ ToMachineLearningEntityCode('true positive rate')
 dsl-web-translation "make some sort of recommender pipeline over the dataset dfGoods"
 ```
 ```
-# 
+# {"CODE":"smrObj <-\nSMRMonUnit() %>%\nSMRMonCreate( data = dfGoods) %>%\nSMRMonRecommendByProfile( profile = c(\"recommender\"), nrecs = 12) %>%\nSMRMonJoinAcross( data = dfGoods) %>%\nSMRMonEchoValue()","USERID":"","DSLTARGET":"R::Recommendations","DSL":"Recommendations","DSLFUNCTION":"Concretize[Recommendations, #1, TargetLanguage -> R, AvoidMonads -> False, AssociationResult -> True] & "}
 ```
 
 10. Design and implement Finite State Machine (FSM) framework in order to facilitate the implementation
     of conversational agents with "state remembering dialogs." See [AAv1].
 
 
-#### Bulgarian DSL interpreters implementation    
+### Bulgarian DSL interpreters implementation    
 
 1. Implement Bulgarian fuzzy matching. See `is-bg-fuzzy-match` in "DSL::Shared", [AAp2].
 
@@ -476,6 +480,9 @@ dsl-web-translation -t=WL "DSL MODULE ClCon;
 # 
 ```
 
+---------
+
+## Implementation details
 
 ### Utilities preparation
 

@@ -25,7 +25,7 @@ This produces good parsers of Bulgarian DSL commands because:
 
 - Bulgarian and English are both [analytic languages](https://en.wikipedia.org/wiki/Analytic_language).
 
-- The English grammar structures of short (imperative or prescriptive) sentences resembles those of Bulgarian.
+- The English grammar structures of short (imperative or prescriptive) sentences resemble those of Bulgarian.
 
 It is relatively easy to "just" replace English tokens with Bulgarian tokens by direct translation. 
 Further work is required, though, in order to handle Bulgarian word-suffixes related to gender and plurality. 
@@ -40,7 +40,7 @@ The document organization is as follows:
 
 - The next five sections show examples of code generation for computational workflows 
   of the most fundamental Machine Learning (ML) sub-cultures: Data Wrangling, 
-  Classification, Latent Semantic Analysis (LSA), Quantile Regression (QR).
+  Classification, Latent Semantic Analysis (LSA), Quantile Regression (QR), Recommendations.
 
   - See [AAv1] for more detailed discussion see the presentation 
     ["Simplified Machine Learning Workflows Overview"](https://www.wolfram.com/broadcast/video.php?v=3743), [AAv3].
@@ -49,7 +49,7 @@ The document organization is as follows:
 
 - The last section gives implementation details that exemplify some of the steps in the software strategy section.
 
-- Multiple references are given that provide further description, explanations, and examples of the discussed features.  
+- Multiple references are given that provide further descriptions, explanations, and examples of the discussed features.  
 
 ------
 
@@ -119,6 +119,8 @@ for <English Python::pandas Raku::Reshapers Spanish Russian> -> $t {
 
 ## Classification workflows
 
+Translate Bulgarian ML classification specifications to different natural languages and WL:
+
 ```perl6
 use DSL::English::ClassificationWorkflows;
 
@@ -156,9 +158,13 @@ for <English Russian WL::ClCon> -> $t {
 # ClConClassifierMeasurements[ {"Recall", "FalsePositiveRate"} ] \[DoubleLongRightArrow] ClConEchoValue[]
 ```
 
+**Remark:** Currently, code generation for ML classification workflows is implemented only for WL. 
+
 -------
 
 ## Latent Semantic Analysis
+
+Translate Bulgarian LSA specifications to different natural and programming languages:
 
 ```perl6
 use DSL::English::LatentSemanticAnalysisWorkflows;
@@ -215,9 +221,17 @@ for <English Python::LSAMon R::LSAMon Russian> -> $t {
 # показать текущее значение конвейера
 ```
 
+**Remark:** The misspelling prompts show that the misspellings handler is "too aggressive." 
+The module of handling DSL mis-formulations can be improved with several different approaches.
+Currently, only token-level fuzzy matching is used. Other approaches are: (i) using an 
+[NLP Template Engine](https://github.com/antononcube/NLP-Template-Engine), [AAr1],
+(ii) phrase- or command-level fuzzy matching, (iii) conversational agents dialogs, [AAv1].
+
 -------
 
 ## Quantile Regression Workflows
+
+Translate Bulgarian QR specifications to different natural and programming languages:
 
 ```perl6
 use DSL::English::QuantileRegressionWorkflows;
@@ -293,6 +307,8 @@ for <English R::QRMon Russian WL::QRMon> -> $t {
 
 ## Recommender workflows
 
+Translate Bulgarian ML recommendation specifications to different natural and programming languages:
+
 ```perl6
 use DSL::English::RecommenderWorkflows;
 
@@ -348,12 +364,13 @@ split into four phases:
 
 ### The big picture
 
-The following flowchart summarizes the *total* **Raku for Prediction** system development 
-and its extension to with Bulgarian DSL code generation.
+The following flowchart summarizes the *total* 
+[**Raku for Prediction**](https://github.com/antononcube/RakuForPrediction-book) 
+system development and its extension with Bulgarian DSL code generation.
 
 ![](./Diagrams/DSL-Bulgarian/DSL-Bulgarian-making.png)]
 
-Here is a corresponding (coarsely grained) narration:
+The sub-sections below give a corresponding (coarsely grained) narration.
 
 ### Tool and targets
 
@@ -365,18 +382,18 @@ Here are the translations tool and targets:
 
 - Secondary targets are Python, Bulgarian, English, Russian.
 
-- Tertiary targets are Julia, Korean, Spanish
+- Tertiary targets are Julia, Korean, Spanish.
 
 ### Ground work
 
 Here are the ground work steps of he Raku for Prediction system:
 
-1. First extract, define, and implement into software monads the computational workflows  
-   Data Wrangling, Classification, Latent Semantic Analysis, Quantile Regression.
+1. First extract, define, and implement into software monads the computational workflows for 
+   Data Wrangling, Classification, Latent Semantic Analysis, Quantile Regression, Recommendations.
 
    - For Data Wrangling leverage as much as possible existing implemented solutions.
      
-     - E.g. Python's "pandas" or R's "dplyr".
+     - E.g. [Python's "pandas"](https://pandas.pydata.org) or [R's "tidyverse"](https://www.tidyverse.org).
      
 2. Implement code transformation packages that enhance Raku grammar and role files with additional
    specifications.
@@ -385,7 +402,7 @@ Here are the ground work steps of he Raku for Prediction system:
    
 3. Make a *"solid"* implementation of Data Wrangling DSL translations from English into Julia, Python, R, Raku, and WL; see [AAp5].
 
-4. Make a comprehensive translator with Web service. 
+4. Make a comprehensive translator with a Web service. 
   
    - The Web service ["DSL Evaluations Interface"](https://antononcube.shinyapps.io/DSL-evaluations/) is based on [Cro](https://cro.services). See [AA1, AAv1].
 
@@ -474,10 +491,13 @@ dsl-web-translation -t=WL "DSL MODULE ClCon;
 използвай dfTitanic; 
 раздели данните с пропорция 0.8; 
 направи класификатор с метода RandomForest; 
-покажи мерките"
+покажи мерките Accuracy and Recall"
 ```
 ```
-# 
+# ClConUnit[ dfTitanic ] \[DoubleLongRightArrow]
+# ClConSplitData[ "TrainingFraction" -> 0.8 ] \[DoubleLongRightArrow]
+# ClConMakeClassifier[ "RandomForest" ] \[DoubleLongRightArrow]
+# ClConClassifierMeasurements[ {"Accuracy", "Recall"} ] \[DoubleLongRightArrow] ClConEchoValue[]
 ```
 
 ---------

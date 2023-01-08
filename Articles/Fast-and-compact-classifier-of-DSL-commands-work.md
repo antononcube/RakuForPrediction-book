@@ -72,7 +72,7 @@ Here are examples of computational DSL specifications for the workflows
 *Classification*, *Latent Semantic Analysis*, and *Quantile Regression*:
 
 ```shell
-ToDSLCode WL "
+dsl-translation WL "
 DSL MODULE Classification;
 use the dataset dfGoods;
 split data with ratio 0.8;
@@ -82,7 +82,7 @@ show accuracy, precision;
 ```
 
 ```shell
-ToDSLCode R "
+dsl-translation R "
 DSL MODULE LatentSemanticAnalysis;
 use aDocs;
 create document-term matrix;
@@ -93,7 +93,7 @@ show topics table
 ```
 
 ```shell
-ToDSLCode R "
+dsl-translation R "
 DSL MODULE QuantileRegression;
 use dfStocksVolume;
 summarize data;

@@ -72,7 +72,7 @@ Here are examples of computational DSL specifications for the workflows
 *Classification*, *Latent Semantic Analysis*, and *Quantile Regression*:
 
 ```shell
-ToDSLCode WL "
+dsl-translation WL "
 DSL MODULE Classification;
 use the dataset dfGoods;
 split data with ratio 0.8;
@@ -80,9 +80,15 @@ make a logistic regression classifier;
 show accuracy, precision;
 "
 ```
+```
+# ClConUnit[ dfGoods ] \[DoubleLongRightArrow]
+# ClConSplitData[ "TrainingFraction" -> 0.8 ] \[DoubleLongRightArrow]
+# ClConMakeClassifier[ "LogisticRegression" ] \[DoubleLongRightArrow]
+# ClConClassifierMeasurements[ {"Accuracy", "Precision"} ] \[DoubleLongRightArrow] ClConEchoValue[]
+```
 
 ```shell
-ToDSLCode R "
+dsl-translation R "
 DSL MODULE LatentSemanticAnalysis;
 use aDocs;
 create document-term matrix;
@@ -91,15 +97,28 @@ extract 36 topics with the method NNMF and max steps 12;
 show topics table 
 "
 ```
+```
+# LSAMonUnit(aDocs) %>%
+# LSAMonMakeDocumentTermMatrix() %>%
+# LSAMonApplyTermWeightFunctions(globalWeightFunction = "IDF", localWeightFunction = "None", normalizerFunction = "Cosine") %>%
+# LSAMonExtractTopics( numberOfTopics = 36, method = "NNMF",  maxSteps = 12) %>%
+# LSAMonEchoTopicsTable()
+```
 
 ```shell
-ToDSLCode R "
+dsl-translation R "
 DSL MODULE QuantileRegression;
 use dfStocksVolume;
 summarize data;
 computed quantile regression with 30 knots and order 2;
 show date list plot 
 "
+```
+```
+# QRMonUnit( data = dfStocksVolume) %>%
+# QRMonEchoDataSummary() %>%
+# QRMonQuantileRegression(df = 30, probabilities = c(2)) %>%
+# QRMonPlot( datePlotQ = TRUE)
 ```
 
 ### Problem formulation
@@ -236,13 +255,13 @@ records-summary(@tbl)
 # +---------------------------------------+-------------------------------+
 # | Command                               | Workflow                      |
 # +---------------------------------------+-------------------------------+
-# | summarize data                => 27   | RandomTabularDataset   => 870 |
-# | summarize the data            => 25   | LatentSemanticAnalysis => 870 |
-# | train                         => 16   | NeuralNetworkCreation  => 870 |
-# | graph                         => 14   | QuantileRegression     => 870 |
-# | extract statistical thesaurus => 13   | Classification         => 870 |
-# | drill                         => 13   | Recommendations        => 870 |
-# | net regression                => 13   |                               |
+# | summarize data                => 27   | Classification         => 870 |
+# | summarize the data            => 25   | QuantileRegression     => 870 |
+# | train                         => 16   | Recommendations        => 870 |
+# | graph                         => 14   | LatentSemanticAnalysis => 870 |
+# | net regression                => 13   | RandomTabularDataset   => 870 |
+# | extract statistical thesaurus => 13   | NeuralNetworkCreation  => 870 |
+# | drill                         => 13   |                               |
 # | (Other)                       => 5099 |                               |
 # +---------------------------------------+-------------------------------+
 ```
@@ -264,18 +283,18 @@ srand(33);
 .say for @wCommands.pick(12).sort
 ```
 ```
-# create random-driven data set and 585 variables => RandomTabularDataset
-# display plots with date axis => QuantileRegression
-# give tag types => Recommendations
+# calculate the consumption profile of the 7dxahjsy => Recommendations
+# give the matrix dimensions => Recommendations
 # how many nets in repository => NeuralNetworkCreation
-# list the available neural networks => NeuralNetworkCreation
-# list the names of available neural models => NeuralNetworkCreation
-# load the data y4qdjximp data of 18d7y6c => LatentSemanticAnalysis
-# make standard pipeline => QuantileRegression
+# list the names of models => NeuralNetworkCreation
+# list the names of models assign boolean decoder using n2pr n2pr chain with dot layer how many networks how many nets in repository set decoder tokens by ndwax6 ndwax6 => NeuralNetworkCreation
+# load the text collection 9ze2l17vmn => LatentSemanticAnalysis
+# make a random-driven data set for max number of values 574 => RandomTabularDataset
 # modify boolean columns to boolean => Classification
-# show count of columns => Recommendations
-# show the recommendation matrix count of rows => Recommendations
-# suggest for the consumption profile pot -> 947.411 together with kbvxro : 208.979 , kbvxro -> 208.979 , and kbvxro : 208.979 , kbvxro : 208.979 and kbvxro : 208.979 => Recommendations
+# set decoder scalar with 1tnclgp 1tnclgp => NeuralNetworkCreation
+# split the into 100.413 percent train data summarize data into 387.633 percent train create an classifier using n4x for 118.329 percent of available records => Classification
+# verify that CorrectlyClassifiedExamples is equal to 825.482 percent => Classification
+# what is the number of nets in repository => NeuralNetworkCreation
 ```
 
 **Remark:** The labeled DSL commands ingested above were generated using the grammars of the project
@@ -335,9 +354,9 @@ records-summary(%wordTallies.values.List)
 # +---------------------+
 # | Max    => 2828      |
 # | Mean   => 11.189731 |
-# | Min    => 1         |
-# | 3rd-Qu => 2         |
 # | Median => 1         |
+# | 3rd-Qu => 2         |
+# | Min    => 1         |
 # | 1st-Qu => 1         |
 # +---------------------+
 ```
@@ -379,46 +398,46 @@ to-pretty-table([%( ^@tbls.elems Z=> @tbls),], field-names => (0 ..^ @tbls.elems
 #   +-------------+-------+   +----------------+-------+   +----------------+-------+   +-------------+-------+  
 #   | word        | count |   | word           | count |   | word           | count |   | word        | count |  
 #   +-------------+-------+   +----------------+-------+   +----------------+-------+   +-------------+-------+  
-#   | data        | 1432  |   | workflow       | 121   |   | latent         | 54    |   | cosine      | 26    |  
-#   | tabular     | 513   |   | normal         | 120   |   | generator      | 52    |   | curve       | 26    |  
-#   | set         | 485   |   | recommendation | 120   |   | extend         | 52    |   | dependent   | 26    |  
+#   | data        | 1432  |   | workflow       | 121   |   | latent         | 54    |   | dependent   | 26    |  
+#   | tabular     | 513   |   | normal         | 120   |   | generator      | 52    |   | cosine      | 26    |  
+#   | set         | 485   |   | recommendation | 120   |   | extend         | 52    |   | curve       | 26    |  
 #   | create      | 444   |   | form           | 118   |   | verify         | 51    |   | class       | 25    |  
 #   | generate    | 416   |   | term           | 112   |   | fit            | 48    |   | input       | 24    |  
 #   | pipeline    | 341   |   | variable       | 110   |   | summary        | 45    |   | count       | 24    |  
-#   | frame       | 331   |   | history        | 109   |   | step           | 44    |   | method      | 23    |  
-#   | values      | 330   |   | partition      | 107   |   | add            | 43    |   | basis       | 23    |  
+#   | frame       | 331   |   | history        | 109   |   | step           | 44    |   | basis       | 23    |  
+#   | values      | 330   |   | partition      | 107   |   | add            | 43    |   | method      | 23    |  
 #   | context     | 329   |   | semantic       | 106   |   | plot           | 43    |   | minutes     | 22    |  
 #   | display     | 256   |   | thesaurus      | 105   |   | repository     | 39    |   | inverse     | 22    |  
-#   | names       | 254   |   | explain        | 100   |   | assert         | 38    |   | false       | 21    |  
-#   | matrix      | 243   |   | wide           | 99    |   | rescale        | 38    |   | maximum     | 21    |  
+#   | names       | 254   |   | explain        | 100   |   | rescale        | 38    |   | false       | 21    |  
+#   | matrix      | 243   |   | wide           | 99    |   | assert         | 38    |   | maximum     | 21    |  
 #   | layer       | 242   |   | filter         | 95    |   | reduction      | 37    |   | minute      | 20    |  
-#   | neural      | 226   |   | network        | 94    |   | modify         | 36    |   | total       | 19    |  
-#   | random      | 225   |   | recommend      | 93    |   | sum            | 36    |   | sequence    | 19    |  
-#   | max         | 224   |   | load           | 87    |   | remove         | 35    |   | steps       | 19    |  
-#   | profile     | 215   |   | model          | 87    |   | drill          | 35    |   | hours       | 19    |  
-#   | compute     | 191   |   | format         | 86    |   | image          | 35    |   | temporal    | 19    |  
-#   | train       | 183   |   | extract        | 85    |   | divide         | 34    |   | element     | 18    |  
-#   | standard    | 177   |   | transform      | 84    |   | symbolic       | 34    |   | categorical | 18    |  
-#   | arbitrary   | 176   |   | chain          | 83    |   | terms          | 34    |   | absolute    | 18    |  
-#   | batch       | 174   |   | function       | 82    |   | tabulate       | 33    |   | hour        | 17    |  
-#   | size        | 173   |   | frequency      | 82    |   | binary         | 33    |   | audio       | 17    |  
-#   | calculate   | 172   |   | current        | 81    |   | reduce         | 33    |   | map         | 17    |  
-#   | randomized  | 169   |   | decoder        | 80    |   | chart          | 33    |   | validating  | 16    |  
-#   | regression  | 167   |   | list           | 78    |   | classification | 32    |   | squared     | 16    |  
-#   | loss        | 166   |   | ensemble       | 77    |   | histogram      | 31    |   | fraction    | 16    |  
-#   | classifier  | 163   |   | initialize     | 74    |   | characteristic | 30    |   | collection  | 16    |  
-#   | assign      | 160   |   | entropy        | 74    |   | interpolation  | 30    |   | validation  | 15    |  
-#   | chance      | 158   |   | object         | 73    |   | operating      | 30    |   | true        | 15    |  
-#   | driven      | 158   |   | dimension      | 70    |   | boolean        | 30    |   | testing     | 14    |  
-#   | column      | 158   |   | analysis       | 69    |   | receiver       | 30    |   | ctc         | 14    |  
-#   | min         | 157   |   | summarize      | 65    |   | moving         | 30    |   | probability | 14    |  
-#   | time        | 147   |   | retrieve       | 64    |   | roc            | 30    |   | scalar      | 14    |  
-#   | consumption | 146   |   | apply          | 61    |   | ingest         | 30    |   | ramp        | 14    |  
-#   | echo        | 138   |   | percent        | 61    |   | idf            | 30    |   | day         | 13    |  
-#   | document    | 133   |   | normalization  | 59    |   | equal          | 30    |   | measurement | 13    |  
-#   | item        | 130   |   | cross          | 59    |   | axis           | 28    |   | synonym     | 13    |  
-#   | word        | 128   |   | graph          | 56    |   | split          | 27    |   | tag         | 12    |  
-#   | series      | 124   |   | statistical    | 55    |   | degree         | 27    |   | label       | 12    |  
+#   | neural      | 226   |   | network        | 94    |   | sum            | 36    |   | temporal    | 19    |  
+#   | random      | 225   |   | recommend      | 93    |   | modify         | 36    |   | sequence    | 19    |  
+#   | max         | 224   |   | model          | 87    |   | image          | 35    |   | total       | 19    |  
+#   | profile     | 215   |   | load           | 87    |   | remove         | 35    |   | hours       | 19    |  
+#   | compute     | 191   |   | format         | 86    |   | drill          | 35    |   | steps       | 19    |  
+#   | train       | 183   |   | extract        | 85    |   | symbolic       | 34    |   | element     | 18    |  
+#   | standard    | 177   |   | transform      | 84    |   | terms          | 34    |   | absolute    | 18    |  
+#   | arbitrary   | 176   |   | chain          | 83    |   | divide         | 34    |   | categorical | 18    |  
+#   | batch       | 174   |   | frequency      | 82    |   | binary         | 33    |   | hour        | 17    |  
+#   | size        | 173   |   | function       | 82    |   | chart          | 33    |   | map         | 17    |  
+#   | calculate   | 172   |   | current        | 81    |   | tabulate       | 33    |   | audio       | 17    |  
+#   | randomized  | 169   |   | decoder        | 80    |   | reduce         | 33    |   | collection  | 16    |  
+#   | regression  | 167   |   | list           | 78    |   | classification | 32    |   | fraction    | 16    |  
+#   | loss        | 166   |   | ensemble       | 77    |   | histogram      | 31    |   | validating  | 16    |  
+#   | classifier  | 163   |   | initialize     | 74    |   | interpolation  | 30    |   | squared     | 16    |  
+#   | assign      | 160   |   | entropy        | 74    |   | characteristic | 30    |   | true        | 15    |  
+#   | driven      | 158   |   | object         | 73    |   | receiver       | 30    |   | validation  | 15    |  
+#   | column      | 158   |   | dimension      | 70    |   | roc            | 30    |   | probability | 14    |  
+#   | chance      | 158   |   | analysis       | 69    |   | ingest         | 30    |   | ctc         | 14    |  
+#   | min         | 157   |   | summarize      | 65    |   | moving         | 30    |   | testing     | 14    |  
+#   | time        | 147   |   | retrieve       | 64    |   | operating      | 30    |   | ramp        | 14    |  
+#   | consumption | 146   |   | apply          | 61    |   | idf            | 30    |   | scalar      | 14    |  
+#   | echo        | 138   |   | percent        | 61    |   | boolean        | 30    |   | measurement | 13    |  
+#   | document    | 133   |   | cross          | 59    |   | equal          | 30    |   | day         | 13    |  
+#   | item        | 130   |   | normalization  | 59    |   | axis           | 28    |   | synonym     | 13    |  
+#   | word        | 128   |   | graph          | 56    |   | split          | 27    |   | density     | 12    |  
+#   | series      | 124   |   | statistical    | 55    |   | degree         | 27    |   | naive       | 12    |  
 #   +-------------+-------+   +----------------+-------+   +----------------+-------+   +-------------+-------+  
 # +                         +                            +                            +                         +
 ```
@@ -439,11 +458,11 @@ my %splitGroups = @wCommands.categorize({ $_.value });
 to-pretty-table([%splitGroups>>.elems,])
 ```
 ```
-# +------------------------+-----------------+----------------+----------------------+-----------------------+--------------------+
-# | LatentSemanticAnalysis | Recommendations | Classification | RandomTabularDataset | NeuralNetworkCreation | QuantileRegression |
-# +------------------------+-----------------+----------------+----------------------+-----------------------+--------------------+
-# |          870           |       870       |      870       |         870          |          870          |        870         |
-# +------------------------+-----------------+----------------+----------------------+-----------------------+--------------------+
+# +-----------------------+----------------+-----------------+----------------------+------------------------+--------------------+
+# | NeuralNetworkCreation | Classification | Recommendations | RandomTabularDataset | LatentSemanticAnalysis | QuantileRegression |
+# +-----------------------+----------------+-----------------+----------------------+------------------------+--------------------+
+# |          870          |      870       |       870       |         870          |          870           |        870         |
+# +-----------------------+----------------+-----------------+----------------------+------------------------+--------------------+
 ```
 
 Here each category is:
@@ -488,12 +507,12 @@ Here we show a sample of commands from the training part:
 .raku.say for %split2<training>.pick(6)
 ```
 ```
-# "train the network over 19.7479 minute batch size 36 batch size 36" => "NeuralNetworkCreation"
-# "find and echo outliers" => "QuantileRegression"
-# "dimension reduction using 19.7517" => "Classification"
-# "generate arbitrary data frame for the column generator Normal together with RandomString , RandomReal , Poisson , RandomString over min number of values 211 for 514 variables" => "RandomTabularDataset"
-# "make an random-driven tabular data ," => "RandomTabularDataset"
-# "show TopologyHash" => "NeuralNetworkCreation"
+# "initialize the neural network 7tmq" => "NeuralNetworkCreation"
+# "get from context gz9evj" => "QuantileRegression"
+# "consider xj4nacw2 data" => "Classification"
+# "display chart with dates" => "QuantileRegression"
+# "show the tag types" => "Recommendations"
+# "get dataset with id 6p0ydgtb9" => "QuantileRegression"
 ```
 
 ------
@@ -518,7 +537,7 @@ Here we make a "known words" set using the "frequent enough" words of the traini
 %wordTallies3.elems
 ```
 ```
-# 207
+# 206
 ```
 
 ```perl6
@@ -526,7 +545,7 @@ my %knownWords = Set(%wordTallies3);
 %knownWords.elems
 ```
 ```
-# 207
+# 206
 ```
 
 Here we define a sub that converts commands into trie-phrases: 
@@ -552,8 +571,8 @@ say $rb.raku;
 say make-trie-basket($rb, %knownWords).raku;
 ```
 ```
-# "dimension reduction using 483.181 columns over SVD" => "Classification"
-# ["columns", "dimension", "reduction", "svd", "Classification"]
+# "set encoder Class by 4ndjyqve 4ndjyqve" => "NeuralNetworkCreation"
+# ["class", "encoder", "set", "NeuralNetworkCreation"]
 ```
 
 Here we convert all training data commands into trie-phrases:
@@ -566,7 +585,7 @@ my @training = %split2<training>.map({ make-trie-basket($_, %knownWords) }).Arra
 say "Time to process traning commands: {now - $tStart}."
 ```
 ```
-# Time to process traning commands: 0.342244366.
+# Time to process traning commands: 0.336231422.
 ```
 
 Here we make the trie:
@@ -579,7 +598,7 @@ my $trDSL = @training.&trie-create.node-probabilities;
 say "Time to make the DSL trie: {now - $tStart}."
 ```
 ```
-# Time to make the DSL trie: 0.470246085.
+# Time to make the DSL trie: 0.445799211.
 ```
 
 Here are the trie node counts:
@@ -588,7 +607,7 @@ Here are the trie node counts:
 $trDSL.node-counts
 ```
 ```
-# {Internal => 5282, Leaves => 1796, Total => 7078}
+# {Internal => 5259, Leaves => 1785, Total => 7044}
 ```
 
 Here is an example classification of a command:
@@ -597,7 +616,7 @@ Here is an example classification of a command:
 $trDSL.classify(make-trie-basket('show the outliers', %knownWords), prop => 'Probabilities'):!verify-key-existence
 ```
 ```
-# {Classification => 0.5714285714285715, QuantileRegression => 0.42857142857142855}
+# {Classification => 0.5862068965517241, QuantileRegression => 0.4137931034482759}
 ```
 
 ------
@@ -631,8 +650,8 @@ say "Total time to classify {%split2<testing>.elems} tests with the DSL trie: {$
 say "Time per classification: {($tEnd - $tStart)/@actualPredicted.elems}."
 ```
 ```
-# Total time to classify 1302 tests with the DSL trie: 1.078078112.
-# Time per classification: 0.0008280169831029186.
+# Total time to classify 1302 tests with the DSL trie: 0.608161339.
+# Time per classification: 0.00046709780261136716.
 ```
 
 Here is the confusion matrix (using `cross-tabulate` of 
@@ -646,12 +665,12 @@ to-pretty-table($ct, field-names=>@labels.sort.Array.append('NA'))
 # +------------------------+----------------+------------------------+-----------------------+--------------------+----------------------+-----------------+----+
 # |                        | Classification | LatentSemanticAnalysis | NeuralNetworkCreation | QuantileRegression | RandomTabularDataset | Recommendations | NA |
 # +------------------------+----------------+------------------------+-----------------------+--------------------+----------------------+-----------------+----+
-# | Classification         |      157       |           9            |                       |         21         |          13          |        11       | 6  |
-# | LatentSemanticAnalysis |       1        |          182           |                       |         3          |          12          |        17       | 2  |
-# | NeuralNetworkCreation  |                |           9            |          196          |         1          |                      |                 | 11 |
-# | QuantileRegression     |       19       |           14           |           3           |        157         |          3           |        18       | 3  |
-# | RandomTabularDataset   |                |                        |                       |         5          |         211          |        1        |    |
-# | Recommendations        |                |           10           |                       |         9          |          8           |       183       | 7  |
+# | Classification         |      170       |           9            |                       |         18         |          9           |        8        | 3  |
+# | LatentSemanticAnalysis |       3        |          195           |                       |         3          |          6           |        10       |    |
+# | NeuralNetworkCreation  |                |                        |          199          |         2          |                      |        2        | 14 |
+# | QuantileRegression     |       25       |           13           |           6           |        150         |          5           |        16       | 2  |
+# | RandomTabularDataset   |                |                        |                       |                    |         216          |        1        |    |
+# | Recommendations        |       3        |           12           |           1           |         14         |          12          |       167       | 8  |
 # +------------------------+----------------+------------------------+-----------------------+--------------------+----------------------+-----------------+----+
 ```
 
@@ -665,12 +684,12 @@ to-pretty-table($ct2, field-names=>@labels.sort.Array.append('NA'))
 # +------------------------+----------------+------------------------+-----------------------+--------------------+----------------------+-----------------+----------+
 # |                        | Classification | LatentSemanticAnalysis | NeuralNetworkCreation | QuantileRegression | RandomTabularDataset | Recommendations |    NA    |
 # +------------------------+----------------+------------------------+-----------------------+--------------------+----------------------+-----------------+----------+
-# | Classification         |    0.723502    |        0.041475        |                       |      0.096774      |       0.059908       |     0.050691    | 0.027650 |
-# | LatentSemanticAnalysis |    0.004608    |        0.838710        |                       |      0.013825      |       0.055300       |     0.078341    | 0.009217 |
-# | NeuralNetworkCreation  |                |        0.041475        |        0.903226       |      0.004608      |                      |                 | 0.050691 |
-# | QuantileRegression     |    0.087558    |        0.064516        |        0.013825       |      0.723502      |       0.013825       |     0.082949    | 0.013825 |
-# | RandomTabularDataset   |                |                        |                       |      0.023041      |       0.972350       |     0.004608    |          |
-# | Recommendations        |                |        0.046083        |                       |      0.041475      |       0.036866       |     0.843318    | 0.032258 |
+# | Classification         |    0.783410    |        0.041475        |                       |      0.082949      |       0.041475       |     0.036866    | 0.013825 |
+# | LatentSemanticAnalysis |    0.013825    |        0.898618        |                       |      0.013825      |       0.027650       |     0.046083    |          |
+# | NeuralNetworkCreation  |                |                        |        0.917051       |      0.009217      |                      |     0.009217    | 0.064516 |
+# | QuantileRegression     |    0.115207    |        0.059908        |        0.027650       |      0.691244      |       0.023041       |     0.073733    | 0.009217 |
+# | RandomTabularDataset   |                |                        |                       |                    |       0.995392       |     0.004608    |          |
+# | Recommendations        |    0.013825    |        0.055300        |        0.004608       |      0.064516      |       0.055300       |     0.769585    | 0.036866 |
 # +------------------------+----------------+------------------------+-----------------------+--------------------+----------------------+-----------------+----------+
 ```
 
@@ -683,12 +702,12 @@ to-pretty-table( @labels.map({ $_ => $ct2.Hash{$_;$_} }) )
 # +------------------------+----------+
 # |                        |    0     |
 # +------------------------+----------+
-# | Classification         | 0.723502 |
-# | LatentSemanticAnalysis | 0.838710 |
-# | NeuralNetworkCreation  | 0.903226 |
-# | QuantileRegression     | 0.723502 |
-# | RandomTabularDataset   | 0.972350 |
-# | Recommendations        | 0.843318 |
+# | Classification         | 0.783410 |
+# | LatentSemanticAnalysis | 0.898618 |
+# | NeuralNetworkCreation  | 0.917051 |
+# | QuantileRegression     | 0.691244 |
+# | RandomTabularDataset   | 0.995392 |
+# | Recommendations        | 0.769585 |
 # +------------------------+----------+
 ```
 
@@ -707,22 +726,22 @@ srand(883);
 to-pretty-table(@actualPredicted.grep({ $_<actual> ne $_<predicted> }).pick(12).sort({ $_<command> }), field-names=><actual predicted command>, align=>'l')
 ```
 ```
-# +------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
-# | actual                 | predicted              | command                                                                                                                                           |
-# +------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
-# | Classification         | LatentSemanticAnalysis | add in context as lj92ug                                                                                                                          |
-# | Classification         | LatentSemanticAnalysis | calculate and give shuffling accuracies                                                                                                           |
-# | Recommendations        | QuantileRegression     | display the pipeline context                                                                                                                      |
-# | LatentSemanticAnalysis | RandomTabularDataset   | get data xnqer0b1kd                                                                                                                               |
-# | LatentSemanticAnalysis | Recommendations        | get from context dk5rxf1gph                                                                                                                       |
-# | Classification         | Recommendations        | put into context as 2e1h                                                                                                                          |
-# | QuantileRegression     | Classification         | resample time series for smallest difference step echo summaries plots ingest the wsqvxt2 time series get the 3ylozb1 data do quantile regression |
-# | QuantileRegression     | Recommendations        | retrieve abi30 from context                                                                                                                       |
-# | Recommendations        | RandomTabularDataset   | suggest via 7hkvfwz explain recommendation results make recommender create a standard recommender object pipeline using qed9w0t                   |
-# | Classification         | RandomTabularDataset   | transform numeric variables to categorical                                                                                                        |
-# | QuantileRegression     | RandomTabularDataset   | use it5q2861 data                                                                                                                                 |
-# | QuantileRegression     | Classification         | xtabs for dependent column against dependent column                                                                                               |
-# +------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+# +------------------------+------------------------+-----------------------------------------------------------------------------+
+# | actual                 | predicted              | command                                                                     |
+# +------------------------+------------------------+-----------------------------------------------------------------------------+
+# | NeuralNetworkCreation  | NA                     | ConstantArrayLayer                                                          |
+# | Classification         | RandomTabularDataset   | consider data zow6 data                                                     |
+# | QuantileRegression     | LatentSemanticAnalysis | display current pipeline context                                            |
+# | Classification         | QuantileRegression     | echo summary                                                                |
+# | QuantileRegression     | Classification         | find and echo the time series top the outliers by quantile 246.654 quantile |
+# | Classification         | Recommendations        | find and echo variable importance                                           |
+# | QuantileRegression     | RandomTabularDataset   | get data with id m1lyaov                                                    |
+# | QuantileRegression     | Classification         | give summary                                                                |
+# | Recommendations        | NeuralNetworkCreation  | join the recommendations over the c9u8j4l2qo                                |
+# | LatentSemanticAnalysis | Recommendations        | put in context as w1ku8pxev                                                 |
+# | Recommendations        | Classification         | show pipeline context keys                                                  |
+# | Recommendations        | NA                     | suggest via esv4zaunp -> 538.697                                            |
+# +------------------------+------------------------+-----------------------------------------------------------------------------+
 ```
 
 **Remark:** We observe that a certain proportion of the misclassified commands are ambiguous -- they do not belong to only one DSL.
@@ -865,7 +884,7 @@ my $trie-to-export = [|%split2<training>, |%split2<testing>].map({ make-trie-bas
 $trie-to-export.node-counts;
 ```
 ```
-# {Internal => 6575, Leaves => 2179, Total => 8754}
+# {Internal => 6560, Leaves => 2175, Total => 8735}
 ```
 
 ```perl6

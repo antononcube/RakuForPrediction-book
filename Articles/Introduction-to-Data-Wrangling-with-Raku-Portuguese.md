@@ -83,9 +83,9 @@ Alternativamente, eu apenas usei o formulário que me pareceu mais fácil ou mai
 Este documento é uma tradução (do inglês para o búlgaro) do documento
 ["Introduction to Data Wrangling with Raku"](https://rakuforprediction.wordpress.com/2021/12/31/introduction-to-data-wrangling-with-raku/).
 
-A tradução de alguns conceitos e frases do inglês para o búlgaro é, talvez, controversa.
+A tradução de alguns conceitos e frases do inglês para o portugues é, talvez, controversa.
 (E, talvez, francamente irritante para alguns leitores.)
-Por esse motivo, implementei um glossário de palavras e frases técnicas nesta subseção.
+Por esse motivo, fiz um glossário de palavras e frases técnicas nesta subseção.
 
 - Conjunto de dados : Dataset
 - Ciência de Dados : Data Science

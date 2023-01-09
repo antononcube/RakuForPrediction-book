@@ -4,7 +4,7 @@
 
 Anton Antonov   
 [RakuForPrediction at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
-Dezembro 2021
+Dezembro 2021   
 Janeiro 2023
 
 ## Introdução

@@ -1,5 +1,4 @@
-# Grammar based random sentences generation
-## **Part 1**
+# Grammar based random sentences generation -- Part 1
 
 ## Introduction
 
@@ -8,10 +7,10 @@ In this article we discuss the generation of random sentences using [Raku gramma
 The generations discussed are done with the package functions and scripts of 
 ["Grammar::TokenProcessing"](https://raku.land/zef:antononcube/Grammar::TokenProcessing), [AAp1].
 
-The random sentence generator in [AAp1] is limited, it does not parse all possible Raku grammars. 
-But I need it for my 
+The random sentence generator in "Grammar::TokenProcessing" is limited, it does not parse all possible Raku grammars. 
+But since I need it for my 
 [Domain Specific Language (DSL) parser-interpreters work](https://raku.land/?q=DSL%3A%3AEnglish),
-which cover a fairly large (if common) grammar ground.
+it covers a fairly large (if common) grammar ground.
 
 ### Preliminary examples
 
@@ -45,8 +44,8 @@ use DSL::English::LatentSemanticAnalysisWorkflows::Grammar;
 The ability to design and implement grammars using the Object-Oriented Programming (OOP) paradigm
 is one of the most distinguishing features of Raku. (I think it is "the most.")
 
-Real-life grammars -- especially developed with OOP -- can multiple component definitions (say, roles)
-in multiple files. Figuring out what sentences a grammar can handle is most like not an easy task. 
+Real-life grammars -- especially developed with OOP -- can have multiple component definitions (say, roles)
+in multiple files. Figuring out what sentences a grammar can handle is most likely not an easy task. 
 
 Here are some additional reasons to have grammar-based random sentence generation:
 
@@ -54,6 +53,7 @@ Here are some additional reasons to have grammar-based random sentence generatio
 - Grammar adequacy evaluation
 - Handling un-parsable statements by showing examples of similar (random) statements
 - Development of classifiers of grammars or grammar rules
+- Generation of random expressions with a particular structure
 
 **Remark:** The article [AA1] and the presentation [AAv1] discuss making grammar classifiers
 using random sentences generated with the grammars the classifiers are for.
@@ -63,20 +63,19 @@ using random sentences generated with the grammars the classifiers are for.
 ## Not using RakuAST
 
 I evaluate maturity of parser-making systems by their ability to generate random sentences from grammars.
-Surprisingly, with almost all systems that is not easy. (That list includes Raku and ANTLR.)
+Surprisingly, with almost all systems that is not easy. (That list includes Raku.)
 
 I was told that making a random sentence generator with
-["RakuAST"](https://news.perlfoundation.org/post/2022-02-raku-ast-grant)
-that might / should be easy.
-But until "RakuAST" is released, I am interested in having "current Raku" solution(s).
+[RakuAST](https://news.perlfoundation.org/post/2022-02-raku-ast-grant)
+would be easy. But until "RakuAST" is released, I am interested in having "current Raku" solution(s).
 
 ------
 
 ## Simple grammars
 
-### Love-hate languages
+### Love-hate of languages
 
-Consider a version of the "love-hate languages" grammar in which:
+Consider a version of the "love-hate of languages" grammar in which:
 
 - The `<love>` token has a quantifier
 
@@ -116,10 +115,10 @@ grammar ISBN {
 }
 ```
 
-In order to generate ("good looking") random sentences with that grammar we have to:
+In order to generate "good looking" random sentences with that grammar we have to:
 
 - Define a random digit generator that is simpler than the default one
-- Use a empty string for a separator
+- Use an empty string as a separator
 
 ```perl6
 use Data::Generators;
@@ -142,7 +141,7 @@ Here is how the random ISBNs look with the default settings:
 
 ## Default random token generators
 
-Here are the *keys* default random token generators used by `random-sentence-generation`:
+Here are the *keys* of the default random token generators used by `random-sentence-generation`:
 
 ```perl6
 .say for default-random-token-generators().keys;
@@ -154,7 +153,7 @@ As it was demonstrated in the previous section, generation rules can changed and
 
 ## "Advanced" DSL grammars
 
-My main "target" grammars are DSL grammars for computational workflows. Here are the main ones:
+My primary "target" grammars are DSL grammars for computational workflows. Here are the main ones:
 
 - `DSL::English::ClassificationWorkflows::Grammar`
 - `DSL::English::DataQueryWorkflows::Grammar`
@@ -162,7 +161,7 @@ My main "target" grammars are DSL grammars for computational workflows. Here are
 - `DSL::English::QuantileRegressionWorkflows::Grammar`
 - `DSL::English::RecommenderWorkflows::Grammar`
 
-The main, first level rules of those grammars have name that finish with "-command".
+The main, first level rules of those grammars have names that finish with "-command".
 Here are the commands in the classification workflows grammar:
 
 ```perl6
@@ -178,13 +177,16 @@ Here we generate sentences with `<split-data-command>`:
 .say for random-sentence-generation($focusGrammar, '<split-data-command>') xx 6;
 ```
 
-Here we generate sentences with `<split-data-command>`:
+Here we generate sentences with `<recommend-data-command>` of the recommender workflows grammar:
 
 ```perl6
 use DSL::English::RecommenderWorkflows;
 my $focusGrammar = DSL::English::RecommenderWorkflows::Grammar;
-.say for random-sentence-generation($focusGrammar, '<recommend-by-profile-command>') xx 6;
+.say for random-sentence-generation($focusGrammar, '<recommend-by-profile-command>', max-iterations => 100) xx 6;
 ```
+
+**Remark:** The grammars, generally, parse a larger set of sentences than the grammatically correct ones.
+Hence, in some (or many) cases the generated sentences might look "strange" or "non-linear."
 
 ------
 
@@ -194,15 +196,19 @@ Here is how we generate commands with DSLs based other languages (Bulgarian):
 
 ```perl6
 use DSL::Bulgarian::QuantileRegressionWorkflows::Grammar;
-.say for random-sentence-generation(DSL::Bulgarian::QuantileRegressionWorkflows::Grammar, '<pipeline-command>', syms => <Bulgarian English>) xx 6;
+.say for random-sentence-generation(DSL::Bulgarian::QuantileRegressionWorkflows::Grammar, syms => <Bulgarian English>) xx 6;
 ```
 
+**Remark:** The package "DSL::Bulgarian", [AAp2], reuses the English-based grammars for computational workflows. 
+It just provides Bulgarian tokens that replace English tokens -- the assumption is short Bulgarian and English commands
+have the same structure, [AA2]. Hence, a fair amount of the Bulgarian random sentences are "wrong." As mentioned in 
+the previous section, correct Bulgarian sentences are, of course, also parsed.
 
 ------
 
 ## CLI
 
-The package [AAp1] provides are Command Line Interface (CLI) script. Here is an example:
+The package "Grammar::TokenProcessing" provides a Command Line Interface (CLI) script. Here is an example:
 
 ```shell
 random-sentence-generation DSL::English::QuantileRegressionWorkflows::Grammar -n=10
@@ -210,15 +216,17 @@ random-sentence-generation DSL::English::QuantileRegressionWorkflows::Grammar -n
 
 ------
 
-## Additional remarks 
+## "Leftover" comments 
 
-- I decided I cannot wait for RakuAST for the development of my DSL projects, so I actively program "workarounds".
-  One such workaround is the implementation of random sentences generator
+- I decided I cannot wait for RakuAST in order to advance the development of my DSL projects, so, I actively program "workarounds".
+  One such workaround is the implementation of random sentences generator.
 
 - Moritz Lenz remarks in "Parsing with Perl 6 Regexes and Grammars", [ML1], that grammars are Swiss-army chain saw for parsing.
-  Hence, being able to randomly -- and quickly -- unfold the tools/components of such chain saw would give a nice overview of 
+  Hence, being able to randomly -- and quickly -- unfold the components of such chain saw would give a nice overview of 
   its Swiss-army-ness.
 
+- Jonathan Worthington discussed random sentences generation with Raku (Perl6) grammars 7-9 years. 
+  Unfortunately, I cannot find that presentation. (When I do I will post a link here.)
 
 ------
 
@@ -236,7 +244,6 @@ random-sentence-generation DSL::English::QuantileRegressionWorkflows::Grammar -n
 (2021),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
-
 [ML1] Moritz Lenz,
 "Parsing with Perl 6 Regexes and Grammars: A Recursive Descent into Parsing",
 2017,
@@ -250,7 +257,12 @@ ISBN-13 : 978-1484232279.
 [AAp1] Anton Antonov,
 [Grammar::TokenProcessing Raku package](https://raku.land/zef:antononcube/Grammar::TokenProcessing),
 (2021-2022),
-[raku.land](https://raku.land/zef:antononcube/Grammar::TokenProcessing).
+[raku.land/antononcube](https://raku.land/zef:antononcube).
+
+[AAp2] Anton Antonov,
+[DSL::Bulgarian Raku package](https://raku.land/zef:antononcube/DSL::Bulgarian),
+(2021-2022),
+[raku.land/antononcube](https://raku.land/zef:antononcube).
 
 
 ### Presentations

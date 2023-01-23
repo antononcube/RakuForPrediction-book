@@ -19,7 +19,7 @@ Let us generate a few random sentences using the front page example at [raku.org
 ```perl6
 grammar Parser {
     rule  TOP  { I <love> <lang> }
-    token love { '♥' | '🤮' | love }
+    token love { '♥' | ':O=' | love }
     token lang { < Raku Perl Rust Go Python Ruby > }
 }
 
@@ -28,12 +28,12 @@ use Grammar::TokenProcessing;
 .say for random-sentence-generation(Parser) xx 6;
 ```
 ```
-# I love Python
-# I ♥ Raku
-# I ♥ Ruby
-# I ♥ Raku
-# I 🤮 Go
-# I love Ruby
+# I :O= Python
+# I ♥ Go
+# I love Rust
+# I ♥ Rust
+# I :O= Perl
+# I love Rust
 ```
 
 Here is an example of random sentence generation using the DSL package
@@ -45,12 +45,12 @@ use DSL::English::LatentSemanticAnalysisWorkflows::Grammar;
 .say for random-sentence-generation(DSL::English::LatentSemanticAnalysisWorkflows::Grammar) xx 6;
 ```
 ```
-# take data the VAR_NAME("zakKs") with VAR_NAME("goGEk")
-# utilize using textual VAR_NAME("NyNrs")
-# reflect using terms query QUERY_TEXT("ranching aspirate wail dishearten")
-# transform the term - weight functions normalization max normalization and global function None
-# what are the nns of the VAR_NAME("Opqph") and VAR_NAME("rCH5e")
-# create simple object textual VAR_NAME("JZspA")
+# show topics table
+# utilize lsa object VAR_NAME("K7YJQ")
+# utilize object VAR_NAME("LReXn")
+# reflect using terms the VAR_NAME("KPGW8")
+# what are the top nns with words VAR_NAME("EPV0q") , VAR_NAME("8OjDK")
+# show an term document
 ```
 
 ------
@@ -100,19 +100,19 @@ Consider a version of the "love-hate of languages" grammar in which:
 ```perl6
 grammar Parser2 {
     rule  TOP  { I <love> ** 1..3 <lang> }
-    token love { '♥' | '🤮' | love }
+    token love { '♥' | ':O=︎' | love }
     token lang { Raku | Perl | Rust | Go | Python | Ruby }
 }
 
 .say for random-sentence-generation(Parser2) xx 6;
 ```
 ```
-# I ♥ love Go
-# I 🤮 🤮 Python
-# I ♥ 🤮 ♥ Perl
-# I ♥ ♥ love Go
-# I ♥ Rust
-# I ♥ love 🤮 Rust
+# I love ♥ Go
+# I :O=︎ Perl
+# I :O=︎ love Go
+# I ♥ love ♥ Perl
+# I love love Perl
+# I love :O=︎ Raku
 ```
 
 Now let us move the quantifier in the token `love`:
@@ -120,19 +120,19 @@ Now let us move the quantifier in the token `love`:
 ```perl6
 grammar Parser3 {
     rule  TOP  { I <love>  <lang> }
-    token love { [ '♥' | '🤮' | love ] ** 1..3 }
+    token love { [ '♥' | ':O=' | love ] ** 1..3 }
     token lang { Raku | Perl | Rust | Go | Python | Ruby }
 }
 
 .say for random-sentence-generation(Parser3) xx 6;
 ```
 ```
+# I :O= Perl
+# I :O= Python
+# I :O= :O= Perl
+# I :O= :O= Python
 # I ♥ ♥ Rust
-# I 🤮 🤮 🤮 Ruby
-# I ♥ Raku
-# I love love Raku
-# I ♥ Python
-# I 🤮 🤮 🤮 Rust
+# I love love Ruby
 ```
 
 ### ISBN parser
@@ -166,12 +166,12 @@ my %randomTokenGenerators = default-random-token-generators();
 .say for random-sentence-generation(ISBN, random-token-generators => %randomTokenGenerators, sep => '') xx 6;
 ```
 ```
-# 601780065X
-# 1-67-6-7-410-43-
-# 234-2-237-79-8-
-# 781129118X
-# 951959951X
-# 9-23-2271-5-4-3-
+# 8-7-9-9-5-1-2-8-9-X
+# 8618-1-4-56-38-
+# 18-043-1-5-90-4
+# 1-3-0-5-7-3-3-9-9-X
+# 66-430-6-5-43-4
+# 3-2-8-482-7-0-52
 ```
 
 Here is how the random ISBNs look with the default settings:
@@ -180,12 +180,12 @@ Here is how the random ISBNs look with the default settings:
 .say for random-sentence-generation(ISBN) xx 6;
 ```
 ```
-# DIGIT(2) DIGIT(9) DIGIT(6) DIGIT(0) DIGIT(4) - DIGIT(2) - DIGIT(5) - DIGIT(0) DIGIT(4) DIGIT(8) -
-# DIGIT(4) DIGIT(1) DIGIT(4) DIGIT(9) DIGIT(2) DIGIT(3) DIGIT(1) DIGIT(3) DIGIT(5) X
-# DIGIT(6) DIGIT(0) - DIGIT(7) DIGIT(4) DIGIT(8) - DIGIT(3) - DIGIT(9) - DIGIT(6) DIGIT(1) DIGIT(1)
-# DIGIT(3) DIGIT(3) DIGIT(1) DIGIT(9) DIGIT(7) DIGIT(0) DIGIT(4) DIGIT(7) DIGIT(0) X
-# DIGIT(7) DIGIT(7) DIGIT(2) DIGIT(9) DIGIT(1) DIGIT(1) DIGIT(0) DIGIT(1) DIGIT(8) X
-# DIGIT(0) - DIGIT(2) DIGIT(4) DIGIT(2) - DIGIT(4) - DIGIT(9) DIGIT(8) - DIGIT(9) DIGIT(1) - DIGIT(0)
+# DIGIT(9) - DIGIT(5) - DIGIT(1) - DIGIT(3) DIGIT(9) - DIGIT(9) DIGIT(6) - DIGIT(6) DIGIT(6) DIGIT(2)
+# DIGIT(9) - DIGIT(1) DIGIT(0) DIGIT(4) - DIGIT(8) DIGIT(7) DIGIT(8) - DIGIT(6) - DIGIT(6) - DIGIT(5)
+# DIGIT(8) - DIGIT(3) - DIGIT(6) - DIGIT(7) DIGIT(2) - DIGIT(0) DIGIT(3) - DIGIT(3) DIGIT(1) - DIGIT(2) -
+# DIGIT(2) - DIGIT(2) - DIGIT(8) - DIGIT(9) - DIGIT(0) - DIGIT(7) - DIGIT(8) - DIGIT(4) - DIGIT(5) - X
+# DIGIT(6) - DIGIT(0) DIGIT(9) DIGIT(1) - DIGIT(3) DIGIT(5) - DIGIT(8) DIGIT(0) DIGIT(4) - DIGIT(9) -
+# DIGIT(0) - DIGIT(4) - DIGIT(0) - DIGIT(7) - DIGIT(0) - DIGIT(6) - DIGIT(4) - DIGIT(2) - DIGIT(3) - X
 ```
 
 ------
@@ -198,31 +198,31 @@ Here are the *keys* of the default random token generators used by `random-sente
 .say for default-random-token-generators().keys;
 ```
 ```
-# <digit>
-# <:Pd>
-# <shell-expr>
-# <.ws>?
-# <ws>
-# <query-text>
-# <variable-name>
-# <.ws>
-# <quoted-variable-name>
-# <integer>
-# <.alnum>
-# <wl-expr>
-# <mixed-quoted-variable-name>
-# <alnum>
-# <dataset-name>
-# <list-separator>?
-# <code-expr>
-# <function-name>
-# <list-separator>
 # <number>
-# <raku-module-name>
-# <number-value>
-# <integer-value>
-# <.digit>
+# <shell-expr>
+# <quoted-variable-name>
 # <regex-pattern>
+# <function-name>
+# <dataset-name>
+# <mixed-quoted-variable-name>
+# <.alnum>
+# <alnum>
+# <raku-module-name>
+# <.ws>?
+# <.digit>
+# <ws>
+# <wl-expr>
+# <variable-name>
+# <digit>
+# <list-separator>?
+# <:Pd>
+# <integer-value>
+# <number-value>
+# <list-separator>
+# <query-text>
+# <.ws>
+# <code-expr>
+# <integer>
 ```
 
 As it was demonstrated in the previous section, generation rules can changed and new ones added.
@@ -270,12 +270,12 @@ Here we generate sentences with `<split-data-command>`:
 .say for random-sentence-generation($focusGrammar, '<split-data-command>') xx 6;
 ```
 ```
-# split dataset
-# partition the time series using NUMBER(144.02)
-# partition data frame by data split NUMBER(224) , and method proportional method , random method using method class label proportional
-# partition data with fraction NUMBER(247.15) and using validation data NUMBER(242.1) and random method
-# partition the dataset using method class label proportional method & using validation NUMBER(55.28) using validation fraction NUMBER(176.18) using method random , using validation data fraction NUMBER(187.83) & validation data ratio NUMBER(215.61)
-# partition the data frame
+# split the data set with NUMBER(15.97)
+# divide data set
+# split time series data
+# divide time series data
+# divide time series with the ratio NUMBER(92)
+# partition data using proportional
 ```
 
 Here we generate sentences with `<recommend-data-command>` of the recommender workflows grammar:
@@ -286,12 +286,12 @@ my $focusGrammar = DSL::English::RecommenderWorkflows::Grammar;
 .say for random-sentence-generation($focusGrammar, '<recommend-by-profile-command>', max-iterations => 100) xx 6;
 ```
 ```
-# recommend with profile VAR_NAME("P94f4") , VAR_NAME("sMXS0") and VAR_NAME("JHg7J") : VAR_NAME("JlnaM") and VAR_NAME("tdP9E") : VAR_NAME("yDmTW")
-# recommend with the profile “ VAR_NAME("QqdsV") : VAR_NAME("Qb4m5") “ , VAR_NAME("QizBj") : VAR_NAME("xIWMr") , VAR_NAME("Ba0k2") : VAR_NAME("c4PFA") , VAR_NAME("W1GIP") and VAR_NAME("CrRW6") : VAR_NAME("PADrX") and VAR_NAME("ND4ES")
-# compute the INTEGER(294) recommendation using profile VAR_NAME("cfygh") : VAR_NAME("L0nZG") -> NUMBER(53.1) and VAR_NAME("wdGdr") : NUMBER(158.98) , VAR_NAME("Dm7Ls") -> NUMBER(236.98)
-# what is the top most relevant INTEGER(167) recommendation using profile ‘ VAR_NAME("NyP4u") : VAR_NAME("VP6pm") ‘ , VAR_NAME("gLiu3") : VAR_NAME("WMyrl") and VAR_NAME("oFANk") : VAR_NAME("dLnij")
-# top most relevant profile recommendation
-# most relevant top most relevant profile recommendation
+# recommend by the profile with VAR_NAME("vIEBc") : VAR_NAME("xCkpW") → NUMBER(7.38)
+# recommend by the profile with VAR_NAME("5ARpF") and VAR_NAME("97tS9") , VAR_NAME("yS8ZY") : VAR_NAME("hR27Q")
+# what is the most relevant recommendations for the profile VAR_NAME("EBFCV") : VAR_NAME("VyNsU") , VAR_NAME("4ICVj") : VAR_NAME("12fJv") , “ VAR_NAME("HL9TE") : VAR_NAME("pmSQg") “ , VAR_NAME("1iSCh") and VAR_NAME("SglMq") : VAR_NAME("P1oJf") , VAR_NAME("XZqht")
+# most relevant INTEGER(121) recommendation for profile VAR_NAME("5HQWx") -> NUMBER(188.16) and VAR_NAME("vguqu") -> NUMBER(143.52) and “ VAR_NAME("3a9SL") : VAR_NAME("qIbai") “ : NUMBER(118.9) , VAR_NAME("ZLRik") : VAR_NAME("iSmmV") : NUMBER(283.17) and VAR_NAME("A3EBt") : NUMBER(261.18) , VAR_NAME("ZXxLH") : VAR_NAME("aP4AY") -> NUMBER(178.04)
+# recommend for the profile with VAR_NAME("U83Io") : VAR_NAME("BNCAV") = NUMBER(39.51) and “ VAR_NAME("utgnU") : VAR_NAME("KRgKm") “ -> NUMBER(236.73) , VAR_NAME("IT8Sa") → NUMBER(31.07)
+# compute the top most relevant profile recommendation
 ```
 
 **Remark:** The grammars, generally, parse a larger set of sentences than the grammatically correct ones.
@@ -308,12 +308,12 @@ use DSL::Bulgarian::QuantileRegressionWorkflows::Grammar;
 .say for random-sentence-generation(DSL::Bulgarian::QuantileRegressionWorkflows::Grammar, syms => <Bulgarian English>) xx 6;
 ```
 ```
-# покажи чертеж чрез дати дата нула
-# вземи и ползвай DATASET_NAME("FSOSP")
-# прост обект създание DATASET_NAME("SquOV")
-# покажи текст VAR_NAME("tSQvh") , VAR_NAME("D6BOM") , VAR_NAME("xOAwk")
-# прави  QuantileRegression пасване
-# изчисли  данни връх  извънредности
+# движещ средeн чрез NUMBER(175.23) елементи
+# чертеж  абсолютен грешка чертежи
+# изчисли и покажи  дъно  извънредности
+# изчисли аномалии чрез праг NUMBER(36.33)
+# покажи канален стойност
+# рекапитулирай  данни
 ```
 
 **Remark:** The package "DSL::Bulgarian", [AAp2], reuses the English-based grammars for computational workflows. 
@@ -331,16 +331,16 @@ The package "Grammar::TokenProcessing" provides a Command Line Interface (CLI) s
 random-sentence-generation DSL::English::QuantileRegressionWorkflows::Grammar -n=10
 ```
 ```
-# load the data frame DATASET_NAME("D6l3M")
-# show the function VAR_NAME("NIV0X") over the pipeline context
-# display summaries
-# compute anomalies by residuals by the threshold NUMBER(79.54)
-# compute anomalies by the VAR_NAME("Jemt2") outlier identifier
-# utilize the dataset VAR_NAME("eaHnU")
-# configuration code
-# echo graph by dates using date origin
-# rescale the regressor axis
-# show data summary
+# compute and display data frame outliers with the seq( NUMBER(222.17) NUMBER(50.38) )
+# rescale both axes
+# take context
+# compute the outliers using the probabilities NUMBER(278.69) NUMBER(107.23) NUMBER(146.02)
+# echo summary
+# compute anomalies by residuals by the threshold NUMBER(222.34)
+# compute top outliers by the probability from NUMBER(91.44) into NUMBER(69.15) step NUMBER(256.2)
+# show plot of relative error plot
+# compute an QuantileRegression with the from NUMBER(190.34) into NUMBER(169.36)
+# compute and show the outliers
 ```
 
 ------

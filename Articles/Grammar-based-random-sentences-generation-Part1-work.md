@@ -19,7 +19,7 @@ Let us generate a few random sentences using the front page example at [raku.org
 ```perl6
 grammar Parser {
     rule  TOP  { I <love> <lang> }
-    token love { '♥' | '🤮' | love }
+    token love { '♥' | ':O=' | love }
     token lang { < Raku Perl Rust Go Python Ruby > }
 }
 
@@ -84,7 +84,7 @@ Consider a version of the "love-hate of languages" grammar in which:
 ```perl6
 grammar Parser2 {
     rule  TOP  { I <love> ** 1..3 <lang> }
-    token love { '♥' | '🤮' | love }
+    token love { '♥' | '︎:O=' | love }
     token lang { Raku | Perl | Rust | Go | Python | Ruby }
 }
 
@@ -96,7 +96,7 @@ Now let us move the quantifier in the token `love`:
 ```perl6
 grammar Parser3 {
     rule  TOP  { I <love>  <lang> }
-    token love { [ '♥' | '🤮' | love ] ** 1..3 }
+    token love { [ '♥' | ':O=' | love ] ** 1..3 }
     token lang { Raku | Perl | Rust | Go | Python | Ruby }
 }
 

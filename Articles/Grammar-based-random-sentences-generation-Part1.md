@@ -28,12 +28,12 @@ use Grammar::TokenProcessing;
 .say for random-sentence-generation(Parser) xx 6;
 ```
 ```
-# I :O= Python
 # I ♥ Go
-# I love Rust
-# I ♥ Rust
+# I love Perl
+# I ♥ Go
+# I love Raku
+# I love Go
 # I :O= Perl
-# I love Rust
 ```
 
 Here is an example of random sentence generation using the DSL package
@@ -45,12 +45,12 @@ use DSL::English::LatentSemanticAnalysisWorkflows::Grammar;
 .say for random-sentence-generation(DSL::English::LatentSemanticAnalysisWorkflows::Grammar) xx 6;
 ```
 ```
-# show topics table
-# utilize lsa object VAR_NAME("K7YJQ")
-# utilize object VAR_NAME("LReXn")
-# reflect using terms the VAR_NAME("KPGW8")
-# what are the top nns with words VAR_NAME("EPV0q") , VAR_NAME("8OjDK")
-# show an term document
+# include the setup code
+# echo the current pipeline value
+# render using topics the QUERY_TEXT("papa papaverine symbol uptick")
+# compute the doc word matrix using stop words and using stop words & stop words & using no stop words & NA stemming
+# compute and show some statistics with the document word matrix
+# render by topics the VAR_NAME("OqgVO")
 ```
 
 ------
@@ -100,19 +100,17 @@ Consider a version of the "love-hate of languages" grammar in which:
 ```perl6
 grammar Parser2 {
     rule  TOP  { I <love> ** 1..3 <lang> }
-    token love { '♥' | ':O=︎' | love }
+    token love { '♥' | '︎:O=' | love }
     token lang { Raku | Perl | Rust | Go | Python | Ruby }
 }
 
 .say for random-sentence-generation(Parser2) xx 6;
 ```
 ```
-# I love ♥ Go
-# I :O=︎ Perl
-# I :O=︎ love Go
-# I ♥ love ♥ Perl
-# I love love Perl
-# I love :O=︎ Raku
+#ERROR: Unrecognized regex metacharacter '︎ (must be quoted to match literally)
+#ERROR: Unrecognized regex metacharacter : (must be quoted to match literally)
+#ERROR: Malformed regex
+# Nil
 ```
 
 Now let us move the quantifier in the token `love`:
@@ -127,12 +125,12 @@ grammar Parser3 {
 .say for random-sentence-generation(Parser3) xx 6;
 ```
 ```
-# I :O= Perl
-# I :O= Python
+# I love love Go
+# I ♥ ♥ ♥ Perl
 # I :O= :O= Perl
-# I :O= :O= Python
-# I ♥ ♥ Rust
-# I love love Ruby
+# I love love Perl
+# I :O= :O= :O= Go
+# I :O= Raku
 ```
 
 ### ISBN parser
@@ -166,12 +164,12 @@ my %randomTokenGenerators = default-random-token-generators();
 .say for random-sentence-generation(ISBN, random-token-generators => %randomTokenGenerators, sep => '') xx 6;
 ```
 ```
-# 8-7-9-9-5-1-2-8-9-X
-# 8618-1-4-56-38-
-# 18-043-1-5-90-4
-# 1-3-0-5-7-3-3-9-9-X
-# 66-430-6-5-43-4
-# 3-2-8-482-7-0-52
+# 734950311X
+# 4-9-5-7-6-7-0-2-1-X
+# 29-5-07-12-7-27-
+# 5-6-2-0-2-2-7-8-5-X
+# 64-7-42-9-92-86
+# 1653-8-0-3-3-90
 ```
 
 Here is how the random ISBNs look with the default settings:
@@ -180,12 +178,12 @@ Here is how the random ISBNs look with the default settings:
 .say for random-sentence-generation(ISBN) xx 6;
 ```
 ```
-# DIGIT(9) - DIGIT(5) - DIGIT(1) - DIGIT(3) DIGIT(9) - DIGIT(9) DIGIT(6) - DIGIT(6) DIGIT(6) DIGIT(2)
-# DIGIT(9) - DIGIT(1) DIGIT(0) DIGIT(4) - DIGIT(8) DIGIT(7) DIGIT(8) - DIGIT(6) - DIGIT(6) - DIGIT(5)
-# DIGIT(8) - DIGIT(3) - DIGIT(6) - DIGIT(7) DIGIT(2) - DIGIT(0) DIGIT(3) - DIGIT(3) DIGIT(1) - DIGIT(2) -
-# DIGIT(2) - DIGIT(2) - DIGIT(8) - DIGIT(9) - DIGIT(0) - DIGIT(7) - DIGIT(8) - DIGIT(4) - DIGIT(5) - X
-# DIGIT(6) - DIGIT(0) DIGIT(9) DIGIT(1) - DIGIT(3) DIGIT(5) - DIGIT(8) DIGIT(0) DIGIT(4) - DIGIT(9) -
-# DIGIT(0) - DIGIT(4) - DIGIT(0) - DIGIT(7) - DIGIT(0) - DIGIT(6) - DIGIT(4) - DIGIT(2) - DIGIT(3) - X
+# DIGIT(5) - DIGIT(9) - DIGIT(6) - DIGIT(2) - DIGIT(9) - DIGIT(0) - DIGIT(4) - DIGIT(5) - DIGIT(0) - X
+# DIGIT(4) - DIGIT(1) - DIGIT(6) - DIGIT(7) - DIGIT(7) - DIGIT(3) - DIGIT(4) - DIGIT(4) - DIGIT(7) - X
+# DIGIT(3) DIGIT(6) DIGIT(9) DIGIT(8) DIGIT(0) DIGIT(8) DIGIT(2) DIGIT(3) DIGIT(3) X
+# DIGIT(0) DIGIT(3) DIGIT(8) - DIGIT(2) DIGIT(7) - DIGIT(2) - DIGIT(3) - DIGIT(9) - DIGIT(1) - DIGIT(9)
+# DIGIT(8) DIGIT(3) - DIGIT(0) - DIGIT(0) DIGIT(8) DIGIT(0) DIGIT(6) DIGIT(6) - DIGIT(4) - DIGIT(8) -
+# DIGIT(0) DIGIT(8) DIGIT(6) DIGIT(3) DIGIT(5) DIGIT(0) DIGIT(5) DIGIT(9) DIGIT(3) X
 ```
 
 ------
@@ -198,34 +196,34 @@ Here are the *keys* of the default random token generators used by `random-sente
 .say for default-random-token-generators().keys;
 ```
 ```
+# <ws>
+# <:Pd>
+# <.ws>?
+# <list-separator>
+# <dataset-name>
+# <query-text>
+# <mixed-quoted-variable-name>
 # <number>
-# <shell-expr>
+# <function-name>
+# <list-separator>?
+# <alnum>
+# <digit>
+# <integer-value>
+# <integer>
+# <variable-name>
+# <number-value>
 # <quoted-variable-name>
 # <regex-pattern>
-# <function-name>
-# <dataset-name>
-# <mixed-quoted-variable-name>
-# <.alnum>
-# <alnum>
-# <raku-module-name>
-# <.ws>?
-# <.digit>
-# <ws>
-# <wl-expr>
-# <variable-name>
-# <digit>
-# <list-separator>?
-# <:Pd>
-# <integer-value>
-# <number-value>
-# <list-separator>
-# <query-text>
-# <.ws>
 # <code-expr>
-# <integer>
+# <shell-expr>
+# <raku-module-name>
+# <.alnum>
+# <.ws>
+# <.digit>
+# <wl-expr>
 ```
 
-As it was demonstrated in the previous section, generation rules can changed and new ones added.
+As it was demonstrated in the previous section, generation rules can be changed and new ones added.
 
 ------
 
@@ -270,12 +268,12 @@ Here we generate sentences with `<split-data-command>`:
 .say for random-sentence-generation($focusGrammar, '<split-data-command>') xx 6;
 ```
 ```
-# split the data set with NUMBER(15.97)
-# divide data set
-# split time series data
-# divide time series data
-# divide time series with the ratio NUMBER(92)
-# partition data using proportional
+# partition dataset by split NUMBER(284.48)
+# divide data frame with validation NUMBER(213.58) and using data ratio NUMBER(276.87) using validation NUMBER(30.46)
+# split dataset with the split NUMBER(279.5)
+# partition the time series data by validation fraction NUMBER(45.42) using validation data ratio NUMBER(193.92) and validation ratio NUMBER(23.7) , and training data split NUMBER(212.71) using method label proportional method
+# partition the data frame
+# divide the dataset by split ratio NUMBER(87.77)
 ```
 
 Here we generate sentences with `<recommend-data-command>` of the recommender workflows grammar:
@@ -286,12 +284,12 @@ my $focusGrammar = DSL::English::RecommenderWorkflows::Grammar;
 .say for random-sentence-generation($focusGrammar, '<recommend-by-profile-command>', max-iterations => 100) xx 6;
 ```
 ```
-# recommend by the profile with VAR_NAME("vIEBc") : VAR_NAME("xCkpW") → NUMBER(7.38)
-# recommend by the profile with VAR_NAME("5ARpF") and VAR_NAME("97tS9") , VAR_NAME("yS8ZY") : VAR_NAME("hR27Q")
-# what is the most relevant recommendations for the profile VAR_NAME("EBFCV") : VAR_NAME("VyNsU") , VAR_NAME("4ICVj") : VAR_NAME("12fJv") , “ VAR_NAME("HL9TE") : VAR_NAME("pmSQg") “ , VAR_NAME("1iSCh") and VAR_NAME("SglMq") : VAR_NAME("P1oJf") , VAR_NAME("XZqht")
-# most relevant INTEGER(121) recommendation for profile VAR_NAME("5HQWx") -> NUMBER(188.16) and VAR_NAME("vguqu") -> NUMBER(143.52) and “ VAR_NAME("3a9SL") : VAR_NAME("qIbai") “ : NUMBER(118.9) , VAR_NAME("ZLRik") : VAR_NAME("iSmmV") : NUMBER(283.17) and VAR_NAME("A3EBt") : NUMBER(261.18) , VAR_NAME("ZXxLH") : VAR_NAME("aP4AY") -> NUMBER(178.04)
-# recommend for the profile with VAR_NAME("U83Io") : VAR_NAME("BNCAV") = NUMBER(39.51) and “ VAR_NAME("utgnU") : VAR_NAME("KRgKm") “ -> NUMBER(236.73) , VAR_NAME("IT8Sa") → NUMBER(31.07)
-# compute the top most relevant profile recommendation
+# compute most relevant INTEGER(25) top profile recommendation
+# most relevant most relevant recommendation using the profile VAR_NAME("1PdoY") → NUMBER(174.37) and VAR_NAME("Hh8EB") : VAR_NAME("7nMIV") -> NUMBER(268.92) , VAR_NAME("I9JsK") -> NUMBER(8.38)
+# recommend for profile with ‘ VAR_NAME("Nw3ng") : VAR_NAME("QFk9T") ’ = NUMBER(238.79) and ‘ VAR_NAME("LuY2g") : VAR_NAME("5nRjo") ’ : NUMBER(239.2) and VAR_NAME("kmBRa") : VAR_NAME("6BxzP") = NUMBER(216.24) , “ VAR_NAME("CGgB1") : VAR_NAME("f2QhV") ” -> NUMBER(72.25)
+# what are recommendations by profile VAR_NAME("Hjk0w") : VAR_NAME("SEF5Y") , VAR_NAME("VYTEZ") , “ VAR_NAME("dMVgn") : VAR_NAME("sIXP0") “
+# recommend using the profile for VAR_NAME("qYAYJ") : VAR_NAME("SFosy") → NUMBER(90.81)
+# recommend using the profile VAR_NAME("U3V8s") : VAR_NAME("KK7OL") = NUMBER(206.76) and VAR_NAME("3o8fD") → NUMBER(100.22) and VAR_NAME("P85U4") : NUMBER(131.88) and VAR_NAME("ZLvxF") : VAR_NAME("7FgKZ") → NUMBER(144.24) and VAR_NAME("Wrmsz") : VAR_NAME("7NeBP") → NUMBER(178.39) , VAR_NAME("G2vAM") → NUMBER(122.21)
 ```
 
 **Remark:** The grammars, generally, parse a larger set of sentences than the grammatically correct ones.
@@ -301,23 +299,23 @@ Hence, in some (or many) cases the generated sentences might look "strange" or "
 
 ## Other natural languages
 
-Here is how we generate commands with DSLs based other languages (Bulgarian):
+Here is how we generate commands with DSLs based on other languages (Bulgarian):
 
 ```perl6
 use DSL::Bulgarian::QuantileRegressionWorkflows::Grammar;
 .say for random-sentence-generation(DSL::Bulgarian::QuantileRegressionWorkflows::Grammar, syms => <Bulgarian English>) xx 6;
 ```
 ```
-# движещ средeн чрез NUMBER(175.23) елементи
-# чертеж  абсолютен грешка чертежи
-# изчисли и покажи  дъно  извънредности
-# изчисли аномалии чрез праг NUMBER(36.33)
-# покажи канален стойност
-# рекапитулирай  данни
+# покажи  текущ конвейерен контекст функция
+# ползвай квантила регресия обект VAR_NAME("Ntqo9")
+# създай DATASET_NAME("uRBnF")
+# покажи чертежи за  грешка
+# движещ съпоставка WL_EXPR("Sqrt[3]") чрез NUMBER(291.64)
+# множество горе код
 ```
 
 **Remark:** The package "DSL::Bulgarian", [AAp2], reuses the English-based grammars for computational workflows. 
-It just provides Bulgarian tokens that replace English tokens -- the assumption is short Bulgarian and English commands
+It just provides Bulgarian tokens that replace English tokens -- the assumption is that short Bulgarian and English commands
 have the same structure, [AA2]. Hence, a fair amount of the Bulgarian random sentences are "wrong." As mentioned in 
 the previous section, correct Bulgarian sentences are, of course, also parsed.
 
@@ -331,16 +329,16 @@ The package "Grammar::TokenProcessing" provides a Command Line Interface (CLI) s
 random-sentence-generation DSL::English::QuantileRegressionWorkflows::Grammar -n=10
 ```
 ```
-# compute and display data frame outliers with the seq( NUMBER(222.17) NUMBER(50.38) )
-# rescale both axes
-# take context
-# compute the outliers using the probabilities NUMBER(278.69) NUMBER(107.23) NUMBER(146.02)
-# echo summary
-# compute anomalies by residuals by the threshold NUMBER(222.34)
-# compute top outliers by the probability from NUMBER(91.44) into NUMBER(69.15) step NUMBER(256.2)
-# show plot of relative error plot
-# compute an QuantileRegression with the from NUMBER(190.34) into NUMBER(169.36)
-# compute and show the outliers
+# do a QuantileRegression with the knots from NUMBER(245.95) to NUMBER(276.63) with step NUMBER(60.66) , using INTEGER(57) interpolation degree , using INTEGER(156) interpolation degree , INTEGER(159) the knots
+# rescale the axes
+# display diagram with dates
+# WL_EXPR("Sqrt[3]")
+# display plot the error
+# use object VAR_NAME("H7MoH")
+# echo data summary
+# compute anomalies with the outlier identifier VAR_NAME("SKEak")
+# summarize the data
+# display graph of the error
 ```
 
 ------

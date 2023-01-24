@@ -147,7 +147,7 @@ Here are the *keys* of the default random token generators used by `random-sente
 .say for default-random-token-generators().keys;
 ```
 
-As it was demonstrated in the previous section, generation rules can changed and new ones added.
+As it was demonstrated in the previous section, generation rules can be changed and new ones added.
 
 ------
 
@@ -192,7 +192,7 @@ Hence, in some (or many) cases the generated sentences might look "strange" or "
 
 ## Other natural languages
 
-Here is how we generate commands with DSLs based other languages (Bulgarian):
+Here is how we generate commands with DSLs based on other languages (Bulgarian):
 
 ```perl6
 use DSL::Bulgarian::QuantileRegressionWorkflows::Grammar;
@@ -200,7 +200,7 @@ use DSL::Bulgarian::QuantileRegressionWorkflows::Grammar;
 ```
 
 **Remark:** The package "DSL::Bulgarian", [AAp2], reuses the English-based grammars for computational workflows. 
-It just provides Bulgarian tokens that replace English tokens -- the assumption is short Bulgarian and English commands
+It just provides Bulgarian tokens that replace English tokens -- the assumption is that short Bulgarian and English commands
 have the same structure, [AA2]. Hence, a fair amount of the Bulgarian random sentences are "wrong." As mentioned in 
 the previous section, correct Bulgarian sentences are, of course, also parsed.
 

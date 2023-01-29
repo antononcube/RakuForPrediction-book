@@ -8,7 +8,7 @@ January 2023
 
 ## Introduction
 
-In this notebook we discuss the derivation and utilization of 
+In this document we discuss the derivation and utilization of 
 [Markov chains](https://en.wikipedia.org/wiki/Markov_chain) 
 for random text generation. The Markov chains are computed, represented, and utilized with the data structure 
 [Tries with frequencies](https://mathematicaforprediction.wordpress.com/?s=tries+with+frequencies), [AA2, AAp1, AAv1]. 

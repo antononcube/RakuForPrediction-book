@@ -92,7 +92,7 @@ my $tend = now;
 say "Time to split into words: { $tend - $tstart }.";
 ```
 ```
-# Time to split into words: 1.074823841.
+# Time to split into words: 1.044725336.
 ```
 
 Some statistics:
@@ -170,7 +170,7 @@ $tend = now;
 say "Time to create the n-gram trie: { $tend - $tstart }.";
 ```
 ```
-# Time to create the n-gram trie: 10.30988243.
+# Time to create the n-gram trie: 10.348492716.
 ```
 
 Example of random n-gram generation:
@@ -179,12 +179,12 @@ Example of random n-gram generation:
 .say for $trWords.random-choice(6):drop-root;
 ```
 ```
-# (than do)
-# (extremely difficult)
-# (these considerations)
-# (a great)
-# (any one)
-# (less sterile)
+# (means of)
+# (see britain)
+# (why certain)
+# (more indispensable)
+# (animal with)
+# (myrmica .)
 ```
 
 Markov chain generation:
@@ -199,7 +199,7 @@ for ^30 -> $i {
 say @generated;
 ```
 ```
-# [every author attempts to be strange contingencies are far more strictly littoral animals , owing to me to appear in comparison with hermaphrodites having had undergone a large amount of the great]
+# [every author ' s teazle , has originated in so be the case is always with such local , of cats , or habits and during some length and exterminate the principle]
 ```
 
 Here we modify the code line above into a sub that:
@@ -239,7 +239,7 @@ Generate sentences:
 text-generation($trWords, <Consider the>, 3)
 ```
 ```
-# Consider the cause other plants, the parent- when a short digression. Hence we have expected on the glacial period, owing to diverge in the destruction of the least possible. Yet suffered in the fact, of the use and this case of precious nectar out of their conditions, marvellous amount of this affinity, and permanent varieties have surmised that the several domestic breeds have descended from one hand, state of which rocky mountains of the victor to judge whether of affinity of the different varieties, so that i watched the bees alone had a single parent successful in huge fragments fall of the bees are either parent-- six or emeu, and has once begun to the nicotiana glutinosa, orders, both are not only with their migration of the arctic shells might be given of the secretion of the reptiles and for transport, the stock; for 30 days, a yellow seeds by every continent when slight successive generation; and it can easily err in our continents now find different varieties of equatorial south america to fill nearly related in successive modification is often separated than is conceivable extent that the conclusion.
+# Consider the secondary causes of the ascertained facts as domestication; and therefore equals all that great region: secondary formation, between them personally unknown laws of the fresh- ranges, and coast. Nor will always succeed in lesser degree by one man who is on my theory no progeny of the organs, i should this was at drones, a geometrical ratio of organs, that the number. The least is hardly any part of forms of honey.
 ```
 
 ------
@@ -267,23 +267,41 @@ my $genText = text-generation($trWords, <Every author>, 6);
 .trim.say for $genText.split(/ < . ! ? > /, :v).rotor(2)>>.join;
 ```
 ```
-# Every author, from experiments made during different strains or sub- species, by the effects.
-# Homologous parts of the same species should present varieties; so slightly, and are the parents( a) differed largely from the same part of the organisation, which has given several remarkable case of difficulty in a single pair, or africa under nearly constant.
-# And from their common and swedish turnip.
-# The resemblance in its crustacea, for here, as before the glacial epoch, and which is generally very few will transmit its unaltered likeness to a distant and isolated regions could be arranged by dr.
-# Two distinct organs, such as many more individuals of the same bones in the different islands.
-# The most common snapdragon( antirrhinum) a rudiment of a pistil; and kolreuter found that by alph.
-# De beaumont, murchison, barrande, and have not be increased; and as modern, by the chest; and it was evident in natural history, when the same species.
-# Watson, to any character derived from a single bone of a limb and branch and sub- marked and well fitted for them are varieties or three alone of that individual flower: for instance in south america, has run( more especially as all very long periods, that in allied groups, in order to show that an early age, or dependent on unknown element of a vast number of bears being rendered rudimentary occasionally differs from its embryo, but afterwards breeds from his selection by some way due to be grafted together?
-# Why should the sepals, we can dimly seen or quite fertile together, where it exists, they must be assumed that, after a or of i think, see the contest soon decided: for here neither cattle, sheep, and would give two or three of these ants, by the best and safest clue.
-# I must believe, than to the other silurian molluscs, even in the many cases will suffice.
-# We possess no one will doubt that the continued habit.
-# On naked submarine rocks and making fresh water change at least be asserted that all the groups within each area are related to those of the first union of the male sexual element of facts, otherwise would have done for sheep, etc.
-# , a large stock from our european seas.
-# In explaining the laws of variation have proceeded from one becomes rarer and english pointer have been ample time, become modified forms, increase in countless numbers would quickly become wholly extinct, prepare the transition of any kind must have occurred to me, there has been variable in the long endurance of the other, always induces weakness and sterility in ordinary combs it will be under unchanged conditions, at least, to be connected by the same species when self- fertilising hermaphrodites do occasionally intercross( if such fossiliferous masses can we suppose that natural selection, and a third, a, tenanted by no doubt had some former period under a physiological or by having adapted to the most frequently insisted on increasing in size of the genera and their primordial parent, and england; but a few ferns and a few centuries, through natural selection; and two seeds.
-# Reflect for existence amongst all appear together from experiments made in the majority of their wood, the most vigorous species; by slowly acting and in this case it will have associated with several allied species.
-# M.
-# Is some variation.
+# Every author has remarked with those accumulated by tearing out its young, in some detail.
+# .
+# .
+# .
+# On the other constitutional and structural difference between the tongue( not any of the working ants differing widely from both cases the laws of growth, they did nothing can be easier than to admit that a multitude of forms, as we shall have been upraised, denuded, that peculiarities appearing in the males to struggle with distinct species), will have plenty of cases the sterility is alone affected.
+# Nevertheless, looking to all the intermediate zones, that in our attention to any secondary formation, yet clearly related to each other hand, we are tending in the middle; hence the thoulouse and the common and much diffused, having produced, and where continents now exist in lesser numbers in a small isolated area, have often bred together and have been largely preserved.
+# When we not find them a long, and without being around us may be supposed to a woodpecker, lesser changes in their classifications; and, under confinement, with great: if every form which are descended from north to south to north as far as lies in the record; and on insects on the view which i could easily show even a small genera.
+# Both in our domestic productions, and insects in preserving them from danger.
+# Grouse, and so on the other hand, during subsidence, but only in a slight differences accumulated during the alternate periods, it would never account for instance, not at the corresponding ages, can clearly understand on the young birds are generally quite unknown: in cryptocerus, the uppermost line would be only a state of nature is prodigal in the world performs an action for one special purpose, and that gradations in the eyes are of no service to it with indomitable perseverance, he pleases.
+# " so with plants, have been the main agency in the production of the most naturalists, the nest of a degree of variability is favourable, including under this subject.
+# From the adult, and subsequently have of course their mother to fly away.
+# But the existence of discovering in a gradual increase in comparison with the creation of each species first existed more individuals,-- is included, from some one or gravel, will not admire a state of nature may be said to have taken with the court.
+# " the benefit of the simpler case of the world on my theory have no just right to conclude that species are not see a single domestic animal can rarely be proved to be much more closely related to the latter does not build its own nest, presenting gradations of some kind, or obstacles to free migration at some former chapter.
+# When at last produced by the same relative positions?
+# If species are some apparent exceptions, hardly ever tell.
+# On any continent, out of the conditions of life, in the hybrids, moreover other forms, are marine, and that there is, as mr.
+# Waterhouse has remarked, and do not know, the chain of ordinary generation has once reject my theory no doubt were five feet four toes webbed, before those of any one or where the manufactory still in action of the conditions of life in which the several marks do not always absolutely perfect fertility of varieties which have undergone much modification in animals which unite for each birth; but in this case be grafted with no less than 100 plants of a moment on the fertile parents which alone, as yet imperfectly known, are really far greater, or madeira, we shall see no real difficulty in proving its loss through disuse or natural selection, except in the scale of life have been suddenly and temporarily increased in any country, and all feeding on the sudden appearance of whole groups subordinate to groups of species, yet are not necessarily the best of my judgment in some cases.
+# The wonder, then, it is the reason why certain seeds, however, would be a tendency to show the blood, has come to inhabit distant land.
+# Some of the complex instinct can possibly have been converted by subsidence into which it is more fertile, and extremely complex eye could be hereafter briefly mentioned.
+# I will always have a naturalist, reflecting on all sorts of things may depart from its utmost to increase, its numbers than the varieties is immense; and this not breed, though rising higher on the view of various breeds, follows from the bird' s agency.
+# I think there is clearly shown in their new homes.
+# As i think there is not that the latter having read in the supplement to lyell' orbigny and others to their proper to that zone, they occasionally blind, and its enormously developed: this seems to have occurred to me that in the first appear and disappear; though here only state that if even the air.
+# We should bear in such trifling points are; and obscured; we may infer that they all have varied under the first commencement having inhabited a protected from violent movement as in our imagination to give milk.
+# In this same respect.
+# Closely connected with the mainland, would not know, the same rules apply, because there can be no other class of all known animals, in the external conditions of the crossing of life has been formed by natural history.
+# And which can increase of various animals having been but which i am certain of the conditions of the same with turf which has long period; for it can rarely has very distinct but consecutive stages, by which consequently have not known of any in the new specific forms which i have collected on this curious to ascertain whether any rock, out of the eocene inhabitants of its embryonic career is active, imperfect though it necessarily here is at present, that we might have been expected, systematic affinity between the several causes of error to argue that some at least perfect.
+# It is now known cause of the flowering plants of the order on the fertile parents have lost some few still living descendants, was thought to be ranked as species having transmitted descendants.
+# If the nature of the case at present, almost arbitrary.
+# Several of each variety will be nearly related to the diversity in the breeds of fowls which each species has not been time in the one short period from each other far more easily than others; or were unknown, occur on the leaves; how unfavourable exposure to tree.
+# We can understand how is it possible arrangement, would be a great error to suppose that it then of bees, acclimatisation must be saved without detriment to the individual or variety increases inordinately in numbers; and in some few cases throw light on the same area the more they will have taken, and it is with most of them could hardly have kept; thus, when we see, that although there is a large and extremely few of the baltic, or those which distinguish species from species of wild cattle were displaced by some botanists as huber has stated that the most complex relations of these great mutations in the forms marked a14 to that of all organic forms.
+# Hence when in habits or structure of the parent.
+# The common to whole groups of beings greatly struck those admirable memoir on the union of two species when first selected a pigeon, which had heads four instead of hair, and of spreading widely.
+# Throughout the world; and here a powerful agent always lost in many species having similar slight deviation of life; and in some whole of this period of life active powers of swimming through the water, they could be formed of the pacific ocean.
+# We can unite two forms of life changing drama.
+# We here have perfect and as useful to man.
 ```
 
 **Remark:** Using longer n-grams generally produces longer sentences since the probability to "reach" the period
@@ -324,28 +342,53 @@ my %tries = Original => $ptrOriginal, Generated => $ptrGenerated;
 say to-pretty-table([%tries>>.form,], field-names => <Original Generated>, align => 'l');
 ```
 ```
-# +----------------------------------+----------------------------------+
-# | Original                         | Generated                        |
-# +----------------------------------+----------------------------------+
-# | TRIEROOT => 1                    | TRIEROOT => 1                    |
-# | ├─b => 0.5789473684210527        | ├─b => 0.55                      |
-# | │ └─a => 1                       | │ └─a => 1                       |
-# | │   └─r => 1                     | │   └─r => 1                     |
-# | │     ├─e => 0.18181818181818182 | │     ├─e => 0.15151515151515152 |
-# | │     └─k => 0.2727272727272727  | │     └─k => 0.2727272727272727  |
-# | └─c => 0.42105263157894735       | └─c => 0.45                      |
-# |   └─a => 1                       |   └─a => 1                       |
-# |     └─m => 1                     |     └─m => 1                     |
-# |       └─e => 0.625               |       └─e => 0.6296296296296297  |
-# |         └─l => 0.8               |         └─l => 1                 |
-# |           └─i => 1               |           └─i => 1               |
-# |             └─a => 1             |             └─a => 1             |
-# +----------------------------------+----------------------------------+
+# +----------------------------------+---------------------------------+
+# | Original                         | Generated                       |
+# +----------------------------------+---------------------------------+
+# | TRIEROOT => 1                    | TRIEROOT => 1                   |
+# | ├─b => 0.5789473684210527        | ├─b => 0.5333333333333333       |
+# | │ └─a => 1                       | │ └─a => 1                      |
+# | │   └─r => 1                     | │   └─r => 1                    |
+# | │     ├─e => 0.18181818181818182 | │     ├─e => 0.21875            |
+# | │     └─k => 0.2727272727272727  | │     └─k => 0.203125           |
+# | └─c => 0.42105263157894735       | └─c => 0.4666666666666667       |
+# |   └─a => 1                       |   └─a => 1                      |
+# |     └─m => 1                     |     └─m => 1                    |
+# |       └─e => 0.625               |       └─e => 0.6428571428571429 |
+# |         └─l => 0.8               |         └─l => 1                |
+# |           └─i => 1               |           └─i => 1              |
+# |             └─a => 1             |             └─a => 1            |
+# +----------------------------------+---------------------------------+
 ```
 
 We see that the probabilities at the nodes are very similar. It is expected that with large number of generation words
 nearly the same probabilities to be obtained.
 
+------
+
+## Possible extensions
+
+Possible extensions include the following:
+
+- Finding Part Of Speech (POS) label for each word and making "generalized" sequences of POS labels.
+
+  - Those kind of POS-based language models can be combined the with the "regular", word-based ones in variety of ways.
+    
+  - One such way is to use a POS-based model as a censurer of a word-based model. 
+  
+  - Another is to use a POS-based model to generate POS sequences, and then "fill-in" those sequences with actual words.
+  
+- N-gram-based predictions can be used to do phrase completions in (specialized) search engines. 
+
+  - That can be especially useful if the phrases belong to a certain Domain Specific Language (DSL). 
+    (And there is large enough collection of search queries with that DSL.)
+
+- Instead of words any sequential data can be used. 
+
+  - See [AAv1] for an application to predicting driving trips destinations.
+  
+  - Certain business simulation models can be done with Trie-based sequential models.
+  
 ------
 
 ## References

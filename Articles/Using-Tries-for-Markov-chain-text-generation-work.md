@@ -242,6 +242,31 @@ nearly the same probabilities to be obtained.
 
 ------
 
+## Possible extensions
+
+Possible extensions include the following:
+
+- Finding Part Of Speech (POS) label for each word and making "generalized" sequences of POS labels.
+
+  - Those kind of POS-based language models can be combined the with the "regular", word-based ones in variety of ways.
+    
+  - One such way is to use a POS-based model as a censurer of a word-based model. 
+  
+  - Another is to use a POS-based model to generate POS sequences, and then "fill-in" those sequences with actual words.
+  
+- N-gram-based predictions can be used to do phrase completions in (specialized) search engines. 
+
+  - That can be especially useful if the phrases belong to a certain Domain Specific Language (DSL). 
+    (And there is large enough collection of search queries with that DSL.)
+
+- Instead of words any sequential data can be used. 
+
+  - See [AAv1] for an application to predicting driving trips destinations.
+  
+  - Certain business simulation models can be done with Trie-based sequential models.
+  
+------
+
 ## References
 
 ### Articles

@@ -28,7 +28,7 @@ Further, during the Wolfram Technology Conference 2022 I think I successfully co
 [Ian Ford](https://community.wolfram.com/web/ianf) to implement Tries with frequencies using WL's `Tree`.
 (Ideally, at some point his implementation would be more scalable and faster than my WL implementation.)
 
-**Remark:** We can say that this notebook provides examples of making language models that are (much) simpler 
+**Remark:** We can say that this document provides examples of making language models that are (much) simpler 
 than Chat GPT's models, as mentioned by Stephen Wolfram in [SWv1]. 
 With these kind of models we can easily generate sentences, like,
 ["The house ate the lettuce." or "The chair was happy."](https://www.youtube.com/watch?v=zLnhg9kir3Q&t=650s), [SWv1].

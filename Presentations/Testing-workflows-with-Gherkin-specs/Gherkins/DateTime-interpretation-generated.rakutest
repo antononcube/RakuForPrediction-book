@@ -69,18 +69,21 @@ multi sub Example('Full blown date time spec') {
 is Example('Full blown date time spec'), True, 'Full blown date time spec';
 
 #============================================================
-# Example : Simple table spec
+# Scenario Outline : Template with table spec
 #------------------------------------------------------------
 
-multi sub When( $cmd where * eq 'today, yesterday, tomorrow' ) {}
+multi sub When( $cmd where * eq 'the argument is <Spec>' , %record where *.keys.all ∈ <Spec> ) {}
 
-multi sub Then( 'the results adhere to:', $[{:Result("DateTime.today"), :Spec("today")}, {:Result("DateTime.today.earlier(:1day)"), :Spec("yesterday")}, {:Result("DateTime.today.later(:1day)"), :Spec("tomorrow")}] ) {}
+multi sub Then( $cmd where * eq 'it is interpreted as <Result>' , %record where *.keys.all ∈ <Result> ) {}
 
-multi sub Example('Simple table spec') {
-	When( 'today, yesterday, tomorrow' );
-	Then( 'the results adhere to:', $[{:Result("DateTime.today"), :Spec("today")}, {:Result("DateTime.today.earlier(:1day)"), :Spec("yesterday")}, {:Result("DateTime.today.later(:1day)"), :Spec("tomorrow")}] );
+multi sub ScenarioTemplate('Template with table spec', @tbl = [{:Result("Date.today.DateTime"), :Spec("today")}, {:Result("Date.today.DateTime.earlier(:1day)"), :Spec("yesterday")}, {:Result("Date.today.DateTime.later(:1day)"), :Spec("tomorrow")}]) {
+	my @res = do for @tbl -> %record {
+		When( 'the argument is <Spec>' , %record.grep({ $_.key ∈ <Spec> }).Hash );
+		Then( 'it is interpreted as <Result>' , %record.grep({ $_.key ∈ <Result> }).Hash );
+	}
+	return [&&] @res;
 }
 
-is Example('Simple table spec'), True, 'Simple table spec';
+is ScenarioTemplate('Template with table spec'), True, 'Template with table spec';
 
 done-testing;

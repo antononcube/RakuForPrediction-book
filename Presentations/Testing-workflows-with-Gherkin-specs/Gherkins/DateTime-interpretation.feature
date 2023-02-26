@@ -15,9 +15,10 @@ Feature: DateTime interpretation test
     Then the result is DateTime
     And the year is "1994", month is "11", and date "6"
 
-  Scenario: Simple table spec
-    When today, yesterday, tomorrow
-    Then the results adhere to:
+  Scenario Outline: Template with table spec
+    When the argument is <Spec>
+    Then it is interpreted as <Result>
+    Examples:
       | Spec      | Result                             |
       | today     | Date.today.DateTime                |
       | yesterday | Date.today.DateTime.earlier(:1day) |

@@ -18,7 +18,7 @@ Feature: DateTime interpretation test
   Scenario: Simple table spec
     When today, yesterday, tomorrow
     Then the results adhere to:
-      | Spec      | Result                        |
-      | today     | DateTime.today                |
-      | yesterday | DateTime.today.earlier(:1day) |
-      | tomorrow  | DateTime.today.later(:1day)   |
+      | Spec      | Result                             |
+      | today     | Date.today.DateTime                |
+      | yesterday | Date.today.DateTime.earlier(:1day) |
+      | tomorrow  | Date.today.DateTime.later(:1day)   |

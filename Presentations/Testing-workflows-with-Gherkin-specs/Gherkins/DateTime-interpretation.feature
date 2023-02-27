@@ -17,9 +17,9 @@ Feature: DateTime interpretation test
 
   Scenario Outline: Template with table spec
     When the argument is <Spec>
-    Then it is interpreted as <Result>
+    Then the interpretation is <Result>
     Examples:
-      | Spec      | Result                             |
-      | today     | Date.today.DateTime                |
-      | yesterday | Date.today.DateTime.earlier(:1day) |
-      | tomorrow  | Date.today.DateTime.later(:1day)   |
+      | Spec            | Result                          |
+      | today           | Date.today.DateTime             |
+      | Oct 20 2022     | Date.new(2022, 10, 20).DateTime |
+      | 11/2/2012       | Date.new(2012, 11, 2).DateTime  |

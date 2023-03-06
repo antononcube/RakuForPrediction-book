@@ -11,20 +11,47 @@ March 2023**
 
 -------
 
-## Components
+## Steps and components
 
 ```mermaid
 flowchart TD
     WD["Write document in Markdown<br/>(with Raku code)"]
     MDtoMDW[Convert to woven Markdown]
     MDWtoHTML[Convert to HTML]
-    R["Render<br/>(and see code chunks results<br/>and D3.js graphics)"]
+    E["Examine<br/>code chunks results<br/>and<br/>D3.js graphics"]
+    JSQ{Has<br/>D3.js?}
     TCP[["Text::CodeProcessing"]]
     MG[["Markdown::Grammar"]]
-    WD --> MDtoMDW --> MDWtoHTML --> R
-    MDtoMDW -..- TCP
-    MDWtoHTML -..- MG
+    DJS[["Java Script::D3"]]
+    WD --> MDtoMDW
+    MDtoMDW --> JSQ 
+    JSQ --> |yes|MDWtoHTML
+    JSQ --> |no|E
+    MDWtoHTML --> E --> WD
+    WD -.- |maybe|DJS
+    MDtoMDW -.- TCP
+    MDWtoHTML -.- MG
 ```
+
+Here is a narration of the diagram above:
+
+1. Write some text and code in a Markdown file
+
+    - Program visualizations with ["JavaScript::D3"](https://raku.land/zef:antononcube/JavaScript::D3), [AAp2] 
+
+2. Weave the Markdown file (i.e. "run it")
+    
+    - Using ["Text::CodeProcessing"](https://raku.land/zef:antononcube/Text::CodeProcessing), [AAp3]
+
+3. If the woven file the does not have D3.js graphics go to 5
+
+4. Convert the woven Markdown file into HTML
+
+    -  Using ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar), [AAp4]
+
+5. Examine results
+
+6. Go to 1 (or finish)
 
 -------
 
@@ -46,6 +73,10 @@ file-code-chunks-eval Cryptocurrencies-explorations.md &&
 ["Cryptocurrencies-explorations_woven.md"](./Documents/Cryptocurrencies-explorations_woven.md)
 and compare it with
 ["Cryptocurrencies-explorations.md"](./Documents/Cryptocurrencies-explorations.md).
+
+**Remark** The code chunks with graphics (using "JavaScript::D3") have to have the chunk option setting `results=asis`. 
+
+**Remark** The "JavaScript::D3" commands have to have the option settings `format => 'html'` and `div-id => ...`. 
 
 -------
 

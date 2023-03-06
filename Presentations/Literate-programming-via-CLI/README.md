@@ -1,13 +1,13 @@
 # Literate programming via CLI
 
-In this presentation we demonstrate how to do 
-["Literate programming"](https://en.wikipedia.org/wiki/Literate_programming)
-in Raku via the command line.
-
 **Anton Antonov   
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com)   
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
 March 2023**
+
+In this presentation we demonstrate how to do
+["Literate programming"](https://en.wikipedia.org/wiki/Literate_programming)
+in Raku via the command line.
 
 -------
 

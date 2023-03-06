@@ -51,7 +51,9 @@ Here is a narration of the diagram above:
 
 5. Examine results
 
-6. Go to 1 (or finish)
+6. Go to 1 
+    
+    - Or finish "fiddling with it"
 
 -------
 

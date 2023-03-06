@@ -63,7 +63,13 @@ The we use the document
 ["Cryptocurrencies-explorations.md"](./Documents/Cryptocurrencies-explorations.md)
 (with Raku code over cryptocurrencies data.)
 
-Here is the shell command:
+If *no* D3.js graphics are specified then we can use the shell command:
+
+```
+file-code-chunks-eval Cryptocurrencies-explorations.md
+```
+
+If D3.js graphics *are* specified then we can use the shell command:
 
 ```
 file-code-chunks-eval Cryptocurrencies-explorations.md && 

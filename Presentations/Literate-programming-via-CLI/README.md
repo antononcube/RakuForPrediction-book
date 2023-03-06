@@ -1,5 +1,7 @@
 # Literate programming via CLI
 
+***...using Raku***
+
 **Anton Antonov   
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com)   
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
@@ -7,7 +9,11 @@ March 2023**
 
 In this presentation we demonstrate how to do
 ["Literate programming"](https://en.wikipedia.org/wiki/Literate_programming)
-in Raku via the command line.
+in Raku via (short) pipelines of Command Line Interface (CLI) scripts.
+
+An alternative of this CLI-based process is to use Mathematica or Jupyter notebooks. 
+
+[***Video recording***](https://youtu.be/2UjAdQaKof8)
 
 -------
 

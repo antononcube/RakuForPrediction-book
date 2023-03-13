@@ -8,23 +8,24 @@ Anton Antonov
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)
 March 2023
 
+***[Imgur](https://imgur.com/a/5iiotyy)***
+
 ---
 
 ## Presentation plan
 
-### Warm-up with text generation
+#### Warm-up with text generation
 
-#### *ChatGPT*
+  - *ChatGPT*
 
-### Image generations
+#### Image generations
 
-#### URLs
+  - URLs
+  - Base64s
 
-#### Base64s
+#### Using Comma IDE and CLI
 
-### Using Comma IDE and CLI
-
-### Other examples
+#### Other examples
 
 ---
 

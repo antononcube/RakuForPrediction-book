@@ -66,7 +66,7 @@ my @txtRes = |openai-completion(
 RakuInputExecute["@txtRes==>encode-to-wl"] // ResourceFunction["GridTableForm"]
 ```
 
-![0c03biewnirbn](./Diagrams/0c03biewnirbn.png)
+![0c03biewnirbn](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/0c03biewnirbn.png)
 
 ---
 
@@ -89,7 +89,7 @@ my @imgRes = |openai-create-image(
 Magnify[Import[#], 2.5] & /@ RakuInputExecute["@imgRes==>encode-to-wl"]
 ```
 
-![0or0u0a9brz0s](./Diagrams/0or0u0a9brz0s.png)
+![0or0u0a9brz0s](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/0or0u0a9brz0s.png)
 
 ```perl6
 @imgRes
@@ -116,7 +116,7 @@ my @imgRes2 = |openai-create-image(
 Magnify[ImportByteArray[BaseDecode[#]], 2.5] & /@ RakuInputExecute["@imgRes2==>encode-to-wl"]
 ```
 
-![1idcr2434outd](./Diagrams/1idcr2434outd.png)
+![1idcr2434outd](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/1idcr2434outd.png)
 
 ```perl6
 @imgRes2
@@ -126,7 +126,7 @@ Magnify[ImportByteArray[BaseDecode[#]], 2.5] & /@ RakuInputExecute["@imgRes2==>e
 WebImageSearch["Son of Man Magritte", 3]
 ```
 
-![0cwgyyfdsuev6](./Diagrams/0cwgyyfdsuev6.png)
+![0cwgyyfdsuev6](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/0cwgyyfdsuev6.png)
 
 ---
 
@@ -151,7 +151,7 @@ my @imgRes3 = |openai-create-image('Racoons playing onions and perls in the styl
 Magnify[ImportByteArray[BaseDecode[#]], 1.5] & /@ RakuInputExecute["@imgRes3==>encode-to-wl"]
 ```
 
-![07sago6o0y5mv](./Diagrams/07sago6o0y5mv.png)
+![07sago6o0y5mv](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/07sago6o0y5mv.png)
 
 ```perl6
 openai-create-image('Racoons playing onions and perls in the style Monet', n=>3, size => 'largers')
@@ -172,7 +172,7 @@ my @imgRes3 = |openai-create-image('Racoon in the style Helmut Newton', n=>3, si
 Magnify[ImportByteArray[BaseDecode[#]], 1.5] & /@ RakuInputExecute["@imgRes3==>encode-to-wl"]
 ```
 
-![1bg8etqj40dss](./Diagrams/1bg8etqj40dss.png)
+![1bg8etqj40dss](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/1bg8etqj40dss.png)
 
 ### [Hieronymus Bosch](https://en.wikipedia.org/wiki/Hieronymus_Bosch)
 
@@ -187,7 +187,7 @@ my @imgRes3 = |openai-create-image('how we live now in the style of Hieronymus B
 Magnify[ImportByteArray[BaseDecode[#]], 1.5] & /@ RakuInputExecute["@imgRes3==>encode-to-wl"]
 ```
 
-![1a1lqkfo1uzkh](./Diagrams/1a1lqkfo1uzkh.png)
+![1a1lqkfo1uzkh](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/1a1lqkfo1uzkh.png)
 
 ---
 
@@ -204,11 +204,11 @@ my @imgRes4 = |openai-create-image('Racoon in the style Roschach inkblot', :$aut
 Magnify[Import[#], 1.5] & /@ RakuInputExecute["@imgRes4==>encode-to-wl"]
 ```
 
-![10whvhc8v7idl](./Diagrams/10whvhc8v7idl.png)
+![10whvhc8v7idl](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/10whvhc8v7idl.png)
 
 #### Saved
 
-![1rrswxq91jawh](./Diagrams/1rrswxq91jawh.png)
+![1rrswxq91jawh](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/1rrswxq91jawh.png)
 
 ### Alternative
 
@@ -216,7 +216,7 @@ Magnify[Import[#], 1.5] & /@ RakuInputExecute["@imgRes4==>encode-to-wl"]
 Table[ResourceFunction["RandomRorschach"]["NumberOfStrokes" -> RandomChoice[{8, 12, 20}, RandomInteger[{1, 4}]], ColorFunction -> (GrayLevel[RandomReal[{0.1, 0.2}]] &), "ImageEffects" -> {{"Jitter", 16}, {"OilPainting", 6}}], 12]
 ```
 
-![0u2f1799sicyj](./Diagrams/0u2f1799sicyj.png)
+![0u2f1799sicyj](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/0u2f1799sicyj.png)
 
 ---
 
@@ -233,7 +233,7 @@ my @imgRes5 = |openai-create-image('Camels in a Rube Goldberg machine', :$auth-k
 Magnify[Import[#], 1.5] & /@ RakuInputExecute["@imgRes5==>encode-to-wl"]
 ```
 
-![0j12jz88emd58](./Diagrams/0j12jz88emd58.png)
+![0j12jz88emd58](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/0j12jz88emd58.png)
 
 ---
 
@@ -276,7 +276,7 @@ StartRakuProcess["Raku" -> $HomeDirectory <> "/.rakubrew/shims/raku"]
 (*"42712 ??         0:00.00 grep -i raku.*zmq"*)
 ```
 
-![0nhsrbl4h71lj](./Diagrams/0nhsrbl4h71lj.png)
+![0nhsrbl4h71lj](https://github.com/antononcube/RakuForPrediction-book/raw/main/Presentations/Racoons-playing-with-pearls-and-onions/Diagrams/0nhsrbl4h71lj.png)
 
 ### Raku packages
 

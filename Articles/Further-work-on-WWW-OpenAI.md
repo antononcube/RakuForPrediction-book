@@ -490,23 +490,27 @@ The original implementation of "WWW::OpenAI" had design and implementation that 
 Major refactoring of the original code was done -- now each OpenAI functionality targeted by "WWW::OpenAI"
 has its code placed in a separate file.
 
+In order to do the refactoring, of course, a comprehensive enough suite of unit tests
+had to be put in place. Since running the tests [costs money](https://openai.com/pricing),
+the tests are placed in the 
+["./xt" directory](https://github.com/antononcube/Raku-WWW-OpenAI/tree/main/xt).
+
 ### De-Cro-ing the requesting code
 
-- The first implementation of "WWW::OpenAI" used "Cro::HTTP::Client" to access OpenAI's services.
-
-- Often when I use "Cro::HTTP::Client" on macOS I get the errors:
+The first implementation of "WWW::OpenAI" used "Cro::HTTP::Client" to access OpenAI's services.
+Often when I use "Cro::HTTP::Client" on macOS I get the errors:
 
   > Cannot locate symbol 'SSL_get1_peer_certificate' in native library
 
-- See longer discussions about this problem
-  [here](https://stackoverflow.com/questions/72792280/macos-how-to-avoid-ssl-hell-on-intel-mac-with-raku)
-  and
-  [here](https://github.com/jnthn/p6-io-socket-async-ssl/issues/66)
+(See longer discussions about this problem
+[here](https://stackoverflow.com/questions/72792280/macos-how-to-avoid-ssl-hell-on-intel-mac-with-raku)
+and
+[here](https://github.com/jnthn/p6-io-socket-async-ssl/issues/66).)
 
-- Given the problems of using "Cro::HTTP::Client" and the implementations with `curl` and
-   ["HTTP::Tiny"](https://gitlab.com/jjatria/http-tiny/-/blob/master/examples/cookbook.md),
-   I decided it is better to make the implementation of "WWW::OpenAI" more lightweight by 
-   removing the code related to "Cro::HTTP::Client".
+Given the problems of using "Cro::HTTP::Client" and the implementations with `curl` and
+["HTTP::Tiny"](https://gitlab.com/jjatria/http-tiny/-/blob/master/examples/cookbook.md),
+I decided it is better to make the implementation of "WWW::OpenAI" more lightweight by 
+removing the code related to "Cro::HTTP::Client".
 
 --------
 
@@ -524,7 +528,7 @@ has its code placed in a separate file.
 (2018),
 [blog.wolfram.com](https://blog.wolfram.com/).
 
-### Packages
+### Packages, platforms
 
 [AAp1] Anton Antonov,
 [Lingua::Translation::DeepL Raku package](https://github.com/antononcube/Raku-Lingua-Translation-DeepL),

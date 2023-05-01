@@ -293,7 +293,7 @@ $embs.elems;
 ```
 
 Here we show:
-- That the result is an array of three vectors each with length 1536
+- That the result is an array of four vectors each with length 1536
 - The distributions of the values of each vector
 
 ```perl6

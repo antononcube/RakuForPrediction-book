@@ -23,6 +23,17 @@ was made using "WWW::OpenAI".
 was made for Raku code generation and execution using Wolfram Language (WL) packages to access OpenAI's functionalities.
 (In a WL notebook.)
 
+### Functionalities
+
+- **Universal "front-end"** - to access OpenAI's services
+- **Models** -- OpenAI models list
+- **Code generation** -- code generation using chat- and text-completion
+- **Image generation** -- using DALL-E
+- **Moderation** -- probabilities of different moderation lables
+- **Audio transcription and translation** -- voice to text
+- **Embeddings** -- text into numerical vector
+- **Finding textual answers** -- text inquiries
+- **CLI** -- for the "best" UI
 
 ------
 

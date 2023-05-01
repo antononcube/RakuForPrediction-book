@@ -484,10 +484,10 @@ openai-find-textual-answer --help
 
 ### Separate files for each OpenAI functionality
 
-The original implementation of "WWW::OpenAI" had design and implementation that wer very similar to those of
+The original implementation of "WWW::OpenAI" had design and implementation that were very similar to those of
 ["Lingua::Translation::DeepL"](https://raku.land/zef:antononcube/Lingua::Translation::DeepL), [AAp1].
 
-Major refactoring of the original code -- now each OpenAI functionality targeted by "WWW::OpenAI"
+Major refactoring of the original code was done -- now each OpenAI functionality targeted by "WWW::OpenAI"
 has its code placed in a separate file.
 
 ### De-Cro-ing the requesting code

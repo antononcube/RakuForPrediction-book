@@ -46,16 +46,18 @@ use FunctionalParsers;
 use FunctionalParsers::EBNF;
 use EBNF::Grammar;
 use Grammar::TokenProcessing;
+use WWW::OpenAI;
+use WWW::PaLM;
 ```
 
-Here use case diagrams that summarize the interaction between the packages:
+Here are flowcharts that summarize use cases, execution paths, and interaction between the packages:
 
 ```mermaid
 graph LR
     FPs[["FunctionalParsers"]]
     grEBNF>EBNF<br>grammar]
     mmdGraph>Mermaid JS<br>graph spec]
-    grEBNF --> FPs --> mmdGraph
+    grEBNF --> |fp-grammar-graph|FPs --> mmdGraph
 ```
 
 ```mermaid
@@ -64,7 +66,7 @@ graph LR
     EBNFGram[["EBNF::Grammar"]]
     grEBNF>EBNF<br>grammar]
     mmdGraph>Mermaid JS<br>graph spec]
-    grEBNF --> EBNFGram --> FPs --> mmdGraph
+    grEBNF --> |parse|EBNFGram --> |fp-grammar-graph|FPs --> mmdGraph
 ```
 
 ```mermaid
@@ -74,7 +76,16 @@ graph LR
     grEBNF>EBNF<br>grammar]
     grRaku>Raku<br>grammar]
     mmdGraph>Mermaid JS<br>graph spec]
-    grRaku --> GramTP --> grEBNF --> FPs --> mmdGraph 
+    grRaku --> |translate|GramTP --> grEBNF --> |fp-grammar-graph|FPs --> mmdGraph
+```
+
+```mermaid
+graph LR
+    FPs[["FunctionalParsers"]]
+    EBNFGram[["EBNF::Grammar"]]
+    grEBNF>EBNF<br>grammar]
+    RandSents>Random senteces]
+    grEBNF --> |normalize|EBNFGram --> |fp-random-sentence|FPs --> RandSents 
 ```
 
 ------
@@ -101,6 +112,8 @@ Here is a legend:
 - The non-terminals are shown with rectangles
 - The terminals are shown with round rectangles
 - The "conjunctions" are shown in disks
+- The order of parsing in sequences is indicated with integer labels
+- Pick-left and pick-right sequences use the labels "L" and "R" for the corresponding branches 
 
 **Remark:** The Markdown cell above has the parameters `result=asis, output-lang=mermaid, output-prompt=NONE`
 which allow for direct diagram rendering of the obtained Mermaid code in various Markdown viewers (GitHub, IntelliJ, etc.)
@@ -110,7 +123,7 @@ Compare the following EBNF grammar and corresponding diagram with the ones above
 ```perl6, result=asis, output-lang=mermaid, output-prompt=NONE
 my $ebnfCode4 = q:to/END/;
 <top> = <a> | <b> ;
-<a> = 'a' , { 'A' } , [ '1' ] ;
+<a> = 'a' <& { 'A' } , [ '1' ] ;
 <b> = 'b' , 'B' | '2' ;
 END
 
@@ -126,7 +139,7 @@ In order to generate graphs for Raku grammars we use the following steps:
 1. Translate Raku-grammar code into EBNF code
 2. Translate EBNF code into graph code (Mermaid-JS or WL)
 
-Consider a grammar for parsing integers:
+Consider a grammar for parsing proclaimed feeling toward different programming languages:
 
 ```perl6
 grammar LangLove {
@@ -154,6 +167,63 @@ Here is the corresponding Mermaid-JS graph:
 
 ```perl6, result=asis, output.lang=mermaid, output.prompt=NONE
 fp-grammar-graph($ebnfLangLove)
+```
+
+------
+
+## LLMs grammars
+
+Here is an EBNF grammar generated with ChatGPT, [AAp4], over a list of chemical formulas:
+
+```perl6
+#my @sentences = <BrI BrClH2Si CCl4 CH3I C2H5Br H2O H2O4S AgBr AgBrO AgBrO2 AgBrO3 AgBrO4 AgCL>;
+my @sentences = <AgBr AgBrO AgBrO2 AgBrO3 AgBrO4 AgCL>;
+my $request = "Generate EBNF grammar for the sentences:\n{@sentences.map({ $_.comb.join(' ')}).join("\n")}";
+#my $ebnfLLM = openai-completion($request, max-tokens => 600, format => 'values');
+my $ebnfLLM = palm-generate-text($request, max-tokens => 600, format => 'values');
+```
+
+Often the LLM requests return code as a Markdown code cell, hence, we try to remove the code cell markings:
+
+```perl6
+$ebnfLLM = $ebnfLLM.subst(/ ^ '`' ** 3 <-[\v]>* \n | '`' ** 3 \h* $ /,''):g;
+```
+
+```perl6, result=asis, output.lang=mermaid, output.prompt=NONE
+fp-grammar-graph($ebnfLLM, style => Whatever)
+```
+
+Another way for "verify" a grammar is to generate random sentences with it:
+
+```perl6
+.say for ebnf-random-sentence($ebnfLLM, 12, style => Whatever)
+```
+
+Here is generation with the function provided by "FunctionalParsers":
+
+```perl6
+.say for fp-random-sentence($ebnfLLM, 12, style => Whatever)
+```
+
+**Remark:** The function `ebnf-random-sentence` uses `fp-random-sentence`, but `ebnf-random-sentence` 
+(parses and) standardizes the given EBNF grammar first, (then it gives the standardized grammar to `fp-random-sentence`.)
+
+**Remark:** It is not trivial to parse EBNF hallucinations by LLMs. For the same EBNF-making request a given LLM 
+can produce different EBNF grammars each having "its own" EBNF style. Hence, both "FunctionalParsers" and "EBNF::Grammar"
+have parsers for different EBNF styles. With the spec `style => Whatever` parsing of all of the "anticipated" styles are attempted.
+
+
+Here is another example using a ***random*** (small) EBNF:
+
+```perl6
+my $request2 = "Give me some random small EBNF grammar.";
+#my $ebnfLLM2 = openai-completion($request2, max-tokens => 600, format => 'values', temperature => 1.2);
+my $ebnfLLM2 = palm-generate-text($request2, max-tokens => 600, format => 'values');
+$ebnfLLM2 = $ebnfLLM2.subst(/ ^ '`' ** 3 <-[\v]>* \n | '`' ** 3 \h* $ /,''):g;
+```
+
+```perl6, result=asis, output.lang=mermaid, output.prompt=NONE
+fp-grammar-graph($ebnfLLM2, style => Whatever)
 ```
 
 ------
@@ -202,4 +272,14 @@ fp-grammar-graph($ebnfExpr, style => 'Relaxed')
 [AAp3] Anton Antonov,
 [Grammar::TokenProcessing Raku package](https://github.com/antononcube/Raku-Grammar-TokenProcessing),
 (2022-2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp4] Anton Antonov,
+[WWW::OpenAI Raku package](https://github.com/antononcube/Raku-WWW-OpenAI),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp5] Anton Antonov,
+[WWW::PaLM Raku package](https://github.com/antononcube/Raku-WWW-PaLM),
+(2023),
 [GitHub/antononcube](https://github.com/antononcube).

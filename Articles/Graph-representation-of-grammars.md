@@ -46,19 +46,21 @@ use FunctionalParsers;
 use FunctionalParsers::EBNF;
 use EBNF::Grammar;
 use Grammar::TokenProcessing;
+use WWW::OpenAI;
+use WWW::PaLM;
 ```
 ```
 # (Any)
 ```
 
-Here use case diagrams that summarize the interaction between the packages:
+Here are flowcharts that summarize use cases, execution paths, and interaction between the packages:
 
 ```mermaid
 graph LR
     FPs[["FunctionalParsers"]]
     grEBNF>EBNF<br>grammar]
     mmdGraph>Mermaid JS<br>graph spec]
-    grEBNF --> FPs --> mmdGraph
+    grEBNF --> |fp-grammar-graph|FPs --> mmdGraph
 ```
 
 ```mermaid
@@ -67,7 +69,7 @@ graph LR
     EBNFGram[["EBNF::Grammar"]]
     grEBNF>EBNF<br>grammar]
     mmdGraph>Mermaid JS<br>graph spec]
-    grEBNF --> EBNFGram --> FPs --> mmdGraph
+    grEBNF --> |parse|EBNFGram --> |fp-grammar-graph|FPs --> mmdGraph
 ```
 
 ```mermaid
@@ -77,7 +79,16 @@ graph LR
     grEBNF>EBNF<br>grammar]
     grRaku>Raku<br>grammar]
     mmdGraph>Mermaid JS<br>graph spec]
-    grRaku --> GramTP --> grEBNF --> FPs --> mmdGraph 
+    grRaku --> |translate|GramTP --> grEBNF --> |fp-grammar-graph|FPs --> mmdGraph
+```
+
+```mermaid
+graph LR
+    FPs[["FunctionalParsers"]]
+    EBNFGram[["EBNF::Grammar"]]
+    grEBNF>EBNF<br>grammar]
+    RandSents>Random senteces]
+    grEBNF --> |normalize|EBNFGram --> |fp-random-sentence|FPs --> RandSents 
 ```
 
 ------
@@ -100,21 +111,21 @@ fp-ebnf-parse($ebnfCode3, target=>'MermaidJS::Graph', dir-spec => 'LR').head.tai
 ```
 ```mermaid
 graph LR
-	rep7((*))
-	alt14((or))
-	T:1("1")
-	seq12((and))
-	NT:top["top"]
-	alt1((or))
-	T:a("a")
-	T:b("b")
-	T:B("B")
-	NT:a["a"]
-	seq5((and))
-	opt9((?))
-	T:A("A")
-	NT:b["b"]
 	T:2("2")
+	opt9((?))
+	T:1("1")
+	T:A("A")
+	rep7((*))
+	alt1((or))
+	alt14((or))
+	seq5((and))
+	T:B("B")
+	NT:b["b"]
+	seq12((and))
+	T:a("a")
+	NT:top["top"]
+	NT:a["a"]
+	T:b("b")
 	alt1 --> NT:a
 	alt1 --> NT:b
 	NT:top --> alt1
@@ -136,6 +147,8 @@ Here is a legend:
 - The non-terminals are shown with rectangles
 - The terminals are shown with round rectangles
 - The "conjunctions" are shown in disks
+- The order of parsing in sequences is indicated with integer labels
+- Pick-left and pick-right sequences use the labels "L" and "R" for the corresponding branches 
 
 **Remark:** The Markdown cell above has the parameters `result=asis, output-lang=mermaid, output-prompt=NONE`
 which allow for direct diagram rendering of the obtained Mermaid code in various Markdown viewers (GitHub, IntelliJ, etc.)
@@ -145,7 +158,7 @@ Compare the following EBNF grammar and corresponding diagram with the ones above
 ```perl6, result=asis, output-lang=mermaid, output-prompt=NONE
 my $ebnfCode4 = q:to/END/;
 <top> = <a> | <b> ;
-<a> = 'a' , { 'A' } , [ '1' ] ;
+<a> = 'a' <& { 'A' } , [ '1' ] ;
 <b> = 'b' , 'B' | '2' ;
 END
 
@@ -153,35 +166,37 @@ fp-ebnf-parse($ebnfCode4, target=>'MermaidJS::Graph', dir-spec => 'LR').head.tai
 ```
 ```mermaid
 graph LR
-	T:a("a")
-	rep7((*))
-	alt1((or))
-	T:B("B")
+	rep8((*))
+	seq14((and))
 	T:A("A")
-	alt12((or))
 	T:b("b")
-	opt9((?))
-	NT:a["a"]
-	NT:top["top"]
 	NT:b["b"]
-	seq5((and))
 	T:2("2")
+	T:B("B")
+	seq7((and))
+	T:a("a")
+	alt13((or))
+	alt1((or))
+	NT:top["top"]
+	opt10((?))
+	NT:a["a"]
+	seqL5(("«and"))
 	T:1("1")
-	seq13((and))
 	alt1 --> NT:a
 	alt1 --> NT:b
 	NT:top --> alt1
-	rep7 --> T:A
-	opt9 --> T:1
-	seq5 --> |1|T:a
-	seq5 --> |2|rep7
-	seq5 --> |3|opt9
-	NT:a --> seq5
-	seq13 --> |1|T:b
-	seq13 --> |2|T:B
-	alt12 --> seq13
-	alt12 --> T:2
-	NT:b --> alt12
+	rep8 --> T:A
+	opt10 --> T:1
+	seq7 --> |1|rep8
+	seq7 --> |2|opt10
+	seqL5 --> |L|T:a
+	seqL5 -.-> |R|seq7
+	NT:a --> seqL5
+	seq14 --> |1|T:b
+	seq14 --> |2|T:B
+	alt13 --> seq14
+	alt13 --> T:2
+	NT:b --> alt13
 ```
 
 ------
@@ -193,7 +208,7 @@ In order to generate graphs for Raku grammars we use the following steps:
 1. Translate Raku-grammar code into EBNF code
 2. Translate EBNF code into graph code (Mermaid-JS or WL)
 
-Consider a grammar for parsing integers:
+Consider a grammar for parsing proclaimed feeling toward different programming languages:
 
 ```perl6
 grammar LangLove {
@@ -241,27 +256,27 @@ fp-grammar-graph($ebnfLangLove)
 ```
 ```mermaid
 graph TD
-	T:Python("Python")
-	T:Raku("Raku")
-	T:love("love")
-	T:We("We")
-	T:Perl("Perl")
-	NT:TOP["TOP"]
-	T:really("really")
+	T:Ruby("Ruby")
 	seq19((and))
+	T:Perl("Perl")
 	alt3((or))
+	alt11((or))
+	T:Rust("Rust")
+	T:Raku("Raku")
+	T:really("really")
+	NT:workflow-command["workflow-command"]
+	T:love("love")
+	alt15((or))
+	NT:lang["lang"]
 	T:Go("Go")
+	opt21((?))
 	T:I("I")
 	T:hate("hate")
-	NT:workflow-command["workflow-command"]
-	alt15((or))
-	alt11((or))
-	NT:who["who"]
-	T:Rust("Rust")
-	NT:lang["lang"]
+	T:We("We")
 	NT:love["love"]
-	opt21((?))
-	T:Ruby("Ruby")
+	NT:who["who"]
+	NT:TOP["TOP"]
+	T:Python("Python")
 	NT:TOP --> NT:workflow-command
 	alt3 --> T:Raku
 	alt3 --> T:Perl
@@ -282,6 +297,157 @@ graph TD
 	seq19 --> |3|NT:love
 	seq19 --> |4|NT:lang
 	NT:workflow-command --> seq19
+```
+
+------
+
+## LLMs grammars
+
+Here is an EBNF grammar generated with ChatGPT, [AAp4], over a list of chemical formulas:
+
+```perl6
+#my @sentences = <BrI BrClH2Si CCl4 CH3I C2H5Br H2O H2O4S AgBr AgBrO AgBrO2 AgBrO3 AgBrO4 AgCL>;
+my @sentences = <AgBr AgBrO AgBrO2 AgBrO3 AgBrO4 AgCL>;
+my $request = "Generate EBNF grammar for the sentences:\n{@sentences.map({ $_.comb.join(' ')}).join("\n")}";
+#my $ebnfLLM = openai-completion($request, max-tokens => 600, format => 'values');
+my $ebnfLLM = palm-generate-text($request, max-tokens => 600, format => 'values');
+```
+```
+# {filters => [{reason => SAFETY}], safetyFeedback => [{rating => {category => HARM_CATEGORY_DEROGATORY, probability => LOW}, setting => {category => HARM_CATEGORY_DEROGATORY, threshold => BLOCK_LOW_AND_ABOVE}} {rating => {category => HARM_CATEGORY_TOXICITY, probability => LOW}, setting => {category => HARM_CATEGORY_TOXICITY, threshold => BLOCK_LOW_AND_ABOVE}}]}
+```
+
+Often the LLM requests return code as a Markdown code cell, hence, we try to remove the code cell markings:
+
+```perl6
+$ebnfLLM = $ebnfLLM.subst(/ ^ '`' ** 3 <-[\v]>* \n | '`' ** 3 \h* $ /,''):g;
+```
+```
+# filters	reason	SAFETY
+# safetyFeedback	rating	category	HARM_CATEGORY_DEROGATORY
+# probability	LOW
+# setting	category	HARM_CATEGORY_DEROGATORY
+# threshold	BLOCK_LOW_AND_ABOVE rating	category	HARM_CATEGORY_TOXICITY
+# probability	LOW
+# setting	category	HARM_CATEGORY_TOXICITY
+# threshold	BLOCK_LOW_AND_ABOVE
+```
+
+```perl6, result=asis, output.lang=mermaid, output.prompt=NONE
+fp-grammar-graph($ebnfLLM, style => Whatever)
+```
+```mermaid
+graph TD
+```
+
+Another way for "verify" a grammar is to generate random sentences with it:
+
+```perl6
+.say for ebnf-random-sentence($ebnfLLM, 12, style => Whatever)
+```
+```
+#ERROR: Cannot parser the given grammar.
+# Nil
+```
+
+Here is generation with the function provided by "FunctionalParsers":
+
+```perl6
+.say for fp-random-sentence($ebnfLLM, 12, style => Whatever)
+```
+```
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+# pFILTERS()
+```
+
+**Remark:** The function `ebnf-random-sentence` uses `fp-random-sentence`, but `ebnf-random-sentence` 
+(parses and) standardizes the given EBNF grammar first, (then it gives the standardized grammar to `fp-random-sentence`.)
+
+**Remark:** It is not trivial to parse EBNF hallucinations by LLMs. For the same EBNF-making request a given LLM 
+can produce different EBNF grammars each having "its own" EBNF style. Hence, both "FunctionalParsers" and "EBNF::Grammar"
+have parsers for different EBNF styles. With the spec `style => Whatever` parsing of all of the "anticipated" styles are attempted.
+
+
+Here is another example using a ***random*** (small) EBNF:
+
+```perl6
+my $request2 = "Give me some random small EBNF grammar.";
+#my $ebnfLLM2 = openai-completion($request2, max-tokens => 600, format => 'values', temperature => 1.2);
+my $ebnfLLM2 = palm-generate-text($request2, max-tokens => 600, format => 'values');
+$ebnfLLM2 = $ebnfLLM2.subst(/ ^ '`' ** 3 <-[\v]>* \n | '`' ** 3 \h* $ /,''):g;
+```
+```
+# <expression> ::= <term> { <addop> <term> }
+# <term> ::= <factor> { <mulop> <factor> }
+# <factor> ::= <integer> | <variable> | "(" <expression> ")"
+# <addop> ::= "+" | "-"
+# <mulop> ::= "*" | "/"
+# <integer> ::= [0-9]+
+# <variable> ::= [a-zA-Z][a-zA-Z0-9]*
+```
+
+```perl6, result=asis, output.lang=mermaid, output.prompt=NONE
+fp-grammar-graph($ebnfLLM2, style => Whatever)
+```
+```mermaid
+graph TD
+	NT:term["term"]
+	seq1((and))
+	T:HYPHEN-MINUS("-")
+	alt27((or))
+	alt23((or))
+	NT:integer["integer"]
+	T:ASTERISK("*")
+	T:LEFT_PARENTHESIS("(")
+	NT:addop["addop"]
+	T:PLUS_SIGN("+")
+	NT:variable["variable"]
+	seq18((and))
+	T:RIGHT_PARENTHESIS(")")
+	NT:expression["expression"]
+	NT:factor["factor"]
+	seq4((and))
+	T:SOLIDUS("/")
+	seq8((and))
+	NT:mulop["mulop"]
+	rep10((*))
+	rep3((*))
+	seq11((and))
+	alt15((or))
+	seq4 --> |1|NT:addop
+	seq4 --> |2|NT:term
+	rep3 --> seq4
+	seq1 --> |1|NT:term
+	seq1 --> |2|rep3
+	NT:expression --> seq1
+	seq11 --> |1|NT:mulop
+	seq11 --> |2|NT:factor
+	rep10 --> seq11
+	seq8 --> |1|NT:factor
+	seq8 --> |2|rep10
+	NT:term --> seq8
+	seq18 --> |1|T:LEFT_PARENTHESIS
+	seq18 --> |2|NT:expression
+	seq18 --> |3|T:RIGHT_PARENTHESIS
+	alt15 --> NT:integer
+	alt15 --> NT:variable
+	alt15 --> seq18
+	NT:factor --> alt15
+	alt23 --> T:PLUS_SIGN
+	alt23 --> T:HYPHEN-MINUS
+	NT:addop --> alt23
+	alt27 --> T:ASTERISK
+	alt27 --> T:SOLIDUS
+	NT:mulop --> alt27
 ```
 
 ------
@@ -316,67 +482,67 @@ fp-grammar-graph($ebnfExpr, style => 'Relaxed')
 ```
 ```mermaid
 graph TD
-	seq8((and))
-	seq19((and))
-	seq34((and))
-	T:2("2")
-	T:+("+")
-	T:1("1")
-	T:*("*")
-	alt3((or))
-	T:.(".")
-	T:8("8")
-	alt39((or))
-	NT:start["start"]
-	T:5("5")
-	seq4((and))
 	T:3("3")
-	T:4("4")
-	alt14((or))
-	alt45((or))
-	T:9("9")
+	NT:integer["integer"]
+	seq4((and))
+	seq26((and))
+	alt39((or))
+	NT:factor["factor"]
 	NT:expr["expr"]
 	T:6("6")
-	T:7("7")
-	alt25((or))
-	seq15((and))
-	NT:factor["factor"]
-	seq26((and))
-	T:-("-")
-	seq40((and))
-	T:/("/")
-	NT:integer["integer"]
-	seq29((and))
-	NT:digit["digit"]
-	T:0("0")
 	NT:term["term"]
+	T:8("8")
+	alt3((or))
+	alt45((or))
+	T:FULL_STOP(".")
+	T:2("2")
+	seq34((and))
+	T:4("4")
+	T:HYPHEN-MINUS("-")
+	T:1("1")
+	NT:digit["digit"]
+	seq40((and))
+	seq29((and))
+	alt14((or))
+	T:7("7")
+	seq15((and))
+	T:0("0")
+	NT:start["start"]
+	T:ASTERISK("*")
+	T:5("5")
+	alt25((or))
+	seq19((and))
+	T:9("9")
+	T:PLUS_SIGN("+")
+	T:SOLIDUS("/")
+	seq8((and))
 	NT:start --> NT:expr
 	seq4 --> |1|NT:term
-	seq4 --> |2|T:+
+	seq4 --> |2|T:PLUS_SIGN
 	seq4 --> |3|NT:expr
 	seq8 --> |1|NT:term
-	seq8 --> |2|T:-
+	seq8 --> |2|T:HYPHEN-MINUS
 	seq8 --> |3|NT:expr
 	alt3 --> seq4
 	alt3 --> seq8
 	alt3 --> NT:term
 	NT:expr --> alt3
 	seq15 --> |1|NT:term
-	seq15 --> |2|T:*
+	seq15 --> |2|T:ASTERISK
 	seq15 --> |3|NT:factor
 	seq19 --> |1|NT:term
-	seq19 --> |2|T:/
+	seq19 --> |2|T:SOLIDUS
 	seq19 --> |3|NT:factor
 	alt14 --> seq15
 	alt14 --> seq19
 	alt14 --> NT:factor
 	NT:term --> alt14
-	seq26 --> |1|T:+
+	seq26 --> |1|T:PLUS_SIGN
 	seq26 --> |2|NT:factor
-	seq29 --> |1|T:-
+	seq29 --> |1|T:HYPHEN-MINUS
 	seq29 --> |2|NT:factor
 	seq34 --> |1|NT:integer
-	seq34 --> |2|T:.
+	seq34 --> |2|T:FULL_STOP
 	seq34 --> |3|NT:integer
 	alt25 --> seq26
 	alt25 --> seq29
@@ -425,4 +591,14 @@ graph TD
 [AAp3] Anton Antonov,
 [Grammar::TokenProcessing Raku package](https://github.com/antononcube/Raku-Grammar-TokenProcessing),
 (2022-2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp4] Anton Antonov,
+[WWW::OpenAI Raku package](https://github.com/antononcube/Raku-WWW-OpenAI),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp5] Anton Antonov,
+[WWW::PaLM Raku package](https://github.com/antononcube/Raku-WWW-PaLM),
+(2023),
 [GitHub/antononcube](https://github.com/antononcube).

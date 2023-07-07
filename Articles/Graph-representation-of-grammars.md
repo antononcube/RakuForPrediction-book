@@ -68,6 +68,9 @@ like, [ChatGPT](https://openai.com/blog/chatgpt) and [PaLM](https://en.wikipedia
 Mathematica notebooks in [RakuMode](https://resources.wolframcloud.com/PacletRepository/resources/AntonAntonov/RakuMode/), 
 [AAp7], make much easier the experiments with diagram generation and LLM utilization. (And more fun!) 
 
+- Generating Raku grammars with ChatGPT-3.5 or PaLM often produces "non-working" grammars. Hence, I focused on EBNF grammars.
+  My assumption is that EBNF has been around for a longer time period, hence, LLMs are "better trained for it."
+
 ------
 
 ## Packages and interactions

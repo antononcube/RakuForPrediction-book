@@ -10,7 +10,7 @@ The graphs are made with [Mermaid-JS](https://mermaid.js.org) and
 [Wolfram Language (WL)](https://www.wolfram.com/language/) (aka Mathematica).  
 
 **Remark:** Mermaid-JS specs are automatically rendered in GitHub Markdown files,
-and have plug-ing support in Integrated Development Environments (IDEs) like IntelliJ IDEA, VS Code, Emacs, etc.
+and have plug-in support in Integrated Development Environments (IDEs) like IntelliJ IDEA, VS Code, Emacs, etc.
 
 Examples using Large Language Models (LLMs) are provided. (Via 
 ["WWW::OpenAI"](https://raku.land/zef:antononcube/WWW::OpenAI) and 

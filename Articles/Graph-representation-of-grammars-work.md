@@ -243,7 +243,7 @@ my $ebnfLangLove = to-ebnf-grammar(LangLove)
 
 Here is the corresponding Mermaid-JS graph:
 
-```perl6, output.lang=mermaid, output.prompt=NONE
+```perl6, output-lang=mermaid, output-prompt=NONE
 fp-grammar-graph($ebnfLangLove)
 ```
 
@@ -267,7 +267,7 @@ Often LLM requests as the ones above return code as Markdown code cells, hence, 
 $ebnfLLM = $ebnfLLM.subst(/ ^ '`' ** 3 <-[\v]>* \n | '`' ** 3 \h* $ /,''):g;
 ```
 
-```perl6, output.lang=mermaid, output.prompt=NONE
+```perl6, output-lang=mermaid, output-prompt=NONE
 fp-grammar-graph($ebnfLLM, style => Whatever)
 ```
 
@@ -306,7 +306,7 @@ my $ebnfLLM2 = palm-generate-text($request2, max-tokens => 600, format => 'value
 $ebnfLLM2 = $ebnfLLM2.subst(/ ^ '`' ** 3 <-[\v]>* \n | '`' ** 3 \h* $ /,''):g;
 ```
 
-```perl6, output.lang=mermaid, output.prompt=NONE
+```perl6, output-lang=mermaid, output-prompt=NONE
 fp-grammar-graph($ebnfLLM2, style => Whatever, dir-spec => 'LR')
 ```
 
@@ -329,7 +329,7 @@ END
 
 Here we produce the graph using special parsing style:
 
-```perl6, output.lang=mermaid, output.prompt=NONE
+```perl6, output-lang=mermaid, output-prompt=NONE
 fp-grammar-graph($ebnfExpr, style => 'Relaxed')
 ```
 

@@ -1,4 +1,4 @@
-# 12 steps guide template
+# Simple guide via LLM template
 
 ## Introduction
 
@@ -10,6 +10,10 @@ See the references for more details of the underlying mechanics. (Written in Rak
 has "code chunk" for accessing the LLMs OpenAI / ChatGPT, [AAp2], and PaLM, [AAp3].
 
 **Remark:** Obviously, this introduction and the references at the bottom can be removed.
+
+**Remark:** Note that the code chunk parameter specs.
+The specs `results=asis, output-prompt=NONE` make the output to be "seamlessly" included in the result document.
+The spec `echo=FALSE` "removes" the code chunk from the result document.
 
 Here is a flowchart that summarizes the execution steps:
 
@@ -38,15 +42,12 @@ graph LR
 
 ## Simply put
 
-```palm, format=values, temperature=0.8, max-tokens=600, results=asis, output-prompt=NONE, echo=FALSE
+```palm, format=values, temperature=0.8, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
 Generate a 12 steps outline for quiting addiction to programmaring Python (and replacing with Raku.)
 ```
 
------
-
-## Expansions generation script
-
 ```perl6, results=asis, output-prompt=NONE, echo=FALSE
+# Expansions generation script
 my $txt = _;
 my $txtExpanded = do for $txt.split(/ ^^ \d+ /, :v, :skip-empty)>>.Str.rotor(2) -> $p {
     my $res = "-" x 120; 

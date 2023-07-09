@@ -1,4 +1,4 @@
-# 12 steps guide template
+# 12 steps to quit Python
 
 ## Introduction
 
@@ -10,6 +10,10 @@ See the references for more details of the underlying mechanics. (Written in Rak
 has "code chunk" for accessing the LLMs OpenAI / ChatGPT, [AAp2], and PaLM, [AAp3].
 
 **Remark:** Obviously, this introduction and the references at the bottom can be removed.
+
+**Remark:** Note that the code chunk parameter specs.
+The specs `results=asis, output-prompt=NONE` make the output to be "seamlessly" included in the result document.
+The spec `echo=FALSE` "removes" the code chunk from the result document.
 
 Here is a flowchart that summarizes the execution steps:
 
@@ -39,265 +43,247 @@ graph LR
 ## Simply put
 
 
-1. **Admit that you have a problem.** You are addicted to programming Python, and you need to quit.
-2. **Come to terms with the fact that you cannot control your Python use.** You are not able to moderate your Python use, and you need to stop completely.
-3. **Make a list of the reasons why you want to quit Python.** Write down all of the negative consequences of your Python use, and all of the benefits of quitting.
-4. **Find a support group.** There are many support groups available for people who are addicted to technology, including Python. Find a group that you can attend regularly, and talk to other people who are struggling with the same problem.
-5. **Set a quit date.** Decide on a date when you will stop using Python completely. Make this date a firm commitment, and do not allow yourself to make any exceptions.
-6. **Tell your family and friends about your decision to quit Python.** Let them know that you are serious about quitting, and ask for their support.
-7. **Get rid of all of your Python-related materials.** Throw away your Python books, delete your Python files, and uninstall Python from your computer.
-8. **Make a plan for how you will cope with cravings.** When you feel the urge to use Python, come up with a list of things you can do to distract yourself. This could include exercising, reading, spending time with friends and family, or taking a nap.
-9. **Expect to have setbacks.** Quitting Python is not easy, and you will likely have setbacks along the way. Don't beat yourself up if you slip up, just get back on track and keep moving forward.
-10. **Be patient with yourself.** It takes time to break a habit, and quitting Python will take time. Don't expect to be perfect overnight. Just keep working at it, and you will eventually reach your goal.
-11. **Celebrate your successes.** Every day that you go without using Python is a success. Celebrate your successes, big and small, and keep moving forward.
-12. **Don't give up.** Quitting Python is hard, but it is possible. If you stay committed to your goal, you will eventually reach it.
+1. Admit that you have a problem with Python programming.
+2. Come to believe that Raku can help you overcome your addiction.
+3. Make a list of all the reasons why you want to quit Python programming.
+4. Make a list of all the benefits of learning Raku.
+5. Set a date for when you will quit Python programming.
+6. Tell your friends and family about your decision to quit Python programming.
+7. Find a support group or therapist to help you through the process.
+8. Remove all traces of Python from your computer and devices.
+9. Start learning Raku.
+10. Practice Raku every day.
+11. Celebrate your progress and achievements.
+12. Stay committed to your decision to quit Python programming.
+
+**Additional tips:**
+
+* Be patient with yourself. It takes time to break a habit.
+* Don't give up if you have a setback. Just pick yourself up and keep going.
+* Remember that you are not alone. There are many people who have successfully quit Python programming.
+* You can do this!
 
 
------
-
-## Expansions generation script
-
-
-------------------------------------------------------------------------------------------------------------------------
-## 1. Admit that you have a problem
-
->...   You are addicted to programming Python, and you need to quit.
-
-
- I've been addicted to programming Python for as long as I can remember. I love the way it feels to write code, and I find it incredibly satisfying to see my programs come to life. But over the years, my addiction has started to take a toll on my life. I've become so focused on programming that I've neglected my other responsibilities, and I've started to feel isolated from my friends and family. I know that I need to quit, but I'm not sure how.
-
-**Here are some of the things that have led me to believe that I am addicted to programming Python:**
-
-* I spend all of my free time programming. I would rather stay in and code than go out and socialize with friends.
-* I have difficulty focusing on anything other than programming. I can't even watch a movie or read a book without thinking about code.
-* I get anxious and irritable when I can't program. I feel like I'm going crazy if I don't have access to a computer.
-* My grades have been suffering because I'm spending so much time programming.
-* I've lost touch with my friends and family because I'm always too busy programming.
-
-**I know that I need to quit programming Python, but I'm not sure how.** I'm afraid that if I quit, I'll lose my sense of purpose and I'll be bored all the time. I'm also worried that I won't be able to find a job that I'm passionate about.
-
-**I'm reaching out for help because I know that I can't do this on my own.** I need support from my family, friends, and therapist to help me through this process. I'm committed to quitting programming Python, and I know that I can do it with the help of others.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 2. Come to terms with the fact that you cannot control your Python use
+## 1.
 
->...   You are not able to moderate your Python use, and you need to stop completely.
+>...  Admit that you have a problem with Python programming.
 
 
- It can be difficult to admit that you have a problem with Python use. You may feel like you're not like other people, and that you can control your Python use if you just try harder. But the truth is, if you're struggling to control your Python use, you're not alone. Many people struggle with Python addiction, and it's a real problem.
+ I admit that I have a problem with Python programming. I find it difficult to understand the syntax and the way that variables are declared. I also find it difficult to remember the different functions and methods that are available. As a result, I often make mistakes when I am writing Python code.
 
-If you're struggling with Python use, it's important to come to terms with the fact that you can't control it. You may not want to admit it, but it's the truth. You need to stop completely.
+I am aware that this is a problem that I need to overcome if I want to become a better programmer. I am working on improving my understanding of Python by reading books, taking online courses, and practicing writing code. I am also trying to find a mentor who can help me to learn the ropes.
 
-There are a few things you can do to help you come to terms with this fact. First, talk to someone you trust about your Python use. This could be a friend, family member, therapist, or addiction specialist. Talking about your problem can help you to see it more clearly and to start to accept that you need help.
-
-Second, educate yourself about Python addiction. There are a lot of resources available online and in libraries that can help you to understand more about the problem. Learning about Python addiction can help you to understand why you're struggling and what you can do to get help.
-
-Finally, reach out for help. There are many different types of help available for Python addiction. You can find support groups, therapy, and medication. Getting help is the best way to get your life back on track.
-
-Coming to terms with the fact that you can't control your Python use is the first step to getting help. It's not easy, but it's necessary. If you're struggling with Python use, please reach out for help. There are people who can help you get your life back on track.
+I know that it will take time and effort, but I am committed to learning Python. I believe that it is a powerful language that can be used to create amazing things. I am excited to see what I can accomplish with Python in the future.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 3. Make a list of the reasons why you want to quit Python
+## 2.
 
->...   Write down all of the negative consequences of your Python use, and all of the benefits of quitting.
+>...  Come to believe that Raku can help you overcome your addiction.
 
 
- **Negative consequences of Python use**
+ Raku is a programming language that is designed to be easy to learn and use. It is also a very expressive language, which means that it can be used to create a wide variety of programs. This combination of ease of use and expressiveness makes Raku a good choice for people who are trying to overcome an addiction.
 
-* **Loss of productivity:** Python is a very slow language, which can lead to decreased productivity.
-* **Increased risk of errors:** Python is a dynamically typed language, which means that errors can be hard to find.
-* **Difficulty in debugging:** Python's debugging tools are not as powerful as those of other languages, such as Java or C++.
-* **Lack of performance:** Python is not a very performant language, which can lead to applications running slowly.
-* **Difficulty in learning:** Python has a steep learning curve, which can make it difficult for new programmers to pick up.
+One of the biggest challenges of overcoming an addiction is finding the motivation to stay clean. Raku can help with this by providing a sense of accomplishment and purpose. When you are working on a Raku project, you are focused on creating something new and exciting. This can help to take your mind off of your addiction and give you a sense of pride in your accomplishments.
 
-**Benefits of quitting Python**
+Raku can also help you to develop new skills and abilities. As you learn more about the language, you will become more confident in your ability to solve problems. This confidence can help you to feel more capable of overcoming your addiction.
 
-* **Increased productivity:** Switching to a faster language, such as Java or C++, can lead to increased productivity.
-* **Reduced risk of errors:** Statically typed languages, such as Java or C++, are less error-prone than dynamically typed languages, such as Python.
-* **Improved debugging:** The debugging tools for Java and C++ are more powerful than those for Python.
-* **Improved performance:** Java and C++ are both more performant than Python.
-* **Easier learning:** Java and C++ have a shallower learning curve than Python.
+Finally, Raku can provide you with a community of support. There are many online forums and chat rooms where you can connect with other Raku users. These communities can be a valuable source of support and encouragement as you work to overcome your addiction.
 
-Overall, there are many benefits to quitting Python. If you are looking for a faster, more performant, and easier-to-learn language, then you should consider switching to Java or C++.
+If you are struggling with an addiction, Raku can be a helpful tool in your recovery. The language's ease of use, expressiveness, and sense of accomplishment can all contribute to your success. Additionally, Raku's community of support can provide you with the encouragement and support you need to stay clean.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 4. Find a support group
+## 3.
 
->...   There are many support groups available for people who are addicted to technology, including Python. Find a group that you can attend regularly, and talk to other people who are struggling with the same problem.
+>...  Make a list of all the reasons why you want to quit Python programming.
 
 
- There are many support groups available for people who are addicted to technology, including Python. These groups can provide a safe and supportive environment where you can share your experiences with others who understand what you're going through. They can also offer helpful tips and strategies for overcoming your addiction.
-
-Here are a few resources to help you find a support group:
-
-* The National Association for Computer Addiction (NCA), which offers a free directory of support groups: https://www.ncanon.org/
-* The Computer Addiction Recovery Center (CARC), which offers online and in-person support groups: https://www.computeraddictionrecoverycenter.com/
-* The Center for Internet and Technology Addiction (CITA), which offers a variety of resources for people struggling with technology addiction, including support groups: https://www.citadel.org/
-
-In addition to support groups, there are also a number of other resources available to help you overcome your technology addiction. These resources can include:
-
-* Therapy
-* Cognitive-behavioral therapy (CBT)
-* Mindfulness-based stress reduction (MBSR)
-* Medication
-
-If you're struggling with a technology addiction, it's important to seek help. With the right support, you can overcome your addiction and live a healthy, fulfilling life.
+ 1. **It's too hard to learn.** Python has a steep learning curve, and it can be difficult for beginners to get started. The syntax is complex, and there are a lot of different concepts to learn.
+2. **It's not as fast as other languages.** Python is a slower language than some other programming languages, such as C++ or Java. This can be a problem for applications that require a lot of processing power.
+3. **It's not as versatile as other languages.** Python is not as versatile as some other programming languages, such as Java or C#. It can be difficult to use Python for certain tasks, such as developing mobile applications or embedded systems.
+4. **It's not as popular as other languages.** Python is not as popular as some other programming languages, such as Java or C++. This can make it difficult to find resources and support for Python programming.
+5. **It's not the best language for every task.** Python is a good general-purpose programming language, but it's not the best language for every task. There are other languages that may be better suited for specific tasks, such as C++ for performance-critical applications or Java for enterprise development.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 5. Set a quit date
+## 4.
 
->...   Decide on a date when you will stop using Python completely. Make this date a firm commitment, and do not allow yourself to make any exceptions.
+>...  Make a list of all the benefits of learning Raku.
 
 
- Setting a quit date is an important step in quitting Python. It gives you a deadline to work towards, and helps to keep you motivated. When you know that you have a date to stop using Python, it's easier to resist the temptation to use it in the meantime.
+ **Benefits of learning Raku:**
 
-Here are some tips for setting a quit date:
+* **A modern, general-purpose programming language.** Raku is a modern programming language that is both powerful and expressive. It is designed to be easy to learn and use, while still providing a wide range of features for experienced programmers.
+* **A concise and readable syntax.** Raku's syntax is concise and readable, making it easy to write code that is both clear and concise.
+* **A rich type system.** Raku's type system is rich and flexible, allowing programmers to express their intent clearly and concisely.
+* **A powerful macro system.** Raku's macro system allows programmers to extend the language in powerful ways, making it possible to write code that is both concise and expressive.
+* **A vibrant community.** Raku has a vibrant community of users and developers who are constantly contributing new features and improvements. This means that there is always someone to help you learn and use the language.
 
-* Choose a date that is realistic and achievable. Don't set yourself up for failure by choosing a date that is too soon.
-* Make sure the date is far enough in the future that you have time to prepare.
-* Share your quit date with someone you trust, such as a friend or family member. This will help you stay accountable and on track.
-
-Once you have set a quit date, it's important to stick to it. Here are some tips for staying on track:
-
-* Avoid triggers. Triggers are things that make you want to use Python. Avoid these triggers as much as possible.
-* Find alternative activities. When you feel the urge to use Python, find something else to do. This could be anything from reading a book to going for a walk.
-* Be patient. Quitting Python is not easy. There will be times when you want to give up. Just remember that you are stronger than your addiction, and you can do this.
-
-If you are struggling to quit Python on your own, there are resources available to help you. You can find support groups and online forums where you can connect with other people who are trying to quit Python. You can also talk to a therapist or counselor who can help you develop coping mechanisms and strategies for staying on track.
+Overall, Raku is a modern, general-purpose programming language that is both powerful and expressive. It is easy to learn and use, has a rich type system, a powerful macro system, and a vibrant community. These are all benefits that make Raku a great choice for programmers of all levels of experience.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 6. Tell your family and friends about your decision to quit Python
+## 5.
 
->...   Let them know that you are serious about quitting, and ask for their support.
+>...  Set a date for when you will quit Python programming.
 
 
- **Dear family and friends,**
+ I will quit Python programming on January 1, 2024.
 
-I am writing to let you know that I have decided to quit Python. This was a difficult decision for me, but it is one that I have made after careful consideration.
+------------------------------------------------------------------------------------------------------------------------
+## 6.
 
-I have been using Python for many years, and I have learned a lot from it. Python is a powerful and versatile language, and it has served me well in my career. However, I have come to the realization that Python is not the right language for me anymore.
+>...  Tell your friends and family about your decision to quit Python programming.
 
-I am making this change because I want to focus on other programming languages that are a better fit for my skills and interests. I am excited to learn new languages and explore new possibilities.
 
-I know that this decision may come as a surprise to you, but I hope that you will support me. I am confident that this is the best decision for me, and I am grateful for your understanding.
+ Hi everyone,
 
-Sincerely,
+I wanted to let you know that I've decided to quit Python programming. I know this may come as a surprise, but it's something that I've been thinking about for a while.
+
+I've been programming in Python for the past few years, and I've enjoyed it a lot. It's a powerful language with a lot of versatility. However, I've come to realize that it's not the right language for me.
+
+I'm a more visual thinker, and I find that I'm more productive when I'm using a language that's more closely aligned with my thought process. I've been experimenting with other languages, and I've found that I'm much more comfortable with JavaScript.
+
+I know that this is a big change, but I'm excited about it. I think it's the best decision for me, and I'm confident that it will allow me to be more productive in my work.
+
+I appreciate your understanding.
+
+Thanks,
 [Your name]
 
 ------------------------------------------------------------------------------------------------------------------------
-## 7. Get rid of all of your Python-related materials
+## 7.
 
->...   Throw away your Python books, delete your Python files, and uninstall Python from your computer.
+>...  Find a support group or therapist to help you through the process.
 
 
- **Get rid of all of your Python-related materials.**
+ ### Find a support group or therapist to help you through the process.
 
-* Throw away your Python books.
-* Delete your Python files.
-* Uninstall Python from your computer.
+Going through a divorce can be a difficult and challenging experience. It is important to have support during this time, and there are a number of resources available to help you through the process.
 
-**Why?**
+One option is to find a support group. There are many different types of support groups available, so you can find one that meets your specific needs and interests. Support groups can provide you with a place to talk about your experiences with others who are going through the same thing, and they can offer you support and guidance.
 
-Getting rid of all of your Python-related materials can help you to break the habit of using Python and to focus on learning a new programming language. It can also help you to declutter your workspace and to free up space on your computer.
+Another option is to see a therapist. Therapy can be helpful for processing the emotions that come with divorce, and it can also help you develop coping mechanisms for dealing with the challenges of this transition. A therapist can also provide you with support and guidance as you move through the divorce process.
 
-**How to do it**
+If you are considering divorce, it is important to make sure that you are getting the support that you need. A support group or therapist can be a valuable resource during this time, and they can help you to cope with the challenges of divorce and come out of the process stronger than ever before.
 
-To get rid of your Python-related materials, you can:
+Here are some tips for finding a support group or therapist:
 
-* Donate your Python books to a local library or bookstore.
-* Delete your Python files from your computer.
-* Uninstall Python from your computer.
+* Ask your doctor or other healthcare provider for recommendations.
+* Search online for support groups in your area.
+* Look for groups that are specifically for people going through divorce.
+* Talk to friends or family members who have gone through divorce and ask for their recommendations.
+* Once you have found a few groups or therapists that you are interested in, reach out to them and ask about their policies and procedures. Make sure that the group or therapist is a good fit for your needs and interests.
 
-**Tips**
-
-* If you are having trouble getting rid of your Python-related materials, you can try setting a deadline for yourself. For example, you can tell yourself that you will get rid of all of your Python materials by the end of the week.
-* You can also try asking a friend or family member to help you get rid of your Python materials.
-
-**Benefits**
-
-Getting rid of all of your Python-related materials can have a number of benefits, including:
-
-* It can help you to break the habit of using Python.
-* It can help you to focus on learning a new programming language.
-* It can help you to declutter your workspace and to free up space on your computer.
+Going through a divorce is a difficult experience, but it is important to remember that you are not alone. There are many resources available to help you through this process, and you can come out of it stronger than
 
 ------------------------------------------------------------------------------------------------------------------------
-## 8. Make a plan for how you will cope with cravings
+## 8.
 
->...   When you feel the urge to use Python, come up with a list of things you can do to distract yourself. This could include exercising, reading, spending time with friends and family, or taking a nap.
-
-
- When you feel the urge to use Python, it can be helpful to have a plan in place for how you will cope with the craving. This could include:
-
-* **Exercise:** Exercise is a great way to relieve stress and clear your head. When you feel the urge to use Python, go for a walk, run, or do some other form of exercise.
-* **Read:** Reading can help to distract you from your cravings and provide you with new ideas. Find a book that you find interesting and read for a few minutes whenever you feel the urge to use Python.
-* **Spend time with friends and family:** Spending time with loved ones can help to put your problems into perspective and remind you that you are not alone. Call a friend or family member, go out for coffee, or have dinner together.
-* **Take a nap:** Sometimes, all you need is a little rest. If you are feeling overwhelmed, take a nap. When you wake up, you will feel refreshed and better able to resist the urge to use Python.
-
-It is important to remember that cravings are temporary. If you can distract yourself and ride out the craving, it will eventually pass. With time and practice, you will be able to resist the urge to use Python more easily.
-
-------------------------------------------------------------------------------------------------------------------------
-## 9. Expect to have setbacks
-
->...   Quitting Python is not easy, and you will likely have setbacks along the way. Don't beat yourself up if you slip up, just get back on track and keep moving forward.
+>...  Remove all traces of Python from your computer and devices.
 
 
- It's important to be aware of the possibility of setbacks when you're trying to quit Python. This is a common experience, and it doesn't mean that you're failing. If you slip up, don't beat yourself up. Just get back on track and keep moving forward. Here are a few tips for dealing with setbacks:
+ To completely remove Python from your computer, you can follow these steps:
 
-* **Don't give up.** It's easy to get discouraged when you have a setback, but it's important to remember that everyone experiences them. The key is to not give up. Just keep moving forward and you will eventually reach your goal.
-* **Learn from your mistakes.** Every setback is an opportunity to learn and grow. Take some time to reflect on what happened and what you can do differently next time. This will help you to avoid making the same mistakes in the future.
-* **Be patient.** Quitting Python takes time and effort. There will be times when you feel like you're not making any progress. Just be patient and keep working towards your goal. Eventually, you will reach it.
+1. **On Windows:**
+    1. Open the **Start** menu and search for **"Programs and Features"**.
+    2. Click on **"Programs and Features"** to open the **Programs and Features** window.
+    3. Find **"Python"** in the list of programs and click on the **"Uninstall"** button.
+    4. Follow the on-screen instructions to uninstall Python.
 
-Here are some additional resources that you may find helpful:
+2. **On macOS:**
+    1. Open the **Finder** and navigate to the **Applications** folder.
+    2. Find **"Python"** and drag it to the **Trash**.
+    3. Empty the **Trash**.
 
-* [The No Excuses Rule](https://www.amazon.com/No-Excuses-Rule-Change-Your-Life/dp/0062270146)
-* [The Power of Habit](https://www.amazon.com/Power-Habit-What-Life-Your/dp/081298160X)
-* [The 7 Habits of Highly Effective People](https://www.amazon.com/7-Habits-Highly-Effective-People/dp/067862207X)
+3. **On Linux:**
+    1. Open a terminal window.
+    2. Type the following command and press **Enter**:
 
-------------------------------------------------------------------------------------------------------------------------
-## 10. Be patient with yourself
+        ```
+        sudo apt-get remove python
+        ```
 
->...   It takes time to break a habit, and quitting Python will take time. Don't expect to be perfect overnight. Just keep working at it, and you will eventually reach your goal.
+    3. Type the following command and press **Enter**:
 
+        ```
+        sudo apt-get autoremove
+        ```
 
- **Be patient with yourself.** It takes time to break a habit, and quitting Python will take time. Don't expect to be perfect overnight. Just keep working at it, and you will eventually reach your goal.
+4. **After uninstalling Python, you should also delete any Python-related files and folders from your computer.** To do this, follow these steps:
 
-Here are some tips to help you stay patient with yourself:
+    1. On Windows, open the **File Explorer** and navigate to the following folder:
 
-* **Set realistic goals.** Don't try to quit Python all at once. Instead, set small, achievable goals for yourself, such as "I will not write any Python code for one day" or "I will only use Python for work-related tasks."
-* **Don't beat yourself up if you slip up.** Everyone makes mistakes. If you slip up and write some Python code, don't beat yourself up about it. Just get back on track and keep working towards your goal.
-* **Reward yourself for your progress.** When you reach a goal, reward yourself for your progress. This will help you stay motivated and on track.
+        ```
+        %APPDATA%\Python
+        ```
 
-Quitting Python is not easy, but it is possible. Just be patient with yourself, set realistic goals, and don't give up.
+    2. Delete all of the files and folders in this folder.
 
-------------------------------------------------------------------------------------------------------------------------
-## 11. Celebrate your successes
+    3. On macOS, open the **Finder** and navigate to the following folder:
 
->...   Every day that you go without using Python is a success. Celebrate your successes, big and small, and keep moving forward.
+        ```
+        /Users/<username>/Library/Python
+        ```
 
+    4. Delete all of the files and folders in this folder.
 
- **Celebrating your successes** is an important part of staying motivated and on track. When you achieve a goal, big or small, take some time to acknowledge your accomplishment. This could mean writing it down in a journal, telling a friend or family member, or simply taking a moment to appreciate your own hard work. Celebrating your successes will help you to stay positive and motivated, and it will also make it more likely that you'll continue to achieve your goals.
-
-Here are some tips for celebrating your successes:
-
-* **Be specific.** When you're celebrating your successes, be specific about what you've achieved. For example, instead of saying "I'm proud of myself for quitting smoking," you could say "I'm proud of myself for quitting smoking for two weeks." This will help you to focus on your progress and to stay motivated.
-* **Find ways to share your success.** Sharing your success with others can help to make it even more meaningful. You could tell a friend or family member, post about it on social media, or write about it in a blog. This will help you to connect with others who are on the same journey, and it will also help you to remember your accomplishments.
-* **Don't forget to reward yourself.** When you achieve a goal, it's important to reward yourself in some way. This could mean taking a day off, buying yourself a new book, or going out to dinner. This will help you to appreciate your own hard work and to stay motivated for future goals.
-
-Celebrating your successes is an important part of staying motivated and on track. By taking the time to acknowledge your accomplishments, you'll be more likely to continue to achieve your goals.
+    5. On Linux, open a terminal window and type the following command:
 
 ------------------------------------------------------------------------------------------------------------------------
-## 12. Don't give up
+## 9.
 
->...   Quitting Python is hard, but it is possible. If you stay committed to your goal, you will eventually reach it.
+>...  Start learning Raku.
 
- **Don't give up.**
 
-Learning a new programming language can be challenging, and it's easy to get discouraged when you're faced with difficult concepts or problems. However, it's important to remember that everyone who has ever learned a new skill has faced the same challenges. The key is to not give up.
+ To start learning Raku, you can:
 
-If you're feeling stuck, take a step back and try to identify the root of the problem. Is there a concept that you're not understanding? Are you having trouble with a particular problem? Once you've identified the problem, you can start to look for solutions. There are many resources available to help you learn Python, including online tutorials, books, and forums. Don't be afraid to ask for help from others who are more experienced.
+* Read the [Raku language documentation](https://raku.org/learn/).
+* Take the [Raku 101 online course](https://raku.org/learn/101/).
+* Join the [Raku Discord server](https://discord.gg/raku) and ask questions.
+* Find a local Raku user group or meetup.
 
-The most important thing is to stay committed to your goal. If you keep practicing and learning, you will eventually reach it. So don't give up!
+------------------------------------------------------------------------------------------------------------------------
+## 10.
+
+>...  Practice Raku every day.
+
+
+ Practice Raku every day so that you can become better at it. You can practice by writing Raku code, reading Raku documentation, and talking to other Raku programmers.
+
+------------------------------------------------------------------------------------------------------------------------
+## 11.
+
+>...  Celebrate your progress and achievements.
+
+
+ There are many ways to celebrate your progress and achievements. Some ideas include:
+
+* **Tell someone you care about about your accomplishments.** This could be a friend, family member, or coworker. Sharing your good news with someone you care about can help you feel validated and supported.
+* **Write down your accomplishments in a journal or planner.** This is a great way to track your progress over time and see how much you've accomplished. It can also be helpful to look back on your accomplishments when you're feeling down or unmotivated.
+* **Treat yourself to something special.** This could be a new piece of clothing, a delicious meal, or a day at the spa. Giving yourself a reward for your hard work can help you feel good about yourself and motivated to continue achieving your goals.
+* **Share your accomplishments on social media.** This is a great way to connect with others who are on the same journey as you and celebrate your wins together. It can also be motivating to see other people's progress and be inspired by their stories.
+
+No matter how you choose to celebrate your progress and achievements, make sure to take some time to appreciate your hard work and accomplishments. You deserve it!
+
+------------------------------------------------------------------------------------------------------------------------
+## 12. Additional tips
+
+>...  Stay committed to your decision to quit Python programming.
+
+
+
+* Be patient with yourself. It takes time to break a habit.
+* Don't give up if you have a setback. Just pick yourself up and keep going.
+* Remember that you are not alone. There are many people who have successfully quit Python programming.
+* You can do this!
+
+ **Be patient with yourself.** It takes time to break a habit. Don't expect to be perfect overnight. Just keep at it and you will eventually reach your goal.
+
+**Don't give up if you have a setback.** Everyone has setbacks. The important thing is to not give up. Just pick yourself up and keep going.
+
+**Remember that you are not alone.** There are many people who have successfully quit Python programming. You can find support from others who are going through the same thing.
+
+**You can do this!** If you stay committed to your decision, you will eventually be able to quit Python programming. Just remember to be patient with yourself, don't give up, and remember that you are not alone.
 
 
 ------

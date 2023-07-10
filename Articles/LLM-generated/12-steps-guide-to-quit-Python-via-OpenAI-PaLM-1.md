@@ -8,12 +8,6 @@ Anton Antonov
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
 July 2023   
 
-# Simple guide
-
-### ... LLM-based template
-
-
-
 
 ## Simply put
 

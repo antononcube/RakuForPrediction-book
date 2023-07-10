@@ -11,8 +11,9 @@ use WWW::OpenAI;
 
 ## Simply put
 
-```palm, format=values, temperature=0.85, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
+```openai, format=values, temperature=1.25, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
 Generate a 12 steps outline for quiting addiction to Python programming and replacing it with Raku.
+(Use bold prefixes and arabic numbers for the list items.)
 ```
 
 ```perl6, results=asis, output-prompt=NONE, echo=FALSE

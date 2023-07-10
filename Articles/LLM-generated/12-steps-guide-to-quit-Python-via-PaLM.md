@@ -8,241 +8,325 @@ Anton Antonov
 [RakuForPrediction-book at GitHub](https://github.com/antononcube/RakuForPrediction-book)   
 July 2023   
 
+# Simple guide
+
+### ... LLM-based template
+
+
+
 
 ## Simply put
 
 
-1. **Admit that you have a problem.** You are addicted to programming Python and it is negatively impacting your life.
-2. **Come to terms with the fact that you cannot control your Python use.** You are powerless over your addiction and need help to recover.
-3. **Make a list of the reasons why you want to quit Python.** Write down all of the negative consequences that Python has had on your life.
-4. **Find a support group.** There are many different support groups available for people who are addicted to programming. Find one that you feel comfortable with and attend regularly.
-5. **Set realistic goals for yourself.** Don't try to quit Python cold turkey. Set small, achievable goals for yourself and gradually work your way up to quitting completely.
-6. **Be patient with yourself.** Quitting Python is a process and it takes time. Don't get discouraged if you have setbacks. Just keep trying and you will eventually reach your goal.
-7. **Surround yourself with positive people.** Avoid people who are still using Python and spend time with people who are supportive of your recovery.
-8. **Take care of yourself.** Make sure you are getting enough sleep, eating healthy foods, and exercising regularly. These things will help you to stay healthy and focused on your recovery.
-9. **Seek professional help if needed.** If you are struggling to quit Python on your own, seek professional help. A therapist can help you to identify the root of your addiction and develop coping mechanisms to help you stay sober.
-10. **Don't give up.** Quitting Python is a challenge, but it is possible. If you stay committed to your recovery, you will eventually reach your goal.
-11. **Celebrate your successes.** Every day that you stay sober from Python is a success. Celebrate your small victories and remind yourself of how far you have come.
-12. **Be grateful for your new life.** Quitting Python is a gift. You are now free to live your life to the fullest without the constraints of addiction. Be grateful for your new life and all of the possibilities that it holds.
+1. Acknowledge that the addiction exists: Recognize the impact that Python programming has had on your life, and admit the need to cut back.
+
+2. Set a goal: Create a goal to shift your language of choice from Python to Raku.
+
+3. Research the benefits of Raku: Research the benefits of Raku, including its capabilities and syntax.
+
+4. Find a Raku community: Join a Raku community or forum and connect with other users.
+
+5. Make a transition plan: Create a plan for how you will transition from Python to Raku.
+
+6. Uninstall Python: Delete Python from your computer to avoid temptation.
+
+7. Learn the basics of Raku: Learn the basics of Raku, including its syntax and capabilities.
+
+8. Create a practice project: Create a practice project that allows you to explore and apply Raku.
+
+9. Ask for help: Engage with the Raku community and ask for help when needed.
+
+10. Celebrate your progress: Celebrate when goals or milestones are achieved.
+
+11. Stay on track: Set reminders to continue working towards your goal.
+
+12. Reward yourself: Reward yourself for achieving your goal of switching from Python to Raku.
 
 
 
 ------------------------------------------------------------------------------------------------------------------------
-## 1. Admit that you have a problem
+## 1.
 
->...   You are addicted to programming Python and it is negatively impacting your life.
-
-
- I admit that I have a problem. I am addicted to programming Python and it is negatively impacting my life. I spend all my free time coding, and I neglect my other responsibilities. I have lost interest in other hobbies, and I have trouble sleeping because I am thinking about code. My relationships with my family and friends have suffered, and I am starting to feel isolated.
-
-I know that I need to change, but I don't know how. I have tried to quit programming, but I can't seem to stay away for long. I need help.
-
-I am reaching out for help because I know that I can't do this on my own. I need professional help to overcome my addiction. I am willing to do whatever it takes to get my life back on track.
-
-I know that there are other people who are struggling with the same problem. If you are one of those people, please know that you are not alone. There is help available. Reach out to a friend or family member, or find a support group. You don't have to go through this alone.
-
-------------------------------------------------------------------------------------------------------------------------
-## 2. Come to terms with the fact that you cannot control your Python use
-
->...   You are powerless over your addiction and need help to recover.
+>...  Acknowledge that the addiction exists: Recognize the impact that Python programming has had on your life, and admit the need to cut back.
 
 
- **Coming to terms with the fact that you cannot control your Python use** is a difficult but necessary step in the recovery process. It can be hard to admit that you have a problem, but it is the first step towards getting help.
 
-There are many reasons why people become addicted to Python. Some people use it to escape from their problems, while others use it to self-medicate for mental health issues. Regardless of the reason, addiction to Python can have a devastating impact on your life.
+There are many ways to acknowledge that a Python programming addiction exists. One way is to recognize the impact that Python programming has had on your life. For example, you may have noticed that you spend more and more time coding, even when you have other obligations. You may also find that you are unable to stop thinking about Python programming, even when you are not actively coding. If you are experiencing any of these symptoms, it is important to acknowledge that you may have a problem.
 
-If you are struggling with Python addiction, it is important to seek professional help. There are many resources available to help you recover, including support groups, therapy, and medication.
+Another way to acknowledge that a Python programming addiction exists is to admit the need to cut back. This can be difficult, especially if you are passionate about Python programming. However, it is important to remember that your addiction is negatively impacting your life. By cutting back on your Python programming, you can improve your overall well-being.
 
-**You are powerless over your addiction and need help to recover.**
+Here are some tips for acknowledging that a Python programming addiction exists:
 
-This is a difficult truth to accept, but it is an important one. When you are addicted to Python, you are not in control of your own behavior. You may feel like you need to use Python to function, but this is not the case. You can recover from your addiction and live a healthy, fulfilling life.
+* **Be honest with yourself about your Python programming habits.** Do you spend more time coding than you would like? Do you find it difficult to stop thinking about Python programming? If so, it is likely that you have a problem.
+* **Talk to someone you trust about your addiction.** This could be a friend, family member, therapist, or other professional. Talking about your addiction can help you to gain perspective and support.
+* **Seek professional help.** If you are struggling to control your Python programming addiction, it is important to seek professional help. A therapist can help you to identify the root of your addiction and develop strategies for overcoming it.
 
-**Getting help for Python addiction is not easy, but it is possible.** There are many resources available to help you on your journey to recovery. With the right help, you can overcome your addiction and live a happy, fulfilling life.
-
-If you are struggling with Python addiction, please reach out for help. There are people who care about you and want to help you get better.
+Acknowledgement is the first step towards recovery from any addiction. By acknowledging that you have a problem, you can take the necessary steps to get help and improve your life.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 3. Make a list of the reasons why you want to quit Python
+## 2.
 
->...   Write down all of the negative consequences that Python has had on your life.
-
-
- 1. **Python is slow.** Python is a interpreted language, which means that it is slower than compiled languages like C++ or Java. This can be a significant problem for performance-critical applications.
-2. **Python is not memory efficient.** Python uses a lot of memory, which can be a problem for applications with limited memory resources.
-3. **Python is not safe.** Python is a dynamically typed language, which means that it is easy to make mistakes that can lead to security vulnerabilities.
-4. **Python has a large learning curve.** Python is a complex language with a lot of features, which can make it difficult to learn.
-5. **Python is not the best language for every task.** There are other languages that are better suited for specific tasks, such as C++ for performance-critical applications or Java for enterprise applications.
-
-Here are some of the negative consequences that Python has had on my life:
-
-* I have spent a lot of time learning Python, but I have not been able to use it to get a job.
-* I have written Python code that has been slow and inefficient.
-* I have written Python code that has been insecure and has had security vulnerabilities.
-* I have had to spend a lot of time debugging Python code.
-* I have been frustrated by the Python learning curve.
-
-Overall, I have had a negative experience with Python and I believe that it is not the best language for me.
-
-------------------------------------------------------------------------------------------------------------------------
-## 4. Find a support group
-
->...   There are many different support groups available for people who are addicted to programming. Find one that you feel comfortable with and attend regularly.
+>...  Set a goal: Create a goal to shift your language of choice from Python to Raku.
 
 
- There are many different support groups available for people who are addicted to programming. Some of these groups are specifically designed for programmers, while others are more general. It is important to find a group that you feel comfortable with and that meets your needs.
 
-Some of the benefits of attending a support group include:
+**Goal:** I will shift my language of choice from Python to Raku by the end of 2023.
 
-* **Sharing your experiences with others who understand what you are going through.** This can be a great way to feel less alone and to learn from the experiences of others.
-* **Getting support and encouragement from others.** It can be helpful to have people who are rooting for you and who believe in you.
-* **Learning new coping mechanisms.** The members of your support group can share their own strategies for dealing with the challenges of programming addiction.
+**Reasoning:**
 
-If you are struggling with a programming addiction, it is important to seek help. A support group can be a valuable resource in your recovery.
+* I am interested in learning a new programming language that is different from Python.
+* Raku has a number of features that I find appealing, such as its focus on ergonomics and its support for multiple programming paradigms.
+* I believe that learning Raku will make me a more well-rounded programmer.
 
-Here are some tips for finding a support group:
+**Strategies:**
 
-* **Do some research online.** There are many websites that list support groups for programmers. You can also search for groups on social media.
-* **Talk to your doctor or therapist.** They may be able to recommend a support group that they are familiar with.
-* **Ask your friends or family if they know of any support groups.** They may be able to connect you with a group that meets your needs.
+* I will start by learning the basics of Raku. I will do this by reading books, taking online courses, and working on small projects.
+* I will continue to learn Raku by using it for real-world projects. I will find projects that interest me and that will challenge me to learn new things.
+* I will stay up-to-date on the latest developments in Raku by reading blogs, attending conferences, and participating in online communities.
 
-Once you have found a support group, it is important to attend regularly. This will help you to stay connected with the group and to get the support that you need.
+**Measurements:**
+
+* I will track my progress by keeping a journal of my learning experiences. I will also track the number of projects I complete and the number of new concepts I learn.
+* I will evaluate my progress at regular intervals. I will make adjustments to my learning plan as needed.
+
+**Challenges:**
+
+* One challenge I will face is the fact that Raku is a new language. This means that there will be a learning curve involved.
+* Another challenge I will face is finding projects that I am interested in and that will challenge me to learn new things.
+* I will also need to stay up-to-date on the latest developments in Raku. This can be a challenge, as the language is constantly evolving.
+
+**Anticipated Outcomes:**
+
+* I expect to become a more well-rounded programmer by learning Raku.
+* I also expect to be able to use Raku to solve a wider variety of problems.
+* Finally, I expect
 
 ------------------------------------------------------------------------------------------------------------------------
-## 5. Set realistic goals for yourself
+## 3.
 
->...   Don't try to quit Python cold turkey. Set small, achievable goals for yourself and gradually work your way up to quitting completely.
+>...  Research the benefits of Raku: Research the benefits of Raku, including its capabilities and syntax.
 
 
- **Set realistic goals for yourself.** Don't try to quit Python cold turkey. This will only lead to frustration and a relapse. Instead, set small, achievable goals for yourself and gradually work your way up to quitting completely.
 
-For example, you might start by setting a goal to only use Python for work-related tasks. Once you've been able to stick to that goal for a week or two, you can move on to setting a goal to only use Python for one hour each day. Finally, you can work your way up to quitting Python completely.
+Raku, formerly Perl 6, is a general-purpose programming language that is designed to be both powerful and easy to use. Raku has a wide range of capabilities, including support for object-oriented programming, functional programming, and metaprogramming. Raku's syntax is designed to be both concise and readable, and it is compatible with Perl 5.
 
-It's important to be patient and persistent with this process. Quitting Python is a big change, and it's okay to take it slow. Just remember that you're capable of achieving your goals if you set your mind to it.
+Here are some of the benefits of using Raku:
 
-Here are some additional tips for quitting Python:
+* **Powerful:** Raku is a very powerful language that can be used to solve a wide variety of problems. It has a large standard library that provides a wide range of functionality, and it is also extensible through the use of modules.
+* **Easy to use:** Raku's syntax is designed to be both concise and readable, making it easy to learn and use. It also has a number of features that make it easier to write maintainable code, such as pattern matching and lexical closures.
+* **Cross-platform:** Raku is a cross-platform language that can be run on a variety of operating systems. This makes it a good choice for projects that need to be deployed to multiple platforms.
+* **Open source:** Raku is an open source language, which means that it is free to use and distribute. This makes it a good choice for projects that need to be developed in a collaborative environment.
 
-* Find a support system. Tell your friends and family about your goal to quit Python. They can provide you with encouragement and support when you need it most.
-* Find alternative activities. When you're feeling the urge to use Python, find something else to do to occupy your time. This could be anything from reading a book to going for a walk.
-* Be kind to yourself. There will be times when you slip up and use Python. Don't beat yourself up about it. Just pick yourself up and keep moving forward.
-
-Quitting Python is not easy, but it is possible. If you set realistic goals for yourself, have a support system, and find alternative activities, you can achieve your goal.
+Overall, Raku is a powerful, easy-to-use, cross-platform, and open source programming language that is well-suited for a wide variety of projects.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 6. Be patient with yourself
+## 4.
 
->...   Quitting Python is a process and it takes time. Don't get discouraged if you have setbacks. Just keep trying and you will eventually reach your goal.
+>...  Find a Raku community: Join a Raku community or forum and connect with other users.
 
 
- **Be patient with yourself.** Quitting Python is a process and it takes time. Don't get discouraged if you have setbacks. Just keep trying and you will eventually reach your goal.
 
-It's normal to feel frustrated or even angry when you're trying to quit something that you've been doing for a long time. It's important to remember that quitting is a process and it takes time. There will be times when you want to give up, but it's important to push through those moments and keep going.
+There are many ways to find a Raku community. You can:
 
-If you have a setback, don't beat yourself up about it. Just pick yourself up and start again. The important thing is to keep trying. Eventually, you will reach your goal.
+* **Search online.** There are many websites that list Raku communities. Some popular examples include:
+  * [The Raku Programming Language website](https://raku.org/community/)
+  * [The Raku Discord server](https://discord.gg/raku)
+  * [The Raku subreddit](https://www.reddit.com/r/raku/)
+* **Ask around.** If you know any other Raku programmers, ask them if they know of any communities. You can also ask on social media or in online forums.
+* **Attend a Raku meetup.** Raku meetups are held in many cities around the world. You can find a list of upcoming meetups on the Raku website.
 
-Here are some tips to help you stay patient with yourself:
-
-* **Set realistic goals.** Don't try to quit Python all at once. Start by setting small goals, such as cutting back on the amount of time you spend coding each day. As you progress, you can gradually increase the difficulty of your goals.
-* **Be kind to yourself.** It's okay to make mistakes. Everyone does. Just learn from your mistakes and move on. Don't beat yourself up about it.
-* **Find support.** Talk to friends, family, or a therapist about what you're going through. Having support can help you stay motivated and on track.
-
-Quitting Python is not easy, but it is possible. Just be patient with yourself and keep trying. You will eventually reach your goal.
+Once you've found a Raku community, you can join in on the discussions, ask questions, and learn from other users. You can also contribute to the community by sharing your own knowledge and experiences.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 7. Surround yourself with positive people
+## 5.
 
->...   Avoid people who are still using Python and spend time with people who are supportive of your recovery.
-
-
- When you are trying to recover from a Python addiction, it is important to surround yourself with positive people who will support you and help you stay on track. Avoid people who are still using Python, as they may be tempted to trigger your cravings or make it difficult for you to resist the urge to use. Instead, spend time with people who are supportive of your recovery and who will encourage you to stay strong. These people can be friends, family members, or members of a support group.
-
-It is also important to find ways to stay busy and avoid boredom, which can be a trigger for relapse. When you are feeling bored, it is important to find something to do that will distract you from thinking about Python. This could include spending time with friends or family, exercising, reading, or doing a hobby. It is also important to get enough sleep and eat a healthy diet, as these things can help to improve your mood and make it easier to resist cravings.
-
-Recovery from a Python addiction is not easy, but it is possible. With the right support, you can overcome your addiction and live a happy, healthy life.
-
-------------------------------------------------------------------------------------------------------------------------
-## 8. Take care of yourself
-
->...   Make sure you are getting enough sleep, eating healthy foods, and exercising regularly. These things will help you to stay healthy and focused on your recovery.
+>...  Make a transition plan: Create a plan for how you will transition from Python to Raku.
 
 
- **Take care of yourself.** This means making sure you are getting enough sleep, eating healthy foods, and exercising regularly. These things will help you to stay healthy and focused on your recovery.
 
-* **Get enough sleep.** When you are sleep-deprived, it can be difficult to concentrate, make decisions, and control your emotions. Aim for 7-8 hours of sleep per night.
-* **Eat healthy foods.** Eating a healthy diet will give you the energy and nutrients you need to heal and recover. Choose fruits, vegetables, whole grains, and lean protein. Limit processed foods, sugary drinks, and unhealthy fats.
-* **Exercise regularly.** Exercise releases endorphins, which have mood-boosting effects. It can also help to improve your sleep, reduce stress, and increase your energy levels. Aim for at least 30 minutes of moderate-intensity exercise most days of the week.
+## Transition Plan from Python to Raku
 
-Taking care of yourself is an essential part of recovery. By making healthy choices, you can help yourself to feel better and get back to your life.
+This transition plan outlines the steps I will take to move from Python to Raku.
 
-------------------------------------------------------------------------------------------------------------------------
-## 9. Seek professional help if needed
+### 1. Learn the basics of Raku
 
->...   If you are struggling to quit Python on your own, seek professional help. A therapist can help you to identify the root of your addiction and develop coping mechanisms to help you stay sober.
+The first step is to learn the basics of Raku. This includes learning the syntax, data types, and control structures. I will do this by reading books, articles, and tutorials, and by working through exercises.
 
+### 2. Evaluate Raku's features and capabilities
 
- **If you are struggling to quit Python on your own, seek professional help.** A therapist can help you to:
+Once I have a basic understanding of Raku, I will evaluate its features and capabilities. This includes comparing it to Python in terms of performance, expressiveness, and ecosystem. I will also consider my own needs and preferences to determine if Raku is a good fit for me.
 
-* Identify the root of your addiction.
-* Develop coping mechanisms to help you stay sober.
-* Provide support and encouragement during your recovery.
+### 3. Start using Raku in small projects
 
-It is important to remember that you are not alone. There are people who can help you get through this. If you are struggling with Python addiction, please reach out for help.
+Once I have decided that Raku is a good fit for me, I will start using it in small projects. This will help me to get familiar with the language and to build my confidence. I will start with simple projects and gradually work my way up to more complex projects.
+
+### 4. Continue learning Raku
+
+As I continue to use Raku, I will continue to learn the language. This includes learning new features, reading about best practices, and participating in the Raku community. I will also keep an eye on the development of Raku and track new releases.
+
+### 5. Migrate my Python code to Raku
+
+Once I am comfortable with Raku, I will start to migrate my Python code to Raku. This will be a gradual process, and I will only migrate code that is ready to be migrated. I will use a test-driven approach to ensure that the migrated code is correct.
+
+### 6. Continue using Raku
+
+Once I have migrated my Python code to Raku, I will continue to use Raku for all of my new projects. I will also continue to learn the language and to contribute to the Raku community.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 10. Don't give up
+## 6.
 
->...   Quitting Python is a challenge, but it is possible. If you stay committed to your recovery, you will eventually reach your goal.
-
-
- Quitting Python can be a difficult challenge, but it is possible. If you stay committed to your recovery, you will eventually reach your goal. Here are a few tips to help you stay on track:
-
-* **Set a quit date and stick to it.** This is the most important step. Once you have a date in mind, it will be easier to stay focused and motivated.
-* **Tell your friends and family about your decision to quit Python.** Having support from your loved ones can make a big difference.
-* **Find a new hobby or activity to replace Python.** This will help you to stay busy and avoid triggers.
-* **Be patient with yourself.** Quitting Python is not going to happen overnight. There will be times when you feel like giving up. Just remember that you are not alone and that everyone who has quit Python has experienced similar challenges.
-
-If you are struggling to quit Python on your own, there are a number of resources available to help you. You can find support groups, online forums, and addiction counselors who can help you to stay on track.
-
-Remember, quitting Python is possible. With hard work and dedication, you can reach your goal.
-
-------------------------------------------------------------------------------------------------------------------------
-## 11. Celebrate your successes
-
->...   Every day that you stay sober from Python is a success. Celebrate your small victories and remind yourself of how far you have come.
+>...  Uninstall Python: Delete Python from your computer to avoid temptation.
 
 
- **Celebrate your successes.** Every day that you stay sober from Python is a success. Celebrate your small victories and remind yourself of how far you have come.
 
-* **Make a list of your successes.** This could include things like:
-    * The number of days you've been sober from Python
-    * The amount of money you've saved by not buying Python courses or books
-    * The time you've freed up by not spending it on Python
-* **Review your list regularly.** This will help you to stay motivated and remind yourself of how much you've accomplished.
-* **Share your successes with others.** This could be with friends, family, or a support group. Talking about your successes can help to reinforce them and make them feel more real.
-* **Be proud of yourself.** You've made the decision to quit Python, and you're sticking with it. That's something to be proud of!
+Uninstalling Python is a simple process that can be completed in just a few steps. Here are the instructions:
 
-Remember, every day that you stay sober from Python is a success. Celebrate your small victories and remind yourself of how far you've come.
+1. Open the **Control Panel**.
+2. Go to **Programs and Features**.
+3. Find **Python** in the list of programs.
+4. Click **Uninstall**.
+5. Follow the on-screen instructions to complete the uninstall process.
+
+Once Python has been uninstalled, it will no longer be available on your computer. This means that you will not be able to run Python programs or use any Python libraries. If you decide that you want to reinstall Python in the future, you can do so by following the instructions on the [Python website](https://www.python.org/downloads/).
+
+**Note:** Uninstalling Python will not delete any of your Python projects or files. If you want to delete your Python projects or files, you can do so manually by following these instructions:
+
+1. Open the **File Explorer**.
+2. Go to the folder where your Python projects or files are located.
+3. Select the files or folders that you want to delete.
+4. Press **Delete**.
+
+Once you have deleted your Python projects or files, they will be permanently removed from your computer.
 
 ------------------------------------------------------------------------------------------------------------------------
-## 12. Be grateful for your new life
+## 7.
 
->...   Quitting Python is a gift. You are now free to live your life to the fullest without the constraints of addiction. Be grateful for your new life and all of the possibilities that it holds.
+>...  Learn the basics of Raku: Learn the basics of Raku, including its syntax and capabilities.
 
- When you quit Python, you are making a choice to free yourself from the constraints of addiction. You are choosing to live your life to the fullest and to experience all that it has to offer. This is a gift, and it is important to be grateful for it.
 
-There are many things that you can be grateful for when you quit Python. For example, you can be grateful for:
 
-* The freedom to make your own choices.
-* The ability to pursue your dreams.
-* The opportunity to build healthy relationships.
-* The chance to live a long and fulfilling life.
+Learn the basics of Raku, including its syntax and capabilities.
 
-When you are grateful for your new life, it will help you to stay on track and to avoid relapse. It will also help you to appreciate the positive changes that you are making.
+Raku is a general-purpose programming language that is designed to be both powerful and easy to use. It is a multi-paradigm language that supports both object-oriented and functional programming. Raku's syntax is similar to Perl, but it has been simplified and improved. Raku is also a dynamically typed language, which means that you do not need to specify the type of a variable when you declare it.
 
-Here are some tips for how to be grateful for your new life after quitting Python:
+Here are some of the basics of Raku that you should know:
 
-* Keep a gratitude journal. Each day, write down at least three things that you are grateful for. This could include anything from the simple things, like having a roof over your head and food to eat, to the more significant things, like having a loving family and friends.
-* Spend time with people who support you. Surround yourself with people who are encouraging and supportive of your recovery. They will help you to stay on track and to avoid relapse.
-* Make a list of your goals. What do you want to achieve in your new life? Having goals to work towards will give you a sense of purpose and motivation.
-* Take care of yourself. Make sure that you are eating healthy, getting enough sleep, and exercising regularly. Taking care of yourself will help you to stay healthy and strong in your recovery.
+* **Variables** are declared using the `my` keyword. For example, `my $name = "John Doe"`.
+* **Data types** include numbers, strings, arrays, hashes, and objects.
+* **Operators** are used to perform operations on data. For example, the `+` operator adds two numbers together.
+* **Control structures** are used to control the flow of execution of a program. For example, the `if` statement checks a condition and executes code if the condition is true.
+* **Functions** are used to group together related code. For example, you could create a function to calculate the Fibonacci sequence.
 
-Quitting Python is a big step, and it is important to be grateful for the new life that you have created for yourself. By being grateful, you will be able to stay on track and to live a long and fulfilling life.
+Raku is a powerful and versatile language that can be used to develop a wide variety of applications. If you are interested in learning more about Raku, there are a number of resources available online.
+
+------------------------------------------------------------------------------------------------------------------------
+## 8.
+
+>...  Create a practice project: Create a practice project that allows you to explore and apply Raku.
+
+
+
+## Practice Project: A simple text adventure game
+
+This project will create a simple text adventure game in Raku. The game will be played in the terminal, and the player will be able to explore a world, interact with objects, and solve puzzles.
+
+### Step 1: Create a new Raku project
+
+To create a new Raku project, open a terminal window and run the following command:
+
+```
+raku new my-text-adventure-game
+```
+
+This will create a new directory called `my-text-adventure-game`, which will contain a file called `my-text-adventure-game.raku`. This file will be the main entry point for your game.
+
+### Step 2: Define the world
+
+The first thing you need to do is define the world of your game. This includes creating the rooms, objects, and characters that will appear in the game.
+
+You can define the world in any way you want, but for this example, we'll create a simple world with three rooms: a starting room, a room with a treasure chest, and a room with a monster.
+
+The starting room will contain a character called "the player". The player will be able to move between the three rooms, interact with objects, and fight monsters.
+
+```
+# Define the rooms
+
+my @rooms = (
+    {
+        "name" => "starting_room",
+        "description" => "You are in a small room. There is a door to the north and a door to the east.",
+        "characters" => [
+            "player"
+        ],
+        "objects" => [
+            "chest"
+        ]
+    },
+    {
+        "name" => "treasure_room",
+        "description" => "You are in a large room. There is a treasure chest in
+```
+
+------------------------------------------------------------------------------------------------------------------------
+## 9.
+
+>...  Ask for help: Engage with the Raku community and ask for help when needed.
+
+
+
+ The Raku community is a friendly and helpful group of people who are always willing to lend a hand. If you're stuck on a problem, don't hesitate to ask for help on the Raku forums or Discord server. You'll likely find someone who is able to help you out.
+
+Here are some specific ways to engage with the Raku community and ask for help:
+
+* **Join the Raku forums.** The Raku forums are a great place to ask questions and get help. You can find the forums at https://raku.org/community/forums/.
+* **Join the Raku Discord server.** The Raku Discord server is a real-time chat room where you can ask questions and get help from other Raku users. You can find the Discord server at https://raku.org/community/discord/.
+* **Read the Raku documentation.** The Raku documentation is a great resource for learning about the language and its features. You can find the documentation at https://docs.raku.org/.
+* **Watch Raku tutorials.** There are a number of Raku tutorials available online that can help you learn the language. You can find some tutorials at https://raku.org/community/tutorials/.
+
+By engaging with the Raku community and asking for help when needed, you can learn the language faster and get help with any problems you encounter.
+
+------------------------------------------------------------------------------------------------------------------------
+## 10.
+
+>...  Celebrate your progress: Celebrate when goals or milestones are achieved.
+
+
+
+ When you achieve a goal or reach a milestone, take some time to celebrate your progress. This will help you stay motivated and on track, and it will also help you to appreciate your accomplishments. There are many ways to celebrate your progress, such as:
+
+* **Treat yourself to something special.** This could be anything from a new outfit to a night out with friends.
+* **Spend time with loved ones.** Tell them about your accomplishments and let them celebrate with you.
+* **Write in a journal.** Reflect on your progress and what you have learned.
+* **Take a break.** Give yourself some time to relax and enjoy your accomplishments.
+
+Celebrating your progress is an important part of the journey to success. It will help you to stay motivated and on track, and it will also help you to appreciate your accomplishments. So next time you reach a goal or milestone, be sure to take some time to celebrate!
+
+------------------------------------------------------------------------------------------------------------------------
+## 11.
+
+>...  Stay on track: Set reminders to continue working towards your goal.
+
+
+
+ Set reminders to continue working towards your goal, so that you stay on track. This can be done by setting alarms on your phone, creating a reminder list on your computer, or even asking a friend or family member to check in on you. Whatever method you choose, make sure that it is something that will work for you and that will help you stay motivated.
+
+Here are some specific examples of how you can set reminders to stay on track:
+
+* If you are trying to lose weight, set a reminder to go for a walk every day.
+* If you are trying to learn a new language, set a reminder to study for 30 minutes every day.
+* If you are trying to start a new business, set a reminder to work on your business plan for at least 1 hour every day.
+
+By setting reminders to stay on track, you will be more likely to achieve your goals.
+
+------------------------------------------------------------------------------------------------------------------------
+## 12.
+
+>...  Reward yourself: Reward yourself for achieving your goal of switching from Python to Raku.
+
+ Once you have successfully switched from Python to Raku, take some time to reward yourself for your accomplishment. You could do something like:
+
+* Go out to dinner with friends or family
+* Buy yourself a new book or video game
+* Take a day off to relax and do something you enjoy
+
+Whatever you choose to do, make sure it is something that you will enjoy and that will help you to celebrate your success.

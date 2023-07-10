@@ -2,14 +2,23 @@
 
 ### ... LLM-based template
 
+```perl6, results=hide, echo=FALSE
+# In case those packages are not loaded by the LLM code chunks 
+use WWW::PaLM;
+use WWW::OpenAI;
+```
+
+
 ## Simply put
 
-```palm, format=values, temperature=0.75, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
-Generate a 12 steps outline for quiting addiction to Python programming (and replacing it with Raku.)
+```openai, format=values, temperature=0.85, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
+Generate a 12 steps outline for quiting addiction to Python programming and replacing it with Raku.
 ```
 
 ```perl6, results=asis, output-prompt=NONE, echo=FALSE
 # Expansions generation script
+
+# Assuming that the list items are numbered with arabic numbers
 my $txt = _.trim;
 my $txtExpanded = do for $txt.split(/ ^^ \d+ /, :v, :skip-empty)>>.Str.rotor(2) -> $p {
     my $res = "-" x 120; 

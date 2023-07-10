@@ -11,7 +11,7 @@ use WWW::OpenAI;
 
 ## Simply put
 
-```openai, format=values, temperature=0.85, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
+```palm, format=values, temperature=0.85, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
 Generate a 12 steps outline for quiting addiction to Python programming and replacing it with Raku.
 ```
 
@@ -21,7 +21,8 @@ Generate a 12 steps outline for quiting addiction to Python programming and repl
 # Assuming that the list items are numbered with arabic numbers
 my $txt = _.trim;
 my $txtExpanded = do for $txt.split(/ ^^ \d+ /, :v, :skip-empty)>>.Str.rotor(2) -> $p {
-    my $res = "-" x 120; 
+    my $res = "-" x 6; 
+    $res ~= "\n"; 
     $res ~= "\n## {$p[0]}.";
     my $start = '';
     if $p[1] ~~ / '**' (.*?) '**'/ {

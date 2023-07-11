@@ -8,22 +8,44 @@ July 2023
 
 ## Introduction
 
-We can use computation Markdown documents, [AA1, AAv1], as templates for generating "fully fledged"
-documents using Large Language Model (LLMs), [AA2, Wk1].
- 
-The document execution can be done that via the Command Line Interface (CLI) of the package 
-["Text::CodeProcessing"](https://raku.land/zef:antononcube/Text::CodeProcessing), [AAp1], 
-that has "code chunk" plug-ins for accessing the LLMs ChatGPT (OpenAI), [AAp2], and
+This article proclaims the simple secret of making "fully fledged" documents via 
+Large Language Models (LLMs), [AA2, Wk1], using computational Markdown, Org-mode, or Pod6 template files, [AA1, AAv1],
+and a few Raku packages, [AAp1÷AAp3].
+
+**Definition:** A computational Markdown, Org-mode, or Pod6 file has *code chunks* the content of which
+is evaluated within one, document-wide context, [AA1, AAv1, AAp1].
+
+**Definition:** We call the processing of a computational document via the package
+["Text::CodeProcessing"](https://raku.land/zef:antononcube/Text::CodeProcessing), [AAp1],
+***document execution***.
+
+Of course, instead of using templates we can "just" write Raku scripts that generate such documents, but using
+scripts does not allow:
+- Convenient interleaving of human-written content with LLM hallucinations
+- (Semi-)interactive, refining, editing, and tweaking of both content types.
+  - With suitable editors, integrated development environments, or notebook "solutions."
+
+The document execution can be done via the Command Line Interface (CLI) of the package
+"Text::CodeProcessing". Recent development of "Text::CodeProcessing" added "code chunk" plug-ins 
+for accessing the LLMs 
+[ChatGPT (OpenAI)](https://openai.com/chatgpt), [AAp2], 
+and
 [PaLM](https://developers.generativeai.google), [AAp3].
 
-See the references for more details of the underlying mechanics. (Written in Raku, [AA1, AA2, AAp1÷AAp3].)
+See the references for more details of the underlying mechanics, [AA1, AA2, AAp1÷AAp3].
 
-Here is a Markdown template:
+Here is an example Markdown template:
 ["Simple guide via LLM template"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Simple-guide-via-LLM-template.md), [AA3].
 
-Here is a document obtained with that template:
-["12 steps guide to quit Python"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/12-steps-guide-to-quit-Python-via-PaLM.md), [AA4].
+Here are documents obtained by executing that template:
+- ["12 steps guide to quit Python (1)"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/12-steps-guide-to-quit-Python-via-PaLM-1.md)
+- ["12 steps guide to quit Python (2)"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/12-steps-guide-to-quit-Python-via-PaLM-2.md)
+- ["R is arcane, designed by a committee, and LISP-curseless"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/R-is-arcane-by-comittee-and-LISP-curseless-PaLM.md)
 
+**Remark:** I plan to add other LLM-generated documents in the 
+GitHub directory ["Articles/LLM-generated"](https://github.com/antononcube/RakuForPrediction-book/tree/main/Articles/LLM-generated)
+of the project 
+["RakuForPrediction book"](https://github.com/antononcube/RakuForPrediction-book), [AAp4].
 
 Here is a flowchart that summarizes the execution steps:
 
@@ -52,10 +74,24 @@ graph LR
 
 ----------
 
-## Code cell examples
+## Template structure and content 
 
-In this section we show with explanations the code cells of the template
-["Simple guide via LLM template"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Simple-guide-via-LLM-template.md), [AA3].
+In this section we describe how to design document generation- and LLM leveraging templates like
+["Simple guide via LLM template"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Simple-guide-via-LLM-template.md), [AA3],
+and exemplify the corresponding template code chunks.
+
+The main idea of the template is simple:
+1. Have a LLM code chunk that asks the generation of a **list** actions, features, or description elements on a certain subject or theme
+2. Follow up with one or several Raku code chunks that:
+   - Process the LLM output
+   - Make LLM requests for expanding each (or some) of the items of the LLM derived list
+3. Make the code chunks "self-deleting"
+   - I.e. only the results of code chunks execution are placed in the result document
+   - In this way we obtain more "seamless" documents.
+4. Place the code chunk results without code block markings, i.e. with "as is" specs. 
+
+The following subsections demonstrate the two types of code chunks and provide details.
+
 
 ### LLM cells
 
@@ -82,17 +118,18 @@ each of the items from the list obtained above.
 ````
 ```perl6, results=asis, output-prompt=NONE, echo=FALSE
 my $txt = _.trim;
-my $txtExpanded = do for $txt.split(/ ^^ \d+ /, :v, :skip-empty)>>.Str.rotor(2) -> $p {
-    my $res = "-" x 120; 
+my $txtExpanded = do for $txt.split(/ ^^ [ \d+ | <[IVXLC]>+ ] /, :v, :skip-empty)>>.Str.rotor(2) -> $p {
+    my $res = "-" x 6; 
+    $res ~= "\n"; 
     $res ~= "\n## {$p[0]}.";
     my $start = '';
-    if $p[1] ~~ / '**' (.*?) '**'/ {
+    if $p[1] ~~ / '**'  (.*?) '**' | '<b>'  (.*?) '</b>' / {
         $start = $0.Str;
         $res ~= ' ' ~ $start.subst( / <punct>+ $$/, '');
     };
     $res ~= "\n\n>... {$p[1].subst(/'**' $start '**'/, '').subst( / ^^ <punct>+ /, '')}"; 
-    $res ~= "\n\n", openai-completion( "Expand upon: {$p[1]}", temperature => 1.45, max-tokens => 400, format=>'values' );
-    #$res ~= "\n\n", palm-generate-text( "Expand upon: {$p[1]}", temperature => 0.75, max-tokens => 400, format=>'values' );
+    #$res ~= "\n\n", openai-completion( "Expand upon: {$p[1]}", temperature => 1.45, max-tokens => 400, format=>'values' );
+    $res ~= "\n\n", palm-generate-text( "Expand upon: {$p[1]}", temperature => 0.75, max-tokens => 400, format=>'values' );
 }
 
 $txtExpanded.join("\n\n") 
@@ -101,11 +138,15 @@ $txtExpanded.join("\n\n")
 
 Note that:
 - With `_` we can access the last evaluated result "Text::CodeProcessing", [AAp1].
+  - By the way, using `_` for last result access is:
+    - "Inspired" by Python's console
+    - "Inherited" from Brian Duggan's package ["Jupyter::Kernel"](https://raku.land/cpan:BDUGGAN/Jupyter::Kernel)
 - Again the results are placed in the result notebook "as is."
 
 The script relies on the assumptions that:
 - List items are numbered (because of the formulation of the LLM request.)
-- Very likely list items have a opening phrase in Markdown bold font spec.
+  - See the splitting regex.
+- Very likely list items have an opening phrase in Markdown bold font spec.
 
 
 ------
@@ -143,13 +184,13 @@ Multiple documents can be obtained using:
 (2023),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
-[AAp3] Anton Antonov,
+[AA3] Anton Antonov,
 ["Simple guide via LLM template"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/Simple-guide-via-LLM-template.md),
 (2023),
 [RakuForPrediction-book at GitHub/antononcube](https://github.com/antononcube/RakuForPrediction-book).
 
-[AAp4] Anton Antonov,
-["12 steps guide to quit Python"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/12-steps-guide-to-quit-Python-via-PaLM.md),
+[AA4] Anton Antonov,
+["12 steps guide to quit Python"](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/12-steps-guide-to-quit-Python-via-PaLM-1.md),
 (2023),
 [RakuForPrediction-book at GitHub/antononcube](https://github.com/antononcube/RakuForPrediction-book).
 
@@ -172,6 +213,16 @@ Multiple documents can be obtained using:
 [WWW::PaLM Raku package](https://github.com/antononcube/Raku-WWW-PaLM),
 (2023),
 [GitHub/antononcube](https://github.com/antononcube).
+
+[AAp4] Anton Antonov,
+[RakuForPrediction-book](https://github.com/antononcube/RakuForPrediction-book),
+(2021-2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[BDp1] Brian Duggan,
+[Jupyter::Kernel Raku package](https://github.com/bduggan/raku-jupyter-kernel),
+(2017-2023),
+[GitHub/bduggan](https://github.com/bduggan/).
 
 ## Videos
 

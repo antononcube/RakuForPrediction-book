@@ -11,22 +11,24 @@ use WWW::OpenAI;
 
 ## Simply put
 
-```openai, format=values, temperature=1.25, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
-Generate a 12 steps outline for quiting addiction to Python programming and replacing it with Raku.
-(Use bold prefixes and arabic numbers for the list items.)
+```palm, format=values, temperature=0.75, max-tokens=800, results=asis, output-prompt=NONE, echo=FALSE
+Generate a 7 steps outline list -- using Arabic numerals with bold prefixes per item -- for R being a programming language that:
+1) Is arcane
+2) Has all the features of a design by a committee 
+3) Cannot suffer the LISP curse.
 ```
 
 ```perl6, results=asis, output-prompt=NONE, echo=FALSE
 # Expansions generation script
 
-# Assuming that the list items are numbered with arabic numbers
+# Assuming that the list items are numbered with Arabic or Roman numerals
 my $txt = _.trim;
-my $txtExpanded = do for $txt.split(/ ^^ \d+ /, :v, :skip-empty)>>.Str.rotor(2) -> $p {
+my $txtExpanded = do for $txt.split(/ ^^ [ \d+ | <[IVXLC]>+ ] /, :v, :skip-empty)>>.Str.rotor(2) -> $p {
     my $res = "-" x 6; 
     $res ~= "\n"; 
     $res ~= "\n## {$p[0]}.";
     my $start = '';
-    if $p[1] ~~ / '**' (.*?) '**'/ {
+    if $p[1] ~~ / '**'  (.*?) '**' | '<b>'  (.*?) '</b>' / {
         $start = $0.Str;
         $res ~= ' ' ~ $start.subst( / <punct>+ $$/, '');
     };

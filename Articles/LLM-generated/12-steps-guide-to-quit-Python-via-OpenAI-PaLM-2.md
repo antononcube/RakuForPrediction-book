@@ -34,7 +34,7 @@ July 2023
 
 11. Upgrade Essentially: **Strengthen** your knowledge and skill by purposing to upgrade first on existing structures you already know for storage, input-handling, regexs lookup tables or process any task.
 
-12. Have Fun: **Finally, keep in mind is to have fun and enjoy your new learning journey with Raku! Appreciate the structure organization of language and appreciate its similarity to building blocks made from complex but replacible formats!
+12. Have Fun: **Finally**, keep in mind is to have fun and enjoy your new learning journey with Raku! Appreciate the structure organization of language and appreciate its similarity to building blocks made from complex but replacible formats!
 
 
 
@@ -303,15 +303,15 @@ By focusing on improving your skills in these areas, you can become a more well-
 
 ------
 
-## 12.
+## 12. Finally
 
->...  Have Fun: **Finally, keep in mind is to have fun and enjoy your new learning journey with Raku! Appreciate the structure organization of language and appreciate its similarity to building blocks made from complex but replacible formats!
+>...  Have Fun: Finally, keep in mind is to have fun and enjoy your new learning journey with Raku! Appreciate the structure organization of language and appreciate its similarity to building blocks made from complex but replacible formats!
 
-** **Finally, keep in mind to have fun and enjoy your new learning journey with Raku!**
+**Finally, keep in mind to have fun and enjoy your new learning journey with Raku!**
 
 Raku is a new programming language that is designed to be both fun and easy to learn. It is a dynamically typed language, which means that you don't have to worry about declaring the types of variables before you use them. Raku also has a lot of built-in functions, which can save you time and effort.
 
-**Appreciate the structure organization of language and appreciate its similarity to building blocks made from complex but replacible formats!**
+**Appreciate the structure organization of language and appreciate its similarity to building blocks made from complex but replaceable formats!**
 
 Raku is a very structured language. It uses a lot of indentation to show the structure of your code. This can make it easier to read and understand your code. Raku is also very modular. You can break your code down into small, independent modules that can be reused in other projects. This can make your code more maintainable and easier to update.
 

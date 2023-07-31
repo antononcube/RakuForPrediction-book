@@ -123,3 +123,15 @@ graph TD
 [Text::CodeProcessing Raku package](https://github.com/antononcube/Raku-Text-CodeProcessing),
 (2021),
 [GitHub/antononcube](https://github.com/antononcube).
+
+### Videos
+
+[AAv1] Anton Antonov,
+["Racoons playing with pearls and onions"](https://www.youtube.com/watch?v=zlkoNZK8MpU)
+(2023),
+[YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
+
+[AAv2] Anton Antonov,
+["Streamlining ChatGPT code generation and narration workflows (Raku)"](https://www.youtube.com/watch?v=mI-oWLz5dYY)
+(2023),
+[YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).

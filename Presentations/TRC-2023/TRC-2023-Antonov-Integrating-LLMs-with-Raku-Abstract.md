@@ -1,7 +1,7 @@
 
 # Integrating Large Language Models with Raku
 
-***[TRC-2023 talk link](https://conf.raku.org)***
+***[TRC-2023 talk link](https://conf.raku.org/talk/194)***
 
 In this presentation we discuss different ways of using Large Language Models (LLMs) in Raku.
 
@@ -92,7 +92,7 @@ graph TD
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
 [AA3] Anton Antonov,
-["Workflows with LLM functions"](),
+["Workflows with LLM functions"](https://rakuforprediction.wordpress.com/2023/08/01/workflows-with-llm-functions/),
 (2023),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 

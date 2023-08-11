@@ -11,12 +11,12 @@ Three main ways are considered, using:
 - LLM chat objects
 
 The presentation has multiple demos and examples of LLM utilization that include:
-- Data retrieval, reshaping, and visualization
+- [Data retrieval, reshaping, and visualization](https://rakuforprediction.wordpress.com/2023/08/01/workflows-with-llm-functions/)
 - Computation workflows in Physics and Chemistry
-- Test generation and narration
+- [Test generation and narration](https://github.com/antononcube/Raku-LLM-Functions/blob/main/docs/Expand-tests-into-doc-examples_woven.md)
 - Iterative grammar development
-- Number guessing games staging (man vs machine and machine vs machine)
-- "In place" document generation
+- [Number guessing games staging (man vs machine and machine vs machine)](https://rakuforprediction.wordpress.com/2023/08/06/number-guessing-games-palm-vs-chatgpt/)
+- ["In place" document generation](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/12-steps-guide-to-quit-Python-via-OpenAI-PaLM-2.md)
 - Code writing assistance
 - *Others*
 
@@ -93,6 +93,11 @@ graph TD
 
 [AA3] Anton Antonov,
 ["Workflows with LLM functions"](https://rakuforprediction.wordpress.com/2023/08/01/workflows-with-llm-functions/),
+(2023),
+[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
+
+[AA4] Anton Antonov,
+["Number guessing games: PaLM vs ChatGPT"](https://rakuforprediction.wordpress.com/2023/08/06/number-guessing-games-palm-vs-chatgpt/),
 (2023),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 

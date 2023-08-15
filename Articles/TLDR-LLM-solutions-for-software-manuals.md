@@ -844,6 +844,8 @@ my $ebnf = &febnf('EBNF', @rules>>.key)
 
 [AAp4] Anton Antonov, [Text::SubParsers Raku package](https://github.com/antononcube/Raku-Text-SubParsers), (2023), [GitHub/antononcube](https://github.com/antononcube).
 
+[AAp5] Anton Antonov, [Markdown::Grammar Raku package](https://github.com/antononcube/Raku-Markdown-Grammar), (2023), [GitHub/antononcube](https://github.com/antononcube).
+
 [BDp1] Brian Duggan, [Jupyter::Kernel Raku package](https://raku.land/cpan:BDUGGAN/Jupyter::Kernel), (2017-2023), [GitHub/bduggan](https://github.com/bduggan/raku-jupyter-kernel).
 
 [EMp1] Elizabeth Mattijsen, [App::Rak Raku package](https://github.com/lizmat/App-Rak), (2022-2023), [GitHub/lizmat](https://github.com/lizmat).

@@ -6,9 +6,11 @@
 In this presentation we discuss different ways of using Large Language Models (LLMs) in Raku.
 
 Three main ways are considered, using: 
-- Literate programming
-- LLM functions
-- LLM chat objects
+- [Literate programming](https://raku.land/zef:antononcube/Text::CodeProcessing)
+- [LLM functions](https://raku.land/zef:antononcube/LLM::Functions)
+- [LLM chat objects](https://raku.land/zef:antononcube/LLM::Functions)
+- [LLM prompts](https://raku.land/zef:antononcube/LLM::Prompts)
+- [Chatbooks (based on Jupyter)](https://raku.land/zef:antononcube/Jupyter::Chatbook)
 
 The presentation has multiple demos and examples of LLM utilization that include:
 - [Data retrieval, reshaping, and visualization](https://rakuforprediction.wordpress.com/2023/08/01/workflows-with-llm-functions/)
@@ -18,6 +20,7 @@ The presentation has multiple demos and examples of LLM utilization that include
 - [Number guessing games staging (man vs machine and machine vs machine)](https://rakuforprediction.wordpress.com/2023/08/06/number-guessing-games-palm-vs-chatgpt/)
 - ["In place" document generation](https://github.com/antononcube/RakuForPrediction-book/blob/main/Articles/LLM-generated/12-steps-guide-to-quit-Python-via-OpenAI-PaLM-2.md)
 - Code writing assistance
+- [Comparison with Python- and Mathematica LLM implementations](https://community.wolfram.com/groups/-/m/t/3053519)
 - *Others*
 
 ------

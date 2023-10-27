@@ -5,12 +5,12 @@
 
 In this presentation we discuss different ways of using Large Language Models (LLMs) in Raku.
 
-Three main ways are considered, using: 
+We consider using LLMs via:
+- [Jupyter Chatbooks](https://raku.land/zef:antononcube/Jupyter::Chatbook)
 - [Literate programming](https://raku.land/zef:antononcube/Text::CodeProcessing)
 - [LLM functions](https://raku.land/zef:antononcube/LLM::Functions)
 - [LLM chat objects](https://raku.land/zef:antononcube/LLM::Functions)
 - [LLM prompts](https://raku.land/zef:antononcube/LLM::Prompts)
-- [Chatbooks (based on Jupyter)](https://raku.land/zef:antononcube/Jupyter::Chatbook)
 
 The presentation has multiple demos and examples of LLM utilization that include:
 - [Data retrieval, reshaping, and visualization](https://rakuforprediction.wordpress.com/2023/08/01/workflows-with-llm-functions/)
@@ -22,60 +22,6 @@ The presentation has multiple demos and examples of LLM utilization that include
 - Code writing assistance
 - [Comparison with Python- and Mathematica LLM implementations](https://community.wolfram.com/groups/-/m/t/3053519)
 - *Others*
-
-------
-
-### Generating documents via templates and LLMs
-
-```mermaid
-graph LR
-   OpenAI{{OpenAI}}
-   PaLM{{PaLM}}
-   TCP[[Text::CodeProcessing]]
-   WWWOpenAI[[WWW::OpenAI]] 
-   WWWPaLM[[WWW::PaLM]]
-   MDT[/Markdown<br>document<br>template/]
-   MDR[/Markdown<br>document<br>result/]
-   Gen12[Generate a list<br>via LLM]
-   GenExps[Generate expansion<br>for each list item<br>via LLM]
-   TCP -.-> WWWOpenAI <-.-> OpenAI
-   TCP -.-> WWWPaLM <-.-> PaLM
-   MDT --> Gen12 --> GenExps --> MDR
-   MDT -.-> |CLI input|TCP
-   TCP -.- |CLI output|MDR
-   subgraph Evaluation
-     Gen12
-     GenExps
-   end
-   Evaluation -.- |Code chunk evaluation|TCP
-```
-
-------
-
-### LLM utilization flowchart 
-
-```mermaid
-graph TD
-    A([Start]) --> HumanWorkflow[Outline a workflow] --> LLMFunc["Make LLM function(s)"]
-    LLMFunc --> MakePipeline[Make pipeline]
-    MakePipeline --> LLMEval["Evaluate LLM function(s)"]
-    LLMEval --> HumanAsses[Asses LLM's Outputs]
-    HumanAsses --> GoodLLM{Good or workable<br>results?}
-    GoodLLM --> |No| CanProgram{Can you<br>programmatically<br>change the<br>outputs?}
-    CanProgram --> |No| KnowVerb{Can you<br>verbalize<br>the required<br>change?}
-    KnowVerb --> |No| KnowRule{Can you<br>specify the change<br>as a set of training<br>rules?}
-    KnowVerb --> |Yes| AddLLM["Make additional<br>LLM function(s)"]
-    AddLLM --> MakePipeline
-    CanProgram --> |Yes| ApplySubParser["Apply suitable (sub-)parsers"]
-    ApplySubParser --> HumanMassageOutput[Program output transformations]
-    HumanMassageOutput --> MakePipeline
-    GoodLLM --> |Yes| OverallGood{Overall<br>satisfactory<br>results?}
-    OverallGood --> |No| HumanWorkflow
-    OverallGood --> |Yes| End
-    KnowRule --> |Yes| LLMExamFunc[Make LLM example function]
-    KnowRule --> |No| HumanWorkflow
-    LLMExamFunc --> MakePipeline
-```
 
 ------
 
@@ -149,6 +95,7 @@ flowchart LR
     LLMFunc <-.-> PaLM
 ```
 
+
 ### Chat meta cells
 
 ```mermaid
@@ -195,6 +142,61 @@ flowchart LR
     CIDNone --> CIDEQ
     COEval -.- LLMFunc
 ```
+
+------
+
+## Generating documents via templates and LLMs
+
+```mermaid
+graph LR
+   OpenAI{{OpenAI}}
+   PaLM{{PaLM}}
+   TCP[[Text::CodeProcessing]]
+   WWWOpenAI[[WWW::OpenAI]] 
+   WWWPaLM[[WWW::PaLM]]
+   MDT[/Markdown<br>document<br>template/]
+   MDR[/Markdown<br>document<br>result/]
+   Gen12[Generate a list<br>via LLM]
+   GenExps[Generate expansion<br>for each list item<br>via LLM]
+   TCP -.-> WWWOpenAI <-.-> OpenAI
+   TCP -.-> WWWPaLM <-.-> PaLM
+   MDT --> Gen12 --> GenExps --> MDR
+   MDT -.-> |CLI input|TCP
+   TCP -.- |CLI output|MDR
+   subgraph Evaluation
+     Gen12
+     GenExps
+   end
+   Evaluation -.- |Code chunk evaluation|TCP
+```
+
+------
+
+## LLM utilization flowchart 
+
+```mermaid
+graph TD
+    A([Start]) --> HumanWorkflow[Outline a workflow] --> LLMFunc["Make LLM function(s)"]
+    LLMFunc --> MakePipeline[Make pipeline]
+    MakePipeline --> LLMEval["Evaluate LLM function(s)"]
+    LLMEval --> HumanAsses[Asses LLM's Outputs]
+    HumanAsses --> GoodLLM{Good or workable<br>results?}
+    GoodLLM --> |No| CanProgram{Can you<br>programmatically<br>change the<br>outputs?}
+    CanProgram --> |No| KnowVerb{Can you<br>verbalize<br>the required<br>change?}
+    KnowVerb --> |No| KnowRule{Can you<br>specify the change<br>as a set of training<br>rules?}
+    KnowVerb --> |Yes| AddLLM["Make additional<br>LLM function(s)"]
+    AddLLM --> MakePipeline
+    CanProgram --> |Yes| ApplySubParser["Apply suitable (sub-)parsers"]
+    ApplySubParser --> HumanMassageOutput[Program output transformations]
+    HumanMassageOutput --> MakePipeline
+    GoodLLM --> |Yes| OverallGood{Overall<br>satisfactory<br>results?}
+    OverallGood --> |No| HumanWorkflow
+    OverallGood --> |Yes| End
+    KnowRule --> |Yes| LLMExamFunc[Make LLM example function]
+    KnowRule --> |No| HumanWorkflow
+    LLMExamFunc --> MakePipeline
+```
+
 
 ------
 

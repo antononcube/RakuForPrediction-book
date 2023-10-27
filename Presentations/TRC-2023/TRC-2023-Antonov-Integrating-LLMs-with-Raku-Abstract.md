@@ -77,6 +77,124 @@ graph TD
     LLMExamFunc --> MakePipeline
 ```
 
+------
+
+## Jupyter Chatbooks
+
+### Chat cells
+
+```mermaid
+flowchart LR
+    OpenAI{{OpenAI}}
+    PaLM{{PaLM}}
+    LLMFunc[[LLM::Functions]]
+    LLMProm[[LLM::Prompts]]
+    CODB[(Chat objects)]
+    PDB[(Prompts)]
+    CCell[/Chat cell/]
+    CRCell[/Chat result cell/]
+    CIDQ{Chat ID<br/>specified?}
+    CIDEQ{Chat ID<br/>exists in DB?}
+    RECO[Retrieve existing<br/>chat object]
+    COEval[Message<br/>evaluation]
+    PromParse[Prompt<br/>DSL spec parsing]
+    KPFQ{Known<br/>prompts<br/>found?}
+    PromExp[Prompt<br/>expansion]
+    CNCO[Create new<br/>chat object]
+    CIDNone["Assume chat ID<br/>is 'NONE'"] 
+    subgraph Chatbook frontend    
+        CCell
+        CRCell
+    end
+    subgraph Chatbook backend
+        CIDQ
+        CIDEQ
+        CIDNone
+        RECO
+        CNCO
+        CODB
+    end
+    subgraph Prompt processing
+        PDB
+        LLMProm
+        PromParse
+        KPFQ
+        PromExp 
+    end
+    subgraph LLM interaction
+      COEval
+      LLMFunc
+      PaLM
+      OpenAI
+    end
+    CCell --> CIDQ
+    CIDQ --> |yes| CIDEQ
+    CIDEQ --> |yes| RECO
+    RECO --> PromParse
+    COEval --> CRCell
+    CIDEQ -.- CODB
+    CIDEQ --> |no| CNCO
+    LLMFunc -.- CNCO -.- CODB
+    CNCO --> PromParse --> KPFQ
+    KPFQ --> |yes| PromExp
+    KPFQ --> |no| COEval
+    PromParse -.- LLMProm 
+    PromExp -.- LLMProm
+    PromExp --> COEval 
+    LLMProm -.- PDB
+    CIDQ --> |no| CIDNone
+    CIDNone --> CIDEQ
+    COEval -.- LLMFunc
+    LLMFunc <-.-> OpenAI
+    LLMFunc <-.-> PaLM
+```
+
+### Chat meta cells
+
+```mermaid
+flowchart LR
+    LLMFunc[[LLM::Functions]]
+    CODB[(Chat objects)]
+    CCell[/Chat meta cell/]
+    CRCell[/Chat meta cell result/]
+    CIDQ{Chat ID<br/>specified?}
+    KCOMQ{Known<br/>chat object<br/>method?}
+    AKWQ{Keyword 'all'<br/>specified?} 
+    KCODBMQ{Known<br/>chat objects<br/>DB method?}
+    CIDEQ{Chat ID<br/>exists in DB?}
+    RECO[Retrieve existing<br/>chat object]
+    COEval[Chat object<br/>method<br/>invocation]
+    CODBEval[Chat objects DB<br/>method<br/>invocation]
+    CNCO[Create new<br/>chat object]
+    CIDNone["Assume chat ID<br/>is 'NONE'"] 
+    NoCOM[/Cannot find<br/>chat object<br/>message/]
+    CntCmd[/Cannot interpret<br/>command<br/>message/]
+    subgraph Chatbook
+        CCell
+        NoCOM
+        CntCmd
+        CRCell
+    end
+    CCell --> CIDQ
+    CIDQ --> |yes| CIDEQ  
+    CIDEQ --> |yes| RECO
+    RECO --> KCOMQ
+    KCOMQ --> |yes| COEval --> CRCell
+    KCOMQ --> |no| CntCmd
+    CIDEQ -.- CODB
+    CIDEQ --> |no| NoCOM
+    LLMFunc -.- CNCO -.- CODB
+    CNCO --> COEval
+    CIDQ --> |no| AKWQ
+    AKWQ --> |yes| KCODBMQ
+    KCODBMQ --> |yes| CODBEval
+    KCODBMQ --> |no| CntCmd
+    CODBEval -.- CODB
+    CODBEval --> CRCell
+    AKWQ --> |no| CIDNone
+    CIDNone --> CIDEQ
+    COEval -.- LLMFunc
+```
 
 ------
 

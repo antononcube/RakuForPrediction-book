@@ -3,6 +3,8 @@
 
 ***[TRC-2023 talk link](https://conf.raku.org/talk/194)***
 
+[*Video link*](https://youtu.be/-OxKqRrQvh0)
+
 In this presentation we discuss different ways of using Large Language Models (LLMs) in Raku.
 
 We consider using LLMs via:

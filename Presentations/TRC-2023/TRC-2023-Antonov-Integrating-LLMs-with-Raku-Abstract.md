@@ -25,6 +25,12 @@ The presentation has multiple demos and examples of LLM utilization that include
 - [Comparison with Python- and Mathematica LLM implementations](https://community.wolfram.com/groups/-/m/t/3053519)
 - *Others*
 
+
+Here is the mind-map used in the talk (has "clickable" hyperlinks):
+
+[![](./org/Integrating-LLMs-with-Raku-TRC-2023-mind-map.png)](./org/Integrating-LLMs-with-Raku-TRC-2023-mind-map.pdf)
+
+
 ------
 
 ## Jupyter Chatbooks

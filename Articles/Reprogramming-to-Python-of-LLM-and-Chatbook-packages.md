@@ -62,23 +62,17 @@ Here is a mind-map aimed at assisting in understanding and evaluating the discus
 mindmap
     **LLM<br/>functionalities**
         LLM services access
-        ::icon(fa fa-cloud)
             ChatGPT
             DALL-E
-            ::icon(fas fa-image)
             PaLM
 
         LLM functions
-        ::icon(fas fa-box-open)
 
         LLM chat objects
-        ::icon(fa fa-comments)
 
         LLM prompts
-        ::icon(fa fa-terminal)
 
         Chatbooks
-        ::icon(fa fa-book-open)
             Direct access of LLM services
             Notebook-wide chats
 ```

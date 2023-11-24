@@ -83,7 +83,7 @@ mindmap
             Notebook-wide chats
 ```
 
-**GitHub does not render the mind-map above; here is the imgur corresponding image (from imgur):
+*GitHub does not render the mind-map above; here is the imgur corresponding image (from imgur):*
 
 ![](https://i.imgur.com/OOdhD11.png)
 

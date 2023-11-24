@@ -60,7 +60,7 @@ Here is a mind-map aimed at assisting in understanding and evaluating the discus
 
 ```mermaid
 mindmap
-    **LLM<br/>functionalities**
+    LLM<br/>functionalities
         LLM services access
             ChatGPT
             DALL-E

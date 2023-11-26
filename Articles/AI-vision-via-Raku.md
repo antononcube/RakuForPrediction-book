@@ -140,7 +140,8 @@ openai-playground --images=https://i.imgur.com/22lXXks.jpg --max-tokens=900 Desc
 
 
 
-Shell workflow pipelines can be obtained by the commands based on CLI scripts of the packages loaded above. For example, here is pipeline that translates the image description from English to Russian using the package "Lingua::Translation::DeepL", [AAp5]:
+Shell workflow pipelines can be obtained by the commands based on CLI scripts of the packages loaded above. 
+For example, here is pipeline that translates the image description from English to Bulgarian using the package "Lingua::Translation::DeepL", [AAp5]:
 
 
 ```raku

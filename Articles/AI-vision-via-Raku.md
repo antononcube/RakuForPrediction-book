@@ -140,13 +140,12 @@ openai-playground --images=https://i.imgur.com/22lXXks.jpg --max-tokens=900 Desc
 
 
 
-Shell workflow pipelines can be obtained by the commands based on CLI scripts of the packages loaded above. 
-For example, here is pipeline that translates the image description from English to Bulgarian using the package "Lingua::Translation::DeepL", [AAp5]:
-
+Shell workflow pipelines can be constructed with commands using CLI scripts of the packages loaded above. 
+For example, here is a pipeline that translates the obtained image description from English to Bulgarian using the package "Lingua::Translation::DeepL", [AAp5]:
 
 ```raku
 #% bash
-openai-playground --images=https://i.imgur.com/22lXXks.jpg --max-tokens=900 'Very consisely describe the image' | deepl-translation -t=Bulgarian
+openai-playground --images=https://i.imgur.com/22lXXks.jpg --max-tokens=900 'Very concisely describe the image' | deepl-translation -t=Bulgarian
 ```
 
 
@@ -163,7 +162,7 @@ Of course, we can just request OpenAI's vision to give the image description in 
 
 ```raku
 #% bash
-openai-playground --images=https://i.imgur.com/22lXXks.jpg --max-tokens=900 Very consisely describe the image in 🇷🇺
+openai-playground --images=https://i.imgur.com/22lXXks.jpg --max-tokens=900 Very concisely describe the image in 🇷🇺
 ```
 
 

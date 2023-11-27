@@ -312,8 +312,8 @@ mermaid-ink($mmd-chart, format=>'md-image')
 
 
 
-**Remark:** In a Jupyter chatbook, [AAp3], Mermaid-JS diagrams can be "directly" visualized with notebook cells that have the magic `mermaid`. 
-Below is given an example with on of LLM results for making Mermaid-JS diagram over the "vision-derived" mind-map description.
+**Remark:** In a Jupyter chatbook, [AAp3], Mermaid-JS diagrams can be "directly" visualized with notebook cells that have the magic `mermaid`.
+Below is given an instance of one of the better LLM results for making a Mermaid-JS diagram over the "vision-derived" mind-map description.
 
 
 ```raku

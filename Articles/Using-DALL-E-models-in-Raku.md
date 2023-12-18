@@ -16,7 +16,7 @@ We discuss workflows and related User eXperience (UX) challenges, then we demons
 
 The demonstrations are within a Raku chatbook, see ["Jupyter::Chatbook"](https://raku.land/zef:antononcube/Jupyter::Chatbook), [AAp4]. That allows interactive utilization of Large Language Models (LLMs) and related Artificial Intelligence (AI) services.
 
-In the past, we made presentations and movies using DALL-E 2; see [AAv1, AAv4]. Therefore, in this document we use DALL-E 3 based examples. Nevertheless, we provide a breakdown table that summarizes and compares the parameters of DALL-E 2 and DALL-E 3.
+In the past, we made presentations and movies using DALL-E 2; see [AAv1, AAv2]. Therefore, in this document we use DALL-E 3 based examples. Nevertheless, we provide a breakdown table that summarizes and compares the parameters of DALL-E 2 and DALL-E 3.
 
 Since this document is written at the end of the year 2023, we use the generation of Christmas and winter themed images as examples. Like the following one:
 
@@ -402,8 +402,4 @@ Here is a table that shows a breakdown of the model-parameter relationships:
 
 [AAv1] Anton Antonov, ["Jupyter Chatbook LLM cells demo (Raku)"](https://www.youtube.com/watch?v=cICgnzYmQZg), (2023), [YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
 
-[AAv2] Anton Antonov, ["Jupyter Chatbook multi cell LLM chats teaser (Raku)"](https://www.youtube.com/watch?v=wNpIGUAwZB8), (2023), [YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
-
-[AAv3] Anton Antonov, ["Jupyter Chatbook multi cell LLM chats teaser (Raku)"](https://www.youtube.com/watch?v=wNpIGUAwZB8), (2023), [YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
-
-[AAv4] Anton Antonov, ["Integrating Large Language Models with Raku"](https://www.youtube.com/watch?v=-OxKqRrQvh0), (2023), [YouTube/@therakuconference6823](https://www.youtube.com/@therakuconference6823).
+[AAv2] Anton Antonov, ["Integrating Large Language Models with Raku"](https://www.youtube.com/watch?v=-OxKqRrQvh0), (2023), [YouTube/@therakuconference6823](https://www.youtube.com/@therakuconference6823).

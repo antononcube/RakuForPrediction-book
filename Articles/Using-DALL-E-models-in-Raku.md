@@ -374,85 +374,36 @@ Here is a table that shows a breakdown of the model-parameter relationships:
 
 ### Articles
 
-[AA1] Anton Antonov,
-["Workflows with LLM functions"](https://rakuforprediction.wordpress.com/2023/08/01/workflows-with-llm-functions/),
-(2023),
-[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
+[AA1] Anton Antonov, ["Workflows with LLM functions"](https://rakuforprediction.wordpress.com/2023/08/01/workflows-with-llm-functions/), (2023), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
-[AA2] Anton Antonov,
-["Re-programming to Python of LLM- and Chatbook packages"](https://rakuforprediction.wordpress.com/2023/10/15/re-programming-to-python-of-llm-and-chatbook-packages/),
-(2023),
-[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
+[AA2] Anton Antonov, ["Re-programming to Python of LLM- and Chatbook packages"](https://rakuforprediction.wordpress.com/2023/10/15/re-programming-to-python-of-llm-and-chatbook-packages/), (2023), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
-[AA3] Anton Antonov,
-["AI vision via Raku"](https://rakuforprediction.wordpress.com/2023/11/25/ai-vision-via-raku/),
-(2023),
-[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
+[AA3] Anton Antonov, ["AI vision via Raku"](https://rakuforprediction.wordpress.com/2023/11/25/ai-vision-via-raku/), (2023), [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
-[OAIb1] OpenAI team,
-["New models and developer products announced at DevDay"](https://openai.com/blog/new-models-and-developer-products-announced-at-devday),
-(2023),
-[OpenAI/blog](https://openai.com/blog).
+[OAIb1] OpenAI team, ["New models and developer products announced at DevDay"](https://openai.com/blog/new-models-and-developer-products-announced-at-devday), (2023), [OpenAI/blog](https://openai.com/blog).
+
 
 ### Packages
 
-[AAp1] Anton Antonov,
-[WWW::OpenAI](https://github.com/antononcube/Raku-WWW-OpenAI) Raku package,
-(2023),
-[GitHub/antononcube](https://github.com/antononcube).
+[AAp1] Anton Antonov, [WWW::OpenAI](https://github.com/antononcube/Raku-WWW-OpenAI) Raku package, (2023), [GitHub/antononcube](https://github.com/antononcube).
 
+[AAp2] Anton Antonov, [WWW::PaLM](https://github.com/antononcube/Raku-WWW-PaLM) Raku package, (2023), [GitHub/antononcube](https://github.com/antononcube).
 
-[AAp2] Anton Antonov,
-[WWW::PaLM](https://github.com/antononcube/Raku-WWW-PaLM) Raku package,
-(2023),
-[GitHub/antononcube](https://github.com/antononcube).
+[AAp3] Anton Antonov, [LLM::Functions](https://github.com/antononcube/Raku-LLM-Functions) Raku package, (2023), [GitHub/antononcube](https://github.com/antononcube).
 
+[AAp4] Anton Antonov, [Jupyter::Chatbook](https://github.com/antononcube/Raku-Jupyter-Chatbook) Raku package, (2023), [GitHub/antononcube](https://github.com/antononcube).
 
-[AAp3] Anton Antonov,
-[LLM::Functions](https://github.com/antononcube/Raku-LLM-Functions) Raku package,
-(2023),
-[GitHub/antononcube](https://github.com/antononcube).
+[AAp5] Anton Antonov, [Image::Markup::Utilities](https://github.com/antononcube/Raku-Image-Markup-Utilities) Raku package, (2023), [GitHub/antononcube](https://github.com/antononcube).
 
-
-[AAp4] Anton Antonov,
-[Jupyter::Chatbook](https://github.com/antononcube/Raku-Jupyter-Chatbook) Raku package,
-(2023),
-[GitHub/antononcube](https://github.com/antononcube).
-
-
-[AAp5] Anton Antonov,
-[Image::Markup::Utilities](https://github.com/antononcube/Raku-Image-Markup-Utilities) Raku package,
-(2023),
-[GitHub/antononcube](https://github.com/antononcube).
-
-
-[AAp6] Anton Antonov,
-[WWW::MermaidInk](https://github.com/antononcube/Raku-WWW-MermaidInk) Raku package,
-(2023),
-[GitHub/antononcube](https://github.com/antononcube).
+[AAp6] Anton Antonov, [WWW::MermaidInk](https://github.com/antononcube/Raku-WWW-MermaidInk) Raku package, (2023), [GitHub/antononcube](https://github.com/antononcube).
 
 
 ### Videos
 
-[AAv1] Anton Antonov,
-["Jupyter Chatbook LLM cells demo (Raku)"](https://www.youtube.com/watch?v=cICgnzYmQZg)
-(2023),
-[YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
+[AAv1] Anton Antonov, ["Jupyter Chatbook LLM cells demo (Raku)"](https://www.youtube.com/watch?v=cICgnzYmQZg), (2023), [YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
 
+[AAv2] Anton Antonov, ["Jupyter Chatbook multi cell LLM chats teaser (Raku)"](https://www.youtube.com/watch?v=wNpIGUAwZB8), (2023), [YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
 
-[AAv2] Anton Antonov,
-["Jupyter Chatbook multi cell LLM chats teaser (Raku)"](https://www.youtube.com/watch?v=wNpIGUAwZB8)
-(2023),
-[YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
+[AAv3] Anton Antonov, ["Jupyter Chatbook multi cell LLM chats teaser (Raku)"](https://www.youtube.com/watch?v=wNpIGUAwZB8), (2023), [YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
 
-
-[AAv3] Anton Antonov,
-["Jupyter Chatbook multi cell LLM chats teaser (Raku)"](https://www.youtube.com/watch?v=wNpIGUAwZB8)
-(2023),
-[YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
-
-
-[AAv4] Anton Antonov
-["Integrating Large Language Models with Raku"](https://www.youtube.com/watch?v=-OxKqRrQvh0),
-(2023),
-[YouTube/@therakuconference6823](https://www.youtube.com/@therakuconference6823).
+[AAv4] Anton Antonov, ["Integrating Large Language Models with Raku"](https://www.youtube.com/watch?v=-OxKqRrQvh0), (2023), [YouTube/@therakuconference6823](https://www.youtube.com/@therakuconference6823).

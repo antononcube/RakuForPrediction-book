@@ -16,8 +16,7 @@ We discuss workflows and related User eXperience (UX) challenges, then we demons
 
 The demonstrations are within a Raku chatbook, see ["Jupyter::Chatbook"](https://raku.land/zef:antononcube/Jupyter::Chatbook), [AAp4]. That allows interactive utilization of Large Language Models (LLMs) and related Artificial Intelligence (AI) services.
 
-In the past, we made presentations and movies using DALL-E 2; see [AAv1, AAv4]. Therefore in this document we use DALL-E 3 based examples.
-Nevertheless, we provide a breakdown table that summarizes and compares the parameters of DALL-E 2 and DALL-E 3.
+In the past, we made presentations and movies using DALL-E 2; see [AAv1, AAv4]. Therefore, in this document we use DALL-E 3 based examples. Nevertheless, we provide a breakdown table that summarizes and compares the parameters of DALL-E 2 and DALL-E 3.
 
 Since this document is written at the end of the year 2023, we use the generation of Christmas and winter themed images as examples. Like the following one:
 
@@ -174,7 +173,7 @@ Additional solution elements are:
 
 ## Basic image generation workflows
 
-Here we ask *the default* LLM about Chinese horoscope signs of the this and next year: 
+Here we ask *the default* LLM about Chinese horoscope signs of this and next year: 
 
 
 ```raku
@@ -347,10 +346,7 @@ llm-vision-synthesize("Write a limerick based on the image.", $img)
 
 **Exercise:** Verify that limerick fits the image.
 
-**Remark:** The functions `llm-vision-synthesize` and `llm-vision-function` were added to 
-["LLM::Functions"](https://raku.land/zef:antononcube/LLM::Functions) after writing (and posting) 
-["AI vision via Raku"](https://rakuforprediction.wordpress.com/2023/11/25/ai-vision-via-raku/), [AA3]. 
-We plan to make a more dedicated demonstration of those functions in the near future.
+**Remark:** The functions `llm-vision-synthesize` and `llm-vision-function` were added to ["LLM::Functions"](https://raku.land/zef:antononcube/LLM::Functions) after writing (and posting) ["AI vision via Raku"](https://rakuforprediction.wordpress.com/2023/11/25/ai-vision-via-raku/), [AA3]. We plan to make a more dedicated demonstration of those functions in the near future.
 
 --------
 
@@ -358,9 +354,7 @@ We plan to make a more dedicated demonstration of those functions in the near fu
 
 As it was mentioned above, the DALL-E magic cell argument "model" can be `Whatever` of one of "dall-e-2" or "dall-e-3".
 
-Not all parameters that are valid for one of the models are valid or respected by the other --
-see the subsection ["Create image"](https://platform.openai.com/docs/api-reference/images/create) of
-[OpenAI's documentation](https://platform.openai.com/docs/api-reference).
+Not all parameters that are valid for one of the models are valid or respected by the other -- see the subsection ["Create image"](https://platform.openai.com/docs/api-reference/images/create) of [OpenAI's documentation](https://platform.openai.com/docs/api-reference).
 
 Here is a table that shows a breakdown of the model-parameter relationships:
 

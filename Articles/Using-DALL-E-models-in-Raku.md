@@ -347,7 +347,10 @@ llm-vision-synthesize("Write a limerick based on the image.", $img)
 
 **Exercise:** Verify that limerick fits the image.
 
-**Remark:** The functions `llm-vision-synthesize` and `llm-vision-function` were added to ["LLM::Functions"](https://raku.land/zef:antononcube/LLM::Functions) after writing (and posting) [AA3]. We plan to make a more dedicated demonstration of those functions in the near future.
+**Remark:** The functions `llm-vision-synthesize` and `llm-vision-function` were added to 
+["LLM::Functions"](https://raku.land/zef:antononcube/LLM::Functions) after writing (and posting) 
+["AI vision via Raku"](https://rakuforprediction.wordpress.com/2023/11/25/ai-vision-via-raku/), [AA3]. 
+We plan to make a more dedicated demonstration of those functions in the near future.
 
 --------
 

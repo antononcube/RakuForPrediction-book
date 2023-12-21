@@ -190,7 +190,7 @@ Which Chinese horoscope signs are the years 2023 and 2024?
 
 ### Image generation followed by "local" display
 
-Here we ask OpenAI's DALL-E system (and service) to generate an image of dragon chasing a rabbit:
+Here we ask OpenAI's DALL-E system (and service) to generate an image of a dragon chasing a rabbit:
 
 
 ```raku

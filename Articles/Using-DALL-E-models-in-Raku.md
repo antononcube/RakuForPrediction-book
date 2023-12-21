@@ -121,7 +121,7 @@ graph LR
 
 ![](./Diagrams/Using-DALL-E-models-in-Raku/Jupyter-sesssion-DALLE-proxy-and-Raku-REPL.png)
 
-**Remark:** Raku chatbooks have Mermaid-JS magic cell that use ["WWW::MermaidInk"](https://raku.land/zef:antononcube/WWW::MermaidInk), [AAp6]).
+**Remark:** Raku chatbooks have Mermaid-JS magic cell that use ["WWW::MermaidInk"](https://raku.land/zef:antononcube/WWW::MermaidInk), [AAp6].
 
 ### Challenges
 

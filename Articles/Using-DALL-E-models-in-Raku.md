@@ -271,7 +271,7 @@ image-export($*CWD ~ '/raccoons-with-snowballs.png', $img).IO.parts.tail
 
 
 
-**Remark:** Generally speaking, importing and displaying image Base64 strings is a few time slower than using image URLs.
+**Remark:** Generally speaking, importing and displaying image Base64 strings is a few times slower than using image URLs.
 
 ------
 
@@ -326,7 +326,7 @@ Here we export all images (into file names with the prefix "advent2023"):
 
 ## Programmatic workflow with AI vision
 
-Let us demonstrate the OpenAI's Vision using "raccoons and snowballs" image generated above:
+Let us demonstrate the [OpenAI's Vision](https://platform.openai.com/docs/guides/vision) using the "raccoons and snowballs" image generated above:
 
 
 ```raku

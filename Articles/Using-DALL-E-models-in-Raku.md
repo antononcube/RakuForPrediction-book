@@ -127,7 +127,7 @@ graph LR
 
 Here is a list of challenges to be addressed in order to facilitate the workflows outlined above:
 
-- How the Raku REPL sessions communicates with the DALL-E access "session"?
+- How the Raku REPL session communicates with the DALL-E access "session"?
 - How an image is displayed in:
     - Jupyter notebook
     - Markdown document

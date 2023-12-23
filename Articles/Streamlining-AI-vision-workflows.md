@@ -383,8 +383,7 @@ js-d3-bar-chart(@data3, background=>'none', :grid-lines, :900width, :450height)
 ```
 
 
-
-
+![](./Diagrams/Streamlining-AI-vision-workflows/CyberWeeks-money-js-d3-bar-chart.png)
 
 
 To compare the bar chart images we can use the following cell (the image is intentionally not shown):

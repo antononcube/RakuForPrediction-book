@@ -10,7 +10,7 @@ January 2024
 
 ## Introduction
 
-In this document we show the use Artificial Intelligence (AI) Vision and Large Language Models (LLMs) for data scraping from images and Web pages and and we present heatmap plots corresponding to the scraped data. 
+In this document we show the use Artificial Intelligence (AI) Vision and Large Language Models (LLMs) for data scraping from images and Web pages and we present heatmap plots corresponding to the scraped data. 
 
 The LLM utilization and visualization are done in chat-enabled Jupyter notebook with a Raku kernel; "chatbook" for short. 
 See ["Jupyter::Chatbook"](https://raku.land/zef:antononcube/Jupyter::Chatbook), [AAp4, AAv3].
@@ -705,7 +705,7 @@ In section we give several groups of observation and conclusions that came out d
 
 ### Articles
 
-[AA1] Anton Antonov
+[AA1] Anton Antonov,
 ["AI vision via Raku"](https://rakuforprediction.wordpress.com/2023/11/25/ai-vision-via-raku/),
 (2023),
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
@@ -715,7 +715,7 @@ In section we give several groups of observation and conclusions that came out d
 (2023),
 [Wolfram Community](https://community.wolfram.com).
 
-[AA3] Anton Antonov
+[AA3] Anton Antonov,
 ["Day 24 – Streamlining AI vision workflows"](https://raku-advent.blog/2023/12/24/day-24-streamlining-ai-vision-workflows/),
 (2023),
 [RakuAdventCalendar at WordPress](https://raku-advent.blog).

@@ -282,7 +282,7 @@ Using that dataset we can overview the extracted data in the corresponding choro
 js-d3-heatmap-plot(@ds3D, width => 1200, plot-labels-font-size =>10)
 ```
 
-![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/%20Heatmap-plots-over-LLM-scraped-data/Medizona-heatmap-1.png)
+![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Heatmap-plots-over-LLM-scraped-data/Mediazona-heatmap-1.png)
 
 We can see that the vertical orientation is inverted. We got matrix coordinates, i.e. row indexes are ordered top-bottom. 
 We are given heatmap plot bottom-top.
@@ -411,7 +411,7 @@ js-d3-heatmap-plot(@ds3D2, width => 1100, height => 800,
 )
 ```
 
-![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/%20Heatmap-plots-over-LLM-scraped-data/Medizona-heatmap-2.png)
+![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/%Heatmap-plots-over-LLM-scraped-data/Mediazona-heatmap-2.png)
 
 ----
 
@@ -659,7 +659,7 @@ js-d3-heatmap-plot(@dsUA3D2, width => 1000, height => 600,
 )
 ```
 
-![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/%20Heatmap-plots-over-LLM-scraped-data/UALosses-heatmap.png)
+![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Heatmap-plots-over-LLM-scraped-data/UALosses-heatmap.png)
 
 ------
 

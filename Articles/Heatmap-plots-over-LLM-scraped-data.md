@@ -10,7 +10,7 @@ January 2024
 
 ## Introduction
 
-In this document we show the use Artificial Intelligence (AI) Vision and Large Language Models (LLMs) for data scraping from images and Web pages and we present heatmap plots corresponding to the scraped data. 
+In this document we show the use of Artificial Intelligence (AI) Vision and Large Language Models (LLMs) for data scraping from images and Web pages and we present heatmap plots corresponding to the scraped data. 
 
 The LLM utilization and visualization are done in chat-enabled Jupyter notebook with a Raku kernel; "chatbook" for short. 
 See ["Jupyter::Chatbook"](https://raku.land/zef:antononcube/Jupyter::Chatbook), [AAp4, AAv3].
@@ -22,7 +22,7 @@ We use data from sites dedicated of tracking Russian and Ukrainian casualties in
 - Russian casualties: [Mediazona](https://en.zona.media/article/2022/05/20/casualties_eng), [MZ1]
 - Ukrainian casualties: [UALosses](https://ualosses.org/), [UAL1]
 
-**Remark:** Note that UALosses is relatively new, hence it provides too few records of Ukrainian losses. 
+**Remark:** Note that UALosses is relatively new, hence, it provides too few records of Ukrainian losses. 
 The casualties of Medizona and UALosses should be considered underestimates because of the methodologies they use. 
 (Tracking and verifying online records.) See:
 - Section ["Our methods"](https://en.zona.media/article/2022/05/20/casualties_eng) of Mediazona

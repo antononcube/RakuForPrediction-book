@@ -22,7 +22,9 @@ We use data from sites dedicated of tracking Russian and Ukrainian casualties in
 - Russian casualties: [Mediazona](https://en.zona.media/article/2022/05/20/casualties_eng), [MZ1]
 - Ukrainian casualties: [UALosses](https://ualosses.org/), [UAL1]
 
-**Remark:** Note the UALosses is relatively new provides too few records of Ukrainian losses. The casualties of Medizona and UALosses should be considered underestimates, because of the methodologies they use. (Tracking and verifying online records.) See:
+**Remark:** Note that UALosses is relatively new, hence it provides too few records of Ukrainian losses. 
+The casualties of Medizona and UALosses should be considered underestimates because of the methodologies they use. 
+(Tracking and verifying online records.) See:
 - Section ["Our methods"](https://en.zona.media/article/2022/05/20/casualties_eng) of Mediazona
 - Page ["About the project"](https://ualosses.org/about/) of UALosses 
 
@@ -90,7 +92,7 @@ my $url = 'https://raw.githubusercontent.com/antononcube/SystemModeling/master/P
 my $img = image-import($url);
 ```
 
-![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/%20Heatmap-plots-over-LLM-scraped-data/Mediazona-Russian-casualties-choropleth-upto-2024-01-19.png)
+![](https://raw.githubusercontent.com/antononcube/SystemModeling/master/Projects/War-modeling/Diagrams/Mediazona-Russian-casualties-choropleth-upto-2024-01-19.png)
 
 **Remark:** The function `image-import` is from the package ["Image::Markup::Utilities"](https://raku.land/zef:antononcube/Image::Markup::Utilities), [AAp5], which is automatically loaded in a notebook session of ["Jupyter::Chatbook"](https://raku.land/zef:antononcube/Jupyter::Chatbook), [AAp4].
 
@@ -282,7 +284,7 @@ Using that dataset we can overview the extracted data in the corresponding choro
 js-d3-heatmap-plot(@ds3D, width => 1200, plot-labels-font-size =>10)
 ```
 
-![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Heatmap-plots-over-LLM-scraped-data/Mediazona-heatmap-1.png)
+![](./Diagrams/Heatmap-plots-over-LLM-scraped-data/Mediazona-heatmap-1.png)
 
 We can see that the vertical orientation is inverted. We got matrix coordinates, i.e. row indexes are ordered top-bottom. 
 We are given heatmap plot bottom-top.
@@ -411,7 +413,7 @@ js-d3-heatmap-plot(@ds3D2, width => 1100, height => 800,
 )
 ```
 
-![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/%Heatmap-plots-over-LLM-scraped-data/Mediazona-heatmap-2.png)
+![](./Diagrams/Heatmap-plots-over-LLM-scraped-data/Mediazona-heatmap-2.png)
 
 ----
 
@@ -659,7 +661,7 @@ js-d3-heatmap-plot(@dsUA3D2, width => 1000, height => 600,
 )
 ```
 
-![](https://raw.githubusercontent.com/antononcube/RakuForPrediction-book/main/Articles/Diagrams/Heatmap-plots-over-LLM-scraped-data/UALosses-heatmap.png)
+![](./Diagrams/Heatmap-plots-over-LLM-scraped-data/UALosses-heatmap.png)
 
 ------
 

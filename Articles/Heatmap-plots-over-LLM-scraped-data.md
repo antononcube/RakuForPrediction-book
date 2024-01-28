@@ -667,7 +667,7 @@ js-d3-heatmap-plot(@dsUA3D2, width => 1000, height => 600,
 
 ## Observation and conclusions
 
-In section we give several groups of observation and conclusions that came out doing the presented data scraping and plots.
+In this section we give several groups of observation and conclusions that came out doing the presented data scraping and plots.
 
 ### Choropleths
 

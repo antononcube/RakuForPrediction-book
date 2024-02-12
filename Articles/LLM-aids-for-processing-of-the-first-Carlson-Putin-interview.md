@@ -14,6 +14,11 @@ We mostly use Large Language Models (LLMs). We walk through various steps involv
 
 The interview transcripts are taken from [en.kremlin.ru](http://en.kremlin.ru).
 
+The computations are done with a [Raku chatbook](https://raku.land/zef:antononcube/Jupyter::Chatbook), [AAp6, AAv1÷AAv3]. 
+The LLM functions used in the workflows are explained and demonstrated in [AA1, AAv3].
+The workflows are done with OpenAI's models [AAp1]; the models of Google (PaLM), [AAp2], and MistralAI, [AAp3], can be also used for the Part 1 summary and the search engine.
+The related images were generates with workflows described in [AA2].
+
 ### Structure
 
 The structure of the notebook is as follows:
@@ -555,6 +560,7 @@ And the fact that they obeyed the demand or persuasion of Mr. Johnson, the forme
 
 In this section we show how the spoken parts can be rephrased in the style of certain political celebrities.
 
+Here are examples of using LLM to rephrase Tucker Carlson's questions into the style of Hillary Clinton:
 
 ```raku
 for ^2 {
@@ -577,6 +583,7 @@ for ^2 {
     Hilary Clinton: Does Zelensky possess the necessary autonomy to engage in negotiations and pursue a resolution to this conflict?
 
 
+Here are examples of using LLM to rephrase Vladimir Putin's answers into the style of Donald Trump:
 
 ```raku
 for ^2 {
@@ -614,14 +621,9 @@ for ^2 {
 [RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
 
 [AA2] Anton Antonov,
-["Re-programming to Python of LLM- and Chatbook packages"](https://rakuforprediction.wordpress.com/2023/10/15/re-programming-to-python-of-llm-and-chatbook-packages/),
+["Day 21 – Using DALL-E models in Raku"](https://raku-advent.blog/2023/12/21/day-22-using-dall-e-models-in-raku/),
 (2023),
-[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
-
-[AA3] Anton Antonov,
-["AI vision via Raku"](https://rakuforprediction.wordpress.com/2023/11/25/ai-vision-via-raku/),
-(2023),
-[RakuForPrediction at WordPress](https://rakuforprediction.wordpress.com).
+[Raku Advent Calendar blog for 2023](https://raku-advent.blog/2023).
 
 [OAIb1] OpenAI team,
 ["New models and developer products announced at DevDay"](https://openai.com/blog/new-models-and-developer-products-announced-at-devday),
@@ -679,8 +681,12 @@ for ^2 {
 (2023),
 [YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
 
+[AAv2] Anton Antonov,
+["Jupyter Chatbook multi cell LLM chats teaser (Raku)"](https://www.youtube.com/watch?v=wNpIGUAwZB8),
+(2023),
+[YouTube/@AAA4Prediction](https://www.youtube.com/@AAA4prediction).
 
-[AAv2] Anton Antonov
+[AAv3] Anton Antonov
 ["Integrating Large Language Models with Raku"](https://www.youtube.com/watch?v=-OxKqRrQvh0),
 (2023),
 [YouTube/@therakuconference6823](https://www.youtube.com/@therakuconference6823).

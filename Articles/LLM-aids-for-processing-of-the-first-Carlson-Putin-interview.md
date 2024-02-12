@@ -9,7 +9,7 @@ February 2024
 
 ## Introduction
 
-In this notebook we provide aids and computational workflows for the analysis of the first Carlson-Putin interview held in February 9th, 2024.
+In this notebook we provide aids and computational workflows for the analysis of the [first Carlson-Putin interview held in February 9th, 2024](https://tuckercarlson.com/putin/).
 We mostly use Large Language Models (LLMs). We walk through various steps involved in examining and understanding the interview in a systematic and reproducible manner.
 
 The interview transcripts are taken from [en.kremlin.ru](http://en.kremlin.ru).

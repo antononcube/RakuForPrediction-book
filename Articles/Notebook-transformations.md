@@ -40,7 +40,7 @@ The transformation trip starts with the notebook of the article ["LLM aids for p
 10. [Publish to WordPress][1], [AA3]
 11. Convert the Markdown file to Jupyter
     - Using [jupytext](https://jupytext.readthedocs.io/en/latest/)
-12. Re-make [the (Russian described) workflows using Raku](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-WL-Russian.nb), [AAn5] 
+12. Re-make [the (Russian described) workflows using Raku](https://github.com/antononcube/RakuForPrediction-book/blob/main/Notebooks/Jupyter/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Russian.ipynb), [AAn5]
 
 -----
 

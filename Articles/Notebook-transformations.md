@@ -5,6 +5,7 @@
 In this document we describe a series of different (computational) notebook transformations using 
 different tools. We are using a series of recent articles and notebooks for processing the 
 English and Russian texts of a [recent 2-hour long interview](http://en.kremlin.ru/events/president/news/73411).
+The workflows given in the notebooks are in Raku and Wolfram Language (WL).
 
 **Remark:** Wolfram Language (WL) and Mathematica are used as synonyms in this document.
 
@@ -17,21 +18,23 @@ are also implemented in Python and Raku, [AA1, AAp1, AAp2].
 
 Here is a recent application of the converter related to my ["LLM aids for processing of the first Carlson-Putin interview"](https://community.wolfram.com/groups/-/m/t/3121333) series of posts.
 
+The transformation trip starts with the notebook of the article ["LLM aids for processing of the first Carlson-Putin interview"](https://community.wolfram.com/groups/-/m/t/3121333), [AA1].
+
 1. Make the Raku Jupyter notebook
     - With the [LLM aids for the Carlson-Putin interview](https://github.com/antononcube/RakuForPrediction-book/blob/main/Notebooks/Jupyter/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview.ipynb), [AAn1]
 2. Convert the Jupyter notebook into Markdown
     - Using Jupyter's built-in converter
 3. Publish the [Markdown version to WordPress](https://rakuforprediction.wordpress.com/2024/02/12/llm-aids-for-processing-of-the-first-carlson-putin-interview/), [AA2]
 4. Convert the Markdown file into a Mathematica notebook
-    - Using the featured Raku package, ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar), [AAp3]
-    - The [obtained notebook](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Raku.nb) uses ["RakuMode"](https://resources.wolframcloud.com/PacletRepository/resources/AntonAntonov/RakuMode/), [AAp4]
-5. Publish that to Wolfram Community
-    - It was deleted by moderators, because it does not feature Wolfram Language (WL)
-5. Make the corresponding Mathematica notebook using WL functions
+    - Using the Raku package, ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar), [AAp3]
+    - The [obtained notebook](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Raku.nb) uses the WL paclet ["RakuMode"](https://resources.wolframcloud.com/PacletRepository/resources/AntonAntonov/RakuMode/), [AAp4]
+5. Publish that to [Wolfram Community](https://community.wolfram.com)
+    - That notebook was deleted by moderators, because it does not feature Wolfram Language (WL)
+5. Make the corresponding Mathematica notebook using [WL LLM functions](https://reference.wolfram.com/language/guide/LLMFunctions.html)
 6. [Publish to Wolfram Community](https://community.wolfram.com/groups/-/m/t/3121333)
 7. Make [the Russian version with the Russian transcript](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-WL-Russian.nb)
 8. Publish to Wolfram Community
-    - It was deleted by moderators, because it is not in English
+    - That notebook was deleted by the moderators, because it is not in English
 9. Convert the Mathematica notebook to Markdown
     - Using Kuba Podkalicki's [M2MD](https://github.com/kubaPod/M2MD), [KPp1]
 10. [Publish to WordPress][1], [AA3]

@@ -12,6 +12,14 @@ The workflows given in the notebooks are in Raku and Wolfram Language (WL).
 **Remark:** Using notebooks with Large Language Model (LLM) workflows is convenient because the WL LLM functions
 are also implemented in Python and Raku, [AA1, AAp1, AAp2]. 
 
+We can say that this blog post attempts to advertise the Raku package 
+["Markdown::Grammar"](https://github.com/antononcube/Raku-Markdown-Grammar), [AAp3], 
+demonstrated in the video 
+["Markdown to Mathematica converter (CLI and StackExchange examples)"](https://www.youtube.com/watch?v=39ekokgnoqE), [AAv5]. 
+(See also [AA4].)
+
+**TL;DR:** Using Markdown as an intermediate format we can transform easily enough between Jupyter- and Mathematica notebooks.
+
 ------
 
 ## Transformation trip

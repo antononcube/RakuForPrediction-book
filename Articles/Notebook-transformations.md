@@ -14,9 +14,9 @@ are also implemented in Python and Raku, [AA1, AAp1, AAp2].
 
 We can say that this blog post attempts to advertise the Raku package 
 ["Markdown::Grammar"](https://github.com/antononcube/Raku-Markdown-Grammar), [AAp3], 
-demonstrated in the video 
-["Markdown to Mathematica converter (CLI and StackExchange examples)"](https://www.youtube.com/watch?v=39ekokgnoqE), [AAv5]. 
-(See also [AA4].)
+demonstrated in the videos:
+- ["Markdown to Mathematica converter (CLI and StackExchange examples)"](https://www.youtube.com/watch?v=39ekokgnoqE), [AAv5, AA4]
+- ["Markdown to Mathematica converter (Jupyter notebook example)"](https://www.youtube.com/watch?v=Htmiu3ZI05w), [AAv6]
 
 **TL;DR:** Using Markdown as an intermediate format we can transform easily enough between Jupyter- and Mathematica notebooks.
 
@@ -34,7 +34,7 @@ The transformation trip starts with the notebook of the article ["LLM aids for p
     - Using Jupyter's built-in converter
 3. Publish the [Markdown version to WordPress](https://rakuforprediction.wordpress.com/2024/02/12/llm-aids-for-processing-of-the-first-carlson-putin-interview/), [AA2]
 4. Convert the Markdown file into a Mathematica notebook
-    - Using the Raku package, ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar), [AA4, AAp3, AAv5]
+    - Using the Raku package, ["Markdown::Grammar"](https://raku.land/zef:antononcube/Markdown::Grammar), [AA4, AAp3, AAv5, AAv6]
     - The [obtained notebook](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Raku.nb) uses the WL paclet ["RakuMode"](https://resources.wolframcloud.com/PacletRepository/resources/AntonAntonov/RakuMode/), [AAp4]
 5. Publish that to [Wolfram Community](https://community.wolfram.com)
     - That notebook was deleted by moderators, because it does not feature Wolfram Language (WL)
@@ -257,6 +257,11 @@ results of LLMs. (Like the ones in notebooks discussed here.)
 [AAv5] Anton Antonov, 
 ["Markdown to Mathematica converter (CLI and StackExchange examples)"](https://www.youtube.com/watch?v=39ekokgnoqE), 
 (2022), 
+[Anton A. Antonov's channel at YouTube](https://www.youtube.com/@AAA4prediction).
+
+[AAv6] Anton Antonov,
+["Markdown to Mathematica converter (Jupyter notebook example)"](https://www.youtube.com/watch?v=Htmiu3ZI05w),
+(2022),
 [Anton A. Antonov's channel at YouTube](https://www.youtube.com/@AAA4prediction).
 
 [1]: https://mathematicaforprediction.wordpress.com/2024/02/13/llm-%D0%BF%D0%BE%D0%BC%D0%BE%D0%B3%D0%B0%D0%B5%D1%82-%D0%B2-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5-%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D1%8C

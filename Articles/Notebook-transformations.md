@@ -38,17 +38,18 @@ The transformation trip starts with the notebook of the article ["LLM aids for p
     - The [obtained notebook](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Raku.nb) uses the WL paclet ["RakuMode"](https://resources.wolframcloud.com/PacletRepository/resources/AntonAntonov/RakuMode/), [AAp4]
 5. Publish that to [Wolfram Community](https://community.wolfram.com)
     - That notebook was deleted by moderators, because it does not feature Wolfram Language (WL)
-5. Make the corresponding Mathematica notebook using [WL LLM functions](https://reference.wolfram.com/language/guide/LLMFunctions.html)
-6. [Publish to Wolfram Community](https://community.wolfram.com/groups/-/m/t/3121333)
-7. Make [the Russian version with the Russian transcript](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-WL-Russian.nb)
-8. Publish to Wolfram Community
+6. Make the corresponding Mathematica notebook using [WL LLM functions](https://reference.wolfram.com/language/guide/LLMFunctions.html)
+7. [Publish to Wolfram Community](https://community.wolfram.com/groups/-/m/t/3121333)
+8. Make [the Russian version with the Russian transcript](https://www.wolframcloud.com/obj/antononcube/Published/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-WL-Russian.nb)
+9. Publish to Wolfram Community
     - That notebook was deleted by the moderators, because it is not in English
-9. Convert the Mathematica notebook to Markdown
+10. Convert the Mathematica notebook to Markdown
     - Using Kuba Podkalicki's [M2MD](https://github.com/kubaPod/M2MD), [KPp1]
-10. [Publish to WordPress][1], [AA3]
-11. Convert the Markdown file to Jupyter
+11. [Publish to WordPress][1], [AA3]
+12. Convert the Markdown file to Jupyter
     - Using [jupytext](https://jupytext.readthedocs.io/en/latest/)
-12. Re-make [the (Russian described) workflows using Raku](https://github.com/antononcube/RakuForPrediction-book/blob/main/Notebooks/Jupyter/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Russian.ipynb), [AAn5]
+13. Re-make [the (Russian described) workflows using Raku](https://github.com/antononcube/RakuForPrediction-book/blob/main/Notebooks/Jupyter/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Russian.ipynb), [AAn5]
+14. Re-make workflows using Python, [AAn6], [AAn7]
 
 -----
 
@@ -71,6 +72,7 @@ graph TD
    J --> K[Publish to WordPress]
    K --> L[Convert the Markdown file to Jupyter]
    L --> M[Re-make the workflows using Raku]
+   M --> N[Re-make the workflows using Python]
    C -.-> WordPress{{Word Press}}
    K -.-> WordPress
    E -.-> |Deleted:<br>features Raku| WolframCom{{Wolfram Community}}
@@ -98,6 +100,9 @@ say mermaid-ink($diagram, format => 'md-image');
 [The first Carlson-Putin interview](https://tuckercarlson.com/putin/) that is processed in the notebooks was held both in English and Russian.
 I think just doing the English study is "half-baked." 
 Hence, I did the workflows with the Russian text and translated to Russian the related explanations. 
+
+**Remark:** The Russian versions are done in all three programming languages: Python, Raku, Wolfram Language.
+See [AAn4, AAn5, AAn7].
 
 ### Using different programming languages
 
@@ -197,6 +202,19 @@ results of LLMs. (Like the ones in notebooks discussed here.)
 (**Raku/Jupyter**),
 (2024),
 [RakuForPrediction-book at GitHub/antononcube](https://github.com/antononcube/RakuForPrediction-book).
+
+[AAn6] Anton Antonov,
+["LLM aids for processing of the first Carlson-Putin interview"](https://github.com/antononcube/PythonForPrediction-blog/blob/main/Notebooks/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Python.ipynb),
+(**Python/Jupyter**),
+(2024),
+[PythonForPrediction-blog at GitHub/antononcube](https://github.com/antononcube/PythonForPrediction-blog).
+
+[AAn7] Anton Antonov,
+["LLM aids for processing of the first Carlson-Putin interview"](https://github.com/antononcube/PythonForPrediction-blog/blob/main/Notebooks/LLM-aids-for-processing-of-the-first-Carlson-Putin-interview-Python-Russian.ipynb),
+(**in Russian**),
+(**Python/Jupyter**),
+(2024),
+[PythonForPrediction-blog at GitHub/antononcube](https://github.com/antononcube/PythonForPrediction-blog).
 
 
 ### Packages, paclets

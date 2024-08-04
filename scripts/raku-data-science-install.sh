@@ -28,9 +28,14 @@ zef install Data::Cryptocurrencies --/test
 zef install ML::FindTextualAnswer --/test
 zef install ML::NLPTemplateEngine --/test
 zef install ML::AssociationRuleLearning --/test
-zef install ML::Clusternig --/test
 zef install ML::ROCFunctions --/test
 zef install ML::TriesWithFrequencies --/test
+zef install Math::DistanceFunctions --/test
+zef install Math::SpecialFunctions --/test
+zef install Statistics::Distributions --/test
+zef install ML::Clusternig --/test
+zef install Algorithm::KDimensionalTree --/test
+zef install Math::Nearest --/test
 zef install DSL::Entity::AddressBook --/test
 zef install DSL::Entity::Geographics --/test
 zef install DSL::Entity::MachineLearning --/test
@@ -43,6 +48,7 @@ zef install DSL::English::LatentSemanticAnalysisWorkflows --/test
 zef install DSL::English::QuantileRegressionWorkflows --/test
 zef install DSL::English::RecommenderWorkflows  --/test
 zef install JavaScript::D3 --/test
+zef install Graph --/test
 zef install Text::Plot --/test
 zef install Text::CodeProcessing --/test
 zef install Jupyter::Chatbook --/test
@@ -59,3 +65,5 @@ zef install Markdown::Grammar --/test
 zef install UML::Translators --/test
 zef install Text::Calendar --/test
 zef install Mathematica::Serializer --/test
+
+zef install Geo::Basic --/test

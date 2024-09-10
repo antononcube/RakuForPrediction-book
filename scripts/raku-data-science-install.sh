@@ -31,8 +31,10 @@ zef install ML::AssociationRuleLearning --/test
 zef install ML::ROCFunctions --/test
 zef install ML::TriesWithFrequencies --/test
 zef install Math::DistanceFunctions --/test
+zef install Math::DistanceFunctions::Edit --/test
 zef install Math::SpecialFunctions --/test
 zef install Statistics::Distributions --/test
+zef install Statistics::OutlierIdentifiers --/test
 zef install ML::Clusternig --/test
 zef install Algorithm::KDimensionalTree --/test
 zef install Math::Nearest --/test

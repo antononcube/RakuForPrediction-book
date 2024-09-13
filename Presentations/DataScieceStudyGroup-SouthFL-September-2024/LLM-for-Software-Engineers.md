@@ -1,4 +1,4 @@
-# LLM for Software Engineers
+# Making of robust LLM pipelines
 
 ##### AKA "Robust Software Engineering with LLMs"
 
@@ -16,7 +16,8 @@ Here are the five approaches we consider:
    - AKA "Prompt engineering"
 3. Few-shot training with examples
 4. Via a Question Answering System (QAS) and code templates
-5. Filtering of multiple outputs
+5. Grammar-LLM chain of responsibility
+6. Testings with data types and shapes over multiple LLM results
 
 
 Compared to constructing SE pipelines,

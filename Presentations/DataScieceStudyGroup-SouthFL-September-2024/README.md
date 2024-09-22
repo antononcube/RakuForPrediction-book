@@ -47,6 +47,7 @@ Here is a mind-map of the presentation:
 
 Here are the notebook used in the presentation:
 
+- [Presentation's notebook](https://www.wolframcloud.com/obj/antononcube/Published/Robust-LLM-Pipelines-SouthFL-DSSG-MultiLang.nb)
 - [Robust-LLM-Pipelines-SouthFL-DSSG-Python.ipynb](./notebooks/Robust-LLM-Pipelines-SouthFL-DSSG-Python.ipynb)
 - [Robust-LLM-Pipelines-SouthFL-DSSG-Raku.ipynb](./notebooks/Robust-LLM-Pipelines-SouthFL-DSSG-Raku.ipynb)
 

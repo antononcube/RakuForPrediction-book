@@ -1,4 +1,4 @@
-# Making of robust LLM pipelines
+# Robust LLM pipelines
 
 ##### ... or "Making Robust LLM Computational Pipelines from Software Engineering Perspective"
 

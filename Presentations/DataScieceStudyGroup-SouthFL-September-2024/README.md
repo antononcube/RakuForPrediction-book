@@ -41,8 +41,8 @@ Modeling of the LLM utilization process is *hinted* but not discussed.
 
 Here is a mind-map of the presentation:
 
-<a href="images/Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.pdf">
-    <img src="images/Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.png" width="900px" />
+<a href="images/Robust-LLM-pipelines-SouthFL-DSSG-mind-map.pdf">
+    <img src="images/Robust-LLM-pipelines-SouthFL-DSSG-mind-map.png" width="900px" />
 </a>
 
 Here are the notebook used in the presentation:

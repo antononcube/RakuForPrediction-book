@@ -2,7 +2,9 @@
 
 ##### ... or "Making Robust LLM Computational Pipelines from Software Engineering Perspective"
 
-[![](./Robust-LLM-pipelines-thumbnail-2.png){width=600px}](https://youtu.be/QOsVTCQZq_s)
+<a href="https://youtu.be/QOsVTCQZq_s">
+    <img src="./Robust-LLM-pipelines-thumbnail-2.png" width="600px" />
+</a>
 
 ## Abstract 
 
@@ -39,7 +41,9 @@ Modeling of the LLM utilization process is *hinted* but not discussed.
 
 Here is a mind-map of the presentation:
 
-[![](./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.png){width=600px}](./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.pdf)
+<a href="./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.pdf">
+    <img src="./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.png" width="900px" />
+</a>
 
 -----
 

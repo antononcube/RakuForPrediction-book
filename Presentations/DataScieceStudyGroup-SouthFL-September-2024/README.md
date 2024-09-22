@@ -1,6 +1,8 @@
 # Making of robust LLM pipelines
 
-##### AKA "Robust Software Engineering with LLMs"
+##### ... or "Making Robust LLM Computational Pipelines from Software Engineering Perspective"
+
+[![](./Robust-LLM-pipelines-thumbnail-2.png){width=600px}](https://youtu.be/QOsVTCQZq_s)
 
 ## Abstract 
 
@@ -33,7 +35,11 @@ The support in R is done via Python (with ["reticulate"](https://rstudio.github.
 
 The presentation includes multiple examples and showcases. 
 
-Modeling of the LLM utilization process is also discussed.
+Modeling of the LLM utilization process is *hinted* but not discussed.
+
+Here is a mind-map of the presentation:
+
+[![](./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.png){width=600px}](./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.pdf)
 
 -----
 
@@ -155,6 +161,11 @@ LLMExamFunc --> MakePipeline
 ### Videos
 
 [AAv1] Anton Antonov,
+["Robust LLM pipelines (Mathematica, Python, Raku)"](https://youtu.be/QOsVTCQZq_s),
+(2024),
+[YouTube/@AAA4Predictions](https://www.youtube.com/@AAA4Predictions).
+
+[AAv2] Anton Antonov,
 ["Integrating Large Language Models with Raku"](https://www.youtube.com/watch?v=-OxKqRrQvh0),
 (2023),
 [The Raku Conference 2023 at YouTube](https://www.youtube.com/@therakuconference6823).

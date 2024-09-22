@@ -3,7 +3,7 @@
 ##### ... or "Making Robust LLM Computational Pipelines from Software Engineering Perspective"
 
 <a href="https://youtu.be/QOsVTCQZq_s">
-    <img src="./Robust-LLM-pipelines-thumbnail-2.png" width="600px" />
+    <img src="images/Robust-LLM-pipelines-thumbnail-2.png" width="600px" />
 </a>
 
 ## Abstract 
@@ -41,9 +41,14 @@ Modeling of the LLM utilization process is *hinted* but not discussed.
 
 Here is a mind-map of the presentation:
 
-<a href="./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.pdf">
-    <img src="./Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.png" width="900px" />
+<a href="images/Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.pdf">
+    <img src="images/Robust-LLM-pipeliines-SouthFL-DSSG-mind-map.png" width="900px" />
 </a>
+
+Here are the notebook used in the presentation:
+
+- [Robust-LLM-Pipelines-SouthFL-DSSG-Python.ipynb](./notebooks/Robust-LLM-Pipelines-SouthFL-DSSG-Python.ipynb)
+- [Robust-LLM-Pipelines-SouthFL-DSSG-Raku.ipynb](./notebooks/Robust-LLM-Pipelines-SouthFL-DSSG-Raku.ipynb)
 
 -----
 

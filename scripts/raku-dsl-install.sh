@@ -24,6 +24,7 @@ zef install https://github.com/antononcube/Raku-DSL-English-FoodPreparationWorkf
 zef install https://github.com/antononcube/Raku-DSL-English-LatentSemanticAnalysisWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-QuantileRegressionWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-RecommenderWorkflows.git --force-install --/test
+zef install https://github.com/antononcube/Raku-DSL-Entity-Jobs.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-RecruitingWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-SearchEngineQueries.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-Bulgarian.git --force-install --/test

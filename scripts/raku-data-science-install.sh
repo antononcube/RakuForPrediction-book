@@ -38,6 +38,9 @@ zef install Statistics::OutlierIdentifiers --/test
 zef install ML::Clusternig --/test
 zef install Algorithm::KDimensionalTree --/test
 zef install Math::Nearest --/test
+zef install Math::Polynomial::Chebyshev --/test
+zef install Math::Splines --/test
+zef install Math::Fitting --/test
 zef install DSL::Entity::AddressBook --/test
 zef install DSL::Entity::Geographics --/test
 zef install DSL::Entity::MachineLearning --/test
@@ -67,5 +70,8 @@ zef install Markdown::Grammar --/test
 zef install UML::Translators --/test
 zef install Text::Calendar --/test
 zef install Mathematica::Serializer --/test
+zef install Math::NumberTheory --/test
+zef install Math::SparseMatrix::Native --/test
+zef install Math::SparseMatrix --/test
 
 zef install Geo::Basic --/test

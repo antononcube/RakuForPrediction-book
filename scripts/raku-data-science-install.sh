@@ -53,6 +53,7 @@ zef install DSL::English::DataQueryWorkflows --/test
 zef install DSL::English::LatentSemanticAnalysisWorkflows --/test
 zef install DSL::English::QuantileRegressionWorkflows --/test
 zef install DSL::English::RecommenderWorkflows  --/test
+zef install DSL::Examples  --/test
 zef install Graph --/test
 zef install LLM::Graph --/test
 zef install LLM::RetrievalAugmentedGeneration --/test

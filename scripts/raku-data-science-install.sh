@@ -30,6 +30,7 @@ zef install ML::NLPTemplateEngine --/test
 zef install ML::AssociationRuleLearning --/test
 zef install ML::ROCFunctions --/test
 zef install ML::TriesWithFrequencies --/test
+zef install Math::DistanceFunctions::Native --/test
 zef install Math::DistanceFunctions --/test
 zef install Math::DistanceFunctions::Edit --/test
 zef install Math::SpecialFunctions --/test
@@ -52,8 +53,10 @@ zef install DSL::English::DataQueryWorkflows --/test
 zef install DSL::English::LatentSemanticAnalysisWorkflows --/test
 zef install DSL::English::QuantileRegressionWorkflows --/test
 zef install DSL::English::RecommenderWorkflows  --/test
-zef install JavaScript::D3 --/test
 zef install Graph --/test
+zef install LLM::Graph --/test
+zef install LLM::RetrievalAugmentedGeneration --/test
+zef install JavaScript::D3 --/test
 zef install Text::Plot --/test
 zef install Text::CodeProcessing --/test
 zef install Jupyter::Chatbook --/test
@@ -67,6 +70,7 @@ zef install Lingua::Stem::Portuquese --/test
 zef install Lingua::Stem::Russian --/test
 zef install Proc::ZMQed --/test
 zef install Markdown::Grammar --/test
+zef install Jupyter::Convert --/test
 zef install UML::Translators --/test
 zef install Text::Calendar --/test
 zef install Mathematica::Serializer --/test

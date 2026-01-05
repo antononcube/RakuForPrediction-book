@@ -16,6 +16,15 @@ zef uninstall Lingua::NumericWordForms
 
 zef install https://github.com/antononcube/Raku-Lingua-NumericWordForms.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-Shared.git --force-install --/test
+zef install https://github.com/antononcube/Raku-DSL-Entity-Foods.git --force-install --/test
+zef install https://github.com/antononcube/Raku-DSL-Entity-Jobs.git --force-install --/test
+
+# These should be already installed by the script raku-data-science-install.sh
+#zef install https://github.com/antononcube/Raku-DSL-Entity-Geographics.git --force-install --/test
+#zef install https://github.com/antononcube/Raku-DSL-Entity-MachineLearning.git --force-install --/test
+#zef install https://github.com/antononcube/Raku-DSL-Entity-Metadata.git --force-install --/test
+#zef install https://github.com/antononcube/Raku-DSL-Entity-WeatherData.git --force-install --/test
+
 zef install https://github.com/antononcube/Raku-DSL-English-ClassificationWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-DataAcquisitionWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-DataQueryWorkflows.git --force-install --/test
@@ -24,7 +33,6 @@ zef install https://github.com/antononcube/Raku-DSL-English-FoodPreparationWorkf
 zef install https://github.com/antononcube/Raku-DSL-English-LatentSemanticAnalysisWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-QuantileRegressionWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-RecommenderWorkflows.git --force-install --/test
-zef install https://github.com/antononcube/Raku-DSL-Entity-Jobs.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-RecruitingWorkflows.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-English-SearchEngineQueries.git --force-install --/test
 zef install https://github.com/antononcube/Raku-DSL-Bulgarian.git --force-install --/test

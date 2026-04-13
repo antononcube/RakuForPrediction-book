@@ -36,7 +36,7 @@ zef install Math::DistanceFunctions::Edit --/test
 zef install Math::SpecialFunctions --/test
 zef install Statistics::Distributions --/test
 zef install Statistics::OutlierIdentifiers --/test
-zef install ML::Clusternig --/test
+zef install ML::Clustering --/test
 zef install Algorithm::KDimensionalTree --/test
 zef install Math::Nearest --/test
 zef install Math::Polynomial::Chebyshev --/test
@@ -67,11 +67,11 @@ zef install Chemistry::Stoichiometry --/test
 zef install EBNF::Grammar --/test
 zef install FunctionalParsers --/test
 zef install Grammar::TokenProcessing --/test
-zef install Lingua::Stem::Portuquese --/test
+zef install Lingua::Stem::Portuguese --/test
 zef install Lingua::Stem::Russian --/test
 zef install Proc::ZMQed --/test
 zef install Markdown::Grammar --/test
-zef install Jupyter::Convert --/test
+zef install Jupyter::Converter --/test
 zef install UML::Translators --/test
 zef install Text::Calendar --/test
 zef install Mathematica::Serializer --/test
